@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface Task {
   id: number;
@@ -21,7 +21,6 @@ interface AppState {
 
   toggleTask: (id: number) => void;
   addTask: (task: Task) => void;
-
   addTransaction: (transaction: Transaction) => void;
 }
 
@@ -40,23 +39,30 @@ export const useAppStore = create<AppState>()(
       transactions: [],
 
       toggleTask: (id) => {
-        const updated = get().tasks.map((t) =>
-          t.id === id ? { ...t, done: !t.done } : t
-        );
-
-        set({ tasks: updated });
+        set({
+          tasks: get().tasks.map((t) =>
+            t.id === id ? { ...t, done: !t.done } : t
+          ),
+        });
       },
 
       addTask: (task) => {
-        set({ tasks: [task, ...get().tasks] });
+        set({
+          tasks: [task, ...get().tasks],
+        });
       },
 
       addTransaction: (transaction) => {
-        set({ transactions: [transaction, ...get().transactions] });
+        set({
+          transactions: [transaction, ...get().transactions],
+        });
       },
     }),
     {
-      name: "life-os-storage", // 🔥 THIS MUST MATCH
+      name: "life-os-storage",
+
+      // 🔥 THIS IS THE FIX
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
