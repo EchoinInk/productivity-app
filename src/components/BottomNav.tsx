@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Home, CheckSquare, DollarSign, UtensilsCrossed, ShoppingCart } from "lucide-react";
+import clsx from "clsx";
 
 const navItems = [
   { path: "/", label: "Today", icon: Home },
@@ -14,24 +15,25 @@ const BottomNav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border px-2 pb-safe">
-      <div className="flex items-center justify-around max-w-lg mx-auto">
-        {navItems.map(({ path, label, icon: Icon }) => {
-          const active = location.pathname === path;
-          return (
-            <button
-              key={path}
-              onClick={() => navigate(path)}
-              className={`flex flex-col items-center gap-0.5 py-2 px-3 text-xs font-medium transition-colors ${
-                active ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
-              <Icon size={20} strokeWidth={active ? 2.5 : 2} />
-              {label}
-            </button>
-          );
-        })}
-      </div>
+    <nav className="h-16 flex items-center justify-around border-t border-border bg-white">
+      {navItems.map(({ path, label, icon: Icon }) => {
+        const active = location.pathname === path;
+
+        return (
+          <button
+            key={path}
+            onClick={() => navigate(path)}
+            className="flex flex-col items-center justify-center text-xs font-medium flex-1"
+          >
+            <Icon
+              size={22}
+              className={clsx("mb-0.5 transition-all", active ? "text-blue-500 scale-110" : "text-muted-foreground")}
+              strokeWidth={active ? 2.5 : 2}
+            />
+            <span className={clsx(active ? "text-blue-500" : "text-muted-foreground")}>{label}</span>
+          </button>
+        );
+      })}
     </nav>
   );
 };
