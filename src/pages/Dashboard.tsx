@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AppCard from "@/components/AppCard";
 import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
@@ -14,12 +15,37 @@ const today = new Date().toLocaleDateString("en-US", {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
+  const addTask = useAppStore((s) => s.addTask);
+
+  const [newTask, setNewTask] = useState("");
 
   return (
     <div className="space-y-5">
       <PageHeader title="Today" subtitle={today} />
+
+      {/* 🔥 ADD TASK INPUT */}
+      <div className="flex gap-2">
+        <input
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder="Add a task..."
+          className="flex-1 px-3 py-2 rounded-lg border border-border text-sm"
+        />
+
+        <button
+          onClick={() => {
+            if (!newTask.trim()) return;
+            addTask(newTask);
+            setNewTask("");
+          }}
+          className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold"
+        >
+          Add
+        </button>
+      </div>
 
       {/* Tasks */}
       <AppCard>
