@@ -29,13 +29,10 @@ export const useAppStore = create<AppState>()((set, get) => ({
     });
   },
 
-  addTask: (label, category = "Today") => {
-    const newTask: Task = {
-      id: Date.now(),
-      label,
-      done: false,
-      category,
-    };
+  addTask: (task) =>
+  set((state) => ({
+    tasks: [task, ...state.tasks],
+  })),
     set({
       tasks: [newTask, ...get().tasks],
     });
