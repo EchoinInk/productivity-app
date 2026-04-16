@@ -24,7 +24,7 @@ console.log("STORE STATE:", useAppStore.getState());
     <div className="space-y-5">
       <div className="space-y-5">
   <PageHeader title="Today" subtitle={today} />
-
+<h1 style={{ color: "red" }}>TEST TEXT</h1>
   {/* 🔥 TEST BUTTON */}
   <button
     onClick={() => {
