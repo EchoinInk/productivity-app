@@ -1,3 +1,4 @@
+throw new Error("TEST ERROR");
 import AppCard from "@/components/AppCard";
 import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
