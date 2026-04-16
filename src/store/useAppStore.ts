@@ -23,18 +23,20 @@ export const useAppStore = create<AppState>()((set, get) => ({
 
   toggleTask: (id) => {
     set({
-      tasks: get().tasks.map((t) =>
-        t.id === id ? { ...t, done: !t.done } : t
-      ),
+      tasks: get().tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
     });
   },
 
-  addTask: (task) =>
-  set((state) => ({
-    tasks: [task, ...state.tasks],
-  })),
-    set({
-      tasks: [newTask, ...get().tasks],
-    });
-  },
-}))
+  addTask: (label, category = "Today") =>
+    set((state) => ({
+      tasks: [
+        {
+          id: Date.now(),
+          label,
+          done: false,
+          category,
+        },
+        ...state.tasks,
+      ],
+    })),
+}));
