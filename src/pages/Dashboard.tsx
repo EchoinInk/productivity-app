@@ -5,7 +5,8 @@ import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import { CheckSquare, DollarSign, UtensilsCrossed, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAppStore } from "@/store/useAppStore";
+
+import { useAppStore, TaskCategory } from "@/store/useAppStore";
 
 const today = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -19,9 +20,8 @@ const Dashboard = () => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
   const addTask = useAppStore((s) => s.addTask);
-
+  const [category, setCategory] = useState<TaskCategory>("Today");
   const [newTask, setNewTask] = useState("");
-  const [category, setCategory] = useState("Today"); // ✅ NEW
 
   return (
     <div className="space-y-5">
@@ -38,7 +38,7 @@ const Dashboard = () => {
 
         <select
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => setCategory(e.target.value as TaskCategory)}
           className="px-2 py-2 rounded-lg border border-border text-sm"
         >
           <option value="Today">Today</option>
