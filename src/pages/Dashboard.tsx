@@ -17,9 +17,24 @@ const Dashboard = () => {
 
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
-
+  
+console.log("STORE STATE:", useAppStore.getState());
+  
   return (
     <div className="space-y-5">
+      <div className="space-y-5">
+  <PageHeader title="Today" subtitle={today} />
+
+  {/* 🔥 TEST BUTTON */}
+  <button
+    onClick={() => {
+      useAppStore.getState().toggleTask(1);
+      console.log("AFTER TOGGLE:", useAppStore.getState());
+    }}
+    className="bg-red-500 text-white p-2 rounded"
+  >
+    TEST TOGGLE
+  </button>
       {/* Header */}
       <PageHeader title="Today" subtitle={today} />
 
