@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import clsx from "clsx";
 
 interface ActionButtonProps {
   children: ReactNode;
@@ -8,23 +9,25 @@ interface ActionButtonProps {
   className?: string;
 }
 
-const ActionButton = ({
-  children,
-  onClick,
-  variant = "primary",
-  fullWidth = false,
-  className = "",
-}: ActionButtonProps) => {
-  const styles = {
-    primary: "gradient-primary text-primary-foreground shadow-sm",
-    secondary: "bg-secondary text-secondary-foreground",
-    ghost: "text-primary hover:bg-secondary",
-  };
-
+const ActionButton = ({ children, onClick, variant = "primary", fullWidth = false, className }: ActionButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${styles[variant]} ${fullWidth ? "w-full" : ""} ${className}`}
+      className={clsx(
+        "inline-flex items-center justify-center gap-2",
+        "h-12 px-4 rounded-xl text-sm font-semibold",
+        "transition-all duration-150 active:scale-[0.97]",
+        fullWidth && "w-full",
+
+        // Variants
+        variant === "primary" && "bg-gradient-to-r from-blue-400 to-purple-400 text-white shadow-sm",
+
+        variant === "secondary" && "bg-white border border-border text-foreground",
+
+        variant === "ghost" && "text-primary hover:bg-secondary",
+
+        className,
+      )}
     >
       {children}
     </button>
