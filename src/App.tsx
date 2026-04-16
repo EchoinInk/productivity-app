@@ -12,6 +12,14 @@ import MealPlanner from "./pages/MealPlanner";
 import ShoppingList from "./pages/ShoppingList";
 import NotFound from "./pages/NotFound";
 
+import { useAppStore } from "@/store/useAppStore";
+
+const AppLayout = () => {
+  useAppStore(); // 🔥 FORCE INIT
+
+  ...
+};
+
 const queryClient = new QueryClient();
 
 /**
