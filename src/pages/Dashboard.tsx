@@ -55,9 +55,11 @@ const Dashboard = () => {
         </div>
 
         <div className="space-y-1">
-          {tasks.map((t) => (
-            <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
-          ))}
+          {tasks
+            .filter((t) => t.category === "Today")
+            .map((t) => (
+              <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
+            ))}
         </div>
       </AppCard>
 
