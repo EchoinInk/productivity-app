@@ -4,7 +4,9 @@ import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import { CheckSquare, DollarSign, UtensilsCrossed, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAppStore } from "@/store/useAppStore";
+
+// ❌ TEMP: remove Zustand until preview is stable
+// import { useAppStore } from "@/store/useAppStore";
 
 const today = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -12,41 +14,35 @@ const today = new Date().toLocaleDateString("en-US", {
   day: "numeric",
 });
 
+const mockTasks = [
+  { id: 1, label: "Review weekly goals", done: false },
+  { id: 2, label: "Buy groceries", done: true },
+];
+
 const Dashboard = () => {
   const navigate = useNavigate();
-
-  const tasks = useAppStore((s) => s.tasks);
-  const toggleTask = useAppStore((s) => s.toggleTask);
-
-  console.log("STORE STATE:", useAppStore.getState());
 
   return (
     <div className="space-y-5">
       <PageHeader title="Today" subtitle={today} />
 
-      {/* 🔥 DEBUG */}
-      <h1 style={{ color: "red" }}>TEST TEXT</h1>
+      {/* ✅ CONFIRM APP WORKS */}
+      <h1 style={{ color: "red" }}>PREVIEW WORKING</h1>
 
-      <button
-        onClick={() => {
-          useAppStore.getState().toggleTask(1);
-          console.log("AFTER TOGGLE:", useAppStore.getState());
-        }}
-        className="bg-red-500 text-white p-2 rounded"
-      >
-        TEST TOGGLE
+      <button onClick={() => console.log("Button working")} className="bg-red-500 text-white p-2 rounded">
+        TEST BUTTON
       </button>
 
       {/* Tasks */}
       <AppCard>
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-sm font-semibold text-muted-foreground">Today's Tasks</h2>
-          <span className="text-xs text-muted-foreground">{tasks.filter((t) => !t.done).length} left</span>
+          <span className="text-xs text-muted-foreground">{mockTasks.filter((t) => !t.done).length} left</span>
         </div>
 
         <div className="space-y-1">
-          {tasks.map((t) => (
-            <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
+          {mockTasks.map((t) => (
+            <ListItem key={t.id} label={t.label} checked={t.done} />
           ))}
         </div>
       </AppCard>
@@ -57,10 +53,6 @@ const Dashboard = () => {
           <h2 className="text-sm font-semibold opacity-80">Weekly Budget</h2>
           <p className="text-3xl font-bold">$342.50</p>
           <p className="text-sm opacity-80">remaining of $500</p>
-
-          <div className="mt-3 h-2 w-full rounded-full bg-white/30 overflow-hidden">
-            <div className="h-full w-[68%] bg-white rounded-full" />
-          </div>
         </div>
       </AppCard>
 
