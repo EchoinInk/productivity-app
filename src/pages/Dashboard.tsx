@@ -51,12 +51,7 @@ const Dashboard = () => {
           onClick={() => {
             if (!newTask.trim()) return;
 
-            addTask({
-              id: Date.now(),
-              label: newTask,
-              done: false,
-              category: category,
-            });
+            addTask(newTask, category);
 
             setNewTask("");
             setCategory("Today");
