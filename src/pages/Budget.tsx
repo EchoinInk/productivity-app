@@ -3,14 +3,16 @@ import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import { Plus } from "lucide-react";
-import { useAppStore } from "@/store/useAppStore";
+
+const mockTransactions = [
+  { id: 1, label: "Groceries", amount: -45.5 },
+  { id: 2, label: "Coffee", amount: -5.0 },
+];
 
 const Budget = () => {
-  const transactions = useAppStore((s) => s.transactions);
-
   const income = 500;
 
-  const expenses = transactions
+  const expenses = mockTransactions
     .filter((t) => t.amount < 0)
     .reduce((s, t) => s + Math.abs(t.amount), 0);
 
@@ -57,7 +59,7 @@ const Budget = () => {
         </h2>
 
         <div className="space-y-1">
-          {transactions.map((t) => {
+          {mockTransactions.map((t) => {
             const isIncome = t.amount > 0;
 
             return (
