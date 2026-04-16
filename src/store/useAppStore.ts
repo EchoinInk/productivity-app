@@ -9,6 +9,7 @@ export interface Task {
 interface AppState {
   tasks: Task[];
   toggleTask: (id: number) => void;
+  addTask: (label: string) => void;
 }
 
 export const useAppStore = create<AppState>()((set, get) => ({
@@ -24,4 +25,15 @@ export const useAppStore = create<AppState>()((set, get) => ({
       ),
     });
   },
-}));
+
+  addTask: (label) => {
+    const newTask: Task = {
+      id: Date.now(),
+      label,
+      done: false,
+    };
+    set({
+      tasks: [newTask, ...get().tasks],
+    });
+  },
+}))
