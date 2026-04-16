@@ -21,13 +21,14 @@ const Dashboard = () => {
   const addTask = useAppStore((s) => s.addTask);
 
   const [newTask, setNewTask] = useState("");
+  const [category, setCategory] = useState("Today"); // ✅ NEW
 
   return (
     <div className="space-y-5">
       <PageHeader title="Today" subtitle={today} />
 
-      {/* 🔥 ADD TASK INPUT */}
-      <div className="flex gap-2">
+      {/* 🔥 ADD TASK INPUT WITH DROPDOWN */}
+      <div className="flex gap-2 items-center">
         <input
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
@@ -35,11 +36,30 @@ const Dashboard = () => {
           className="flex-1 px-3 py-2 rounded-lg border border-border text-sm"
         />
 
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="px-2 py-2 rounded-lg border border-border text-sm"
+        >
+          <option value="Today">Today</option>
+          <option value="Upcoming">Upcoming</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Monthly">Monthly</option>
+        </select>
+
         <button
           onClick={() => {
             if (!newTask.trim()) return;
-            addTask(newTask);
+
+            addTask({
+              id: Date.now(),
+              label: newTask,
+              done: false,
+              category: category,
+            });
+
             setNewTask("");
+            setCategory("Today");
           }}
           className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold"
         >
@@ -51,7 +71,9 @@ const Dashboard = () => {
       <AppCard>
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-sm font-semibold text-muted-foreground">Today's Tasks</h2>
-          <span className="text-xs text-muted-foreground">{tasks.filter((t) => !t.done).length} left</span>
+          <span className="text-xs text-muted-foreground">
+            {tasks.filter((t) => !t.done && t.category === "Today").length} left
+          </span>
         </div>
 
         <div className="space-y-1">
