@@ -19,44 +19,44 @@ interface AppState {
   tasks: Task[];
   transactions: Transaction[];
 
-  addTask: (task: Task) => void;
   toggleTask: (id: number) => void;
+  addTask: (task: Task) => void;
 
   addTransaction: (transaction: Transaction) => void;
 }
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       tasks: [
-        { id: 1, label: "Review weekly goals", done: false, category: "Today" },
-        { id: 2, label: "Buy groceries", done: true, category: "Today" },
+        {
+          id: 1,
+          label: "Review weekly goals",
+          done: false,
+          category: "Today",
+        },
       ],
 
-      transactions: [
-        { id: 1, label: "Groceries", amount: -52.3 },
-        { id: 2, label: "Freelance payment", amount: 200 },
-      ],
+      transactions: [],
 
-      addTask: (task) =>
-        set((state) => ({
-          tasks: [task, ...state.tasks],
-        })),
+      toggleTask: (id) => {
+        const updated = get().tasks.map((t) =>
+          t.id === id ? { ...t, done: !t.done } : t
+        );
 
-      toggleTask: (id) =>
-        set((state) => ({
-          tasks: state.tasks.map((t) =>
-            t.id === id ? { ...t, done: !t.done } : t
-          ),
-        })),
+        set({ tasks: updated });
+      },
 
-      addTransaction: (transaction) =>
-        set((state) => ({
-          transactions: [transaction, ...state.transactions],
-        })),
+      addTask: (task) => {
+        set({ tasks: [task, ...get().tasks] });
+      },
+
+      addTransaction: (transaction) => {
+        set({ transactions: [transaction, ...get().transactions] });
+      },
     }),
     {
-      name: "life-os-storage",
+      name: "life-os-storage", // 🔥 THIS MUST MATCH
     }
   )
 );
