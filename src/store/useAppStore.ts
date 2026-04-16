@@ -1,21 +1,24 @@
 import { create } from "zustand";
 
+export type TaskCategory = "Today" | "Upcoming" | "Weekly" | "Monthly";
+
 export interface Task {
   id: number;
   label: string;
   done: boolean;
+  category: TaskCategory;
 }
 
 interface AppState {
   tasks: Task[];
   toggleTask: (id: number) => void;
-  addTask: (label: string) => void;
+  addTask: (label: string, category?: TaskCategory) => void;
 }
 
 export const useAppStore = create<AppState>()((set, get) => ({
   tasks: [
-    { id: 1, label: "Review weekly goals", done: false },
-    { id: 2, label: "Buy groceries", done: true },
+    { id: 1, label: "Review weekly goals", done: false, category: "Weekly" },
+    { id: 2, label: "Buy groceries", done: true, category: "Today" },
   ],
 
   toggleTask: (id) => {
@@ -26,11 +29,12 @@ export const useAppStore = create<AppState>()((set, get) => ({
     });
   },
 
-  addTask: (label) => {
+  addTask: (label, category = "Today") => {
     const newTask: Task = {
       id: Date.now(),
       label,
       done: false,
+      category,
     };
     set({
       tasks: [newTask, ...get().tasks],
