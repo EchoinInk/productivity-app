@@ -4,9 +4,7 @@ import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import { CheckSquare, DollarSign, UtensilsCrossed, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-// ❌ TEMP: remove Zustand until preview is stable
-// import { useAppStore } from "@/store/useAppStore";
+import { useAppStore } from "@/store/useAppStore";
 
 const today = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -14,35 +12,25 @@ const today = new Date().toLocaleDateString("en-US", {
   day: "numeric",
 });
 
-const mockTasks = [
-  { id: 1, label: "Review weekly goals", done: false },
-  { id: 2, label: "Buy groceries", done: true },
-];
-
 const Dashboard = () => {
   const navigate = useNavigate();
+  const tasks = useAppStore((s) => s.tasks);
+  const toggleTask = useAppStore((s) => s.toggleTask);
 
   return (
     <div className="space-y-5">
       <PageHeader title="Today" subtitle={today} />
 
-      {/* ✅ CONFIRM APP WORKS */}
-      <h1 style={{ color: "red" }}>PREVIEW WORKING</h1>
-
-      <button onClick={() => console.log("Button working")} className="bg-red-500 text-white p-2 rounded">
-        TEST BUTTON
-      </button>
-
       {/* Tasks */}
       <AppCard>
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-sm font-semibold text-muted-foreground">Today's Tasks</h2>
-          <span className="text-xs text-muted-foreground">{mockTasks.filter((t) => !t.done).length} left</span>
+          <span className="text-xs text-muted-foreground">{tasks.filter((t) => !t.done).length} left</span>
         </div>
 
         <div className="space-y-1">
-          {mockTasks.map((t) => (
-            <ListItem key={t.id} label={t.label} checked={t.done} />
+          {tasks.map((t) => (
+            <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
           ))}
         </div>
       </AppCard>
