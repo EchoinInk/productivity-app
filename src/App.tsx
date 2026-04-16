@@ -14,22 +14,12 @@ import NotFound from "./pages/NotFound";
 
 import { useAppStore } from "@/store/useAppStore";
 
-const AppLayout = () => {
-  useAppStore(); // 🔥 FORCE INIT
-
-  ...
-};
-
 const queryClient = new QueryClient();
 
-/**
- * Layout wrapper to ensure:
- * - consistent padding
- * - bottom nav spacing
- * - mobile-friendly container
- */
 const AppLayout = () => {
   const location = useLocation();
+
+  useAppStore(); // 🔥 FORCE STORE INITIALIZATION
 
   return (
     <div className="min-h-screen bg-[#F5F7FA] flex flex-col">
@@ -62,7 +52,6 @@ const App = () => {
         <BrowserRouter>
           <AppLayout />
 
-          {/* Global UI */}
           <Toaster />
           <Sonner />
         </BrowserRouter>
