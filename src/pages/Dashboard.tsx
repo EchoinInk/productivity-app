@@ -20,13 +20,15 @@ const Dashboard = () => {
   const toggleTask = useAppStore((s) => s.toggleTask);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <PageHeader title="Today" subtitle={today} />
 
       {/* TASKS */}
       <AppCard>
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-sm font-semibold text-muted-foreground">Today's Tasks</h2>
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="text-sm font-semibold text-muted-foreground">
+            Today's Tasks
+          </h2>
           <span className="text-xs text-muted-foreground">
             {tasks.filter((t) => !t.done && t.category === "Today").length} left
           </span>
@@ -36,22 +38,31 @@ const Dashboard = () => {
           {tasks
             .filter((t) => t.category === "Today")
             .map((t) => (
-              <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
+              <ListItem
+                key={t.id}
+                label={t.label}
+                checked={t.done}
+                onToggle={() => toggleTask(t.id)}
+              />
             ))}
         </div>
       </AppCard>
 
       {/* BUDGET */}
-      <AppCard gradient="budget">
-        <div className="space-y-1">
-          <h2 className="text-sm font-semibold opacity-80">Weekly Budget</h2>
+      <AppCard gradient="budget" className="mt-2">
+        <div className="space-y-2">
+          <h2 className="text-sm font-semibold opacity-80">
+            Weekly Budget
+          </h2>
           <p className="text-3xl font-bold">$342.50</p>
-          <p className="text-sm opacity-80">remaining of $500</p>
+          <p className="text-sm opacity-80">
+            remaining of $500
+          </p>
         </div>
       </AppCard>
 
       {/* ACTIONS */}
-      <div className="grid grid-cols-2 gap-3 pt-2">
+      <div className="grid grid-cols-2 gap-3 pt-3">
         <ActionButton variant="primary" fullWidth onClick={() => navigate("/tasks")}>
           <CheckSquare size={16} />
           Add Task
