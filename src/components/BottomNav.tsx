@@ -39,24 +39,26 @@ const BottomNav = () => {
               onClick={() => navigate(path)}
               className="
                 flex flex-col items-center justify-center
-                flex-1
-                gap-[2px]
+                flex-1 gap-[2px]
                 text-[11px] font-medium
-                transition-all active:scale-95
+                transition-all duration-200 active:scale-95
               "
             >
-              {/* ✅ IMAGE ICON */}
+              {/* ICON */}
               <img
                 src={icon}
                 alt={label}
-                className={clsx("w-5 h-5 transition-all", active ? "opacity-100 scale-110" : "opacity-60")}
+                className={clsx(
+                  "w-5 h-5 transition-all duration-200",
+                  active ? "opacity-100 scale-110 drop-shadow-[0_0_6px_rgba(111,168,255,0.6)]" : "opacity-50",
+                )}
               />
 
               {/* LABEL */}
               <span
                 className={clsx(
-                  "leading-none transition-all",
-                  active ? "text-[#6FA8FF]" : "text-muted-foreground opacity-80",
+                  "leading-none transition-all duration-200",
+                  active ? "text-[#6FA8FF]" : "text-muted-foreground opacity-70",
                 )}
               >
                 {label}
