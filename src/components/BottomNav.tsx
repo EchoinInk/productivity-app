@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
-import todayIcon from "@/assets/icons/today.png";
-import tasksIcon from "@/assets/icons/tasks.png";
-import budgetIcon from "@/assets/icons/budget.png";
-import mealsIcon from "@/assets/icons/meals.png";
-import listsIcon from "@/assets/icons/lists.png";
+import todayIcon from "@/assets/icons/today.svg";
+import tasksIcon from "@/assets/icons/tasks.svg";
+import budgetIcon from "@/assets/icons/budget.svg";
+import mealsIcon from "@/assets/icons/meals.svg";
+import listsIcon from "@/assets/icons/lists.svg";
 
 const navItems = [
   { path: "/", label: "Today", icon: todayIcon },
@@ -25,9 +25,9 @@ const BottomNav = () => {
         className="
           h-16 flex items-center justify-around
           rounded-2xl
-          bg-white/70 backdrop-blur-2xl
-          border border-white/50
-          shadow-[0_20px_40px_rgba(0,0,0,0.15)]
+          bg-white/75 backdrop-blur-2xl
+          border border-white/60
+          shadow-[0_20px_40px_rgba(180,150,200,0.18)]
         "
       >
         {navItems.map(({ path, label, icon }) => {
@@ -44,21 +44,21 @@ const BottomNav = () => {
                 transition-all duration-200 active:scale-95
               "
             >
-              {/* ICON */}
               <img
                 src={icon}
                 alt={label}
                 className={clsx(
-                  "w-5 h-5 transition-all duration-200",
-                  active ? "opacity-100 scale-110 drop-shadow-[0_0_6px_rgba(111,168,255,0.6)]" : "opacity-50",
+                  "w-6 h-6 transition-all duration-200",
+                  active
+                    ? "opacity-100 scale-110 drop-shadow-[0_0_6px_rgba(185,165,232,0.55)]"
+                    : "opacity-60",
                 )}
               />
 
-              {/* LABEL */}
               <span
                 className={clsx(
                   "leading-none transition-all duration-200",
-                  active ? "text-[#6FA8FF]" : "text-muted-foreground opacity-70",
+                  active ? "text-[#B9A5E8]" : "text-muted-foreground opacity-70",
                 )}
               >
                 {label}
