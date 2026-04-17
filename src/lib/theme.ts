@@ -1,17 +1,19 @@
 export const gradients = {
-  primary: "bg-gradient-to-r from-blue-300 to-purple-300",
-  success: "bg-gradient-to-r from-green-300 to-blue-300",
-  pink: "bg-gradient-to-r from-pink-300 to-purple-300",
-  soft: "bg-gradient-to-r from-blue-100 to-purple-100",
+  primary: "bg-gradient-to-r from-[#E7D9FF] to-[#FADCEB]",
+  soft: "bg-gradient-to-r from-[#F8F3FF] to-[#FFF7FB]",
+  pink: "bg-gradient-to-r from-[#F8DFFF] to-[#FFE7D1]",
   brand:
-    "bg-[linear-gradient(135deg,#4DA3FF,#7DDCFF,#B28BFF,#FF8AD4,#FFB37A)]",
+    "bg-[linear-gradient(135deg,#E7D9FF,#F8DFFF,#FADCEB,#FFE7D1)]",
 };
 
+export const backgroundSoft = "#FFF7FB"; // pink whisper
+export const backgroundAlt = "#F8F3FF"; // lilac mist
+
 export const glass =
-  "bg-white/80 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgba(80,80,120,0.08)] rounded-3xl";
+  "bg-white/80 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgba(180,150,200,0.10)] rounded-3xl";
 
 export const cardSoft =
-  "bg-white rounded-3xl shadow-[0_8px_24px_rgba(80,80,120,0.06)]";
+  "bg-white rounded-3xl shadow-[0_8px_24px_rgba(180,150,200,0.10)]";
 
 export const sectionSpacing = "space-y-5";
 
