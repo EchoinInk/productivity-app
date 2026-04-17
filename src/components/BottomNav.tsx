@@ -20,9 +20,9 @@ const BottomNav = () => {
         className="
           h-16 flex items-center justify-around
           rounded-2xl
-          bg-white/60 backdrop-blur-xl
+          bg-white/50 backdrop-blur-xl
           border border-white/40
-          shadow-lg
+          shadow-[0_10px_30px_rgba(0,0,0,0.12)]
         "
       >
         {navItems.map(({ path, label, icon: Icon }) => {
