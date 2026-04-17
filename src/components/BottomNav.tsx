@@ -15,26 +15,39 @@ const BottomNav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="h-16 flex items-center justify-around border-t border-border bg-white">
-      {navItems.map(({ path, label, icon: Icon }) => {
-        const active = location.pathname === path;
+    <div className="px-3 pb-3">
+      <nav
+        className="
+          h-16 flex items-center justify-around
+          rounded-2xl
+          bg-white/70 backdrop-blur-xl
+          border border-white/40
+          shadow-lg
+        "
+      >
+        {navItems.map(({ path, label, icon: Icon }) => {
+          const active = location.pathname === path;
 
-        return (
-          <button
-            key={path}
-            onClick={() => navigate(path)}
-            className="flex flex-col items-center justify-center text-xs font-medium flex-1"
-          >
-            <Icon
-              size={22}
-              className={clsx("mb-0.5 transition-all", active ? "text-blue-500 scale-110" : "text-muted-foreground")}
-              strokeWidth={active ? 2.5 : 2}
-            />
-            <span className={clsx(active ? "text-blue-500" : "text-muted-foreground")}>{label}</span>
-          </button>
-        );
-      })}
-    </nav>
+          return (
+            <button
+              key={path}
+              onClick={() => navigate(path)}
+              className="flex flex-col items-center justify-center text-xs font-medium flex-1 transition-all"
+            >
+              <Icon
+                size={22}
+                className={clsx("mb-0.5 transition-all", active ? "text-blue-500 scale-110" : "text-muted-foreground")}
+                strokeWidth={active ? 2.5 : 2}
+              />
+
+              <span className={clsx("transition-all", active ? "text-blue-500" : "text-muted-foreground")}>
+                {label}
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+    </div>
   );
 };
 
