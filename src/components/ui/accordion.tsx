@@ -1,52 +1,48 @@
-import * as React from "react";
-import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDown } from "lucide-react";
+import { ReactNode } from "react";
+import clsx from "clsx";
 
-import { cn } from "@/lib/utils";
+interface ActionButtonProps {
+  children: ReactNode;
+  onClick?: () => void;
+  variant?: "primary" | "secondary" | "ghost";
+  fullWidth?: boolean;
+  className?: string;
+}
 
-const Accordion = AccordionPrimitive.Root;
+const ActionButton = ({
+  children,
+  onClick,
+  variant = "primary",
+  fullWidth = false,
+  className,
+}: ActionButtonProps) => {
+  return (
+    <button
+      onClick={onClick}
+      className={clsx(
+        "inline-flex items-center justify-center gap-2",
+        "h-12 px-4 rounded-xl text-sm font-semibold",
+        "transition-all duration-200 active:scale-[0.96]",
+        fullWidth && "w-full",
 
-const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item ref={ref} className={cn("border-b", className)} {...props} />
-));
-AccordionItem.displayName = "AccordionItem";
+        // 🌈 PRIMARY (soft + depth)
+        variant === "primary" &&
+          "bg-gradient-to-r from-blue-300 to-purple-300 text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]",
 
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
-    <AccordionPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
-        className,
+        // 🧊 SECONDARY (glass)
+        variant === "secondary" &&
+          "bg-white/60 backdrop-blur-xl border border-white/40 text-foreground shadow-[0_4px_15px_rgba(0,0,0,0.05)]",
+
+        // 👻 GHOST
+        variant === "ghost" &&
+          "text-muted-foreground hover:bg-white/40",
+
+        className
       )}
-      {...props}
     >
       {children}
-      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
-));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
+    </button>
+  );
+};
 
-const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Content
-    ref={ref}
-    className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
-    {...props}
-  >
-    <div className={cn("pb-4 pt-0", className)}>{children}</div>
-  </AccordionPrimitive.Content>
-));
-
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
-
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export default ActionButton;
