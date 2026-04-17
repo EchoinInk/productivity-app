@@ -1,76 +1,31 @@
-import AppCard from "@/components/AppCard";
-import ListItem from "@/components/ListItem";
-import ActionButton from "@/components/ActionButton";
-import PageHeader from "@/components/PageHeader";
-import { CheckSquare, DollarSign, UtensilsCrossed, ShoppingCart } from "lucide-react";
+import { Plus, FolderPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import { useAppStore } from "@/store/useAppStore";
-
-const today = new Date().toLocaleDateString("en-US", {
-  weekday: "long",
-  month: "long",
-  day: "numeric",
-});
+import TodayHeader from "@/components/TodayHeader";
+import TodayTasks from "@/components/TodayTasks";
+import MoneyLeftCard from "@/components/MoneyLeftCard";
+import BillsDueCard from "@/components/BillsDueCard";
+import AddButton from "@/components/AddButton";
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const tasks = useAppStore((s) => s.tasks);
-  const toggleTask = useAppStore((s) => s.toggleTask);
-
   return (
-    <div className="space-y-6">
-      <PageHeader title="Today" subtitle={today} />
+    <div className="space-y-5">
+      <TodayHeader />
+      <TodayTasks />
+      <MoneyLeftCard />
+      <BillsDueCard />
 
-      {/* TASKS */}
-      <AppCard>
-        <div className="flex justify-between items-center mb-3">
-          <h2 className="text-sm font-semibold text-muted-foreground">Today's Tasks</h2>
-          <span className="text-xs text-muted-foreground">
-            {tasks.filter((t) => !t.done && t.category === "Today").length} left
-          </span>
-        </div>
-
-        <div className="space-y-1">
-          {tasks
-            .filter((t) => t.category === "Today")
-            .map((t) => (
-              <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
-            ))}
-        </div>
-      </AppCard>
-
-      {/* BUDGET */}
-      <AppCard gradient="budget" className="mt-2">
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-white/90">Weekly Budget</h2>
-          <p className="text-3xl font-bold text-white drop-shadow-sm">$342.50</p>
-          <p className="text-sm text-white/80">remaining of $500</p>
-        </div>
-      </AppCard>
-
-      {/* ACTIONS */}
-      <div className="grid grid-cols-2 gap-3 pt-3">
-        <ActionButton variant="primary" fullWidth onClick={() => navigate("/tasks")}>
-          <CheckSquare size={16} />
+      <div className="grid grid-cols-2 gap-3 pt-1">
+        <AddButton onClick={() => navigate("/tasks")}>
+          <Plus size={18} strokeWidth={2.5} />
           Add Task
-        </ActionButton>
-
-        <ActionButton variant="primary" fullWidth onClick={() => navigate("/budget")}>
-          <DollarSign size={16} />
+        </AddButton>
+        <AddButton onClick={() => navigate("/budget")}>
+          <FolderPlus size={18} strokeWidth={2.5} />
           Add Expense
-        </ActionButton>
-
-        <ActionButton variant="secondary" fullWidth onClick={() => navigate("/meals")}>
-          <UtensilsCrossed size={16} />
-          Add Meal
-        </ActionButton>
-
-        <ActionButton variant="secondary" fullWidth onClick={() => navigate("/shopping")}>
-          <ShoppingCart size={16} />
-          Add Item
-        </ActionButton>
+        </AddButton>
       </div>
     </div>
   );
