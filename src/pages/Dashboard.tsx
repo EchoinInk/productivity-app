@@ -26,9 +26,7 @@ const Dashboard = () => {
       {/* TASKS */}
       <AppCard>
         <div className="flex justify-between items-center mb-3">
-          <h2 className="text-sm font-semibold text-muted-foreground">
-            Today's Tasks
-          </h2>
+          <h2 className="text-sm font-semibold text-muted-foreground">Today's Tasks</h2>
           <span className="text-xs text-muted-foreground">
             {tasks.filter((t) => !t.done && t.category === "Today").length} left
           </span>
@@ -38,12 +36,7 @@ const Dashboard = () => {
           {tasks
             .filter((t) => t.category === "Today")
             .map((t) => (
-              <ListItem
-                key={t.id}
-                label={t.label}
-                checked={t.done}
-                onToggle={() => toggleTask(t.id)}
-              />
+              <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
             ))}
         </div>
       </AppCard>
@@ -51,13 +44,9 @@ const Dashboard = () => {
       {/* BUDGET */}
       <AppCard gradient="budget" className="mt-2">
         <div className="space-y-2">
-          <h2 className="text-sm font-semibold opacity-80">
-            Weekly Budget
-          </h2>
-          <p className="text-3xl font-bold">$342.50</p>
-          <p className="text-sm opacity-80">
-            remaining of $500
-          </p>
+          <h2 className="text-sm font-semibold text-white/90">Weekly Budget</h2>
+          <p className="text-3xl font-bold text-white drop-shadow-sm">$342.50</p>
+          <p className="text-sm text-white/80">remaining of $500</p>
         </div>
       </AppCard>
 
