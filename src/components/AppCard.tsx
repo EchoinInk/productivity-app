@@ -8,18 +8,23 @@ interface AppCardProps {
 }
 
 const gradientStyles = {
-  primary: "bg-gradient-to-r from-blue-400 to-purple-400 text-white",
-  budget: "bg-gradient-to-r from-green-400 to-blue-400 text-white",
-  alert: "bg-gradient-to-r from-red-400 to-pink-400 text-white",
+  primary:
+    "bg-gradient-to-r from-blue-400/90 to-purple-400/90 text-white shadow-md",
+  budget:
+    "bg-gradient-to-r from-green-400/90 to-blue-400/90 text-white shadow-md",
+  alert:
+    "bg-gradient-to-r from-red-400/90 to-pink-400/90 text-white shadow-md",
 };
 
 const AppCard = ({ children, className, gradient }: AppCardProps) => {
   return (
     <div
       className={clsx(
-        "rounded-2xl p-4 shadow-sm",
-        gradient ? gradientStyles[gradient] : "bg-white text-foreground border border-border",
-        className,
+        "rounded-2xl p-4 transition-all duration-200",
+        gradient
+          ? gradientStyles[gradient]
+          : "bg-white/70 backdrop-blur-md border border-white/40 shadow-sm",
+        className
       )}
     >
       {children}
