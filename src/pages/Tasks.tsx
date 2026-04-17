@@ -21,7 +21,7 @@ const Tasks = () => {
     <div className="space-y-5">
       <PageHeader title="Tasks" />
 
-      {/* 🔥 TAB BAR */}
+      {/* TAB BAR */}
       <TabBar tabs={tabs} activeTab={activeTab} onTabChange={(tab) => setActiveTab(tab as TaskCategory)} />
 
       <AppCard>
@@ -30,7 +30,13 @@ const Tasks = () => {
         ) : (
           <div className="space-y-1">
             {filtered.map((t) => (
-              <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
+              <ListItem
+                key={t.id}
+                label={t.label}
+                checked={t.done}
+                onToggle={() => toggleTask(t.id)}
+                category={t.category} // ✅ ADDED
+              />
             ))}
           </div>
         )}
