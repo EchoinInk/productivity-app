@@ -20,6 +20,7 @@ const Dashboard = () => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
   const addTask = useAppStore((s) => s.addTask);
+
   const [category, setCategory] = useState<TaskCategory>("Today");
   const [newTask, setNewTask] = useState("");
 
@@ -27,7 +28,7 @@ const Dashboard = () => {
     <div className="space-y-5">
       <PageHeader title="Today" subtitle={today} />
 
-      {/* 🔥 ADD TASK INPUT WITH DROPDOWN */}
+      {/* ADD TASK */}
       <div className="flex gap-2 items-center">
         <input
           value={newTask}
@@ -62,7 +63,7 @@ const Dashboard = () => {
         </button>
       </div>
 
-      {/* Tasks */}
+      {/* TASKS */}
       <AppCard>
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-sm font-semibold text-muted-foreground">Today's Tasks</h2>
@@ -75,12 +76,18 @@ const Dashboard = () => {
           {tasks
             .filter((t) => t.category === "Today")
             .map((t) => (
-              <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
+              <ListItem
+                key={t.id}
+                label={t.label}
+                checked={t.done}
+                onToggle={() => toggleTask(t.id)}
+                category={t.category} // ✅ ADDED
+              />
             ))}
         </div>
       </AppCard>
 
-      {/* Budget */}
+      {/* BUDGET */}
       <AppCard gradient="budget">
         <div className="space-y-1">
           <h2 className="text-sm font-semibold opacity-80">Weekly Budget</h2>
@@ -89,7 +96,7 @@ const Dashboard = () => {
         </div>
       </AppCard>
 
-      {/* Actions */}
+      {/* ACTIONS */}
       <div className="grid grid-cols-2 gap-3 pt-2">
         <ActionButton variant="primary" fullWidth onClick={() => navigate("/tasks")}>
           <CheckSquare size={16} />
