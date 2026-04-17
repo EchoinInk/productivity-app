@@ -6,19 +6,22 @@ interface ListItemProps {
   checked?: boolean;
   onToggle?: () => void;
   rightContent?: React.ReactNode;
-  category?: string; // ✅ NEW
+  category?: string;
 }
 
 const ListItem = ({ label, subtitle, checked, onToggle, rightContent, category }: ListItemProps) => {
   return (
-    <div className="flex items-center gap-3 py-3 px-1 border-b border-border last:border-b-0">
+    <div className="flex items-center gap-3 py-3 px-1 border-b border-white/40 last:border-b-0">
+      
       {/* Checkbox */}
       {onToggle && (
         <button
           onClick={onToggle}
           className={clsx(
-            "w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all",
-            checked ? "bg-blue-500 border-blue-500 text-white" : "border-muted-foreground/40",
+            "w-5 h-5 rounded-md flex items-center justify-center shrink-0 transition-all",
+            checked
+              ? "bg-gradient-to-r from-blue-300 to-purple-300 text-white shadow-sm"
+              : "border border-muted-foreground/30"
           )}
         >
           {checked && (
@@ -39,25 +42,21 @@ const ListItem = ({ label, subtitle, checked, onToggle, rightContent, category }
       <div className="flex-1 min-w-0">
         <p
           className={clsx(
-            "text-sm font-medium",
+            "text-sm font-medium transition-all",
             checked && "line-through text-muted-foreground",
-            !checked &&
-              (category === "Weekly"
-                ? "text-purple-500"
-                : category === "Monthly"
-                  ? "text-yellow-500"
-                  : category === "Upcoming"
-                    ? "text-blue-500"
-                    : "text-foreground"),
+            !checked && "text-foreground"
           )}
         >
           {label}
         </p>
 
-        {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
+        {subtitle && (
+          <p className="text-xs text-muted-foreground mt-0.5">
+            {subtitle}
+          </p>
+        )}
       </div>
 
-      {/* Right Content */}
       {rightContent && <div className="shrink-0">{rightContent}</div>}
     </div>
   );
