@@ -9,24 +9,35 @@ interface ActionButtonProps {
   className?: string;
 }
 
-const ActionButton = ({ children, onClick, variant = "primary", fullWidth = false, className }: ActionButtonProps) => {
+const ActionButton = ({
+  children,
+  onClick,
+  variant = "primary",
+  fullWidth = false,
+  className,
+}: ActionButtonProps) => {
   return (
     <button
       onClick={onClick}
       className={clsx(
         "inline-flex items-center justify-center gap-2",
         "h-12 px-4 rounded-xl text-sm font-semibold",
-        "transition-all duration-150 active:scale-[0.97]",
+        "transition-all duration-200 active:scale-[0.96]",
         fullWidth && "w-full",
 
-        // Variants
-        variant === "primary" && "bg-gradient-to-r from-blue-400 to-purple-400 text-white shadow-sm",
+        // 🌈 PRIMARY (gradient, premium)
+        variant === "primary" &&
+          "bg-gradient-to-r from-blue-400/90 to-purple-400/90 text-white shadow-md",
 
-        variant === "secondary" && "bg-white border border-border text-foreground",
+        // 🧊 SECONDARY (glass style)
+        variant === "secondary" &&
+          "bg-white/70 backdrop-blur-md border border-white/40 text-foreground shadow-sm",
 
-        variant === "ghost" && "text-primary hover:bg-secondary",
+        // 👻 GHOST (subtle interaction)
+        variant === "ghost" &&
+          "text-primary hover:bg-white/40 active:bg-white/60 rounded-lg",
 
-        className,
+        className
       )}
     >
       {children}
