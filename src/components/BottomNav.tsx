@@ -32,25 +32,24 @@ const BottomNav = () => {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className="flex flex-col items-center justify-center text-xs font-medium flex-1 transition-all active:scale-95"
+              className="
+    flex flex-col items-center justify-center
+    flex-1
+    gap-[2px]                 // 🔥 tighter spacing
+    text-[11px] font-medium   // 🔥 smaller label
+    transition-all active:scale-95
+  "
             >
               <Icon
-                size={22}
-                className={clsx(
-                  "mb-0.5 transition-all",
-                  active
-                    ? "text-[#6FA8FF] scale-110" // ✅ EXACT MOCK BLUE
-                    : "text-muted-foreground",
-                )}
+                size={20} // 🔥 smaller icon (was 22)
+                className={clsx("transition-all", active ? "text-[#6FA8FF] scale-110" : "text-muted-foreground")}
                 strokeWidth={active ? 2.5 : 2}
               />
 
               <span
                 className={clsx(
-                  "transition-all",
-                  active
-                    ? "text-[#6FA8FF]" // ✅ MATCH ICON
-                    : "text-muted-foreground",
+                  "leading-none", // 🔥 removes weird spacing
+                  active ? "text-[#6FA8FF]" : "text-muted-foreground",
                 )}
               >
                 {label}
