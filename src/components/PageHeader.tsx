@@ -20,7 +20,7 @@ const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
       {/* 📅 FLOATING DATE PILL */}
       {subtitle && (
         <div
-          className="bg-gradient-to-r from-[#DBEAFE]/60 to-[#E9D5FF]/60 backdrop-blbg-gradient-to-r from-[#DBEAFE]/70 to-[#E9D5FF]/70
+          className="bg-gradient-to-r from-[#DBEAFE]/80 to-[#E9D5FF]/80 backdrop-blbg-gradient-to-r from-[#DBEAFE]/70 to-[#E9D5FF]/70
 backdrop-blur-xl
 rounded-full
 px-4 py-2
