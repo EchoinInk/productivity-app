@@ -25,17 +25,14 @@ const ActionButton = ({
         "transition-all duration-200 active:scale-[0.96]",
         fullWidth && "w-full",
 
-        // 🌈 PRIMARY (gradient, premium)
         variant === "primary" &&
-          "bg-gradient-to-r from-blue-400/90 to-purple-400/90 text-white shadow-md",
+          "bg-gradient-to-r from-blue-300 to-purple-300 text-white shadow-md",
 
-        // 🧊 SECONDARY (glass style)
         variant === "secondary" &&
-          "bg-white/70 backdrop-blur-md border border-white/40 text-foreground shadow-sm",
+          "bg-white/60 backdrop-blur-xl border border-white/40 text-foreground",
 
-        // 👻 GHOST (subtle interaction)
         variant === "ghost" &&
-          "text-primary hover:bg-white/40 active:bg-white/60 rounded-lg",
+          "text-muted-foreground hover:bg-white/40",
 
         className
       )}
