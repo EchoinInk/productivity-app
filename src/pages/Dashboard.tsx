@@ -1,4 +1,3 @@
-import { useState } from "react";
 import AppCard from "@/components/AppCard";
 import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
@@ -6,7 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import { CheckSquare, DollarSign, UtensilsCrossed, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import { useAppStore, TaskCategory } from "@/store/useAppStore";
+import { useAppStore } from "@/store/useAppStore";
 
 const today = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -19,49 +18,10 @@ const Dashboard = () => {
 
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
-  const addTask = useAppStore((s) => s.addTask);
-
-  const [category, setCategory] = useState<TaskCategory>("Today");
-  const [newTask, setNewTask] = useState("");
 
   return (
     <div className="space-y-5">
       <PageHeader title="Today" subtitle={today} />
-
-      {/* ADD TASK */}
-      <div className="flex gap-2 items-center">
-        <input
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder="Add a task..."
-          className="flex-1 px-3 py-2 rounded-lg border border-border text-sm"
-        />
-
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value as TaskCategory)}
-          className="px-2 py-2 rounded-lg border border-border text-sm"
-        >
-          <option value="Today">Today</option>
-          <option value="Upcoming">Upcoming</option>
-          <option value="Weekly">Weekly</option>
-          <option value="Monthly">Monthly</option>
-        </select>
-
-        <button
-          onClick={() => {
-            if (!newTask.trim()) return;
-
-            addTask(newTask, category);
-
-            setNewTask("");
-            setCategory("Today");
-          }}
-          className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold"
-        >
-          Add
-        </button>
-      </div>
 
       {/* TASKS */}
       <AppCard>
@@ -76,13 +36,7 @@ const Dashboard = () => {
           {tasks
             .filter((t) => t.category === "Today")
             .map((t) => (
-              <ListItem
-                key={t.id}
-                label={t.label}
-                checked={t.done}
-                onToggle={() => toggleTask(t.id)}
-                category={t.category} // ✅ ADDED
-              />
+              <ListItem key={t.id} label={t.label} checked={t.done} onToggle={() => toggleTask(t.id)} />
             ))}
         </div>
       </AppCard>
