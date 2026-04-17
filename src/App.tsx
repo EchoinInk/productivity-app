@@ -12,11 +12,8 @@ import BottomNav from "@/components/BottomNav";
 const App = () => {
   return (
     <BrowserRouter>
-      {/* 🌈 Background */}
       <div className="min-h-screen bg-gradient-to-b from-[#F5F7FA] to-[#E9EEF5] flex justify-center">
-        {/* 📱 App Container */}
         <div className="w-full max-w-md min-h-screen flex flex-col relative">
-          {/* Main Content */}
           <main className="flex-1 pb-28 px-4 pt-6 space-y-4">
             <Routes>
               <Route path="/" element={<Dashboard />} />
@@ -28,7 +25,6 @@ const App = () => {
             </Routes>
           </main>
 
-          {/* Bottom Nav */}
           <div className="absolute bottom-0 left-0 right-0">
             <BottomNav />
           </div>
