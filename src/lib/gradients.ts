@@ -6,4 +6,4 @@ export const gradientPrimary = [
   "#FFE7D1", // peach (gentle finish)
 ];
 
-export const gradientPrimaryCss = `linear-gradient(185deg, ${gradientPrimary.join(", ")})`;
+export const gradientPrimaryCss = `linear-gradient(85deg, ${gradientPrimary.join(", ")})`;
