@@ -1,13 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Home, ClipboardList, Wallet, Utensils, ListChecks } from "lucide-react";
+import { Home, CheckSquare, Wallet, UtensilsCrossed, List } from "lucide-react";
 import clsx from "clsx";
 
 const navItems = [
   { path: "/", label: "Today", icon: Home },
-  { path: "/tasks", label: "Tasks", icon: ClipboardList },
+  { path: "/tasks", label: "Tasks", icon: CheckSquare },
   { path: "/budget", label: "Budget", icon: Wallet },
-  { path: "/meals", label: "Meals", icon: Utensils },
-  { path: "/shopping", label: "Lists", icon: ListChecks },
+  { path: "/meals", label: "Meals", icon: UtensilsCrossed },
+  { path: "/shopping", label: "Lists", icon: List },
 ];
 
 const BottomNav = () => {
