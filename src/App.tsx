@@ -12,7 +12,8 @@ import BottomNav from "@/components/BottomNav";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gradient-to-b from-[#F5F7FA] to-[#E9EEF5] flex justify-center">
+      <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#EDE9FE] via-[#E0F2FE] to-[#FCE7F3]">
+        {" "}
         <div className="w-full max-w-md min-h-screen flex flex-col relative">
           <main className="flex-1 pb-28 px-4 pt-6 space-y-4">
             <Routes>
