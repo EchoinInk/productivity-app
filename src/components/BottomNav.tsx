@@ -20,7 +20,7 @@ const BottomNav = () => {
         className="
           h-16 flex items-center justify-around
           rounded-2xl
-          bg-white/70 backdrop-blur-xl
+          bg-white/60 backdrop-blur-xl
           border border-white/40
           shadow-lg
         "
@@ -32,15 +32,27 @@ const BottomNav = () => {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className="flex flex-col items-center justify-center text-xs font-medium flex-1 transition-all"
+              className="flex flex-col items-center justify-center text-xs font-medium flex-1 transition-all active:scale-95"
             >
               <Icon
                 size={22}
-                className={clsx("mb-0.5 transition-all", active ? "text-blue-500 scale-110" : "text-muted-foreground")}
+                className={clsx(
+                  "mb-0.5 transition-all",
+                  active
+                    ? "text-blue-400 scale-110"
+                    : "text-muted-foreground"
+                )}
                 strokeWidth={active ? 2.5 : 2}
               />
 
-              <span className={clsx("transition-all", active ? "text-blue-500" : "text-muted-foreground")}>
+              <span
+                className={clsx(
+                  "transition-all",
+                  active
+                    ? "text-blue-400"
+                    : "text-muted-foreground"
+                )}
+              >
                 {label}
               </span>
             </button>
