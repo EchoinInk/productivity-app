@@ -9,13 +9,7 @@ interface ActionButtonProps {
   className?: string;
 }
 
-const ActionButton = ({
-  children,
-  onClick,
-  variant = "primary",
-  fullWidth = false,
-  className,
-}: ActionButtonProps) => {
+const ActionButton = ({ children, onClick, variant = "primary", fullWidth = false, className }: ActionButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -26,15 +20,13 @@ const ActionButton = ({
         fullWidth && "w-full",
 
         variant === "primary" &&
-          "bg-gradient-to-r from-blue-300 to-purple-300 text-white shadow-md",
+          "bg-gradient-to-r from-[#6FA8FF] to-[#C084FC] text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]",
 
-        variant === "secondary" &&
-          "bg-white/60 backdrop-blur-xl border border-white/40 text-foreground",
+        variant === "secondary" && "bg-white/60 backdrop-blur-xl border border-white/40 text-foreground",
 
-        variant === "ghost" &&
-          "text-muted-foreground hover:bg-white/40",
+        variant === "ghost" && "text-muted-foreground hover:bg-white/40",
 
-        className
+        className,
       )}
     >
       {children}
