@@ -39,8 +39,8 @@ const BottomNav = () => {
                 className={clsx(
                   "mb-0.5 transition-all",
                   active
-                    ? "text-blue-400 scale-110"
-                    : "text-muted-foreground"
+                    ? "text-[#6FA8FF] scale-110" // ✅ EXACT MOCK BLUE
+                    : "text-muted-foreground",
                 )}
                 strokeWidth={active ? 2.5 : 2}
               />
@@ -49,8 +49,8 @@ const BottomNav = () => {
                 className={clsx(
                   "transition-all",
                   active
-                    ? "text-blue-400"
-                    : "text-muted-foreground"
+                    ? "text-[#6FA8FF]" // ✅ MATCH ICON
+                    : "text-muted-foreground",
                 )}
               >
                 {label}
