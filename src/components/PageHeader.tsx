@@ -8,21 +8,18 @@ interface PageHeaderProps {
 const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
   return (
     <div className="space-y-4">
-      
       {/* 🔝 TOP BAR */}
       <div className="flex items-center justify-between">
         <Menu size={20} className="text-muted-foreground" />
 
-        <h1 className="text-lg font-semibold text-foreground">
-          {title}
-        </h1>
+        <h1 className="text-lg font-semibold text-foreground">{title}</h1>
 
         <Bell size={20} className="text-muted-foreground" />
       </div>
 
-      {/* 📅 DATE PILL */}
+      {/* 📅 DATE PILL (FIXED) */}
       {subtitle && (
-        <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-4 py-2 text-sm text-center text-muted-foreground shadow-sm">
+        <div className="bg-gradient-to-r from-blue-100/60 to-purple-100/60 backdrop-blur-md rounded-full px-4 py-2 text-sm text-center text-muted-foreground shadow-sm">
           {subtitle}
         </div>
       )}
