@@ -1,13 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Home, CheckSquare, Wallet, UtensilsCrossed, List } from "lucide-react";
 import clsx from "clsx";
 
+import todayIcon from "@/assets/icons/today.png";
+import tasksIcon from "@/assets/icons/tasks.png";
+import budgetIcon from "@/assets/icons/budget.png";
+import mealsIcon from "@/assets/icons/meals.png";
+import listsIcon from "@/assets/icons/lists.png";
+
 const navItems = [
-  { path: "/", label: "Today", icon: Home },
-  { path: "/tasks", label: "Tasks", icon: CheckSquare },
-  { path: "/budget", label: "Budget", icon: Wallet },
-  { path: "/meals", label: "Meals", icon: UtensilsCrossed },
-  { path: "/shopping", label: "Lists", icon: List },
+  { path: "/", label: "Today", icon: todayIcon },
+  { path: "/tasks", label: "Tasks", icon: tasksIcon },
+  { path: "/budget", label: "Budget", icon: budgetIcon },
+  { path: "/meals", label: "Meals", icon: mealsIcon },
+  { path: "/shopping", label: "Lists", icon: listsIcon },
 ];
 
 const BottomNav = () => {
@@ -25,7 +30,7 @@ const BottomNav = () => {
           shadow-[0_20px_40px_rgba(0,0,0,0.15)]
         "
       >
-        {navItems.map(({ path, label, icon: Icon }) => {
+        {navItems.map(({ path, label, icon }) => {
           const active = location.pathname === path;
 
           return (
@@ -40,15 +45,14 @@ const BottomNav = () => {
                 transition-all active:scale-95
               "
             >
-              <Icon
-                size={20}
-                strokeWidth={2.2}
-                className={clsx(
-                  "transition-all",
-                  active ? "text-[#6FA8FF] scale-110" : "text-muted-foreground opacity-80",
-                )}
+              {/* ✅ IMAGE ICON */}
+              <img
+                src={icon}
+                alt={label}
+                className={clsx("w-5 h-5 transition-all", active ? "opacity-100 scale-110" : "opacity-60")}
               />
 
+              {/* LABEL */}
               <span
                 className={clsx(
                   "leading-none transition-all",
