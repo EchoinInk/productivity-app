@@ -4,7 +4,6 @@ export const gradientPrimary = [
   "#E7D9FF", // lavender (your signature tone)
   "#F0DFFF", // blue‑pink (cool blush)
   "#F8DFFF", // pink (soft blush)
-  "#FADCEB", // rose haze (warm pink)
   "#FFE7D1", // peach (gentle finish)
 ];
 
