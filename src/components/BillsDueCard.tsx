@@ -40,18 +40,13 @@ const BillsDueCard = () => {
           <li key={b.name}>
             <button className="w-full flex items-center gap-3 py-4 active:opacity-70 transition">
               <span
-                className="w-9 h-9 rounded-2xl shrink-0 flex items-center justify-center shadow-[0_4px_10px_rgba(180,150,200,0.15)]"
+                className="w-9 h-9 rounded-md shrink-0 flex items-center justify-center shadow-[0_4px_10px_rgba(180,150,200,0.15)]"
                 style={{ background: b.iconBg }}
               >
                 <span className="block w-3 h-3 rounded-sm bg-white/90" />
               </span>
-              <span className="flex-1 text-left text-[15px] font-medium text-foreground/85">
-                {b.name}
-              </span>
-              <span
-                className="text-[14px] font-semibold"
-                style={{ color: b.accent }}
-              >
+              <span className="flex-1 text-left text-[15px] font-medium text-foreground/85">{b.name}</span>
+              <span className="text-[14px] font-semibold" style={{ color: b.accent }}>
                 {b.amount}
               </span>
               <ChevronRight size={18} className="text-foreground/30" />
