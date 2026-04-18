@@ -27,7 +27,7 @@ const Budget = () => {
         <div className="space-y-3">
           <p className="text-sm opacity-80">Weekly Budget</p>
 
-          <p className="text-3xl font-bold">${remaining.toFixed(2)}</p>
+          <p className="text-3xl font-medium">${remaining.toFixed(2)}</p>
 
           <p className="text-sm opacity-80">
             remaining of ${income.toFixed(2)}
