@@ -12,7 +12,7 @@ import BottomNav from "@/components/BottomNav";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#FFF7FB] via-[#F8F3FF] to-[#FFE7D1]/40">
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#f8f4f9] to-[#f9eef7]">
         {" "}
         <div className="w-full max-w-md min-h-screen flex flex-col relative">
           <main className="flex-1 pb-28 px-4 pt-6 space-y-4">
