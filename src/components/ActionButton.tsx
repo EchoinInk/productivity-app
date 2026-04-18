@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import clsx from "clsx";
+import { gradientPrimaryCss } from "@/lib/gradients";
 
 interface ActionButtonProps {
   children: ReactNode;
@@ -13,6 +14,7 @@ const ActionButton = ({ children, onClick, variant = "primary", fullWidth = fals
   return (
     <button
       onClick={onClick}
+      style={{ background: gradientPrimaryCss }}
       className={clsx(
         "h-12 w-full rounded-lg",
         "inline-flex items-center justify-center gap-2",
