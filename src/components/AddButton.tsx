@@ -16,7 +16,7 @@ const AddButton = ({ children, onClick, className }: AddButtonProps) => {
       className={clsx(
         "h-4 w-full rounded-xs",
         "inline-flex items-center justify-center gap-2",
-        "text-white text-[5px] font-semibold tracking-tight",
+        "text-white text-[1px] font-semibold tracking-tight",
         "shadow-[0_10px_24px_rgba(150,140,220,0.25)]",
         "active:scale-[0.97] transition-transform duration-150",
         className,
