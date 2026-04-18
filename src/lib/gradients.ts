@@ -2,7 +2,6 @@ export const gradientPrimary = [
   "#8ac9d9", // cyan (soft, milky)
   "#80dae6",
   "#01cbdd",
-  "#d6afea",
   "#b3adff",
   "#ebb1f7",
   "#f5baee",
