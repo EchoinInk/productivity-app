@@ -29,7 +29,7 @@ const BillsDueCard = () => {
   return (
     <section className={clsx(cardSoft, "px-5 py-4")}>
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-[16px] font-medium text-foreground">Bills Due</h2>
+        <h2 className="text-[16px] font-semibold text-foreground">Bills Due</h2>
         <button aria-label="More" className="p-1 -mr-1">
           <img src={moreIcon} alt="" className="w-5 h-5" />
         </button>
@@ -45,8 +45,8 @@ const BillsDueCard = () => {
               >
                 <span className="block w-3 h-3 rounded-sm bg-white/90" />
               </span>
-              <span className="flex-1 text-left text-[15px] font-medium text-foreground/85">{b.name}</span>
-              <span className="text-[14px] font-semibold" style={{ color: b.accent }}>
+              <span className="flex-1 text-left text-[15px] font-normal text-foreground/85">{b.name}</span>
+              <span className="text-[14px] font-medium" style={{ color: b.accent }}>
                 {b.amount}
               </span>
               <ChevronRight size={18} className="text-foreground/30" />
