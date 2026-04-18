@@ -14,9 +14,9 @@ const AddButton = ({ children, onClick, className }: AddButtonProps) => {
       onClick={onClick}
       style={{ background: gradientPrimaryCss }}
       className={clsx(
-        "h-6 w-full rounded-xs",
+        "h-8 w-full rounded-md",
         "inline-flex items-center justify-center gap-2",
-        "text-white text-[12px] font-semibold tracking-tight",
+        "text-white text-[1px] font-semibold tracking-tight",
         "shadow-[0_10px_24px_rgba(150,140,220,0.25)]",
         "active:scale-[0.97] transition-transform duration-150",
         className,
