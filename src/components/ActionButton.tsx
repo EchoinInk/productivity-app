@@ -15,7 +15,7 @@ const ActionButton = ({ children, onClick, variant = "primary", fullWidth = fals
       onClick={onClick}
       className={clsx(
         "inline-flex items-center justify-center gap-2",
-        "h-12 px-4 rounded-xl text-sm font-semibold",
+        "h-12 px-4 rounded-md text-sm font-semibold",
         "transition-all duration-200 active:scale-[0.96]",
         fullWidth && "w-full",
 
