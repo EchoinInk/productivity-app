@@ -22,7 +22,7 @@ const AppCard = ({ children, className, gradient }: AppCardProps) => {
         "rounded-2xl p-4 transition-all duration-200",
         gradient
           ? gradientStyles[gradient]
-          : "bg-white/60 backdrop-blur-md border border-white/80 shadow-[0_4px_12px_rgba(80,80,120,0.06)]",
+          : "bg-white/80 backdrop-blur-md border border-white/40 shadow-[0_4px_12px_rgba(80,80,120,0.06)]",
         className,
       )}
     >
