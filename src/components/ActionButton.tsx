@@ -19,7 +19,7 @@ const ActionButton = ({ children, onClick, variant = "primary", fullWidth = fals
         "text-white text-[15px] font-semibold tracking-tight",
         "shadow-[0_16px_40px_rgba(80,80,120,0.14)]",
         "active:scale-[0.97] transition-transform duration-150"
-        fullWidth && "w-full",
+        fullWidth && "w-full"),
 
         variant === "primary" &&
           "bg-gradient-to-r from-[#60A5FA] to-[#A78BFA] text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]",
