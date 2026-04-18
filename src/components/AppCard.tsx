@@ -19,7 +19,7 @@ const AppCard = ({ children, className, gradient }: AppCardProps) => {
   return (
     <div
       className={clsx(
-        "rounded-lg p-4 transition-all duration-200",
+        "rounded-md p-4 transition-all duration-200",
         gradient
           ? gradientStyles[gradient]
           : "bg-white/80 backdrop-blur-md border border-white/40 shadow-[0_16px_40px_rgba(80,80,120,0.14)]",
