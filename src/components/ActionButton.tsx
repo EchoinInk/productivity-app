@@ -14,11 +14,13 @@ const ActionButton = ({ children, onClick, variant = "primary", fullWidth = fals
     <button
       onClick={onClick}
       className={clsx(
+"h-12 w-full rounded-lg",
         "inline-flex items-center justify-center gap-2",
-        "h-12 px-4 rounded-md text-sm font-semibold",
-        "transition-all duration-200 active:scale-[0.96]",
+        "text-white text-[15px] font-semibold tracking-tight",
+        "shadow-[0_16px_40px_rgba(80,80,120,0.14)]",
+        "transition-all duration-200 active:scale-[0.96]"
         fullWidth && "w-full",
-
+        
         variant === "primary" &&
           "bg-gradient-to-r from-[#60A5FA] to-[#A78BFA] text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]",
 
