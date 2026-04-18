@@ -22,7 +22,7 @@ const ActionButton = ({ children, onClick, variant = "primary", fullWidth = fals
         fullWidth && "w-full",
 
         variant === "primary" &&
-          "bg-gradient-to-r from-[#60A5FA] to-[#A78BFA] text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]",
+          "bg-gradient-to-r from-[#6EE7B7] via-[#67E8F9] to-[#93C5FD] text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]",
 
         variant === "secondary" && "bg-white/60 backdrop-blur-md border border-[#b8dfff]/60 text-foreground",
 
