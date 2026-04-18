@@ -3,6 +3,7 @@ export const gradientPrimary = [
   "#80dae6",
   "#01cbdd",
   "#d6afea",
+  "#b3adff",
   "#ebb1f7",
   "#f5baee",
   "#f5babb",
