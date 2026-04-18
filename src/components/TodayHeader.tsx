@@ -33,7 +33,12 @@ const TodayHeader = ({ onDateClick }: TodayHeaderProps) => {
         </button>
       </div>
 
-      <div className="flex items-center gap-2 bg-pink/60 backdrop-blur-md rounded-full px-3 py-2 shadow-[0_2px_10px_rgba(80,80,120,0.05)]">
+      <div
+        className="flex items-center gap-2 px-3 py-2 rounded-full 
+     bg-gradient-to-r from-[#e5e7f6] to-[#ebe0f3]
+     backdrop-blur-md bg-white/60 
+     shadow-[0_2px_10px_rgba(80,80,120,0.05)]"
+      >
         <button
           onClick={() => shift(-1)}
           className="w-7 h-7 rounded-full flex items-center justify-center text-foreground/50 hover:bg-white/60"
