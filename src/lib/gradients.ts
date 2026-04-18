@@ -1,3 +1,11 @@
-export const gradientPrimary = ["#80dae6", "#01cbdd", "#b3adff", "#ebb1f7", "#f5baee", "#f5babb"];
+export const gradientPrimary = [
+  "#8efbf2", // cyan (soft, milky)
+  "#b2e7e6",
+  "#abc4f1",
+  "#b7bcf6",
+  "#dac4ee",
+  "#f6cadf",
+  "#fcd4d4",
+];
 
 export const gradientPrimaryCss = `linear-gradient(115deg, ${gradientPrimary.join(", ")})`;
