@@ -14,17 +14,17 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
 
   return (
     <section className={clsx(cardSoft, "px-5 py-4")}>
-      <h2 className="text-[16px] font-bold text-foreground mb-3">Money Left This Week</h2>
+      <h2 className="text-[16px] font-semibold text-foreground mb-3">Money Left This Week</h2>
 
       <div
         className="rounded-2xl px-5 py-5 shadow-[0_10px_24px_rgba(150,140,220,0.25)]"
         style={{ background: gradientPrimaryCss }}
       >
         <div className="flex items-baseline gap-2">
-          <span className="text-4xl font-extrabold text-white drop-shadow-sm leading-none">
+          <span className="text-4xl font-bold text-white drop-shadow-md leading-none">
             ${remaining}
           </span>
-          <span className="text-white/90 text-sm font-semibold">left to spend</span>
+          <span className="text-white/90 text-sm font-bold">left to spend</span>
         </div>
       </div>
 
