@@ -1,9 +1,10 @@
 export const gradientPrimary = [
-  "#B8F4FF", // brighter cyan (still pastel, more glow)
+  #DDEBFF", // baby blue (airy)
   "#CFF7FF", // cyan (soft, milky)
-  "#DDEBFF", // baby blue (airy)
-  "#D4C4FF", // darker lavender (richer, moodier, still pastel)
+ "#B8F4FF", // brighter cyan (still pastel, more glow)
+  "#E0D0FF", // **in‑between lavender (new smoothing stop)**
   "#E7D9FF", // lavender (your signature tone)
+  "#D4C4FF", // darker lavender (richer, moodier, still pastel)
   "#E0D0FF", // **in‑between lavender (new smoothing stop)**
   "#F0DFFF", // blue‑pink (cool blush)
   "#FFE7D1", // peach (gentle finish)
