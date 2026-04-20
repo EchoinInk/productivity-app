@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import ListItem from "@/components/ListItem";
 import { useAppStore } from "@/store/useAppStore";
 import { cardSoft } from "@/lib/theme";
@@ -20,6 +21,8 @@ const TodayTasks = ({ selectedDate }: Props) => {
   // ✅ TAKE TOP 3 (WITH FALLBACK)
   const topTasks = highPriorityTasks.length > 0 ? highPriorityTasks.slice(0, 3) : todayTasks.slice(0, 3);
 
+  const navigate = useNavigate();
+
   // ✅ HEADER TEXT
   const count = todayTasks.length;
 
@@ -34,7 +37,9 @@ const TodayTasks = ({ selectedDate }: Props) => {
           <p className="text-xs text-muted-foreground">Top priority tasks</p>
         </div>
 
-        <button className="text-xs font-medium text-primary">View All →</button>
+        <button onClick={() => navigate(`/tasks?date=${selectedDate}`)} className="text-xs font-medium text-primary">
+          View All →
+        </button>
       </div>
 
       {/* TASKS */}
