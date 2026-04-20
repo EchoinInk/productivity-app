@@ -19,6 +19,7 @@ const Tasks = () => {
   const [open, setOpen] = useState(false);
 
   const today = new Date();
+  const todayStr = today.toISOString().split("T")[0];
 
   const filtered = tasks.filter((t) => {
     const d = new Date(t.date);
@@ -38,19 +39,15 @@ const Tasks = () => {
       <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       <AppCard>
-        {filtered.map((t) => {
-          const dateStr = new Date().toISOString().split("T")[0];
-          const done = t.completedDates.includes(dateStr);
+        {filtered.length === 0 ? (
+          <p className="text-sm text-muted-foreground text-center py-6">No tasks</p>
+        ) : (
+          filtered.map((t) => {
+            const done = t.completedDates.includes(todayStr);
 
-          return (
-            <ListItem
-              key={t.id}
-              label={t.label}
-              checked={done}
-              onToggle={() => toggleTask(t.id, dateStr)}
-            />
-          );
-        })}
+            return <ListItem key={t.id} label={t.label} checked={done} onToggle={() => toggleTask(t.id, todayStr)} />;
+          })
+        )}
       </AppCard>
 
       <ActionButton fullWidth onClick={() => setOpen(true)}>
@@ -61,9 +58,7 @@ const Tasks = () => {
       <AddTask
         open={open}
         onClose={() => setOpen(false)}
-        onSave={(t) =>
-          addTask(t.label, t.date, t.time, t.type, t.recurrence)
-        }
+        onSave={(t) => addTask(t.label, t.date || todayStr, t.time, t.type, t.recurrence)}
       />
     </div>
   );
