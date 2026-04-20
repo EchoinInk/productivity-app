@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { getToday } from "@/lib/date";
 
 export interface Task {
   id: number;
@@ -117,7 +118,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
         label,
 
         // ✅ SAFE DATE FALLBACK
-        date: date || new Date().toISOString().split("T")[0],
+        date: date || getToday(),
 
         time,
         priority: priority ?? "Medium",
