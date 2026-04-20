@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
 
+  // 🔥 WILL UPGRADE LATER TO DYNAMIC DATE
   const selectedDate = new Date().toISOString().split("T")[0];
 
   const spent = expenses.reduce((s, e) => s + e.amount, 0);
@@ -29,9 +30,11 @@ const Dashboard = () => {
   return (
     <div className="space-y-5">
       <TodayHeader />
+
       <TodayTasks selectedDate={selectedDate} />
 
       <MoneyLeftCard remaining={Math.round(remaining)} spent={Math.round(spent)} total={weeklyBudget} />
+
       <BillsDueCard />
 
       <div className="grid grid-cols-2 gap-3 pt-1">
@@ -46,12 +49,11 @@ const Dashboard = () => {
         </AddButton>
       </div>
 
+      {/* MODALS */}
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
-        onSave={(t) =>
-          addTask(t.label, selectedDate, t.time, t.type, t.recurrence)
-        }
+        onSave={(t) => addTask(t.label, selectedDate, t.time, t.type, t.recurrence)}
       />
 
       <AddExpense
