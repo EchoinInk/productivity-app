@@ -31,8 +31,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
   );
 
   // ✅ 3. THEN CONVERT
-  const categoryList = Object.entries(grouped);
-
+  const categoryList = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
   // ✅ FILTER HIGH PRIORITY ONLY
   const highPriorityTasks = todayTasks.filter((t) => t.priority === "High");
 
@@ -52,7 +51,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
       <div className="flex items-center justify-between mb-3">
         <div>
           <h2 className="text-[16px] font-semibold text-foreground">{headerText}</h2>
-          <p className="text-xs text-muted-foreground">Top priority tasks</p>
+          <p className="text-xs text-muted-foreground">Tasks by category</p>
         </div>
 
         <button onClick={() => navigate(`/tasks?date=${selectedDate}`)} className="text-xs font-medium text-primary">
@@ -62,26 +61,20 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
       {/* TASKS */}
       <ul className="divide-y divide-foreground/[0.06]">
-        {categoryList.length === 0 ? (
-          <li className="py-6 text-center text-sm text-muted-foreground">No tasks today</li>
-        ) : (
-          categoryList.map(([category, count]) => (
-            <li key={category} className="py-3">
-              <div className="flex items-center justify-between">
-                {/* LEFT */}
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{category}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {count} {count === 1 ? "task" : "tasks"}
-                  </p>
-                </div>
-
-                {/* OPTIONAL RIGHT INDICATOR */}
-                <div className="text-xs text-muted-foreground">→</div>
+        {categoryList.map(([category, count]) => (
+          <li key={category} className="py-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-foreground">{category}</p>
+                <p className="text-xs text-muted-foreground">
+                  {count} {count === 1 ? "task" : "tasks"}
+                </p>
               </div>
-            </li>
-          ))
-        )}
+
+              <span className="text-muted-foreground">→</span>
+            </div>
+          </li>
+        ))}
       </ul>
     </section>
   );
