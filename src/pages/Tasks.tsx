@@ -8,6 +8,7 @@ import { Plus } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import AddTask from "@/components/modal/AddTask";
 import { getToday } from "@/lib/date";
+import EditTask from "@/components/modal/EditTask";
 
 const tabs = ["Today", "Upcoming", "Weekly", "Monthly"];
 
@@ -15,6 +16,11 @@ const Tasks = () => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
   const addTask = useAppStore((s) => s.addTask);
+  const [selectedTask, setSelectedTask] = useState<any>(null);
+const [editOpen, setEditOpen] = useState(false);
+
+const updateTask = useAppStore((s) => s.updateTask);
+const deleteTask = useAppStore((s) => s.deleteTask);
 
   const [activeTab, setActiveTab] = useState("Today");
   const [open, setOpen] = useState(false);
