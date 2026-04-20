@@ -9,10 +9,7 @@ interface TaskItemProps {
 
 const TaskItem = ({ label, done, onToggle }: TaskItemProps) => {
   return (
-    <button
-      onClick={onToggle}
-      className="w-full flex items-center gap-3 py-3.5 text-left active:opacity-70 transition"
-    >
+    <button onClick={onToggle} className="w-full flex items-center gap-3 py-3.5 text-left active:opacity-70 transition">
       {done ? (
         <img src={checkmark} alt="" className="w-6 h-6 shrink-0" />
       ) : (
@@ -21,7 +18,9 @@ const TaskItem = ({ label, done, onToggle }: TaskItemProps) => {
       <span
         className={clsx(
           "text-[15px] font-medium transition-colors",
-          done ? "text-muted-foreground/70" : "text-foreground",
+          done
+            ? "text-muted-foreground/70 line-through decoration-muted-foreground/50 decoration-2"
+            : "text-foreground",
         )}
       >
         {label}
