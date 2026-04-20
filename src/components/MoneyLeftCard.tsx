@@ -14,7 +14,7 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
 
   return (
     <section className={clsx(cardSoft, "px-5 py-4")}>
-      <h2 className="text-[16px] font-semibold text-foreground mb-3">Money Left This Week</h2>
+      <h2 className="text-[14px] font-semibold text-foreground mb-3">Money Left This Week</h2>
 
       <div
         className="rounded-2xl px-5 py-5 shadow-[0_3px_12px_rgba(120,110,200,0.42)]"
@@ -22,12 +22,12 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
       >
         <div className="flex items-baseline gap-2">
           <span
-            className="text-4xl font-bold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]
+            className="text-3xl font-medium text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]
  leading-none"
           >
             ${remaining}
           </span>
-          <span className="text-white text-sm font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">
+          <span className="text-white text-sm font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">
             left to spend
           </span>{" "}
         </div>
