@@ -37,6 +37,13 @@ export interface Bill {
   date: string;
 }
 
+export interface Recipe {
+  id: number;
+  name: string;
+  ingredients: string[];
+  category?: string;
+}
+
 interface AppState {
   weeklyBudget: number;
 
@@ -45,6 +52,7 @@ interface AppState {
   meals: Meal[];
   shoppingItems: ShoppingItem[];
   bills: Bill[];
+  recipes: Recipe[];
 
   toggleTask: (id: number) => void;
   addTask: (
@@ -60,6 +68,7 @@ interface AppState {
   addShoppingItem: (name: string) => void;
   toggleShoppingItem: (id: number) => void;
   addBill: (name: string, amount: number, date: string) => void;
+  addRecipe: (recipe: { name: string; ingredients: string[]; category?: string }) => void;
 }
 
 export const useAppStore = create<AppState>()((set, get) => ({
@@ -73,6 +82,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
   meals: [],
   shoppingItems: [],
   bills: [],
+  recipes: [],
 
   toggleTask: (id) => {
     set({
@@ -113,5 +123,10 @@ export const useAppStore = create<AppState>()((set, get) => ({
   addBill: (name, amount, date) =>
     set((state) => ({
       bills: [{ id: Date.now(), name, amount, date }, ...state.bills],
+    })),
+
+  addRecipe: (recipe) =>
+    set((state) => ({
+      recipes: [{ id: Date.now(), ...recipe }, ...state.recipes],
     })),
 }));
