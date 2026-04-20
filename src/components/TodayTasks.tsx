@@ -10,7 +10,6 @@ interface Props {
 const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
-  const deleteTask = useAppStore((s) => s.deleteTask);
 
   const filtered = tasks.filter((t) => {
     const taskDate = new Date(t.date);
@@ -45,19 +44,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
           {filtered.map((t) => {
             const done = t.completedDates.includes(selectedDate);
 
-            return (
-              <ListItem
-                key={t.id}
-                label={t.label}
-                checked={done}
-                onToggle={() => toggleTask(t.id, selectedDate)}
-                rightContent={
-                  <button onClick={() => deleteTask(t.id)} className="text-xs text-red-400">
-                    Delete
-                  </button>
-                }
-              />
-            );
+            return <ListItem label={t.label} checked={done} onToggle={() => toggleTask(t.id, selectedDate)} />;
           })}
         </div>
       )}
