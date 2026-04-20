@@ -1,6 +1,6 @@
 import { useAppStore } from "@/store/useAppStore";
 import { cardSoft } from "@/lib/theme";
-import { gradientPrimaryCss } from "@/lib/gradients";
+import { gradientQuaternaryCss } from "@/lib/gradients";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
@@ -55,7 +55,7 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
   return (
     <div
       className={clsx("p-5 rounded-2xl text-white", "shadow-[0_3px_12px_rgba(120,110,200,0.42)] rounded-2xl")}
-      style={{ background: gradientPrimaryCss }}
+      style={{ background: gradientQuaternaryCss }}
     >
       <div className="flex items-center justify-between">
         {/* 🔵 CIRCULAR PROGRESS */}
