@@ -17,13 +17,11 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
       <h2 className="text-[16px] font-semibold text-foreground mb-3">Money Left This Week</h2>
 
       <div
-        className="rounded-2xl px-5 py-5 shadow-[0_10px_24px_rgba(150,140,220,0.25)]"
+        className="rounded-2xl px-5 py-5 shadow-[0_4px_12px_rgba(150,140,220,0.35)]"
         style={{ background: gradientPrimaryCss }}
       >
         <div className="flex items-baseline gap-2">
-          <span className="text-4xl font-bold text-white drop-shadow-lg leading-none">
-            ${remaining}
-          </span>
+          <span className="text-4xl font-bold text-white drop-shadow-lg leading-none">${remaining}</span>
           <span className="text-white/90 text-sm font-bold">left to spend</span>
         </div>
       </div>
@@ -38,10 +36,7 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
             return (
               <span
                 key={i}
-                className={clsx(
-                  "w-1.5 h-1.5 rounded-full",
-                  filled ? "bg-foreground/40" : "bg-foreground/15",
-                )}
+                className={clsx("w-1.5 h-1.5 rounded-full", filled ? "bg-foreground/40" : "bg-foreground/15")}
               />
             );
           })}
