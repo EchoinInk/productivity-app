@@ -3,8 +3,15 @@ import { create } from "zustand";
 export interface Task {
   id: number;
   label: string;
-  date: string; // YYYY-MM-DD
+  date: string;
   type?: "General" | "Important";
+  category?:
+    | "Home & Household"
+    | "Health & Wellness"
+    | "Career Development"
+    | "Errands & Life Admin"
+    | "Family & Relationships"
+    | "Finances";
   recurrence?: "none" | "weekly" | "monthly";
   completedDates?: string[];
   time?: string;
