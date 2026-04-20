@@ -5,6 +5,7 @@ interface ListItemProps {
   subtitle?: string;
   checked?: boolean;
   onToggle?: () => void;
+   onClick?: () => void;
   rightContent?: React.ReactNode;
   category?: string;
 }
