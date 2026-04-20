@@ -1,5 +1,5 @@
 import { cardSoft } from "@/lib/theme";
-import { gradientTertiaryCss } from "@/lib/gradients";
+import { gradientSecondaryCss } from "@/lib/gradients";
 import clsx from "clsx";
 
 interface MoneyLeftCardProps {
@@ -18,7 +18,7 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
 
       <div
         className="rounded-2xl px-5 py-5 shadow-[0_3px_12px_rgba(120,110,200,0.42)]"
-        style={{ background: gradientTertiaryCss }}
+        style={{ background: gradientSecondaryCss }}
       >
         <div className="flex items-baseline gap-2">
           <span
