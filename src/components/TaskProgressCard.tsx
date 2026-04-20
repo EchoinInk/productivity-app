@@ -26,6 +26,8 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
 
   const [displayPercent, setDisplayPercent] = useState(0);
 
+  const step = (end - start) / (duration / incrementTime);
+
   useEffect(() => {
     let start = 0;
     const end = percentage;
