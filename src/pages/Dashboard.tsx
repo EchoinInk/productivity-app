@@ -1,4 +1,4 @@
-import { Clipboard-Plus, FolderPlus } from "lucide-react";
+import { ClipboardPlus, PiggyBank } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import TodayHeader from "@/components/TodayHeader";
@@ -19,12 +19,12 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-2 gap-3 pt-1">
         <AddButton variant="secondary" onClick={() => navigate("/tasks")}>
-          <Clipboard-Plus size={18} strokeWidth={2.5} />
+          <ClipboardPlus size={18} strokeWidth={2.5} />
           <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Task</span>
         </AddButton>
 
         <AddButton variant="tertiary" onClick={() => navigate("/budget")}>
-          <FolderPlus size={18} strokeWidth={2.5} />
+          <PiggyBank size={18} strokeWidth={2.5} />
           <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">Add Expense</span>
         </AddButton>
       </div>
