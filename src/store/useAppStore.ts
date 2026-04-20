@@ -1,15 +1,13 @@
 import { create } from "zustand";
 
-export type TaskCategory = "Today" | "Upcoming" | "Weekly" | "Monthly";
-
 export interface Task {
   id: number;
   label: string;
-  done: boolean;
-  category: TaskCategory;
-  date?: string;
+  date: string; // YYYY-MM-DD
+  type?: "General" | "Important";
+  recurrence?: "none" | "weekly" | "monthly";
+  completedDates?: string[];
   time?: string;
-  type?: string;
 }
 
 export interface Expense {
@@ -54,13 +52,13 @@ interface AppState {
   bills: Bill[];
   recipes: Recipe[];
 
-  toggleTask: (id: number) => void;
+  toggleTask: (id: number, date: string) => void;
   addTask: (
     label: string,
-    category?: TaskCategory,
-    date?: string,
+    date: string,
     time?: string,
     type?: string,
+    recurrence?: "none" | "weekly" | "monthly"
   ) => void;
 
   addExpense: (name: string, amount: number) => void;
@@ -74,26 +72,43 @@ interface AppState {
 export const useAppStore = create<AppState>()((set, get) => ({
   weeklyBudget: 500,
 
-  tasks: [
-    { id: 1, label: "Review weekly goals", done: false, category: "Weekly" },
-    { id: 2, label: "Buy groceries", done: true, category: "Today" },
-  ],
+  tasks: [],
   expenses: [],
   meals: [],
   shoppingItems: [],
   bills: [],
   recipes: [],
 
-  toggleTask: (id) => {
+  toggleTask: (id, date) => {
     set({
-      tasks: get().tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+      tasks: get().tasks.map((t) => {
+        if (t.id !== id) return t;
+
+        const completed = t.completedDates || [];
+        const exists = completed.includes(date);
+
+        return {
+          ...t,
+          completedDates: exists
+            ? completed.filter((d) => d !== date)
+            : [...completed, date],
+        };
+      }),
     });
   },
 
-  addTask: (label, category = "Today", date, time, type) =>
+  addTask: (label, date, time, type, recurrence = "none") =>
     set((state) => ({
       tasks: [
-        { id: Date.now(), label, done: false, category, date, time, type },
+        {
+          id: Date.now(),
+          label,
+          date,
+          time,
+          type,
+          recurrence,
+          completedDates: [],
+        },
         ...state.tasks,
       ],
     })),
