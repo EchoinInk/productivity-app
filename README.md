@@ -107,3 +107,104 @@ npm run dev
 🧠 Author
 
 Built as a personal productivity system using AI-assisted development and custom UI/UX design.
+
+## Color Swatches
+
+<div style="display:grid;grid-template-columns:150px 120px 120px 1fr;gap:8px;font-family:sans-serif;font-size:14px">
+
+  <div>background</div>
+  <div style="background:hsl(220 20% 97%);height:32px;border-radius:6px"></div>
+  <div>#F6F8FA</div>
+  <div>Very light cool gray</div>
+
+  <div>foreground</div>
+  <div style="background:hsl(220 20% 10%);height:32px;border-radius:6px"></div>
+  <div>#1A1F26</div>
+  <div>Deep slate gray</div>
+
+  <div>card</div>
+  <div style="background:hsl(0 0% 100%);height:32px;border-radius:6px"></div>
+  <div>#FFFFFF</div>
+  <div>Pure white</div>
+
+  <div>card-foreground</div>
+  <div style="background:hsl(220 20% 10%);height:32px;border-radius:6px"></div>
+  <div>#1A1F26</div>
+  <div>Deep slate gray</div>
+
+  <div>popover</div>
+  <div style="background:hsl(0 0% 100%);height:32px;border-radius:6px"></div>
+  <div>#FFFFFF</div>
+  <div>Pure white</div>
+
+  <div>popover-foreground</div>
+  <div style="background:hsl(220 20% 10%);height:32px;border-radius:6px"></div>
+  <div>#1A1F26</div>
+  <div>Deep slate gray</div>
+
+  <div>primary</div>
+  <div style="background:hsl(220 80% 56%);height:32px;border-radius:6px"></div>
+  <div>#3A7BFF</div>
+  <div>Bright azure blue</div>
+
+  <div>primary-foreground</div>
+  <div style="background:hsl(0 0% 100%);height:32px;border-radius:6px"></div>
+  <div>#FFFFFF</div>
+  <div>White</div>
+
+  <div>secondary</div>
+  <div style="background:hsl(220 14% 92%);height:32px;border-radius:6px"></div>
+  <div>#E7EAF0</div>
+  <div>Soft cool gray</div>
+
+  <div>secondary-foreground</div>
+  <div style="background:hsl(220 20% 20%);height:32px;border-radius:6px"></div>
+  <div>#333A45</div>
+  <div>Charcoal slate</div>
+
+  <div>muted</div>
+  <div style="background:hsl(220 14% 95%);height:32px;border-radius:6px"></div>
+  <div>#F3F5F8</div>
+  <div>Very light blue-gray</div>
+
+  <div>muted-foreground</div>
+  <div style="background:hsl(220 10% 46%);height:32px;border-radius:6px"></div>
+  <div>#6E7682</div>
+  <div>Muted slate gray</div>
+
+  <div>accent</div>
+  <div style="background:hsl(160 60% 45%);height:32px;border-radius:6px"></div>
+  <div>#2DBE8C</div>
+  <div>Teal green</div>
+
+  <div>accent-foreground</div>
+  <div style="background:hsl(0 0% 100%);height:32px;border-radius:6px"></div>
+  <div>#FFFFFF</div>
+  <div>White</div>
+
+  <div>destructive</div>
+  <div style="background:hsl(0 72% 56%);height:32px;border-radius:6px"></div>
+  <div>#E64545</div>
+  <div>Vivid red</div>
+
+  <div>destructive-foreground</div>
+  <div style="background:hsl(0 0% 100%);height:32px;border-radius:6px"></div>
+  <div>#FFFFFF</div>
+  <div>White</div>
+
+  <div>border</div>
+  <div style="background:hsl(220 14% 90%);height:32px;border-radius:6px"></div>
+  <div>#E0E4EB</div>
+  <div>Cool light gray</div>
+
+  <div>input</div>
+  <div style="background:hsl(220 14% 90%);height:32px;border-radius:6px"></div>
+  <div>#E0E4EB</div>
+  <div>Cool light gray</div>
+
+  <div>ring</div>
+  <div style="background:hsl(220 80% 56%);height:32px;border-radius:6px"></div>
+  <div>#3A7BFF</div>
+  <div>Bright azure blue</div>
+
+</div>
