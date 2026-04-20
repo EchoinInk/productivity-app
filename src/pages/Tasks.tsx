@@ -63,7 +63,7 @@ const done = t.completedDates.includes(todayStr);
                 <ListItem
                   key={t.id}
                   label={t.label}
-                  subtitle={t.category}
+subtitle={`${t.category} • ${t.priority}`}
                   checked={done}
                   onToggle={() => toggleTask(t.id, todayStr)}
                 />
