@@ -52,7 +52,8 @@ const Dashboard = () => {
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
-        onSave={(t) => addTask(t.label, selectedDateString, t.time, t.type, t.recurrence)}
+        defaultDate={selectedDateString}
+        onSave={(t) => addTask(t.label, t.date, t.time, t.type, t.recurrence)}
       />
 
       <AddExpense
