@@ -19,13 +19,13 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-2 gap-3 pt-1">
         <AddButton variant="secondary" onClick={() => navigate("/tasks")}>
-          <ClipboardPlus size={18} strokeWidth={2.5} />
+          <ClipboardPlus size={20} strokeWidth={2.5} />
           <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Task</span>
         </AddButton>
 
         <AddButton variant="tertiary" onClick={() => navigate("/budget")}>
-          <PiggyBank size={18} strokeWidth={2.5} />
-          <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">Add Expense</span>
+          <PiggyBank size={20} strokeWidth={2.5} />
+          <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Expense</span>
         </AddButton>
       </div>
     </div>
