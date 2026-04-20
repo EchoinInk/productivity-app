@@ -8,4 +8,4 @@ export const gradientSecondaryCss = `linear-gradient(-165deg, ${gradientSecondar
 
 export const gradientTertiary = ["#b8fff8", "#d2e1fb", "#d9ddff", "#eeddf7", "#ffe8e8"];
 
-export const gradientTertiaryCss = `linear-gradient(225deg, ${gradientTertiary.join(", ")})`;
+export const gradientTertiaryCss = `linear-gradient(65deg, ${gradientTertiary.join(", ")})`;
