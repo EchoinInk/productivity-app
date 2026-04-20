@@ -12,6 +12,23 @@ const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
 
+  const grouped = todayTasks.reduce(
+    (acc, task) => {
+      const category = task.category || "Other";
+
+      if (!acc[category]) {
+        acc[category] = 0;
+      }
+
+      acc[category]++;
+
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
+
+  const categoryList = Object.entries(grouped);
+
   // ✅ FILTER TASKS FOR SELECTED DATE
   const todayTasks = tasks.filter((t) => t.date === selectedDate);
 
@@ -44,24 +61,25 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
       {/* TASKS */}
       <ul className="divide-y divide-foreground/[0.06]">
-        {topTasks.length === 0 ? (
-          <li className="py-6 text-center text-sm text-muted-foreground">Nothing to show</li>
+        {categoryList.length === 0 ? (
+          <li className="py-6 text-center text-sm text-muted-foreground">No tasks today</li>
         ) : (
-          topTasks.map((t) => {
-            const done = t.completedDates.includes(selectedDate);
+          categoryList.map(([category, count]) => (
+            <li key={category} className="py-3">
+              <div className="flex items-center justify-between">
+                {/* LEFT */}
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{category}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {count} {count === 1 ? "task" : "tasks"}
+                  </p>
+                </div>
 
-            return (
-              <li key={t.id}>
-                <ListItem
-                  label={t.label}
-                  subtitle={t.notes}
-                  category={t.category}
-                  checked={done}
-                  onToggle={() => toggleTask(t.id, selectedDate)}
-                />
-              </li>
-            );
-          })
+                {/* OPTIONAL RIGHT INDICATOR */}
+                <div className="text-xs text-muted-foreground">→</div>
+              </div>
+            </li>
+          ))
         )}
       </ul>
     </section>
