@@ -8,7 +8,7 @@ interface AddTaskProps {
     label: string;
     date: string;
     time: string;
-    type: string;
+    type: "General" | "Important";
     recurrence: "none" | "weekly" | "monthly";
   }) => void;
 }
@@ -17,7 +17,7 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
   const [label, setLabel] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [type, setType] = useState("General");
+  const [type, setType] = useState<"General" | "Important">("General");
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
 
   if (!open) return null;
@@ -30,15 +30,21 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
         <AppCard className="space-y-4">
           <h2 className="text-lg font-semibold">New Task</h2>
 
-          <input value={label} onChange={(e) => setLabel(e.target.value)} className="input" />
+          <input
+            autoFocus
+            placeholder="Task name"
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            className="input"
+          />
 
           <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="input" />
 
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="input" />
 
-          <select value={type} onChange={(e) => setType(e.target.value)} className="input">
-            <option>General</option>
-            <option>Important</option>
+          <select value={type} onChange={(e) => setType(e.target.value as "General" | "Important")} className="input">
+            <option value="General">General</option>
+            <option value="Important">Important</option>
           </select>
 
           <select value={recurrence} onChange={(e) => setRecurrence(e.target.value as any)} className="input">
@@ -47,15 +53,27 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
             <option value="monthly">Monthly</option>
           </select>
 
-          <button
-            disabled={!canSave}
-            onClick={() => {
-              onSave({ label, date, time, type, recurrence });
-              onClose();
-            }}
-          >
-            Save
-          </button>
+          <div className="flex gap-2 pt-2">
+            <button onClick={onClose} className="flex-1 py-2 rounded-lg bg-secondary">
+              Cancel
+            </button>
+
+            <button
+              disabled={!canSave}
+              onClick={() => {
+                onSave({ label, date, time, type, recurrence });
+                setLabel("");
+                setDate("");
+                setTime("");
+                setType("General");
+                setRecurrence("none");
+                onClose();
+              }}
+              className="flex-1 py-2 rounded-lg bg-primary text-white disabled:opacity-50"
+            >
+              Save
+            </button>
+          </div>
         </AppCard>
       </div>
     </div>
