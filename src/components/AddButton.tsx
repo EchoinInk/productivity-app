@@ -14,7 +14,7 @@ const AddButton = ({ children, onClick, className, variant = "secondary" }: AddB
     primary: gradientPrimaryCss,
     secondary: gradientSecondaryCss,
     tertiary: gradientTertiaryCss,
-    quarternary: gradientQuaternaryCss,
+    quaternary: gradientQuaternaryCss,
   };
 
   return (
