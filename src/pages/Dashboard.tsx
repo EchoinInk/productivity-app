@@ -12,7 +12,7 @@ import AddExpense from "@/components/modal/AddExpense";
 
 import { useAppStore } from "@/store/useAppStore";
 
-import { getToday } from "@/lib/date";
+import { toDateString } from "@/lib/date";
 
 const Dashboard = () => {
   const addTask = useAppStore((s) => s.addTask);
@@ -23,6 +23,10 @@ const Dashboard = () => {
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
 
+  // ✅ YOU WERE MISSING THIS
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  // ✅ SAFE DATE (FIXED)
   const selectedDateString = toDateString(selectedDate);
 
   const spent = expenses.reduce((s, e) => s + e.amount, 0);
