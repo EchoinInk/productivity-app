@@ -1,5 +1,4 @@
 import { useAppStore } from "@/store/useAppStore";
-import { cardSoft } from "@/lib/theme";
 import clsx from "clsx";
 
 interface Props {
@@ -20,6 +19,14 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
   const percentage =
     total === 0 ? 0 : Math.round((completed / total) * 100);
 
+  // 🔥 SVG CALCULATIONS
+  const radius = 42;
+  const stroke = 8;
+  const normalizedRadius = radius - stroke / 2;
+  const circumference = normalizedRadius * 2 * Math.PI;
+  const strokeDashoffset =
+    circumference - (percentage / 100) * circumference;
+
   return (
     <div
       className={clsx(
@@ -28,12 +35,47 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
       )}
     >
       <div className="flex items-center justify-between">
-        {/* LEFT: PROGRESS CIRCLE (simple version) */}
-        <div className="text-3xl font-bold">
-          {percentage}%
+        
+        {/* 🔵 CIRCULAR PROGRESS */}
+        <div className="relative w-24 h-24">
+          <svg height={radius * 2} width={radius * 2}>
+            {/* Background circle */}
+            <circle
+              stroke="rgba(255,255,255,0.2)"
+              fill="transparent"
+              strokeWidth={stroke}
+              r={normalizedRadius}
+              cx={radius}
+              cy={radius}
+            />
+
+            {/* Progress circle */}
+            <circle
+              stroke="white"
+              fill="transparent"
+              strokeWidth={stroke}
+              strokeDasharray={`${circumference} ${circumference}`}
+              style={{
+                strokeDashoffset,
+                transition: "stroke-dashoffset 0.4s ease",
+              }}
+              strokeLinecap="round"
+              r={normalizedRadius}
+              cx={radius}
+              cy={radius}
+              transform={`rotate(-90 ${radius} ${radius})`}
+            />
+          </svg>
+
+          {/* CENTER TEXT */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-lg font-semibold">
+              {percentage}%
+            </span>
+          </div>
         </div>
 
-        {/* RIGHT: TEXT */}
+        {/* TEXT SIDE */}
         <div className="text-right">
           <p className="text-sm opacity-90">Progress</p>
           <p className="text-lg font-semibold">Today Tasks</p>
