@@ -23,8 +23,7 @@ const Dashboard = () => {
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const todayStr = getToday();
+  const selectedDateString = toDateString(selectedDate);
 
   const spent = expenses.reduce((s, e) => s + e.amount, 0);
   const remaining = Math.max(0, weeklyBudget - spent);
