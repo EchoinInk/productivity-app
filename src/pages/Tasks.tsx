@@ -95,6 +95,19 @@ const done = t.completedDates.includes(todayStr);
         defaultDate={todayStr}
         onSave={(t) => addTask(t.label, t.date, t.time, t.priority, t.recurrence, t.category)}
       />
+      <EditTask
+  open={editOpen}
+  task={selectedTask}
+  onClose={() => setEditOpen(false)}
+  onSave={(updated) => {
+    updateTask(updated);
+    setEditOpen(false);
+  }}
+  onDelete={() => {
+    deleteTask(selectedTask.id);
+    setEditOpen(false);
+  }}
+/>
     </div>
   );
 };
