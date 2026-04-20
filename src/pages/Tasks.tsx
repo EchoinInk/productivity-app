@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import AppCard from "@/components/AppCard";
 import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
@@ -17,6 +18,9 @@ const Tasks = () => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
   const addTask = useAppStore((s) => s.addTask);
+
+  const [params] = useSearchParams();
+  const selectedDate = params.get("date");
 
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [editOpen, setEditOpen] = useState(false);
