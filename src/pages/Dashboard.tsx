@@ -18,11 +18,12 @@ const Dashboard = () => {
       <BillsDueCard />
 
       <div className="grid grid-cols-2 gap-3 pt-1">
-        <AddButton onClick={() => navigate("/tasks")}>
+        <AddButton variant="secondary" onClick={() => navigate("/tasks")}>
           <Plus size={18} strokeWidth={2.5} />
           Add Task
         </AddButton>
-        <AddButton onClick={() => navigate("/budget")}>
+
+        <AddButton variant="tertiary" onClick={() => navigate("/budget")}>
           <FolderPlus size={18} strokeWidth={2.5} />
           Add Expense
         </AddButton>
