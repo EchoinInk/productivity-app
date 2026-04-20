@@ -17,7 +17,7 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
       <h2 className="text-[16px] font-semibold text-foreground mb-3">Money Left This Week</h2>
 
       <div
-        className="rounded-2xl px-5 py-5 shadow-[0_4px_12px_rgba(150,140,220,0.35)]"
+        className="rounded-2xl px-5 py-5 shadow-[0_3px_10px_rgba(120,110,200,0.45)]"
         style={{ background: gradientPrimaryCss }}
       >
         <div className="flex items-baseline gap-2">
