@@ -67,6 +67,7 @@ interface AppState {
     time?: string,
     type?: "General" | "Important",
     recurrence?: "none" | "weekly" | "monthly",
+    category?: Task["category"],
   ) => void;
 
   deleteTask: (id: number) => void;
