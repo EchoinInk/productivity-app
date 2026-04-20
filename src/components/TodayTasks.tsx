@@ -27,7 +27,7 @@ const TodayTasks = ({ selectedDate }: { selectedDate: string }) => {
   return (
     <div>
       {filtered.map((t) => {
-        const done = t.completedDates?.includes(selectedDate);
+        const done = t.completedDates.includes(selectedDate);
 
         return (
           <ListItem
