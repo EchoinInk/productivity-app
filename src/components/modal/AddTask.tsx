@@ -17,29 +17,20 @@ interface AddTaskProps {
     label: string;
     date: string;
     time: string;
-    priority: "Low" | "Medium" | "High"; // ✅ FIXED
+    priority: "Low" | "Medium" | "High";
     recurrence: "none" | "weekly" | "monthly";
     category: TaskCategory;
+    notes?: string; // ✅ NEW
   }) => void;
 }
 
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-
 const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const [label, setLabel] = useState("");
+  const [notes, setNotes] = useState(""); // ✅ NEW
   const [time, setTime] = useState("");
   const [date, setDate] = useState(defaultDate);
-
-  // ✅ NEW PRIORITY
   const [priority, setPriority] = useState<"Low" | "Medium" | "High">("Medium");
-
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
-
   const [category, setCategory] = useState<TaskCategory>("Home & Household");
 
   if (!open) return null;
@@ -50,27 +41,23 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm" onClick={onClose}>
       <div className="w-full max-w-md p-4" onClick={(e) => e.stopPropagation()}>
         <AppCard className="space-y-4">
-          {/* TITLE */}
-          <div>
-            <h2 className="text-lg font-semibold">New Task</h2>
-            <label className="block text-sm text-muted-foreground mt-1">{formatDate(date)}</label>
-          </div>
+          <h2 className="text-lg font-semibold">New Task</h2>
 
-          {/* DATE */}
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-          />
-
-          {/* TASK NAME */}
+          {/* NAME */}
           <input
             autoFocus
             placeholder="Task name"
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             className="w-full h-11 px-4 rounded-xl bg-white/60 border border-white/40 text-sm"
+          />
+
+          {/* NOTES ✅ */}
+          <textarea
+            placeholder="Notes..."
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="w-full px-3 py-2 rounded-xl bg-white/60 border border-white/40 text-sm resize-none"
           />
 
           {/* CATEGORY */}
@@ -87,36 +74,43 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
             <option>Finances</option>
           </select>
 
-          {/* CONTROLS */}
-          <div className="flex gap-2">
-            <input
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-            />
+          {/* DATE */}
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+          />
 
-            {/* ✅ PRIORITY DROPDOWN */}
-            <select
-              value={priority}
-              onChange={(e) => setPriority(e.target.value as any)}
-              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-            >
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
+          {/* TIME */}
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+          />
 
-            <select
-              value={recurrence}
-              onChange={(e) => setRecurrence(e.target.value as any)}
-              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-            >
-              <option value="none">None</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-            </select>
-          </div>
+          {/* PRIORITY */}
+          <select
+            value={priority}
+            onChange={(e) => setPriority(e.target.value as any)}
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+          >
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+
+          {/* RECURRENCE */}
+          <select
+            value={recurrence}
+            onChange={(e) => setRecurrence(e.target.value as any)}
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+          >
+            <option value="none">None</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
 
           {/* ACTIONS */}
           <div className="flex gap-2 pt-2">
@@ -127,27 +121,25 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
             <button
               disabled={!canSave}
               onClick={() => {
-                if (!canSave) return;
-
                 onSave({
                   label,
                   date,
                   time,
-                  priority, // ✅ FIXED
+                  priority,
                   recurrence,
                   category,
+                  notes, // ✅ PASS NOTES
                 });
 
-                // reset
                 setLabel("");
+                setNotes("");
                 setTime("");
                 setPriority("Medium");
                 setRecurrence("none");
-                setCategory("Home & Household");
 
                 onClose();
               }}
-              className="flex-1 h-11 rounded-xl bg-gradient-to-r from-blue-300 to-purple-300 text-white font-semibold disabled:opacity-50"
+              className="flex-1 h-11 rounded-xl bg-gradient-to-r from-blue-300 to-purple-300 text-white font-semibold"
             >
               Save
             </button>
