@@ -1,2 +1,7 @@
-export const getToday = () =>
-  new Date().toISOString().split("T")[0];
+export const toDateString = (date: Date) =>
+  new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split("T")[0];
+
+// ✅ use THIS everywhere instead of raw toISOString
+export const getToday = () => toDateString(new Date());
