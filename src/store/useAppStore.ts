@@ -6,7 +6,7 @@ export interface Task {
   date: string; // YYYY-MM-DD
   type?: "General" | "Important";
   recurrence?: "none" | "weekly" | "monthly";
-  completedDates?: string[];
+  completedDates: string[];
   time?: string;
 }
 
@@ -84,14 +84,13 @@ export const useAppStore = create<AppState>()((set, get) => ({
       tasks: get().tasks.map((t) => {
         if (t.id !== id) return t;
 
-        const completed = t.completedDates || [];
-        const exists = completed.includes(date);
+        const exists = t.completedDates.includes(date);
 
         return {
           ...t,
           completedDates: exists
-            ? completed.filter((d) => d !== date)
-            : [...completed, date],
+            ? t.completedDates.filter((d) => d !== date)
+            : [...t.completedDates, date],
         };
       }),
     });
@@ -131,7 +130,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
   toggleShoppingItem: (id) =>
     set((state) => ({
       shoppingItems: state.shoppingItems.map((i) =>
-        i.id === id ? { ...i, done: !i.done } : i,
+        i.id === id ? { ...i, done: !i.done } : i
       ),
     })),
 
