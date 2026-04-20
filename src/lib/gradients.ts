@@ -29,11 +29,11 @@ export const gradientTertiary = [
 export const gradientTertiaryCss = `linear-gradient(35deg, ${gradientTertiary.join(", ")})`;
 
 export const gradientQuaternary = [
-  "#8ee7df", // softened teal
-  "#9fb0e0", // muted periwinkle
-  "#a7a9e8", // soft lavender-blue
-  "#c7b3d8", // dusty lilac
-  "#efbcbc", // gentle rose
+  "#a4efe7", // airy teal
+  "#b7c6ea", // soft periwinkle
+  "#bebef0", // gentle lavender-blue
+  "#d6c6e2", // muted lilac
+  "#f3c8c8", // soft rose
 ];
 
 export const gradientQuaternaryCss = `linear-gradient(165deg, ${gradientQuaternary.join(", ")})`;
