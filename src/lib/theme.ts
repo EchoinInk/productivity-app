@@ -1,5 +1,5 @@
 export const gradients = {
-  primary: "bg-gradient-to-r from-[#000000] to-[#FADCEB]",
+  primary: "bg-gradient-to-r from-[#E7D9FF] to-[#FADCEB]",
   soft: "bg-gradient-to-r from-[#F8F3FF] to-[#FFF7FB]",
   pink: "bg-gradient-to-r from-[#F8DFFF] to-[#FFE7D1]",
   brand: "bg-[linear-gradient(135deg,#E7D9FF,#F8DFFF,#FADCEB,#FFE7D1)]",
