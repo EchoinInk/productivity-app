@@ -46,7 +46,7 @@ const Dashboard = () => {
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
-        onSave={(task) => addTask(task.label, task.category)}
+        onSave={(task) => addTask(task.label, task.category as "Today" | "Upcoming" | "Weekly" | "Monthly")}
       />
 
       <AddExpense
