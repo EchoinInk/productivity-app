@@ -12,6 +12,8 @@ import AddExpense from "@/components/modal/AddExpense";
 
 import { useAppStore } from "@/store/useAppStore";
 
+import { getToday } from "@/lib/date";
+
 const Dashboard = () => {
   const addTask = useAppStore((s) => s.addTask);
   const addExpense = useAppStore((s) => s.addExpense);
@@ -22,7 +24,7 @@ const Dashboard = () => {
   const [expenseOpen, setExpenseOpen] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const selectedDateString = selectedDate.toISOString().split("T")[0];
+  const todayStr = getToday();
 
   const spent = expenses.reduce((s, e) => s + e.amount, 0);
   const remaining = Math.max(0, weeklyBudget - spent);
