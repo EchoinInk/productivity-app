@@ -1,5 +1,7 @@
 import ListItem from "@/components/ListItem";
 import { useAppStore } from "@/store/useAppStore";
+import { cardSoft } from "@/lib/theme";
+import clsx from "clsx";
 
 interface Props {
   selectedDate: string;
@@ -8,6 +10,7 @@ interface Props {
 const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
+  const deleteTask = useAppStore((s) => s.deleteTask);
 
   const filtered = tasks.filter((t) => {
     const taskDate = new Date(t.date);
@@ -28,18 +31,37 @@ const TodayTasks = ({ selectedDate }: Props) => {
     return false;
   });
 
-  if (filtered.length === 0) {
-    return <div className="text-sm text-muted-foreground text-center py-6">No tasks for this day</div>;
-  }
-
   return (
-    <div>
-      {filtered.map((t) => {
-        const done = t.completedDates.includes(selectedDate);
+    <section className={clsx(cardSoft, "px-5 py-4")}>
+      <div className="flex justify-between mb-2">
+        <h2 className="text-sm font-semibold">Today's Tasks</h2>
+        <span className="text-xs">{filtered.filter((t) => !t.completedDates.includes(selectedDate)).length} left</span>
+      </div>
 
-        return <ListItem key={t.id} label={t.label} checked={done} onToggle={() => toggleTask(t.id, selectedDate)} />;
-      })}
-    </div>
+      {filtered.length === 0 ? (
+        <p className="text-sm text-muted-foreground text-center py-6">No tasks for this day</p>
+      ) : (
+        <div className="space-y-1">
+          {filtered.map((t) => {
+            const done = t.completedDates.includes(selectedDate);
+
+            return (
+              <ListItem
+                key={t.id}
+                label={t.label}
+                checked={done}
+                onToggle={() => toggleTask(t.id, selectedDate)}
+                rightContent={
+                  <button onClick={() => deleteTask(t.id)} className="text-xs text-red-400">
+                    Delete
+                  </button>
+                }
+              />
+            );
+          })}
+        </div>
+      )}
+    </section>
   );
 };
 
