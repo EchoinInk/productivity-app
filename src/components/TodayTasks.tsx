@@ -4,50 +4,52 @@ import { cardSoft } from "@/lib/theme";
 import clsx from "clsx";
 
 interface Props {
-  selectedDate: string;
+  selectedDate: string; // YYYY-MM-DD
 }
 
 const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
 
-  const filtered = tasks.filter((t) => {
-    const taskDate = new Date(t.date);
-    const selected = new Date(selectedDate);
+  // ✅ FILTER TASKS FOR SELECTED DATE
+  const todayTasks = tasks.filter((t) => t.date === selectedDate);
 
-    if (!t.recurrence || t.recurrence === "none") {
-      return t.date === selectedDate;
-    }
+  // ✅ COUNT
+  const count = todayTasks.length;
 
-    if (t.recurrence === "weekly") {
-      return selected >= taskDate && taskDate.getDay() === selected.getDay();
-    }
-
-    if (t.recurrence === "monthly") {
-      return selected >= taskDate && taskDate.getDate() === selected.getDate();
-    }
-
-    return false;
-  });
+  // ✅ DYNAMIC TITLE
+  const title = count === 0 ? "No tasks today" : count === 1 ? "1 task today" : `${count} tasks today`;
 
   return (
     <section className={clsx(cardSoft, "px-5 py-4")}>
-      <div className="flex justify-between mb-2">
-        <h2 className="text-sm font-semibold">Today's Tasks</h2>
-        <span className="text-xs">{filtered.filter((t) => !t.completedDates.includes(selectedDate)).length} left</span>
+      {/* HEADER */}
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-[16px] font-semibold text-foreground">{title}</h2>
       </div>
 
-      {filtered.length === 0 ? (
-        <p className="text-sm text-muted-foreground text-center py-6">No tasks for this day</p>
-      ) : (
-        <div className="space-y-1">
-          {filtered.map((t) => {
+      {/* LIST */}
+      <ul className="divide-y divide-foreground/[0.06]">
+        {todayTasks.length === 0 ? (
+          <li className="py-6 text-center text-sm text-muted-foreground">You're all clear ✨</li>
+        ) : (
+          todayTasks.map((t) => {
             const done = t.completedDates.includes(selectedDate);
 
-            return <ListItem label={t.label} checked={done} onToggle={() => toggleTask(t.id, selectedDate)} />;
-          })}
-        </div>
-      )}
+            return (
+              <li key={t.id}>
+                <ListItem
+                  label={t.label}
+                  subtitle={t.notes}
+                  category={t.category}
+                  priority={t.priority}
+                  checked={done}
+                  onToggle={() => toggleTask(t.id, selectedDate)}
+                />
+              </li>
+            );
+          })
+        )}
+      </ul>
     </section>
   );
 };
