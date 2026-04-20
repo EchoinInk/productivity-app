@@ -21,7 +21,6 @@ const Dashboard = () => {
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
 
-  // ✅ SINGLE SOURCE OF TRUTH
   const [selectedDate, setSelectedDate] = useState(new Date());
   const selectedDateString = selectedDate.toISOString().split("T")[0];
 
@@ -30,10 +29,8 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-5">
-      {/* ✅ CONNECTED HEADER */}
       <TodayHeader selectedDate={selectedDate} onDateChange={setSelectedDate} />
 
-      {/* ✅ PASS STRING */}
       <TodayTasks selectedDate={selectedDateString} />
 
       <MoneyLeftCard remaining={Math.round(remaining)} spent={Math.round(spent)} total={weeklyBudget} />
@@ -52,19 +49,10 @@ const Dashboard = () => {
         </AddButton>
       </div>
 
-      {/* ✅ FIXED SAVE */}
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
-        onSave={(t) =>
-          addTask(
-            t.label,
-            selectedDateString, // ✅ correct
-            t.time,
-            t.type,
-            t.recurrence,
-          )
-        }
+        onSave={(t) => addTask(t.label, selectedDateString, t.time, t.type, t.recurrence)}
       />
 
       <AddExpense
