@@ -61,6 +61,8 @@ interface AppState {
     recurrence?: "none" | "weekly" | "monthly",
   ) => void;
 
+  deleteTask: (id: number) => void;
+
   addExpense: (name: string, amount: number) => void;
   addMeal: (name: string, day: string) => void;
   addShoppingItem: (name: string) => void;
