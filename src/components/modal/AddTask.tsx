@@ -4,6 +4,7 @@ import AppCard from "@/components/AppCard";
 interface AddTaskProps {
   open: boolean;
   onClose: () => void;
+  defaultDate: string; // 👈 passed from Dashboard
   onSave: (task: {
     label: string;
     date: string;
@@ -13,9 +14,17 @@ interface AddTaskProps {
   }) => void;
 }
 
-const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
+const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
+const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const [label, setLabel] = useState("");
   const [time, setTime] = useState("");
+  const [date, setDate] = useState(defaultDate);
   const [type, setType] = useState<"General" | "Important">("General");
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
 
@@ -24,17 +33,28 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
   const canSave = label.trim().length > 0;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm animate-in fade-in"
-      onClick={onClose}
-    >
-      <div
-        className="w-full max-w-md p-4 animate-in slide-in-from-bottom duration-200"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm" onClick={onClose}>
+      <div className="w-full max-w-md p-4" onClick={(e) => e.stopPropagation()}>
         <AppCard className="space-y-4">
           {/* TITLE */}
-          <h2 className="text-lg font-semibold text-foreground">New Task</h2>
+          <div>
+            <h2 className="text-lg font-semibold">New Task</h2>
+
+            {/* SELECTED DATE DISPLAY */}
+            <label className="block text-sm text-muted-foreground mt-1">{formatDate(date)}</label>
+          </div>
+
+          {/* DATE PICKER */}
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="
+              w-full h-10 px-3 rounded-xl
+              bg-white/60 backdrop-blur
+              border border-white/40 text-sm
+            "
+          />
 
           {/* TASK NAME */}
           <input
@@ -45,52 +65,32 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
             className="
               w-full h-11 px-4 rounded-xl
               bg-white/60 backdrop-blur
-              border border-white/40
-              text-sm
-              placeholder:text-muted-foreground
+              border border-white/40 text-sm
             "
           />
 
-          {/* ROW: TIME + TYPE + REPEAT */}
+          {/* CONTROLS */}
           <div className="flex gap-2">
-            {/* TIME */}
             <input
               type="time"
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="
-                flex-1 h-11 px-3 rounded-xl
-                bg-white/60 backdrop-blur
-                border border-white/40
-                text-sm
-              "
+              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
             />
 
-            {/* TYPE */}
             <select
               value={type}
               onChange={(e) => setType(e.target.value as "General" | "Important")}
-              className="
-                flex-1 h-11 px-3 rounded-xl
-                bg-white/60 backdrop-blur
-                border border-white/40
-                text-sm
-              "
+              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
             >
               <option value="General">General</option>
               <option value="Important">Important</option>
             </select>
 
-            {/* RECURRENCE */}
             <select
               value={recurrence}
               onChange={(e) => setRecurrence(e.target.value as any)}
-              className="
-                flex-1 h-11 px-3 rounded-xl
-                bg-white/60 backdrop-blur
-                border border-white/40
-                text-sm
-              "
+              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
             >
               <option value="none">None</option>
               <option value="weekly">Weekly</option>
@@ -100,20 +100,10 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
 
           {/* ACTIONS */}
           <div className="flex gap-2 pt-2">
-            {/* CANCEL */}
-            <button
-              onClick={onClose}
-              className="
-                flex-1 h-11 rounded-xl
-                bg-white/50 backdrop-blur
-                border border-white/40
-                text-sm font-medium
-              "
-            >
+            <button onClick={onClose} className="flex-1 h-11 rounded-xl bg-white/50 border border-white/40">
               Cancel
             </button>
 
-            {/* SAVE */}
             <button
               disabled={!canSave}
               onClick={() => {
@@ -121,13 +111,12 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
 
                 onSave({
                   label,
-                  date: "",
+                  date,
                   time,
                   type,
                   recurrence,
                 });
 
-                // reset
                 setLabel("");
                 setTime("");
                 setType("General");
@@ -138,10 +127,7 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
               className="
                 flex-1 h-11 rounded-xl
                 bg-gradient-to-r from-blue-300 to-purple-300
-                text-white text-sm font-semibold
-                shadow-md
-                active:scale-[0.97]
-                transition-all
+                text-white font-semibold
                 disabled:opacity-50
               "
             >
