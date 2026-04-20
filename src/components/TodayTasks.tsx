@@ -1,4 +1,4 @@
-import TaskItem from "./TaskItem";
+import ListItem from "@/components/ListItem";
 import moreIcon from "@/assets/icons/more-vertical.svg";
 import { useAppStore } from "@/store/useAppStore";
 import { cardSoft } from "@/lib/theme";
@@ -8,7 +8,6 @@ const TodayTasks = () => {
   const tasks = useAppStore((s) => s.tasks).filter((t) => t.category === "Today");
   const toggleTask = useAppStore((s) => s.toggleTask);
 
-  // Fallback demo content matching mockup if store is empty
   const demo = [
     { id: -1, label: "Grocery Shopping", done: true },
     { id: -2, label: "Call the plumber", done: true },
@@ -28,7 +27,7 @@ const TodayTasks = () => {
       <ul className="divide-y divide-foreground/[0.06]">
         {items.map((t) => (
           <li key={t.id}>
-            <TaskItem label={t.label} done={t.done} onToggle={() => t.id > 0 && toggleTask(t.id)} />
+            <ListItem label={t.label} checked={t.done} onToggle={() => t.id > 0 && toggleTask(t.id)} />
           </li>
         ))}
       </ul>
