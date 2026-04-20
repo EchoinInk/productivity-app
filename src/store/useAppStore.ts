@@ -65,7 +65,7 @@ interface AppState {
     label: string,
     date: string,
     time?: string,
-    type?: "General" | "Important",
+    priority?: "Low" | "Medium" | "High",
     recurrence?: "none" | "weekly" | "monthly",
     category?: Task["category"],
   ) => void;
@@ -115,7 +115,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
         label,
         date,
         time,
-        type: type ?? "General",
+        type: priority ?? "Low",
         recurrence,
         completedDates: [],
       };
