@@ -1,7 +1,11 @@
 import ListItem from "@/components/ListItem";
 import { useAppStore } from "@/store/useAppStore";
 
-const TodayTasks = ({ selectedDate }: { selectedDate: string }) => {
+interface Props {
+  selectedDate: string;
+}
+
+const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
 
@@ -24,10 +28,14 @@ const TodayTasks = ({ selectedDate }: { selectedDate: string }) => {
     return false;
   });
 
+  if (filtered.length === 0) {
+    return <div className="text-sm text-muted-foreground text-center py-6">No tasks for this day</div>;
+  }
+
   return (
     <div>
       {filtered.map((t) => {
-        const done = t.completedDates?.includes(selectedDate);
+        const done = t.completedDates.includes(selectedDate);
 
         return <ListItem key={t.id} label={t.label} checked={done} onToggle={() => toggleTask(t.id, selectedDate)} />;
       })}
