@@ -21,17 +21,20 @@ const Dashboard = () => {
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
 
-  // 🔥 WILL UPGRADE LATER TO DYNAMIC DATE
-  const selectedDate = new Date().toISOString().split("T")[0];
+  // ✅ SINGLE SOURCE OF TRUTH
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const selectedDateString = selectedDate.toISOString().split("T")[0];
 
   const spent = expenses.reduce((s, e) => s + e.amount, 0);
   const remaining = Math.max(0, weeklyBudget - spent);
 
   return (
     <div className="space-y-5">
-      <TodayHeader />
+      {/* ✅ CONNECTED HEADER */}
+      <TodayHeader selectedDate={selectedDate} onDateChange={setSelectedDate} />
 
-      <TodayTasks selectedDate={selectedDate} />
+      {/* ✅ PASS STRING */}
+      <TodayTasks selectedDate={selectedDateString} />
 
       <MoneyLeftCard remaining={Math.round(remaining)} spent={Math.round(spent)} total={weeklyBudget} />
 
@@ -49,11 +52,19 @@ const Dashboard = () => {
         </AddButton>
       </div>
 
-      {/* MODALS */}
+      {/* ✅ FIXED SAVE */}
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
-        onSave={(t) => addTask(t.label, selectedDate, t.time, t.type, t.recurrence)}
+        onSave={(t) =>
+          addTask(
+            t.label,
+            selectedDateString, // ✅ correct
+            t.time,
+            t.type,
+            t.recurrence,
+          )
+        }
       />
 
       <AddExpense
