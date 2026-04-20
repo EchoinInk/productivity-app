@@ -40,7 +40,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
       {/* HEADER */}
       <div className="flex items-center justify-between mb-3">
         <div>
-          <p className="text-base font-semibold text-secondary-foreground">Tasks by category</p>
+          <p className="text-[15px] font-semibold text-secondary-foreground">Tasks by category</p>
         </div>
 
         <button onClick={() => navigate(`/tasks?date=${selectedDate}`)} className="text-xs font-medium text-primary">
