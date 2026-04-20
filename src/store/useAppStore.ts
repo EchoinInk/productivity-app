@@ -108,15 +108,16 @@ export const useAppStore = create<AppState>()((set, get) => ({
   },
 
   // ✅ ADD TASK (STRICT TYPE SAFE)
-  addTask: (label, date, time, type, recurrence = "none") =>
+  addTask: (label, date, time, priority, recurrence = "none", category) =>
     set((state) => {
       const newTask: Task = {
         id: Date.now(),
         label,
         date,
         time,
-        type: priority ?? "Low",
+        priority: priority ?? "Medium", // ✅ FIXED
         recurrence,
+        category,
         completedDates: [],
       };
 
