@@ -38,6 +38,8 @@ const TodayTasks = ({ selectedDate }: Props) => {
   // ✅ TAKE TOP 3 (WITH FALLBACK)
   const topTasks = highPriorityTasks.length > 0 ? highPriorityTasks.slice(0, 3) : todayTasks.slice(0, 3);
 
+  const isSingleCategory = categoryList.length === 1;
+
   const navigate = useNavigate();
 
   // ✅ HEADER TEXT
@@ -61,6 +63,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
       {/* TASKS */}
       <ul className="divide-y divide-foreground/[0.06]">
+        {isSingleCategory && <p className="text-xs text-muted-foreground mt-2">All tasks are in one category</p>}
         {categoryList.map(([category, count]) => (
           <li key={category} className="py-3">
             <div className="flex items-center justify-between">
