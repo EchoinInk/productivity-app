@@ -9,22 +9,24 @@ export const gradientPrimary = [
 export const gradientPrimaryCss = `linear-gradient(165deg, ${gradientPrimary.join(", ")})`;
 
 export const gradientSecondary = [
-  "#b9fff9", // soft aqua (tiny shift)
-  "#d4e3fc", // powder periwinkle (slightly brighter)
-  "#dbdfff", // lilac mist (micro‑lift)
-  "#f0e0f9", // lavender blush (barely warmer)
-  "#ffeaea", // rose haze (softened)
-]; // used one add button on dashboard
+  "#b4fdf6", // soft aqua (slightly deeper than primary)
+  "#cde0f7", // powder periwinkle (gentle shift)
+  "#d4d7fb", // lilac mist (soft but clearer difference)
+  "#e9d7f3", // lavender blush (slightly richer)
+  "#ffe2e2", // rose haze (soft warm shift)
+];
+// used one add button on dashboard
 
 export const gradientSecondaryCss = `linear-gradient(145deg, ${gradientSecondary.join(", ")})`;
 
 export const gradientTertiary = [
-  "#b8fff8", // soft aqua
-  "#d2e1fb", // powder periwinkle
-  "#d9ddff", // lilac mist
-  "#eeddf7", // lavender blush
-  "#ffe8e8", // rose haze
-]; //addbutton expense dashboard
+  "#b0f7f3", // balanced aqua
+  "#c0d0f3", // balanced periwinkle
+  "#c7c9f6", // balanced lavender-blue
+  "#ded0e7", // balanced muted lilac
+  "#f6d0d0", // balanced soft rose
+];
+//addbutton expense dashboard
 
 export const gradientTertiaryCss = `linear-gradient(125deg, ${gradientTertiary.join(", ")})`;
 
