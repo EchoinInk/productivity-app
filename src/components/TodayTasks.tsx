@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import ListItem from "@/components/ListItem";
 import { useAppStore } from "@/store/useAppStore";
 import { cardSoft } from "@/lib/theme";
 import clsx from "clsx";
@@ -10,11 +9,12 @@ interface Props {
 
 const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
+  const navigate = useNavigate();
 
-  // ✅ 1. DEFINE TODAY TASKS FIRST
+  // ✅ FILTER TASKS FOR SELECTED DATE
   const todayTasks = tasks.filter((t) => t.date === selectedDate);
 
-  // ✅ 2. THEN GROUP THEM
+  // ✅ GROUP BY CATEGORY
   const grouped = todayTasks.reduce(
     (acc, task) => {
       const category = task.category || "Other";
@@ -30,17 +30,10 @@ const TodayTasks = ({ selectedDate }: Props) => {
     {} as Record<string, number>,
   );
 
-  // ✅ 3. THEN CONVERT
+  // ✅ SORT CATEGORIES BY COUNT (DESC)
   const categoryList = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
-  // ✅ FILTER HIGH PRIORITY ONLY
-  const highPriorityTasks = todayTasks.filter((t) => t.priority === "High");
-
-  // ✅ TAKE TOP 3 (WITH FALLBACK)
-  const topTasks = highPriorityTasks.length > 0 ? highPriorityTasks.slice(0, 3) : todayTasks.slice(0, 3);
 
   const isSingleCategory = categoryList.length === 1;
-
-  const navigate = useNavigate();
 
   // ✅ HEADER TEXT
   const count = todayTasks.length;
@@ -61,23 +54,35 @@ const TodayTasks = ({ selectedDate }: Props) => {
         </button>
       </div>
 
-      {/* TASKS */}
-      <ul className="divide-y divide-foreground/[0.06]">
-        {isSingleCategory && <p className="text-xs text-muted-foreground mt-2">All tasks are in one category</p>}
-        {categoryList.map(([category, count]) => (
-          <li key={category} className="py-3">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-foreground">{category}</p>
-                <p className="text-xs text-muted-foreground">
-                  {count} {count === 1 ? "task" : "tasks"}
-                </p>
-              </div>
+      {/* SINGLE CATEGORY HINT */}
+      {isSingleCategory && <p className="text-xs text-muted-foreground mb-2">All tasks are in one category</p>}
 
-              <span className="text-muted-foreground">→</span>
-            </div>
-          </li>
-        ))}
+      {/* CATEGORY LIST */}
+      <ul className="divide-y divide-foreground/[0.06]">
+        {categoryList.length === 0 ? (
+          <li className="py-6 text-center text-sm text-muted-foreground">No tasks today</li>
+        ) : (
+          categoryList.map(([category, count]) => (
+            <li
+              key={category}
+              onClick={() => navigate(`/tasks?date=${selectedDate}&category=${encodeURIComponent(category)}`)}
+              className="py-3 px-2 rounded-lg cursor-pointer hover:bg-white/40 active:scale-[0.98] transition"
+            >
+              <div className="flex items-center justify-between">
+                {/* LEFT */}
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{category}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {count} {count === 1 ? "task" : "tasks"}
+                  </p>
+                </div>
+
+                {/* RIGHT ARROW */}
+                <span className="text-muted-foreground">→</span>
+              </div>
+            </li>
+          ))
+        )}
       </ul>
     </section>
   );
