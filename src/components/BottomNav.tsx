@@ -48,7 +48,7 @@ const BottomNav = () => {
                 src={icon}
                 alt={label}
                 className={clsx(
-                  "w-6 h-6 transition-all duration-200",
+                  "w-8 h-8 transition-all duration-200",
                   active ? "opacity-100 scale-110 drop-shadow-[0_0_6px_rgba(185,165,232,0.55)]" : "opacity-60",
                 )}
               />
