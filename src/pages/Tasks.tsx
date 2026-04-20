@@ -6,14 +6,17 @@ import PageHeader from "@/components/PageHeader";
 import TabBar from "@/components/TabBar";
 import { Plus } from "lucide-react";
 import { useAppStore, TaskCategory } from "@/store/useAppStore";
+import AddTask from "@/components/modal/AddTask";
 
 const tabs: TaskCategory[] = ["Today", "Upcoming", "Weekly", "Monthly"];
 
 const Tasks = () => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
+  const addTask = useAppStore((s) => s.addTask);
 
   const [activeTab, setActiveTab] = useState<TaskCategory>("Today");
+  const [open, setOpen] = useState(false);
 
   const filtered = tasks.filter((t) => t.category === activeTab);
 
@@ -21,7 +24,6 @@ const Tasks = () => {
     <div className="space-y-5">
       <PageHeader title="Tasks" />
 
-      {/* TAB BAR */}
       <TabBar tabs={tabs} activeTab={activeTab} onTabChange={(tab) => setActiveTab(tab as TaskCategory)} />
 
       <AppCard>
@@ -35,17 +37,23 @@ const Tasks = () => {
                 label={t.label}
                 checked={t.done}
                 onToggle={() => toggleTask(t.id)}
-                category={t.category} // ✅ ADDED
+                category={t.category}
               />
             ))}
           </div>
         )}
       </AppCard>
 
-      <ActionButton fullWidth variant="primary">
+      <ActionButton fullWidth variant="primary" onClick={() => setOpen(true)}>
         <Plus size={16} />
         Add Task
       </ActionButton>
+
+      <AddTask
+        open={open}
+        onClose={() => setOpen(false)}
+        onSave={(t) => addTask(t.label, t.category, t.date, t.time, t.type)}
+      />
     </div>
   );
 };
