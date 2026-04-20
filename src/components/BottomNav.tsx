@@ -6,6 +6,7 @@ import tasksIcon from "@/assets/icons/tasks.png";
 import budgetIcon from "@/assets/icons/budget.png";
 import mealsIcon from "@/assets/icons/meals.png";
 import listsIcon from "@/assets/icons/lists.png";
+import recipesIcon from "@/assets/icons/recipes.png";
 
 const navItems = [
   { path: "/", label: "Today", icon: todayIcon },
@@ -13,6 +14,7 @@ const navItems = [
   { path: "/budget", label: "Budget", icon: budgetIcon },
   { path: "/meals", label: "Meals", icon: mealsIcon },
   { path: "/shopping", label: "Lists", icon: listsIcon },
+  { path: "/recipes", label: "Recipes", icon: recipesIcon },
 ];
 
 const BottomNav = () => {
