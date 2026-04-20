@@ -5,19 +5,24 @@ interface ListItemProps {
   subtitle?: string;
   checked?: boolean;
   onToggle?: () => void;
-   onClick?: () => void;
+  onClick?: () => void;
   rightContent?: React.ReactNode;
   category?: string;
 }
 
-const ListItem = ({ label, subtitle, checked, onToggle, rightContent, category }: ListItemProps) => {
+const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent }: ListItemProps) => {
   return (
-    <div className="flex items-center gap-3 py-3 px-1 border-b border-white/40 last:border-b-0">
-      
+    <div
+      onClick={onClick}
+      className="flex items-center gap-3 py-3 px-1 border-b border-white/40 last:border-b-0 cursor-pointer"
+    >
       {/* Checkbox */}
       {onToggle && (
         <button
-          onClick={onToggle}
+          onClick={(e) => {
+            e.stopPropagation(); // ✅ IMPORTANT
+            onToggle();
+          }}
           className={clsx(
             "w-5 h-5 rounded-md flex items-center justify-center shrink-0 transition-all",
             checked
