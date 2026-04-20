@@ -1,6 +1,6 @@
 export const gradientPrimary = ["#b8fff8", "#d2e1fb", "#d9ddff", "#eeddf7", "#ffe8e8"];
 
-export const gradientPrimaryCss = `linear-gradient(155deg, ${gradientPrimary.join(", ")})`;
+export const gradientPrimaryCss = `linear-gradient(175deg, ${gradientPrimary.join(", ")})`;
 
 export const gradientSecondary = ["#b8fff8", "#d2e1fb", "#d9ddff", "#eeddf7", "#ffe8e8"];
 
