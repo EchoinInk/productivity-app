@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
-import todayIcon from "@/assets/icons/today.svg";
-import tasksIcon from "@/assets/icons/tasks.svg";
-import budgetIcon from "@/assets/icons/budget.svg";
-import mealsIcon from "@/assets/icons/meals.svg";
-import listsIcon from "@/assets/icons/lists.svg";
+import todayIcon from "@/assets/icons/today.png";
+import tasksIcon from "@/assets/icons/tasks.png";
+import budgetIcon from "@/assets/icons/budget.png";
+import mealsIcon from "@/assets/icons/meals.png";
+import listsIcon from "@/assets/icons/lists.png";
 
 const navItems = [
   { path: "/", label: "Today", icon: todayIcon },
