@@ -1,4 +1,4 @@
-import { Plus, FolderPlus } from "lucide-react";
+import { Clipboard-Plus, FolderPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import TodayHeader from "@/components/TodayHeader";
@@ -19,7 +19,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-2 gap-3 pt-1">
         <AddButton variant="secondary" onClick={() => navigate("/tasks")}>
-          <Plus size={18} strokeWidth={2.5} />
+          <Clipboard-Plus size={18} strokeWidth={2.5} />
           <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Task</span>
         </AddButton>
 
