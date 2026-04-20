@@ -53,11 +53,12 @@ interface AppState {
   recipes: Recipe[];
 
   toggleTask: (id: number, date: string) => void;
+
   addTask: (
     label: string,
     date: string,
     time?: string,
-    type?: string,
+    type?: "General" | "Important",
     recurrence?: "none" | "weekly" | "monthly",
   ) => void;
 
@@ -81,6 +82,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
   bills: [],
   recipes: [],
 
+  // ✅ TOGGLE (PER-DAY COMPLETION)
   toggleTask: (id, date) => {
     set({
       tasks: get().tasks.map((t) => {
@@ -97,20 +99,15 @@ export const useAppStore = create<AppState>()((set, get) => ({
     });
   },
 
-  addTask: (
-    label: string,
-    date: string,
-    time?: string,
-    type?: "General" | "Important",
-    recurrence: "none" | "weekly" | "monthly" = "none",
-  ) =>
+  // ✅ ADD TASK (STRICT TYPE SAFE)
+  addTask: (label, date, time, type, recurrence = "none") =>
     set((state) => {
       const newTask: Task = {
         id: Date.now(),
         label,
         date,
         time,
-        type: type ?? "General", // ✅ GUARANTEED VALID
+        type: type ?? "General",
         recurrence,
         completedDates: [],
       };
@@ -119,6 +116,12 @@ export const useAppStore = create<AppState>()((set, get) => ({
         tasks: [newTask, ...state.tasks],
       };
     }),
+
+  // ✅ DELETE TASK (THIS WAS MISSING)
+  deleteTask: (id) =>
+    set((state) => ({
+      tasks: state.tasks.filter((t) => t.id !== id),
+    })),
 
   addExpense: (name, amount) =>
     set((state) => ({
