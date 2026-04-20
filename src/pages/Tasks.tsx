@@ -57,8 +57,7 @@ const Tasks = () => {
         ) : (
           <div className="space-y-1">
             {filtered.map((t) => {
-              const done = t.completedDates?.includes(todayStr) ?? false;
-
+const done = t.completedDates.includes(todayStr);
               return (
                 <ListItem
                   key={t.id}
