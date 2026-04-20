@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import clsx from "clsx";
 import { gradientPrimaryCss } from "@/lib/gradients";
+import { gradientSecondaryCss } from "@/lib/gradients";
 
 interface AddButtonProps {
   children: ReactNode;
@@ -12,7 +13,7 @@ const AddButton = ({ children, onClick, className }: AddButtonProps) => {
   return (
     <button
       onClick={onClick}
-      style={{ background: gradientPrimaryCss }}
+      style={{ background: gradientSecondaryCss }}
       className={clsx(
         "h-12 w-full rounded-lg",
         "inline-flex items-center justify-center gap-2",
