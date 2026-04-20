@@ -51,7 +51,7 @@ const BillsDueCard = () => {
   return (
     <section className={clsx(cardSoft, "px-5 py-4")}>
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-[16px] font-semibold text-foreground">Bills Due</h2>
+        <h2 className="text-[16px] font-semibold text-secondary-foreground">Bills Due</h2>
         <button aria-label="More" className="p-1 -mr-1">
           <img src={moreIcon} alt="" className="w-5 h-5" />
         </button>
