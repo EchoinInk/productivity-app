@@ -1,5 +1,6 @@
 import { useAppStore } from "@/store/useAppStore";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 
 interface Props {
   selectedDate: string;
@@ -12,30 +13,51 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
 
   const total = todayTasks.length;
 
-  const completed = todayTasks.filter((t) =>
-    t.completedDates.includes(selectedDate)
-  ).length;
+  const completed = todayTasks.filter((t) => t.completedDates.includes(selectedDate)).length;
 
-  const percentage =
-    total === 0 ? 0 : Math.round((completed / total) * 100);
+  const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
 
   // 🔥 SVG CALCULATIONS
   const radius = 42;
   const stroke = 8;
   const normalizedRadius = radius - stroke / 2;
   const circumference = normalizedRadius * 2 * Math.PI;
-  const strokeDashoffset =
-    circumference - (percentage / 100) * circumference;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+
+  const [displayPercent, setDisplayPercent] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const end = percentage;
+
+    if (start === end) return;
+
+    const duration = 500; // ms (adjust feel here)
+    const incrementTime = 16; // ~60fps
+    const step = end / (duration / incrementTime);
+
+    const timer = setInterval(() => {
+      start += step;
+
+      if (start >= end) {
+        setDisplayPercent(end);
+        clearInterval(timer);
+      } else {
+        setDisplayPercent(Math.round(start));
+      }
+    }, incrementTime);
+
+    return () => clearInterval(timer);
+  }, [percentage]);
 
   return (
     <div
       className={clsx(
         "p-5 rounded-2xl text-white",
-        "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 shadow-lg"
+        "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 shadow-lg",
       )}
     >
       <div className="flex items-center justify-between">
-        
         {/* 🔵 CIRCULAR PROGRESS */}
         <div className="relative w-24 h-24">
           <svg height={radius * 2} width={radius * 2}>
@@ -69,9 +91,7 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
 
           {/* CENTER TEXT */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-lg font-semibold">
-              {percentage}%
-            </span>
+            <span className="text-lg font-semibold">{displayPercent}%</span>
           </div>
         </div>
 
