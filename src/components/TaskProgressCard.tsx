@@ -60,8 +60,8 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
       <div className="flex items-center justify-between">
         {/* 🔵 CIRCULAR PROGRESS */}
         <div className="relative w-24 h-24">
-          <svg height={radius * 2} width={radius * 2}>
-            {/* Background circle */}
+          <svg viewBox={`0 0 ${radius * 2} ${radius * 2}`} className="w-full h-full">
+            {/* Background */}
             <circle
               stroke="rgba(255,255,255,0.2)"
               fill="transparent"
@@ -71,7 +71,7 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
               cy={radius}
             />
 
-            {/* Progress circle */}
+            {/* Progress */}
             <circle
               stroke="white"
               fill="transparent"
@@ -91,9 +91,7 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
 
           {/* CENTER TEXT */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-lg font-semibold leading-none flex items-center justify-center">
-              {displayPercent}%
-            </span>
+            <span className="text-lg font-semibold leading-none translate-y-[1px]">{displayPercent}%</span>
           </div>
         </div>
 
