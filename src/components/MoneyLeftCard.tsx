@@ -30,17 +30,6 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
         <p className="text-sm text-foreground/70">
           <span className="font-semibold text-foreground">${spent}</span> Spent
         </p>
-        <div className="flex items-center gap-1.5">
-          {Array.from({ length: dots }).map((_, i) => {
-            const filled = i / dots < pct;
-            return (
-              <span
-                key={i}
-                className={clsx("w-1.5 h-1.5 rounded-full", filled ? "bg-foreground/40" : "bg-foreground/15")}
-              />
-            );
-          })}
-        </div>
       </div>
     </section>
   );
