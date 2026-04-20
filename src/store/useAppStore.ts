@@ -58,7 +58,7 @@ interface AppState {
     date: string,
     time?: string,
     type?: string,
-    recurrence?: "none" | "weekly" | "monthly"
+    recurrence?: "none" | "weekly" | "monthly",
   ) => void;
 
   addExpense: (name: string, amount: number) => void;
@@ -89,29 +89,34 @@ export const useAppStore = create<AppState>()((set, get) => ({
 
         return {
           ...t,
-          completedDates: exists
-            ? completed.filter((d) => d !== date)
-            : [...completed, date],
+          completedDates: exists ? completed.filter((d) => d !== date) : [...completed, date],
         };
       }),
     });
   },
 
-  addTask: (label, date, time, type, recurrence = "none") =>
-    set((state) => ({
-      tasks: [
-        {
-          id: Date.now(),
-          label,
-          date,
-          time,
-          type,
-          recurrence,
-          completedDates: [],
-        },
-        ...state.tasks,
-      ],
-    })),
+  addTask: (
+    label: string,
+    date: string,
+    time?: string,
+    type?: "General" | "Important",
+    recurrence: "none" | "weekly" | "monthly" = "none",
+  ) =>
+    set((state) => {
+      const newTask: Task = {
+        id: Date.now(),
+        label,
+        date,
+        time,
+        type: type ?? "General", // ✅ GUARANTEED VALID
+        recurrence,
+        completedDates: [],
+      };
+
+      return {
+        tasks: [newTask, ...state.tasks],
+      };
+    }),
 
   addExpense: (name, amount) =>
     set((state) => ({
@@ -130,9 +135,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
 
   toggleShoppingItem: (id) =>
     set((state) => ({
-      shoppingItems: state.shoppingItems.map((i) =>
-        i.id === id ? { ...i, done: !i.done } : i,
-      ),
+      shoppingItems: state.shoppingItems.map((i) => (i.id === id ? { ...i, done: !i.done } : i)),
     })),
 
   addBill: (name, amount, date) =>
