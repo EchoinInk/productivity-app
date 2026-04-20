@@ -5,6 +5,7 @@ import Tasks from "./pages/Tasks";
 import Budget from "./pages/Budget";
 import MealPlanner from "./pages/MealPlanner";
 import ShoppingList from "./pages/ShoppingList";
+import Recipes from "./pages/Recipes";
 import NotFound from "./pages/NotFound";
 
 import BottomNav from "@/components/BottomNav";
@@ -25,6 +26,7 @@ from-[#f8faff] via-[#f3f4ff] to-[#f5efff]"
               <Route path="/budget" element={<Budget />} />
               <Route path="/meals" element={<MealPlanner />} />
               <Route path="/shopping" element={<ShoppingList />} />
+              <Route path="/recipes" element={<Recipes />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
