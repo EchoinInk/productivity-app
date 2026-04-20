@@ -13,7 +13,10 @@ export interface Task {
     | "Family & Relationships"
     | "Finances";
   recurrence?: "none" | "weekly" | "monthly";
-  completedDates?: string[];
+
+  // ✅ FIXED (NO OPTIONAL)
+  completedDates: string[];
+
   time?: string;
 }
 
@@ -90,34 +93,38 @@ export const useAppStore = create<AppState>()((set, get) => ({
   bills: [],
   recipes: [],
 
-  // ✅ TOGGLE (PER-DAY COMPLETION)
+  // ✅ CLEAN TOGGLE (NO OPTIONAL CHECK NEEDED)
   toggleTask: (id, date) => {
     set({
       tasks: get().tasks.map((t) => {
         if (t.id !== id) return t;
 
-        const completed = t.completedDates || [];
-        const exists = completed.includes(date);
+        const exists = t.completedDates.includes(date);
 
         return {
           ...t,
-          completedDates: exists ? completed.filter((d) => d !== date) : [...completed, date],
+          completedDates: exists ? t.completedDates.filter((d) => d !== date) : [...t.completedDates, date],
         };
       }),
     });
   },
 
-  // ✅ ADD TASK (STRICT TYPE SAFE)
+  // ✅ ADD TASK WITH SAFE DATE
   addTask: (label, date, time, priority, recurrence = "none", category) =>
     set((state) => {
       const newTask: Task = {
         id: Date.now(),
         label,
-        date,
+
+        // ✅ SAFE DATE FALLBACK
+        date: date || new Date().toISOString().split("T")[0],
+
         time,
-        priority: priority ?? "Medium", // ✅ FIXED
+        priority: priority ?? "Medium",
         recurrence,
         category,
+
+        // ✅ ALWAYS EXISTS
         completedDates: [],
       };
 
@@ -126,7 +133,6 @@ export const useAppStore = create<AppState>()((set, get) => ({
       };
     }),
 
-  // ✅ DELETE TASK (THIS WAS MISSING)
   deleteTask: (id) =>
     set((state) => ({
       tasks: state.tasks.filter((t) => t.id !== id),
