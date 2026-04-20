@@ -1,4 +1,6 @@
 import { useAppStore } from "@/store/useAppStore";
+import { cardSoft } from "@/lib/theme";
+import { gradientPrimaryCss } from "@/lib/gradients";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
