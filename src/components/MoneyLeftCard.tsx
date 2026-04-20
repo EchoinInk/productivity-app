@@ -22,7 +22,7 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
       >
         <div className="flex items-baseline gap-2">
           <span className="text-4xl font-bold text-white drop-shadow-lg leading-none">${remaining}</span>
-          <span className="text-white/90 text-sm font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)]">
+          <span className="text-white text-sm font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)]">
             left to spend
           </span>{" "}
         </div>
