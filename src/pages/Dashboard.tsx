@@ -6,6 +6,7 @@ import TodayTasks from "@/components/TodayTasks";
 import MoneyLeftCard from "@/components/MoneyLeftCard";
 import BillsDueCard from "@/components/BillsDueCard";
 import AddButton from "@/components/AddButton";
+import TaskProgressCard from "@/components/TaskProgressCard";
 
 import AddTask from "@/components/modal/AddTask";
 import AddExpense from "@/components/modal/AddExpense";
@@ -35,7 +36,7 @@ const Dashboard = () => {
   return (
     <div className="space-y-5">
       <TodayHeader selectedDate={selectedDate} onDateChange={setSelectedDate} />
-
+<TaskProgressCard selectedDate={selectedDateString} />
       <TodayTasks selectedDate={selectedDateString} />
 
       <MoneyLeftCard remaining={Math.round(remaining)} spent={Math.round(spent)} total={weeklyBudget} />
