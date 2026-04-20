@@ -24,7 +24,7 @@ const Dashboard = () => {
         </AddButton>
 
         <AddButton variant="tertiary" onClick={() => navigate("/budget")}>
-          <PiggyBank size={20} strokeWidth={2} className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.22)]" />
+          <PiggyBank size={24} strokeWidth={2} className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.22)]" />
           <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Expense</span>
         </AddButton>
       </div>
