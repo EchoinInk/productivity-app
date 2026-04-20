@@ -16,7 +16,7 @@ export const gradientSecondary = [
   "#ffeaea", // rose haze (softened)
 ]; // used one add button on dashboard
 
-export const gradientSecondaryCss = `linear-gradient(-1355deg, ${gradientSecondary.join(", ")})`;
+export const gradientSecondaryCss = `linear-gradient(145deg, ${gradientSecondary.join(", ")})`;
 
 export const gradientTertiary = [
   "#b8fff8", // soft aqua
@@ -26,7 +26,7 @@ export const gradientTertiary = [
   "#ffe8e8", // rose haze
 ]; //addbutton expense dashboard
 
-export const gradientTertiaryCss = `linear-gradient(145deg, ${gradientTertiary.join(", ")})`;
+export const gradientTertiaryCss = `linear-gradient(125deg, ${gradientTertiary.join(", ")})`;
 
 export const gradientQuaternary = [
   "#b2f4ee", // bright airy teal
@@ -36,4 +36,4 @@ export const gradientQuaternary = [
   "#f7d2d2", // bright soft rose
 ];
 
-export const gradientQuaternaryCss = `linear-gradient(115deg, ${gradientQuaternary.join(", ")})`;
+export const gradientQuaternaryCss = `linear-gradient(105deg, ${gradientQuaternary.join(", ")})`;
