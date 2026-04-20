@@ -16,7 +16,7 @@ export const gradientSecondary = [
   "#ffe8e8", // rose haze
 ];
 
-export const gradientSecondaryCss = `linear-gradient(-165deg, ${gradientSecondary.join(", ")})`;
+export const gradientSecondaryCss = `linear-gradient(-125deg, ${gradientSecondary.join(", ")})`;
 
 export const gradientTertiary = [
   "#b8fff8", // soft aqua
@@ -36,4 +36,4 @@ export const gradientQuaternary = [
   "#f3c8c8", // soft rose
 ];
 
-export const gradientQuaternaryCss = `linear-gradient(165deg, ${gradientQuaternary.join(", ")})`;
+export const gradientQuaternaryCss = `linear-gradient(115deg, ${gradientQuaternary.join(", ")})`;
