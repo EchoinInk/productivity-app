@@ -58,7 +58,8 @@ const Tasks = () => {
       <AddTask
         open={open}
         onClose={() => setOpen(false)}
-        onSave={(t) => addTask(t.label, t.date || todayStr, t.time, t.type, t.recurrence)}
+        defaultDate={today} // ✅ FIX
+        onSave={(t) => addTask(t.label, t.date, t.time, t.type, t.recurrence)}
       />
     </div>
   );
