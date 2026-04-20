@@ -52,10 +52,8 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
 
   return (
     <div
-      className={clsx(
-        "p-5 rounded-2xl text-white",
-        "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 shadow-lg",
-      )}
+      className={clsx("p-5 rounded-2xl text-white", "shadow-[0_3px_12px_rgba(120,110,200,0.42)] rounded-2xl")}
+      style={{ background: gradientPrimaryCss }}
     >
       <div className="flex items-center justify-between">
         {/* 🔵 CIRCULAR PROGRESS */}
