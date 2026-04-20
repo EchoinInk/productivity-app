@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
-import todayIcon from "@/assets/icons/today.svg";
-import tasksIcon from "@/assets/icons/tasks.svg";
-import budgetIcon from "@/assets/icons/budget.svg";
-import mealsIcon from "@/assets/icons/meals.svg";
-import listsIcon from "@/assets/icons/lists.svg";
+import todayIcon from "@/assets/icons/today.png";
+import tasksIcon from "@/assets/icons/tasks.png";
+import budgetIcon from "@/assets/icons/budget.png";
+import mealsIcon from "@/assets/icons/meals.png";
+import listsIcon from "@/assets/icons/lists.png";
 
 const navItems = [
   { path: "/", label: "Today", icon: todayIcon },
@@ -49,9 +49,7 @@ const BottomNav = () => {
                 alt={label}
                 className={clsx(
                   "w-6 h-6 transition-all duration-200",
-                  active
-                    ? "opacity-100 scale-110 drop-shadow-[0_0_6px_rgba(185,165,232,0.55)]"
-                    : "opacity-60",
+                  active ? "opacity-100 scale-110 drop-shadow-[0_0_6px_rgba(185,165,232,0.55)]" : "opacity-60",
                 )}
               />
 
