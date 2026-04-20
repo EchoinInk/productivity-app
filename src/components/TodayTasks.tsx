@@ -10,8 +10,11 @@ interface Props {
 
 const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
-  const toggleTask = useAppStore((s) => s.toggleTask);
 
+  // ✅ 1. DEFINE TODAY TASKS FIRST
+  const todayTasks = tasks.filter((t) => t.date === selectedDate);
+
+  // ✅ 2. THEN GROUP THEM
   const grouped = todayTasks.reduce(
     (acc, task) => {
       const category = task.category || "Other";
@@ -27,10 +30,8 @@ const TodayTasks = ({ selectedDate }: Props) => {
     {} as Record<string, number>,
   );
 
+  // ✅ 3. THEN CONVERT
   const categoryList = Object.entries(grouped);
-
-  // ✅ FILTER TASKS FOR SELECTED DATE
-  const todayTasks = tasks.filter((t) => t.date === selectedDate);
 
   // ✅ FILTER HIGH PRIORITY ONLY
   const highPriorityTasks = todayTasks.filter((t) => t.priority === "High");
