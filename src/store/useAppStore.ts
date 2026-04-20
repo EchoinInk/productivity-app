@@ -74,6 +74,8 @@ interface AppState {
     category?: Task["category"],
   ) => void;
 
+  updateTask: (updated: Task) => void;
+  
   deleteTask: (id: number) => void;
 
   addExpense: (name: string, amount: number) => void;
@@ -134,6 +136,13 @@ export const useAppStore = create<AppState>()((set, get) => ({
       };
     }),
 
+  updateTask: (updated) =>
+  set((state) => ({
+    tasks: state.tasks.map((t) =>
+      t.id === updated.id ? updated : t
+    ),
+  })),
+  
   deleteTask: (id) =>
     set((state) => ({
       tasks: state.tasks.filter((t) => t.id !== id),
