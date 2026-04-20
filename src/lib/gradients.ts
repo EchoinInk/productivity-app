@@ -6,7 +6,7 @@ export const gradientPrimary = [
   "#ffe8e8", // rose haze
 ]; // used action button
 
-export const gradientPrimaryCss = `linear-gradient(165deg, ${gradientPrimary.join(", ")})`;
+export const gradientPrimaryCss = `linear-gradient(150deg, ${gradientPrimary.join(", ")})`;
 
 export const gradientSecondary = [
   "#b4fdf6", // soft aqua (slightly deeper than primary)
