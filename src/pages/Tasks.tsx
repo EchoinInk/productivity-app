@@ -7,6 +7,7 @@ import TabBar from "@/components/TabBar";
 import { Plus } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import AddTask from "@/components/modal/AddTask";
+import { getToday } from "@/lib/date";
 
 const tabs = ["Today", "Upcoming", "Weekly", "Monthly"];
 
@@ -19,8 +20,8 @@ const Tasks = () => {
   const [open, setOpen] = useState(false);
 
   const today = new Date();
-  const todayStr = today.toISOString().split("T")[0];
-
+const todayStr = getToday();
+  
   const filtered = tasks.filter((t) => {
     const d = new Date(t.date);
 
