@@ -13,12 +13,12 @@ export interface Task {
     | "Errands & Life Admin"
     | "Family & Relationships"
     | "Finances";
+
   recurrence?: "none" | "weekly" | "monthly";
-
-  // ✅ FIXED (NO OPTIONAL)
   completedDates: string[];
-
   time?: string;
+
+  notes?: string; // ✅ ADD THIS
 }
 
 export interface Expense {
@@ -72,10 +72,11 @@ interface AppState {
     priority?: "Low" | "Medium" | "High",
     recurrence?: "none" | "weekly" | "monthly",
     category?: Task["category"],
+    notes?: string, // ✅ ADD
   ) => void;
 
   updateTask: (updated: Task) => void;
-  
+
   deleteTask: (id: number) => void;
 
   addExpense: (name: string, amount: number) => void;
@@ -113,21 +114,17 @@ export const useAppStore = create<AppState>()((set, get) => ({
   },
 
   // ✅ ADD TASK WITH SAFE DATE
-  addTask: (label, date, time, priority, recurrence = "none", category) =>
+  addTask: (label, date, time, priority, recurrence = "none", category, notes) =>
     set((state) => {
       const newTask: Task = {
         id: Date.now(),
         label,
-
-        // ✅ SAFE DATE FALLBACK
         date: date || getToday(),
-
         time,
         priority: priority ?? "Medium",
         recurrence,
         category,
-
-        // ✅ ALWAYS EXISTS
+        notes, // ✅ ADD THIS
         completedDates: [],
       };
 
@@ -137,12 +134,10 @@ export const useAppStore = create<AppState>()((set, get) => ({
     }),
 
   updateTask: (updated) =>
-  set((state) => ({
-    tasks: state.tasks.map((t) =>
-      t.id === updated.id ? updated : t
-    ),
-  })),
-  
+    set((state) => ({
+      tasks: state.tasks.map((t) => (t.id === updated.id ? updated : t)),
+    })),
+
   deleteTask: (id) =>
     set((state) => ({
       tasks: state.tasks.filter((t) => t.id !== id),
