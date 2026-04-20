@@ -6,7 +6,7 @@ interface AddButtonProps {
   children: ReactNode;
   onClick?: () => void;
   className?: string;
-  variant?: "primary" | "secondary" | "tertiary" | "quaternary";
+  variant?: "primary" | "secondary" | "tertiary" | "Quaternary";
 }
 
 const AddButton = ({ children, onClick, className, variant = "secondary" }: AddButtonProps) => {
