@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import AppCard from "@/components/AppCard";
-
 import type { Task } from "@/store/useAppStore";
 
 interface Props {
@@ -13,17 +12,19 @@ interface Props {
 
 const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
   const [label, setLabel] = useState("");
+  const [notes, setNotes] = useState("");
   const [priority, setPriority] = useState<"Low" | "Medium" | "High">("Medium");
   const [category, setCategory] = useState<Task["category"]>("Home & Household");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
 
-  // ✅ PREFILL WHEN MODAL OPENS
+  // ✅ PREFILL
   useEffect(() => {
     if (!task) return;
 
     setLabel(task.label);
+    setNotes(task.notes ?? "");
     setPriority(task.priority ?? "Medium");
     setCategory(task.category ?? "Home & Household");
     setDate(task.date);
@@ -39,14 +40,20 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
         <AppCard className="space-y-4">
           <h2 className="text-lg font-semibold">Edit Task</h2>
 
-          {/* TASK NAME (PREFILLED) */}
+          {/* NAME */}
           <input
-  value={label}
-  autoFocus
-  onFocus={(e) => e.target.select()} // 🔥 THIS IS THE MAGIC
-  onChange={(e) => setLabel(e.target.value)}
-  className="w-full h-11 px-4 rounded-xl bg-white/60 border"
-/>
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            onFocus={(e) => e.target.select()}
+            className="w-full h-11 px-4 rounded-xl bg-white/60 border border-white/40 text-sm"
+          />
+
+          {/* NOTES */}
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="w-full px-3 py-2 rounded-xl bg-white/60 border border-white/40 text-sm resize-none"
+          />
 
           {/* CATEGORY */}
           <select
@@ -67,7 +74,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
 
           {/* TIME */}
@@ -75,14 +82,14 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
 
           {/* PRIORITY */}
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value as any)}
-            className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
           >
             <option>Low</option>
             <option>Medium</option>
@@ -93,7 +100,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
           <select
             value={recurrence}
             onChange={(e) => setRecurrence(e.target.value as any)}
-            className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
           >
             <option value="none">None</option>
             <option value="weekly">Weekly</option>
@@ -111,6 +118,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
                 onSave({
                   ...task,
                   label,
+                  notes,
                   date,
                   time,
                   priority,
