@@ -35,11 +35,6 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
   const isSingleCategory = categoryList.length === 1;
 
-  // ✅ HEADER TEXT
-  const count = todayTasks.length;
-
-  const headerText = count === 0 ? "You're all clear ✨" : `You have ${count} ${count === 1 ? "task" : "tasks"} today`;
-
   return (
     <section className={clsx(cardSoft, "px-5 py-4")}>
       {/* HEADER */}
