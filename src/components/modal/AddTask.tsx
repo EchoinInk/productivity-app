@@ -6,7 +6,7 @@ interface AddTaskProps {
   onClose: () => void;
   onSave: (task: {
     label: string;
-    category: string;
+    category: "Today" | "Upcoming" | "Weekly" | "Monthly";
     date: string;
     time: string;
     type: string;
@@ -15,32 +15,39 @@ interface AddTaskProps {
 
 const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
   const [label, setLabel] = useState("");
-  const [category, setCategory] = useState("Today");
+  const [category, setCategory] = useState<"Today" | "Upcoming" | "Weekly" | "Monthly">("Today");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [type, setType] = useState("General");
 
   if (!open) return null;
 
+  const canSave = label.trim().length > 0;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm">
-      <div className="w-full max-w-md p-4">
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm animate-in fade-in"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-md p-4 animate-in slide-in-from-bottom duration-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         <AppCard className="space-y-4">
           <h2 className="text-lg font-semibold">New Task</h2>
 
-          {/* Task Name */}
           <input
+            autoFocus
             placeholder="Task name"
             value={label}
             onChange={(e) => setLabel(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-border text-sm"
+            className="w-full px-3 py-2 rounded-lg border border-border text-sm bg-background"
           />
 
-          {/* Category */}
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-border text-sm"
+            onChange={(e) => setCategory(e.target.value as typeof category)}
+            className="w-full px-3 py-2 rounded-lg border border-border text-sm bg-background"
           >
             <option>Today</option>
             <option>Upcoming</option>
@@ -48,57 +55,49 @@ const AddTask = ({ open, onClose, onSave }: AddTaskProps) => {
             <option>Monthly</option>
           </select>
 
-          {/* Date */}
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-border text-sm"
+            className="w-full px-3 py-2 rounded-lg border border-border text-sm bg-background"
           />
 
-          {/* Time */}
           <input
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-border text-sm"
+            className="w-full px-3 py-2 rounded-lg border border-border text-sm bg-background"
           />
 
-          {/* Task Type */}
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-border text-sm"
+            className="w-full px-3 py-2 rounded-lg border border-border text-sm bg-background"
           >
             <option>General</option>
             <option>Important</option>
           </select>
 
-          {/* Actions */}
           <div className="flex gap-2 pt-2">
             <button
               onClick={onClose}
-              className="flex-1 py-2 rounded-lg bg-white/60 border border-white/40 text-sm"
+              className="flex-1 py-2 rounded-lg bg-secondary border border-border text-sm"
             >
               Cancel
             </button>
-
             <button
+              disabled={!canSave}
               onClick={() => {
-                if (!label.trim()) return;
-
+                if (!canSave) return;
                 onSave({ label, category, date, time, type });
-
-                // reset
                 setLabel("");
                 setCategory("Today");
                 setDate("");
                 setTime("");
                 setType("General");
-
                 onClose();
               }}
-              className="flex-1 py-2 rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 text-white text-sm"
+              className="flex-1 py-2 rounded-lg bg-primary text-primary-foreground text-sm disabled:opacity-50"
             >
               Save
             </button>

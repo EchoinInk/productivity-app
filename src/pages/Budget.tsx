@@ -1,21 +1,20 @@
+import { useState } from "react";
 import AppCard from "@/components/AppCard";
 import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import { Plus } from "lucide-react";
-
-const mockTransactions = [
-  { id: 1, label: "Groceries", amount: -45.5 },
-  { id: 2, label: "Coffee", amount: -5.0 },
-];
+import { useAppStore } from "@/store/useAppStore";
+import AddExpense from "@/components/modal/AddExpense";
 
 const Budget = () => {
-  const income = 500;
+  const expenseItems = useAppStore((s) => s.expenses);
+  const addExpense = useAppStore((s) => s.addExpense);
+  const income = useAppStore((s) => s.weeklyBudget);
 
-  const expenses = mockTransactions
-    .filter((t) => t.amount < 0)
-    .reduce((s, t) => s + Math.abs(t.amount), 0);
+  const [open, setOpen] = useState(false);
 
+  const expenses = expenseItems.reduce((s, t) => s + t.amount, 0);
   const remaining = income - expenses;
   const percentage = Math.min((expenses / income) * 100, 100);
 
@@ -29,15 +28,10 @@ const Budget = () => {
 
           <p className="text-3xl font-medium">${remaining.toFixed(2)}</p>
 
-          <p className="text-sm opacity-80">
-            remaining of ${income.toFixed(2)}
-          </p>
+          <p className="text-sm opacity-80">remaining of ${income.toFixed(2)}</p>
 
           <div className="h-2 w-full bg-white/30 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-white rounded-full"
-              style={{ width: `${percentage}%` }}
-            />
+            <div className="h-full bg-white rounded-full" style={{ width: `${percentage}%` }} />
           </div>
 
           <div className="grid grid-cols-2 gap-2 pt-2 text-sm">
@@ -54,38 +48,35 @@ const Budget = () => {
       </AppCard>
 
       <AppCard>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-2">
-          Transactions
-        </h2>
+        <h2 className="text-sm font-semibold text-muted-foreground mb-2">Transactions</h2>
 
-        <div className="space-y-1">
-          {mockTransactions.map((t) => {
-            const isIncome = t.amount > 0;
-
-            return (
+        {expenseItems.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-4 text-center">No transactions yet</p>
+        ) : (
+          <div className="space-y-1">
+            {expenseItems.map((t) => (
               <ListItem
                 key={t.id}
-                label={t.label}
+                label={t.name}
                 rightContent={
-                  <span
-                    className={`text-sm font-semibold ${
-                      isIncome ? "text-green-600" : ""
-                    }`}
-                  >
-                    {isIncome ? "+" : "-"}$
-                    {Math.abs(t.amount).toFixed(2)}
-                  </span>
+                  <span className="text-sm font-semibold">-${t.amount.toFixed(2)}</span>
                 }
               />
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
       </AppCard>
 
-      <ActionButton fullWidth variant="primary">
+      <ActionButton fullWidth variant="primary" onClick={() => setOpen(true)}>
         <Plus size={16} />
         Add Expense
       </ActionButton>
+
+      <AddExpense
+        open={open}
+        onClose={() => setOpen(false)}
+        onSave={(e) => addExpense(e.name, e.amount)}
+      />
     </div>
   );
 };
