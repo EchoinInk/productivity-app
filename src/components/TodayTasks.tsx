@@ -27,16 +27,9 @@ const TodayTasks = ({ selectedDate }: { selectedDate: string }) => {
   return (
     <div>
       {filtered.map((t) => {
-        const done = t.completedDates.includes(selectedDate);
+        const done = t.completedDates?.includes(selectedDate);
 
-        return (
-          <ListItem
-            key={t.id}
-            label={t.label}
-            checked={done}
-            onToggle={() => toggleTask(t.id, selectedDate)}
-          />
-        );
+        return <ListItem key={t.id} label={t.label} checked={done} onToggle={() => toggleTask(t.id, selectedDate)} />;
       })}
     </div>
   );
