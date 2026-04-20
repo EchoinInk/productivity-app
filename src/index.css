@@ -73,3 +73,12 @@
     background: var(--gradient-budget);
   }
 }
+@layer components {
+  .input {
+    @apply w-full px-3 py-2 rounded-xl border border-border text-sm bg-white/70 backdrop-blur-md;
+  }
+
+  .modal {
+    @apply fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm p-4;
+  }
+}
