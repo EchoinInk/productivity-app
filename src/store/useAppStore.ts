@@ -4,7 +4,7 @@ export interface Task {
   id: number;
   label: string;
   date: string;
-  type?: "General" | "Important";
+  priority?: "Low" | "Medium" | "High";
   category?:
     | "Home & Household"
     | "Health & Wellness"
