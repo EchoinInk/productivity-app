@@ -49,7 +49,7 @@ const Dashboard = () => {
           <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Task</span>
         </AddButton>
 
-        <AddButton variant="quaternary" onClick={() => setExpenseOpen(true)}>
+        <AddButton variant="quarternary" onClick={() => setExpenseOpen(true)}>
           <PiggyBank size={24} strokeWidth={1.75} className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.22)]" />
           <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Expense</span>
         </AddButton>
