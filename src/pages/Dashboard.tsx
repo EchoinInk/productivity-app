@@ -20,12 +20,12 @@ const Dashboard = () => {
       <div className="grid grid-cols-2 gap-3 pt-1">
         <AddButton variant="secondary" onClick={() => navigate("/tasks")}>
           <Plus size={18} strokeWidth={2.5} />
-          Add Task
+          <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">Add Task</span>
         </AddButton>
 
         <AddButton variant="tertiary" onClick={() => navigate("/budget")}>
           <FolderPlus size={18} strokeWidth={2.5} />
-          Add Expense
+          <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">Add Expense</span>
         </AddButton>
       </div>
     </div>
