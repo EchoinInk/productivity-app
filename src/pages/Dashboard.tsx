@@ -21,32 +21,37 @@ const Dashboard = () => {
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
 
+  const selectedDate = new Date().toISOString().split("T")[0];
+
   const spent = expenses.reduce((s, e) => s + e.amount, 0);
   const remaining = Math.max(0, weeklyBudget - spent);
 
   return (
     <div className="space-y-5">
       <TodayHeader />
-      <TodayTasks />
+      <TodayTasks selectedDate={selectedDate} />
+
       <MoneyLeftCard remaining={Math.round(remaining)} spent={Math.round(spent)} total={weeklyBudget} />
       <BillsDueCard />
 
       <div className="grid grid-cols-2 gap-3 pt-1">
         <AddButton variant="secondary" onClick={() => setTaskOpen(true)}>
-          <ClipboardPlus size={21} strokeWidth={2} className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.22)]" />
-          <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Task</span>
+          <ClipboardPlus size={21} />
+          Add Task
         </AddButton>
 
         <AddButton variant="tertiary" onClick={() => setExpenseOpen(true)}>
-          <PiggyBank size={24} strokeWidth={1.75} className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.22)]" />
-          <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">Add Expense</span>
+          <PiggyBank size={24} />
+          Add Expense
         </AddButton>
       </div>
 
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
-        onSave={(t) => addTask(t.label, t.category, t.date, t.time, t.type)}
+        onSave={(t) =>
+          addTask(t.label, selectedDate, t.time, t.type, t.recurrence)
+        }
       />
 
       <AddExpense
