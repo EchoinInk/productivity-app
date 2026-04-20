@@ -49,7 +49,7 @@ const BottomNav = () => {
                 alt={label}
                 className={clsx(
                   "w-8 h-8 transition-all duration-200",
-                  active ? "opacity-100 scale-110 drop-shadow-[0_0_6px_rgba(185,165,232,0.55)]" : "opacity-60",
+                  active ? "opacity-100 scale-110 drop-shadow-[0_0_10px_rgba(185,165,232,0.25)]" : "opacity-60",
                 )}
               />
 
