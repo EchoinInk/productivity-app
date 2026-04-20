@@ -41,10 +41,12 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
 
           {/* TASK NAME (PREFILLED) */}
           <input
-            value={label}
-            onChange={(e) => setLabel(e.target.value)}
-            className="w-full h-11 px-4 rounded-xl bg-white/60 border border-white/40 text-sm"
-          />
+  value={label}
+  autoFocus
+  onFocus={(e) => e.target.select()} // 🔥 THIS IS THE MAGIC
+  onChange={(e) => setLabel(e.target.value)}
+  className="w-full h-11 px-4 rounded-xl bg-white/60 border"
+/>
 
           {/* CATEGORY */}
           <select
