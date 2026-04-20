@@ -17,7 +17,7 @@ interface AddTaskProps {
     label: string;
     date: string;
     time: string;
-    type: "General" | "Important";
+    priority: "Low" | "Medium" | "High"; // ✅ FIXED
     recurrence: "none" | "weekly" | "monthly";
     category: TaskCategory;
   }) => void;
@@ -34,10 +34,12 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const [label, setLabel] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState(defaultDate);
-  const [type, setType] = useState<"General" | "Important">("General");
+
+  // ✅ NEW PRIORITY
+  const [priority, setPriority] = useState<"Low" | "Medium" | "High">("Medium");
+
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
 
-  // ✅ NEW
   const [category, setCategory] = useState<TaskCategory>("Home & Household");
 
   if (!open) return null;
@@ -71,7 +73,7 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
             className="w-full h-11 px-4 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
 
-          {/* ✅ CATEGORY (NEW) */}
+          {/* CATEGORY */}
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value as TaskCategory)}
@@ -94,13 +96,15 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
               className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
             />
 
+            {/* ✅ PRIORITY DROPDOWN */}
             <select
-              value={type}
-              onChange={(e) => setType(e.target.value as "General" | "Important")}
+              value={priority}
+              onChange={(e) => setPriority(e.target.value as any)}
               className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
             >
-              <option value="General">General</option>
-              <option value="Important">Important</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
             </select>
 
             <select
@@ -129,14 +133,15 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
                   label,
                   date,
                   time,
-                  type,
+                  priority, // ✅ FIXED
                   recurrence,
-                  category, // ✅ NEW
+                  category,
                 });
 
+                // reset
                 setLabel("");
                 setTime("");
-                setType("General");
+                setPriority("Medium");
                 setRecurrence("none");
                 setCategory("Home & Household");
 
