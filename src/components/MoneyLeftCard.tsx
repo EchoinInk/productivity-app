@@ -16,9 +16,8 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
     <section className={clsx(cardSoft, "px-5 py-4")}>
         <div className="flex items-center justify-between mb-3">
         <div>
-          <p className="text-[17px] font-semibold text-secondary-foreground">Tasks by category</p>
-        </div> <p className="text-[17px] font-semibold text-secondary-foreground mb-3">Money Left This Week</p>
-
+          <p className="text-[17px] font-semibold text-secondary-foreground">Money left this week</p>
+        </div>
       <div
         className="rounded-2xl px-5 py-5 shadow-[0_3px_12px_rgba(120,110,200,0.42)]"
         style={{ background: gradientSecondaryCss }}
