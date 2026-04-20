@@ -67,12 +67,16 @@ const todayStr = getToday();
 const done = t.completedDates.includes(todayStr);
               return (
                 <ListItem
-                  key={t.id}
-                  label={t.label}
-subtitle={`${t.category} • ${t.priority}`}
-                  checked={done}
-                  onToggle={() => toggleTask(t.id, todayStr)}
-                />
+  key={t.id}
+  label={t.label}
+  subtitle={`${t.category} • ${t.priority}`}
+  checked={done}
+  onToggle={() => toggleTask(t.id, todayStr)}
+  onClick={() => {
+    setSelectedTask(t);
+    setEditOpen(true);
+  }}
+/>
               );
             })}
           </div>
