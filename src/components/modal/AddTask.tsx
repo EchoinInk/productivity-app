@@ -1,16 +1,25 @@
 import { useState } from "react";
 import AppCard from "@/components/AppCard";
 
+type TaskCategory =
+  | "Home & Household"
+  | "Health & Wellness"
+  | "Career Development"
+  | "Errands & Life Admin"
+  | "Family & Relationships"
+  | "Finances";
+
 interface AddTaskProps {
   open: boolean;
   onClose: () => void;
-  defaultDate: string; // 👈 passed from Dashboard
+  defaultDate: string;
   onSave: (task: {
     label: string;
     date: string;
     time: string;
     type: "General" | "Important";
     recurrence: "none" | "weekly" | "monthly";
+    category: TaskCategory;
   }) => void;
 }
 
@@ -28,6 +37,9 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const [type, setType] = useState<"General" | "Important">("General");
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
 
+  // ✅ NEW
+  const [category, setCategory] = useState<TaskCategory>("Home & Household");
+
   if (!open) return null;
 
   const canSave = label.trim().length > 0;
@@ -39,21 +51,15 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
           {/* TITLE */}
           <div>
             <h2 className="text-lg font-semibold">New Task</h2>
-
-            {/* SELECTED DATE DISPLAY */}
             <label className="block text-sm text-muted-foreground mt-1">{formatDate(date)}</label>
           </div>
 
-          {/* DATE PICKER */}
+          {/* DATE */}
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="
-              w-full h-10 px-3 rounded-xl
-              bg-white/60 backdrop-blur
-              border border-white/40 text-sm
-            "
+            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
 
           {/* TASK NAME */}
@@ -62,12 +68,22 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
             placeholder="Task name"
             value={label}
             onChange={(e) => setLabel(e.target.value)}
-            className="
-              w-full h-11 px-4 rounded-xl
-              bg-white/60 backdrop-blur
-              border border-white/40 text-sm
-            "
+            className="w-full h-11 px-4 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
+
+          {/* ✅ CATEGORY (NEW) */}
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value as TaskCategory)}
+            className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+          >
+            <option>Home & Household</option>
+            <option>Health & Wellness</option>
+            <option>Career Development</option>
+            <option>Errands & Life Admin</option>
+            <option>Family & Relationships</option>
+            <option>Finances</option>
+          </select>
 
           {/* CONTROLS */}
           <div className="flex gap-2">
@@ -115,21 +131,18 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
                   time,
                   type,
                   recurrence,
+                  category, // ✅ NEW
                 });
 
                 setLabel("");
                 setTime("");
                 setType("General");
                 setRecurrence("none");
+                setCategory("Home & Household");
 
                 onClose();
               }}
-              className="
-                flex-1 h-11 rounded-xl
-                bg-gradient-to-r from-blue-300 to-purple-300
-                text-white font-semibold
-                disabled:opacity-50
-              "
+              className="flex-1 h-11 rounded-xl bg-gradient-to-r from-blue-300 to-purple-300 text-white font-semibold disabled:opacity-50"
             >
               Save
             </button>
