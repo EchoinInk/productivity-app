@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import clsx from "clsx";
-import { gradientPrimaryCss, gradientSecondaryCss, gradientTertiaryCss } from "@/lib/gradients";
+import { gradientPrimaryCss, gradientSecondaryCss, gradientTertiaryCss, gradientQuaternaryCss } from "@/lib/gradients";
 
 interface AddButtonProps {
   children: ReactNode;
   onClick?: () => void;
   className?: string;
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "tertiary" | "quaternary";
 }
 
 const AddButton = ({ children, onClick, className, variant = "secondary" }: AddButtonProps) => {
@@ -14,6 +14,7 @@ const AddButton = ({ children, onClick, className, variant = "secondary" }: AddB
     primary: gradientPrimaryCss,
     secondary: gradientSecondaryCss,
     tertiary: gradientTertiaryCss,
+    quarternary: gradientQuaternaryCss,
   };
 
   return (
