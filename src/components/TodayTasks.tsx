@@ -26,7 +26,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
   const categoryConfig = {
     "Home & Household": {
       icon: catHome,
-      bg: "#c8eef9", //blue
+      bg: "#b8fff8", // soft aqua
     },
     "Health & Wellness": {
       icon: catHealth,
@@ -34,11 +34,11 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     "Career Development": {
       icon: catCareer,
-      bg: "#d1e2fb", // blue/purple
+      bg: "#d2e1fb", // powder periwinkle
     },
     "Errands & Life Admin": {
       icon: catErrands,
-      bg: "#c1d1f2", // purple
+      bg: "#eeddf7", // lavender blush
     },
     "Family & Relationships": {
       icon: catFamily,
@@ -46,7 +46,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     Finances: {
       icon: catFinance,
-      bg: "#efd0d7",
+      bg: "#ffe8e8", //rose haze
     },
     Other: {
       icon: catErrands,
