@@ -26,27 +26,27 @@ const TodayTasks = ({ selectedDate }: Props) => {
   const categoryConfig = {
     "Home & Household": {
       icon: catHome,
-      bg: "#F7D4D4",
+      bg: "#c0f6f9",
     },
     "Health & Wellness": {
       icon: catHealth,
-      bg: "#C8F7EF",
+      bg: "#fecfe8",
     },
     "Career Development": {
       icon: catCareer,
-      bg: "#B8C9F4",
+      bg: "#d3e1fc",
     },
     "Errands & Life Admin": {
       icon: catErrands,
-      bg: "#D6D4FF",
+      bg: "#e2d2eb",
     },
     "Family & Relationships": {
       icon: catFamily,
-      bg: "#eeddf7",
+      bg: "#f0cffa",
     },
     Finances: {
       icon: catFinance,
-      bg: "#BEE8E0",
+      bg: "#f2d2d8",
     },
     Other: {
       icon: catErrands,
