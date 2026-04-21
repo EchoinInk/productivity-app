@@ -1,22 +1,10 @@
 import { type HTMLAttributes } from "react";
 import clsx from "clsx";
 
-import {
-  gradientPrimaryCss,
-  gradientSecondaryCss,
-  gradientTertiaryCss,
-  gradientQuaternaryCss,
-} from "@/styles/gradients";
+import { gradientPrimaryCss, gradientSecondaryCss, gradientTertiaryCss, gradientQuaternaryCss } from "@/lib/gradients";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?:
-    | "default"
-    | "elevated"
-    | "primary"
-    | "budget"
-    | "alert"
-    | "adjunct"
-    | "recall";
+  variant?: "default" | "elevated" | "primary" | "budget" | "alert" | "adjunct" | "recall";
 }
 
 export const Card = ({ className, variant = "default", ...props }: CardProps) => {
@@ -24,8 +12,7 @@ export const Card = ({ className, variant = "default", ...props }: CardProps) =>
   const gradientTextShadow = "drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)] text-white";
 
   // Shared glass blur layer
-  const glassBase =
-    "backdrop-blur-xl bg-white/80 border border-white/60";
+  const glassBase = "backdrop-blur-xl bg-white/80 border border-white/60";
 
   // Soft card shadow
   const softShadow = "shadow-[0_3px_12px_rgba(120,110,200,0.42)]";
@@ -38,12 +25,12 @@ export const Card = ({ className, variant = "default", ...props }: CardProps) =>
     variant === "primary"
       ? { background: gradientPrimaryCss }
       : variant === "budget"
-      ? { background: gradientSecondaryCss }
-      : variant === "adjunct"
-      ? { background: gradientTertiaryCss }
-      : variant === "recall"
-      ? { background: gradientQuaternaryCss }
-      : undefined;
+        ? { background: gradientSecondaryCss }
+        : variant === "adjunct"
+          ? { background: gradientTertiaryCss }
+          : variant === "recall"
+            ? { background: gradientQuaternaryCss }
+            : undefined;
 
   return (
     <div
@@ -69,8 +56,7 @@ export const Card = ({ className, variant = "default", ...props }: CardProps) =>
         variant === "recall" && clsx(gradientTextShadow, elevatedShadow),
 
         // ALERT → destructive
-        variant === "alert" &&
-          "bg-destructive text-destructive-foreground shadow-[0_4px_14px_rgba(255,0,0,0.25)]",
+        variant === "alert" && "bg-destructive text-destructive-foreground shadow-[0_4px_14px_rgba(255,0,0,0.25)]",
 
         className,
       )}
