@@ -34,7 +34,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     "Career Development": {
       icon: catCareer,
-      bg: "#d2e1fb", // powder periwinkle
+      bg: "#fbdff2", // powder periwinkle
     },
     "Errands & Life Admin": {
       icon: catErrands,
