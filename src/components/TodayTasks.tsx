@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "@/store/useAppStore";
+import { darken } from "@/utils/color";
+
 import { cardSoft } from "@/lib/theme";
 import clsx from "clsx";
 
@@ -125,8 +127,8 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
                       {/* PROGRESS */}
                       <circle
-                        stroke={config.bg}
-                        strokeOpacity={1}
+                        stroke={darken(config.bg, 0.25)}
+                        strokeOpacity={0.7}
                         fill="transparent"
                         strokeWidth="3"
                         strokeDasharray={circumference}
