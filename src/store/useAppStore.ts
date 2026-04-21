@@ -6,7 +6,6 @@ export interface Task {
   id: number;
   label: string;
   date: string;
-  priority?: "Low" | "Medium" | "High";
   category?:
     | "Home & Household"
     | "Health & Wellness"
@@ -68,7 +67,6 @@ interface AppState {
     label: string,
     date: string,
     time?: string,
-    priority?: "Low" | "Medium" | "High",
     recurrence?: "none" | "weekly" | "monthly",
     category?: Task["category"],
     notes?: string,
@@ -114,7 +112,7 @@ export const useAppStore = create<AppState>()(
       },
 
       // ✅ ADD TASK
-      addTask: (label, date, time, priority, recurrence = "none", category, notes) =>
+      addTask: (label, date, time, recurrence = "none", category, notes) =>
         set((state) => ({
           tasks: [
             {
@@ -122,7 +120,6 @@ export const useAppStore = create<AppState>()(
               label,
               date: date || getToday(),
               time,
-              priority: priority ?? "Medium",
               recurrence,
               category,
               notes,

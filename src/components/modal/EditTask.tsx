@@ -108,7 +108,6 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
                   notes,
                   date,
                   time,
-                  priority,
                   recurrence,
                   category,
                 })
