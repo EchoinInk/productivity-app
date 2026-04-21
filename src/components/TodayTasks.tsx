@@ -112,15 +112,12 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
                     {/* TEXT */}
                     <div>
-                      <p className="text-sm font-medium text-foreground">{category}</p>
+                      <p className="text-[13] font-medium text-foreground">{category}</p>
                       <p className="text-xs text-muted-foreground">
                         {count} {count === 1 ? "task" : "tasks"}
                       </p>
                     </div>
                   </div>
-
-                  {/* RIGHT */}
-                  <span className="text-muted-foreground">→</span>
                 </div>
               </li>
             );
