@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import clsx from "clsx";
-import { gradientPrimaryCss, gradientSecondaryCss, gradientTertiaryCss, gradientQuaternaryCss } from "@/lib/gradients";
+import { Button } from "@/shared/ui/Button";
 
 interface AddButtonProps {
   children: ReactNode;
@@ -9,30 +9,10 @@ interface AddButtonProps {
   variant?: "primary" | "secondary" | "tertiary" | "quaternary";
 }
 
-const AddButton = ({ children, onClick, className, variant = "secondary" }: AddButtonProps) => {
-  const backgrounds = {
-    primary: gradientPrimaryCss,
-    secondary: gradientSecondaryCss,
-    tertiary: gradientTertiaryCss,
-    quaternary: gradientQuaternaryCss,
-  };
-
-  return (
-    <button
-      onClick={onClick}
-      style={{ background: backgrounds[variant] }}
-      className={clsx(
-        "h-12 w-full rounded-lg",
-        "inline-flex items-center justify-center gap-2",
-        "text-white text-[15px] font-semibold tracking-tight",
-        "shadow-[0_3px_12px_rgba(120,110,200,0.42)]",
-        "active:scale-[0.97] transition-transform duration-150",
-        className,
-      )}
-    >
-      {children}
-    </button>
-  );
-};
+const AddButton = ({ children, onClick, className }: AddButtonProps) => (
+  <Button onClick={onClick} fullWidth className={clsx("h-12", className)}>
+    {children}
+  </Button>
+);
 
 export default AddButton;
