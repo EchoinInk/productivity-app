@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AppCard from "@/components/AppCard";
+import clsx from "clsx"; // ✅ FIXED
 
 type TaskCategory =
   | "Home & Household"
@@ -29,7 +30,6 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState(defaultDate);
 
-  // ✅ EMPTY DEFAULTS
   const [category, setCategory] = useState<TaskCategory | "">("");
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly" | "">("");
 
