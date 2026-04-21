@@ -9,6 +9,7 @@ import { useAppStore } from "@/store/useAppStore";
 import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
 import { getToday } from "@/lib/date";
+import clsx from "clsx";
 
 const tabs = ["Today", "Weekly", "Monthly"];
 
@@ -27,21 +28,24 @@ const Tasks = () => {
 
   const [openSections, setOpenSections] = useState({
     today: true,
+    overdue: true,
     upcoming: false,
-    yesterday: false,
+    previous: false,
   });
 
-  const today = new Date();
   const todayStr = getToday();
 
-  const yesterday = new Date();
-  yesterday.setDate(today.getDate() - 1);
-  const yesterdayStr = yesterday.toISOString().split("T")[0];
+  // ✅ GROUPING LOGIC
 
-  // ✅ GROUPS
   const todayTasks = tasks.filter((t) => t.date === todayStr);
+
+  const overdueTasks = tasks
+    .filter((t) => t.date < todayStr && !t.completedDates.includes(todayStr))
+    .sort((a, b) => a.date.localeCompare(b.date)); // oldest first
+
   const upcomingTasks = tasks.filter((t) => t.date > todayStr);
-  const yesterdayTasks = tasks.filter((t) => t.date === yesterdayStr);
+
+  const previousTasks = tasks.filter((t) => t.completedDates.length > 0);
 
   const toggleSection = (key: keyof typeof openSections) => {
     setOpenSections((prev) => ({
@@ -50,7 +54,7 @@ const Tasks = () => {
     }));
   };
 
-  // ✅ SECTION COMPONENT
+  // ✅ REUSABLE SECTION
   const Section = ({
     title,
     isOpen,
@@ -65,7 +69,8 @@ const Tasks = () => {
     <div className="space-y-2">
       {/* HEADER */}
       <button onClick={onToggle} className="flex items-center justify-between w-full text-left">
-        <p className="text-sm font-semibold">{title}</p>
+        <p className={clsx("text-sm font-semibold", title.includes("Overdue") && "text-red-500")}>{title}</p>
+
         <span className="text-xs">{isOpen ? "▼" : "▶"}</span>
       </button>
 
@@ -118,6 +123,13 @@ const Tasks = () => {
             />
 
             <Section
+              title="Overdue ⚠️"
+              isOpen={openSections.overdue}
+              onToggle={() => toggleSection("overdue")}
+              items={overdueTasks}
+            />
+
+            <Section
               title="Upcoming"
               isOpen={openSections.upcoming}
               onToggle={() => toggleSection("upcoming")}
@@ -125,15 +137,15 @@ const Tasks = () => {
             />
 
             <Section
-              title="Yesterday"
-              isOpen={openSections.yesterday}
-              onToggle={() => toggleSection("yesterday")}
-              items={yesterdayTasks}
+              title="Previous"
+              isOpen={openSections.previous}
+              onToggle={() => toggleSection("previous")}
+              items={previousTasks}
             />
           </>
         )}
 
-        {/* ✅ WEEKLY TAB (placeholder for recurring) */}
+        {/* ✅ WEEKLY TAB */}
         {activeTab === "Weekly" && (
           <p className="text-sm text-muted-foreground text-center py-6">Weekly tasks (recurring view coming next)</p>
         )}
