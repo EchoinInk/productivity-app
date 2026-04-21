@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { categoryStyles } from "@/lib/categoryStyles";
 
 interface ListItemProps {
   label: string;
@@ -8,16 +9,17 @@ interface ListItemProps {
   onClick?: () => void;
   rightContent?: React.ReactNode;
   category?: string;
-  priority?: "Low" | "Medium" | "High";
 }
 
-const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent, category, priority }: ListItemProps) => {
+const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent, category }: ListItemProps) => {
+  const style = categoryStyles[category as keyof typeof categoryStyles] || categoryStyles.Other;
+
   return (
     <div
       onClick={onClick}
       className="flex items-center gap-3 py-3 px-1 border-b border-white/40 last:border-b-0 cursor-pointer"
     >
-      {/* Checkbox */}
+      {/* ✅ CHECKBOX */}
       {onToggle && (
         <button
           onClick={(e) => {
@@ -32,7 +34,7 @@ const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent, c
           )}
         >
           {checked && (
-            <svg width="12" height="12" viewBox="0 0 12 12">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path
                 d="M2.5 6L5 8.5L9.5 3.5"
                 stroke="currentColor"
@@ -45,29 +47,30 @@ const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent, c
         </button>
       )}
 
-      {/* Text */}
+      {/* ✅ TEXT */}
       <div className="flex-1 min-w-0">
-        {/* TASK NAME */}
+        {/* TASK NAME (CATEGORY COLORED) */}
         <p
-          className={clsx(
-            "text-sm font-semibold transition-all",
-            priority === "High" && "text-red-500",
-            priority === "Medium" && "text-yellow-500",
-            priority === "Low" && "text-green-500",
-            checked && "line-through opacity-50",
-          )}
+          className={clsx("text-sm font-semibold transition-all", checked && "line-through opacity-50")}
+          style={{ color: style.text }}
         >
           {label}
         </p>
 
-        {/* BELOW TEXT */}
+        {/* SUB CONTENT */}
         <div className="mt-1 flex flex-col gap-1">
           {/* NOTES */}
           {subtitle && <p className="text-xs text-muted-foreground leading-tight">{subtitle}</p>}
 
-          {/* CATEGORY */}
+          {/* CATEGORY PILL */}
           {category && (
-            <span className="inline-block w-fit text-[11px] px-2 py-0.5 rounded-full bg-white/60 border border-white/40 text-muted-foreground">
+            <span
+              className="inline-block w-fit text-[11px] px-2 py-0.5 rounded-full"
+              style={{
+                backgroundColor: style.bg,
+                color: style.text,
+              }}
+            >
               {category}
             </span>
           )}
