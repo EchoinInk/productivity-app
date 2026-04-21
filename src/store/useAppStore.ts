@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { getToday } from "@/lib/date";
 
 export interface Task {
@@ -13,12 +14,10 @@ export interface Task {
     | "Errands & Life Admin"
     | "Family & Relationships"
     | "Finances";
-
   recurrence?: "none" | "weekly" | "monthly";
   completedDates: string[];
   time?: string;
-
-  notes?: string; // ✅ ADD THIS
+  notes?: string;
 }
 
 export interface Expense {
@@ -72,11 +71,10 @@ interface AppState {
     priority?: "Low" | "Medium" | "High",
     recurrence?: "none" | "weekly" | "monthly",
     category?: Task["category"],
-    notes?: string, // ✅ ADD
+    notes?: string,
   ) => void;
 
   updateTask: (updated: Task) => void;
-
   deleteTask: (id: number) => void;
 
   addExpense: (name: string, amount: number) => void;
@@ -87,89 +85,102 @@ interface AppState {
   addRecipe: (recipe: { name: string; ingredients: string[]; category?: string }) => void;
 }
 
-export const useAppStore = create<AppState>()((set, get) => ({
-  weeklyBudget: 500,
+export const useAppStore = create<AppState>()(
+  persist(
+    (set, get) => ({
+      weeklyBudget: 500,
 
-  tasks: [],
-  expenses: [],
-  meals: [],
-  shoppingItems: [],
-  bills: [],
-  recipes: [],
+      tasks: [],
+      expenses: [],
+      meals: [],
+      shoppingItems: [],
+      bills: [],
+      recipes: [],
 
-  // ✅ CLEAN TOGGLE (NO OPTIONAL CHECK NEEDED)
-  toggleTask: (id, date) => {
-    set({
-      tasks: get().tasks.map((t) => {
-        if (t.id !== id) return t;
+      // ✅ TOGGLE TASK
+      toggleTask: (id, date) => {
+        set({
+          tasks: get().tasks.map((t) => {
+            if (t.id !== id) return t;
 
-        const exists = t.completedDates.includes(date);
+            const exists = t.completedDates.includes(date);
 
-        return {
-          ...t,
-          completedDates: exists ? t.completedDates.filter((d) => d !== date) : [...t.completedDates, date],
-        };
-      }),
-    });
-  },
+            return {
+              ...t,
+              completedDates: exists ? t.completedDates.filter((d) => d !== date) : [...t.completedDates, date],
+            };
+          }),
+        });
+      },
 
-  // ✅ ADD TASK WITH SAFE DATE
-  addTask: (label, date, time, priority, recurrence = "none", category, notes) =>
-    set((state) => {
-      const newTask: Task = {
-        id: Date.now(),
-        label,
-        date: date || getToday(),
-        time,
-        priority: priority ?? "Medium",
-        recurrence,
-        category,
-        notes, // ✅ ADD THIS
-        completedDates: [],
-      };
+      // ✅ ADD TASK
+      addTask: (label, date, time, priority, recurrence = "none", category, notes) =>
+        set((state) => ({
+          tasks: [
+            {
+              id: Date.now(),
+              label,
+              date: date || getToday(),
+              time,
+              priority: priority ?? "Medium",
+              recurrence,
+              category,
+              notes,
+              completedDates: [],
+            },
+            ...state.tasks,
+          ],
+        })),
 
-      return {
-        tasks: [newTask, ...state.tasks],
-      };
+      // ✅ UPDATE TASK
+      updateTask: (updated) =>
+        set((state) => ({
+          tasks: state.tasks.map((t) => (t.id === updated.id ? updated : t)),
+        })),
+
+      // ✅ DELETE TASK
+      deleteTask: (id) =>
+        set((state) => ({
+          tasks: state.tasks.filter((t) => t.id !== id),
+        })),
+
+      // ✅ EXPENSES
+      addExpense: (name, amount) =>
+        set((state) => ({
+          expenses: [{ id: Date.now(), name, amount }, ...state.expenses],
+        })),
+
+      // ✅ MEALS
+      addMeal: (name, day) =>
+        set((state) => ({
+          meals: [{ id: Date.now(), name, day }, ...state.meals],
+        })),
+
+      // ✅ SHOPPING
+      addShoppingItem: (name) =>
+        set((state) => ({
+          shoppingItems: [{ id: Date.now(), name, done: false }, ...state.shoppingItems],
+        })),
+
+      toggleShoppingItem: (id) =>
+        set((state) => ({
+          shoppingItems: state.shoppingItems.map((i) => (i.id === id ? { ...i, done: !i.done } : i)),
+        })),
+
+      // ✅ BILLS
+      addBill: (name, amount, date) =>
+        set((state) => ({
+          bills: [{ id: Date.now(), name, amount, date }, ...state.bills],
+        })),
+
+      // ✅ RECIPES
+      addRecipe: (recipe) =>
+        set((state) => ({
+          recipes: [{ id: Date.now(), ...recipe }, ...state.recipes],
+        })),
     }),
-
-  updateTask: (updated) =>
-    set((state) => ({
-      tasks: state.tasks.map((t) => (t.id === updated.id ? updated : t)),
-    })),
-
-  deleteTask: (id) =>
-    set((state) => ({
-      tasks: state.tasks.filter((t) => t.id !== id),
-    })),
-
-  addExpense: (name, amount) =>
-    set((state) => ({
-      expenses: [{ id: Date.now(), name, amount }, ...state.expenses],
-    })),
-
-  addMeal: (name, day) =>
-    set((state) => ({
-      meals: [{ id: Date.now(), name, day }, ...state.meals],
-    })),
-
-  addShoppingItem: (name) =>
-    set((state) => ({
-      shoppingItems: [{ id: Date.now(), name, done: false }, ...state.shoppingItems],
-    })),
-
-  toggleShoppingItem: (id) =>
-    set((state) => ({
-      shoppingItems: state.shoppingItems.map((i) => (i.id === id ? { ...i, done: !i.done } : i)),
-    })),
-
-  addBill: (name, amount, date) =>
-    set((state) => ({
-      bills: [{ id: Date.now(), name, amount, date }, ...state.bills],
-    })),
-
-  addRecipe: (recipe) =>
-    set((state) => ({
-      recipes: [{ id: Date.now(), ...recipe }, ...state.recipes],
-    })),
-}));
+    {
+      name: "app-storage", // 🔑 persistence key
+    },
+  ),
+);
