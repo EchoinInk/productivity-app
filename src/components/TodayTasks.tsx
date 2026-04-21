@@ -108,7 +108,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
                       className="w-10 h-10 rounded-xl flex items-center justify-center"
                       style={{ backgroundColor: config.bg }}
                     >
-                      <img src={config.icon} alt={category} className="w-7 h-7 object-contain opacity-90" />
+                      <img src={config.icon} alt={category} className="w-6 h-6 object-contain opacity-90" />
                     </div>
 
                     {/* TEXT */}
