@@ -111,10 +111,10 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
                 onSave({
                   label,
                   date,
-                  time,
+                  time: time || undefined,
                   recurrence,
                   category,
-                  notes, // ✅ PASS NOTES
+                  notes: notes || undefined,
                 });
 
                 setLabel("");
