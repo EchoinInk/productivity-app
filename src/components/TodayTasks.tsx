@@ -42,11 +42,11 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     "Family & Relationships": {
       icon: catFamily,
-      bg: "#f0cffa",
+      bg: "#e4b7f1",
     },
     Finances: {
       icon: catFinance,
-      bg: "#f2d2d8",
+      bg: "#f3d2d6",
     },
     Other: {
       icon: catErrands,
