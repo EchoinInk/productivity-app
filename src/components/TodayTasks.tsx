@@ -30,7 +30,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     "Health & Wellness": {
       icon: catHealth,
-      bg: "#e7ddfe", // lavender blue
+      bg: "#e5ccfd", // lavender blue
     },
     "Career Development": {
       icon: catCareer,
