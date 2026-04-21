@@ -4,6 +4,7 @@ import { categoryStyles } from "@/lib/categoryStyles";
 interface ListItemProps {
   label: string;
   subtitle?: string;
+  meta?: string;
   checked?: boolean;
   onToggle?: () => void;
   onClick?: () => void;
@@ -11,7 +12,7 @@ interface ListItemProps {
   category?: string;
 }
 
-const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent, category }: ListItemProps) => {
+const ListItem = ({ label, subtitle, meta, checked, onToggle, onClick, rightContent, category }: ListItemProps) => {
   const style = categoryStyles[category as keyof typeof categoryStyles] || categoryStyles.Other;
 
   return (
@@ -74,6 +75,9 @@ const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent, c
               {category}
             </span>
           )}
+
+          {/* DATE / TIME */}
+          {meta && <p className="text-xs text-muted-foreground leading-tight">{meta}</p>}
         </div>
       </div>
 
