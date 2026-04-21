@@ -4,7 +4,6 @@ import { categoryStyles } from "@/lib/categoryStyles";
 interface ListItemProps {
   label: string;
   subtitle?: string;
-  meta?: string;
   checked?: boolean;
   onToggle?: () => void;
   onClick?: () => void;
@@ -12,7 +11,7 @@ interface ListItemProps {
   category?: string;
 }
 
-const ListItem = ({ label, subtitle, meta, checked, onToggle, onClick, rightContent, category }: ListItemProps) => {
+const ListItem = ({ label, subtitle, checked, onToggle, onClick, rightContent, category }: ListItemProps) => {
   const style = categoryStyles[category as keyof typeof categoryStyles] || categoryStyles.Other;
 
   return (
@@ -20,7 +19,7 @@ const ListItem = ({ label, subtitle, meta, checked, onToggle, onClick, rightCont
       onClick={onClick}
       className="flex items-center gap-3 py-3 px-1 border-b border-white/40 last:border-b-0 cursor-pointer"
     >
-      {/* ✅ CHECKBOX */}
+      {/* CHECKBOX */}
       {onToggle && (
         <button
           onClick={(e) => {
@@ -48,9 +47,9 @@ const ListItem = ({ label, subtitle, meta, checked, onToggle, onClick, rightCont
         </button>
       )}
 
-      {/* ✅ TEXT */}
+      {/* CONTENT */}
       <div className="flex-1 min-w-0">
-        {/* TASK NAME (CATEGORY COLORED) */}
+        {/* TASK NAME */}
         <p
           className={clsx("text-sm font-semibold transition-all", checked && "line-through opacity-50")}
           style={{ color: style.text }}
@@ -58,9 +57,9 @@ const ListItem = ({ label, subtitle, meta, checked, onToggle, onClick, rightCont
           {label}
         </p>
 
-        {/* SUB CONTENT */}
+        {/* META */}
         <div className="mt-1 flex flex-col gap-1">
-          {/* NOTES */}
+          {/* NOTES / DATE */}
           {subtitle && <p className="text-xs text-muted-foreground leading-tight">{subtitle}</p>}
 
           {/* CATEGORY PILL */}
@@ -75,9 +74,6 @@ const ListItem = ({ label, subtitle, meta, checked, onToggle, onClick, rightCont
               {category}
             </span>
           )}
-
-          {/* DATE / TIME */}
-          {meta && <p className="text-xs text-muted-foreground leading-tight">{meta}</p>}
         </div>
       </div>
 

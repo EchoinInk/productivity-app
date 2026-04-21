@@ -16,26 +16,22 @@ interface AddTaskProps {
   onSave: (task: {
     label: string;
     date: string;
-    time: string;
-    recurrence: "none" | "weekly" | "monthly";
-    category: TaskCategory;
+    time?: string;
+    recurrence?: "none" | "weekly" | "monthly";
+    category?: TaskCategory;
     notes?: string;
   }) => void;
 }
 
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-  });
-
 const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const [label, setLabel] = useState("");
+  const [notes, setNotes] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState(defaultDate);
-  const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
-  const [category, setCategory] = useState<TaskCategory>("Home & Household");
-  const [notes, setNotes] = useState("");
+
+  // ✅ EMPTY DEFAULTS
+  const [category, setCategory] = useState<TaskCategory | "">("");
+  const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly" | "">("");
 
   if (!open) return null;
 
@@ -45,13 +41,9 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm" onClick={onClose}>
       <div className="w-full max-w-md p-4" onClick={(e) => e.stopPropagation()}>
         <AppCard className="space-y-4">
-          {/* TITLE */}
-          <div>
-            <h2 className="text-lg font-semibold">New Task</h2>
-            <p className="text-sm text-muted-foreground mt-1">{formatDate(date)}</p>
-          </div>
+          <h2 className="text-lg font-semibold">New Task</h2>
 
-          {/* DATE + TIME (SIDE BY SIDE) */}
+          {/* DATE + TIME */}
           <div className="flex gap-2">
             <input
               type="date"
@@ -68,7 +60,7 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
             />
           </div>
 
-          {/* TASK NAME */}
+          {/* NAME */}
           <input
             autoFocus
             placeholder="Task name"
@@ -86,37 +78,42 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
           />
 
           {/* CATEGORY */}
-          <div>
-            <p className="text-xs text-muted-foreground mb-1 px-1">Category</p>
-
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value as TaskCategory)}
-              className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-            >
-              <option>Home & Household</option>
-              <option>Health & Wellness</option>
-              <option>Career Development</option>
-              <option>Errands & Life Admin</option>
-              <option>Family & Relationships</option>
-              <option>Finances</option>
-            </select>
-          </div>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value as TaskCategory)}
+            className={clsx(
+              "w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm",
+              !category && "text-muted-foreground",
+            )}
+          >
+            <option value="" disabled>
+              Category
+            </option>
+            <option>Home & Household</option>
+            <option>Health & Wellness</option>
+            <option>Career Development</option>
+            <option>Errands & Life Admin</option>
+            <option>Family & Relationships</option>
+            <option>Finances</option>
+          </select>
 
           {/* RECURRING */}
-          <div>
-            <p className="text-xs text-muted-foreground mb-1 px-1">Recurring</p>
+          <select
+            value={recurrence}
+            onChange={(e) => setRecurrence(e.target.value as any)}
+            className={clsx(
+              "w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm",
+              !recurrence && "text-muted-foreground",
+            )}
+          >
+            <option value="" disabled>
+              Recurring
+            </option>
+            <option value="none">None</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
 
-            <select
-              value={recurrence}
-              onChange={(e) => setRecurrence(e.target.value as "none" | "weekly" | "monthly")}
-              className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-            >
-              <option value="none">None</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-            </select>
-          </div>
           {/* ACTIONS */}
           <div className="flex gap-2 pt-2">
             <button onClick={onClose} className="flex-1 h-11 rounded-xl bg-white/50 border border-white/40">
@@ -129,17 +126,17 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
                 onSave({
                   label,
                   date,
-                  time,
-                  recurrence,
-                  category,
-                  notes,
+                  time: time || undefined,
+                  category: category || undefined,
+                  recurrence: recurrence || undefined,
+                  notes: notes || undefined,
                 });
 
                 setLabel("");
-                setTime("");
                 setNotes("");
-                setCategory("Home & Household");
-                setRecurrence("none");
+                setTime("");
+                setCategory("");
+                setRecurrence("");
 
                 onClose();
               }}
