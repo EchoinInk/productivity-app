@@ -117,8 +117,8 @@ const TodayTasks = ({ selectedDate }: Props) => {
                     <svg width="40" height="40">
                       {/* BG */}
                       <circle
-                        stroke={darken(config.bg, 0.22)}
-                        strokeOpacity={1}
+                        stroke={darken(config.bg, 0.2)}
+                        strokeOpacity={0.7}
                         fill="transparent"
                         strokeWidth="3"
                         r={radius}
