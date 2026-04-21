@@ -114,8 +114,8 @@ const TodayTasks = ({ selectedDate }: Props) => {
                     <svg width="40" height="40">
                       {/* BG */}
                       <circle
-                        stroke="currentColor"
-                        className="text-foreground/70"
+                        stroke={config.bg}
+                        strokeOpacity={0.4}
                         fill="transparent"
                         strokeWidth="3"
                         r={radius}
@@ -125,7 +125,8 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
                       {/* PROGRESS */}
                       <circle
-                        stroke="black"
+                        stroke={config.bg}
+                        strokeOpacity={0.9}
                         fill="transparent"
                         strokeWidth="3"
                         strokeDasharray={circumference}
