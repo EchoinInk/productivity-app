@@ -19,51 +19,29 @@ const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
   const navigate = useNavigate();
 
-  // ✅ FILTER TASKS
-  const todayTasks = tasks.filter(
-    (t) => t.date === selectedDate && !t.completedDates.includes(selectedDate), // ✅ EXCLUDE COMPLETED
-  );
+  // ❗ IMPORTANT: we need ALL tasks for progress (not filtered)
+  const allTodayTasks = tasks.filter((t) => t.date === selectedDate);
+
+  // ✅ ONLY ACTIVE TASKS (for display count)
+  const todayTasks = allTodayTasks.filter((t) => !t.completedDates.includes(selectedDate));
 
   // ✅ CATEGORY CONFIG
   const categoryConfig = {
-    "Home & Household": {
-      icon: catHome,
-      bg: "#f2f7fe", // soft rose, warm, domestic
-    },
-    "Health & Wellness": {
-      icon: catHealth,
-      bg: "#fcf2f4", // airy teal, perfect wellness vibe
-    },
-    "Career Development": {
-      icon: catCareer,
-      bg: "#f8f7f4", // calm, professional blue‑periwinkle
-    },
-    "Errands & Life Admin": {
-      icon: catErrands,
-      bg: "#f5fcfe", // soft lavender‑blue, tidy + admin‑coded
-    },
-    "Family & Relationships": {
-      icon: catFamily,
-      bg: "#fef0fc", // gentle lavender‑pink, emotional but soft
-    },
-    Finances: {
-      icon: catFinance,
-      bg: "#ececf7", // calm aqua that still feels financially “clean”
-    },
-    Other: {
-      icon: catErrands,
-      bg: "#F3F5F8",
-    },
+    "Home & Household": { icon: catHome, bg: "#f2f7fe" },
+    "Health & Wellness": { icon: catHealth, bg: "#fcf2f4" },
+    "Career Development": { icon: catCareer, bg: "#f8f7f4" },
+    "Errands & Life Admin": { icon: catErrands, bg: "#f5fcfe" },
+    "Family & Relationships": { icon: catFamily, bg: "#fef0fc" },
+    Finances: { icon: catFinance, bg: "#ececf7" },
+    Other: { icon: catErrands, bg: "#F3F5F8" },
   } as const;
 
-  // ✅ GROUP
+  // ✅ GROUP (ONLY ACTIVE TASKS)
   const grouped = todayTasks.reduce(
     (acc, task) => {
       const category = task.category || "Other";
-
       if (!acc[category]) acc[category] = 0;
       acc[category]++;
-
       return acc;
     },
     {} as Record<string, number>,
@@ -71,8 +49,6 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
   // ✅ SORT
   const categoryList = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
-
-  const isSingleCategory = categoryList.length === 1;
 
   return (
     <section className={clsx(cardSoft, "px-5 py-4")}>
@@ -93,6 +69,20 @@ const TodayTasks = ({ selectedDate }: Props) => {
           categoryList.map(([category, count]) => {
             const config = categoryConfig[category as keyof typeof categoryConfig] || categoryConfig.Other;
 
+            // ✅ CALCULATE PROGRESS (ALL TASKS)
+            const categoryTasks = allTodayTasks.filter((t) => (t.category || "Other") === category);
+
+            const total = categoryTasks.length;
+
+            const completed = categoryTasks.filter((t) => t.completedDates.includes(selectedDate)).length;
+
+            const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+            // ✅ SVG math
+            const radius = 16;
+            const circumference = 2 * Math.PI * radius;
+            const strokeDashoffset = circumference - (percent / 100) * circumference;
+
             return (
               <li
                 key={category}
@@ -100,7 +90,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
                 className="py-3 px-2 rounded-xl cursor-pointer hover:bg-white/40 active:scale-[0.98] transition"
               >
                 <div className="flex items-center justify-between">
-                  {/* LEFT SIDE */}
+                  {/* LEFT */}
                   <div className="flex items-center gap-3">
                     {/* ICON */}
                     <div
@@ -116,6 +106,33 @@ const TodayTasks = ({ selectedDate }: Props) => {
                       <p className="text-[11px] text-muted-foreground">
                         {count} {count === 1 ? "task" : "tasks"}
                       </p>
+                    </div>
+                  </div>
+
+                  {/* RIGHT — PROGRESS RING */}
+                  <div className="relative w-10 h-10">
+                    <svg width="40" height="40">
+                      {/* BG */}
+                      <circle stroke="rgba(0,0,0,0.1)" fill="transparent" strokeWidth="3" r={radius} cx="20" cy="20" />
+
+                      {/* PROGRESS */}
+                      <circle
+                        stroke="black"
+                        fill="transparent"
+                        strokeWidth="3"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={strokeDashoffset}
+                        strokeLinecap="round"
+                        r={radius}
+                        cx="20"
+                        cy="20"
+                        transform="rotate(-90 20 20)"
+                      />
+                    </svg>
+
+                    {/* TEXT */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-[10px] font-semibold">{percent}%</span>
                     </div>
                   </div>
                 </div>
