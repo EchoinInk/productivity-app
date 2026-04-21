@@ -113,7 +113,15 @@ const TodayTasks = ({ selectedDate }: Props) => {
                   <div className="relative w-10 h-10">
                     <svg width="40" height="40">
                       {/* BG */}
-                      <circle stroke="rgba(0,0,0,0.1)" fill="transparent" strokeWidth="3" r={radius} cx="20" cy="20" />
+                      <circle
+                        stroke="currentColor"
+                        className="text-foreground/70"
+                        fill="transparent"
+                        strokeWidth="3"
+                        r={radius}
+                        cx="20"
+                        cy="20"
+                      />
 
                       {/* PROGRESS */}
                       <circle
