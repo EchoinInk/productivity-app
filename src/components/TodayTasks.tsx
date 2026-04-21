@@ -26,7 +26,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
   const categoryConfig = {
     "Home & Household": {
       icon: catHome,
-      bg: "#D9E0E4",
+      bg: "#E9A87C",
     },
     "Health & Wellness": {
       icon: catHealth,
