@@ -5,3 +5,12 @@ export const toDateString = (date: Date) =>
 
 // ✅ use THIS everywhere instead of raw toISOString
 export const getToday = () => toDateString(new Date());
+
+export const formatDisplayDate = (date: string) => {
+  const d = new Date(date);
+
+  return d.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+  });
+};
