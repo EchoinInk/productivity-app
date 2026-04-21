@@ -26,27 +26,27 @@ const TodayTasks = ({ selectedDate }: Props) => {
   const categoryConfig = {
     "Home & Household": {
       icon: catHome,
-      bg: "#b8fff8", // soft aqua
+      bg: "#F7D2D2", // soft rose, warm, domestic
     },
     "Health & Wellness": {
       icon: catHealth,
-      bg: "#e5ccfd", // lavender blue
+      bg: "#B2F4EE", // airy teal, perfect wellness vibe
     },
     "Career Development": {
       icon: catCareer,
-      bg: "#fbdff2", // powder periwinkle
+      bg: "#C4D4F0", // calm, professional blue‑periwinkle
     },
     "Errands & Life Admin": {
       icon: catErrands,
-      bg: "#d6ebfd", // lavender blush
+      bg: "#CFCDF5", // soft lavender‑blue, tidy + admin‑coded
     },
     "Family & Relationships": {
       icon: catFamily,
-      bg: "#fec8f8", // lilac
+      bg: "#E2D2EB", // gentle lavender‑pink, emotional but soft
     },
     Finances: {
       icon: catFinance,
-      bg: "#fbe2d1", //rose haze
+      bg: "#B0F7F3", // calm aqua that still feels financially “clean”
     },
     Other: {
       icon: catErrands,
