@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import AppCard from "@/components/AppCard";
 import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
@@ -8,9 +7,8 @@ import TabBar from "@/components/TabBar";
 import { Plus } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import AddTask from "@/components/modal/AddTask";
-import { getToday } from "@/lib/date";
 import EditTask from "@/components/modal/EditTask";
-import type { Task } from "@/store/useAppStore";
+import { getToday } from "@/lib/date";
 
 const tabs = ["Today", "Upcoming", "Weekly", "Monthly"];
 
@@ -18,18 +16,14 @@ const Tasks = () => {
   const tasks = useAppStore((s) => s.tasks);
   const toggleTask = useAppStore((s) => s.toggleTask);
   const addTask = useAppStore((s) => s.addTask);
-
-  const [params] = useSearchParams();
-  const selectedDate = params.get("date");
-
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  const [editOpen, setEditOpen] = useState(false);
-
   const updateTask = useAppStore((s) => s.updateTask);
   const deleteTask = useAppStore((s) => s.deleteTask);
 
   const [activeTab, setActiveTab] = useState("Today");
   const [open, setOpen] = useState(false);
+
+  const [selectedTask, setSelectedTask] = useState<any>(null);
+  const [editOpen, setEditOpen] = useState(false);
 
   const today = new Date();
   const todayStr = getToday();
@@ -71,13 +65,13 @@ const Tasks = () => {
           <div className="space-y-1">
             {filtered.map((t) => {
               const done = t.completedDates.includes(todayStr);
+
               return (
                 <ListItem
                   key={t.id}
                   label={t.label}
-                  subtitle={t.notes} // ✅ notes instead of category+priority text
-                  category={t.category} // ✅ pill
-                  priority={t.priority} // ✅ color
+                  subtitle={t.notes}
+                  category={t.category}
                   checked={done}
                   onToggle={() => toggleTask(t.id, todayStr)}
                   onClick={() => {
@@ -91,18 +85,21 @@ const Tasks = () => {
         )}
       </AppCard>
 
+      {/* ADD BUTTON */}
       <ActionButton fullWidth onClick={() => setOpen(true)}>
         <Plus size={16} />
         Add Task
       </ActionButton>
 
-      {/* ✅ FIXED: defaultDate must be string */}
+      {/* ADD TASK MODAL */}
       <AddTask
         open={open}
         onClose={() => setOpen(false)}
         defaultDate={todayStr}
-        onSave={(t) => addTask(t.label, t.date, t.time, t.priority, t.recurrence, t.category)}
+        onSave={(t) => addTask(t.label, t.date, t.time, t.priority, t.recurrence, t.category, t.notes)}
       />
+
+      {/* EDIT TASK MODAL */}
       <EditTask
         open={editOpen}
         task={selectedTask}
@@ -112,7 +109,6 @@ const Tasks = () => {
           setEditOpen(false);
         }}
         onDelete={() => {
-          if (!selectedTask) return;
           deleteTask(selectedTask.id);
           setEditOpen(false);
         }}
