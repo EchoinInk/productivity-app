@@ -17,7 +17,6 @@ interface AddTaskProps {
     label: string;
     date: string;
     time: string;
-    priority: "Low" | "Medium" | "High";
     recurrence: "none" | "weekly" | "monthly";
     category: TaskCategory;
     notes?: string; // ✅ NEW
@@ -29,7 +28,6 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const [notes, setNotes] = useState(""); // ✅ NEW
   const [time, setTime] = useState("");
   const [date, setDate] = useState(defaultDate);
-  const [priority, setPriority] = useState<"Low" | "Medium" | "High">("Medium");
   const [recurrence, setRecurrence] = useState<"none" | "weekly" | "monthly">("none");
   const [category, setCategory] = useState<TaskCategory>("Home & Household");
 
@@ -90,17 +88,6 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
             className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
 
-          {/* PRIORITY */}
-          <select
-            value={priority}
-            onChange={(e) => setPriority(e.target.value as any)}
-            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-          >
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-          </select>
-
           {/* RECURRENCE */}
           <select
             value={recurrence}
@@ -125,7 +112,6 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
                   label,
                   date,
                   time,
-                  priority,
                   recurrence,
                   category,
                   notes, // ✅ PASS NOTES
@@ -134,7 +120,6 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
                 setLabel("");
                 setNotes("");
                 setTime("");
-                setPriority("Medium");
                 setRecurrence("none");
 
                 onClose();
