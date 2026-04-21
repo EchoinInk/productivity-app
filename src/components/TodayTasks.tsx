@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "@/store/useAppStore";
-import { brightenAndSaturate } from "@/lib/color";
+import { brighten } from "@/lib/color";
 import { darken } from "@/lib/color";
 
 import { cardSoft } from "@/lib/theme";
@@ -117,7 +117,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
                     <svg width="40" height="40">
                       {/* BG */}
                       <circle
-                        stroke={config.bg}
+                        stroke={darken(config.bg, 0.22)}
                         strokeOpacity={0.4}
                         fill="transparent"
                         strokeWidth="3"
@@ -128,7 +128,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
 
                       {/* PROGRESS */}
                       <circle
-                        stroke={darken(config.bg, 0.2)}
+                        stroke={brighten(config.bg, 0.2)}
                         strokeOpacity={0.7}
                         fill="transparent"
                         strokeWidth="3"
