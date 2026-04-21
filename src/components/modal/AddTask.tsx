@@ -85,15 +85,14 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
             className="w-full h-11 px-4 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
 
-          {/* CATEGORY + RECURRING LABEL */}
-          <div className="text-xs text-muted-foreground px-1">Category | Recurring</div>
+          {/* CATEGORY */}
+          <div>
+            <p className="text-xs text-muted-foreground mb-1 px-1">Category</p>
 
-          {/* CATEGORY + RECURRING SIDE BY SIDE */}
-          <div className="flex gap-2">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as TaskCategory)}
-              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+              className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
             >
               <option>Home & Household</option>
               <option>Health & Wellness</option>
@@ -102,18 +101,22 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
               <option>Family & Relationships</option>
               <option>Finances</option>
             </select>
+          </div>
+
+          {/* RECURRING */}
+          <div>
+            <p className="text-xs text-muted-foreground mb-1 px-1">Recurring</p>
 
             <select
               value={recurrence}
-              onChange={(e) => setRecurrence(e.target.value as any)}
-              className="flex-1 h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
+              onChange={(e) => setRecurrence(e.target.value as "none" | "weekly" | "monthly")}
+              className="w-full h-11 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
             >
               <option value="none">None</option>
               <option value="weekly">Weekly</option>
               <option value="monthly">Monthly</option>
             </select>
           </div>
-
           {/* ACTIONS */}
           <div className="flex gap-2 pt-2">
             <button onClick={onClose} className="flex-1 h-11 rounded-xl bg-white/50 border border-white/40">
