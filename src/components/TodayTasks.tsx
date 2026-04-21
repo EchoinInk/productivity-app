@@ -20,7 +20,9 @@ const TodayTasks = ({ selectedDate }: Props) => {
   const navigate = useNavigate();
 
   // ✅ FILTER TASKS
-  const todayTasks = tasks.filter((t) => t.date === selectedDate);
+  const todayTasks = tasks.filter(
+    (t) => t.date === selectedDate && !t.completedDates.includes(selectedDate), // ✅ EXCLUDE COMPLETED
+  );
 
   // ✅ CATEGORY CONFIG
   const categoryConfig = {
