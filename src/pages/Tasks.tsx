@@ -189,9 +189,7 @@ const Tasks = () => {
         open={open}
         onClose={() => setOpen(false)}
         defaultDate={todayStr}
-        onSave={(t) =>
-          addTask(t.label, t.date, t.time || undefined, undefined, t.recurrence, t.category, t.notes || undefined)
-        }
+        onSave={(t) => addTask(t.label, t.date, t.time || undefined, t.recurrence, t.category, t.notes || undefined)}
       />
 
       <EditTask
