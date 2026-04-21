@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "@/store/useAppStore";
 import { brighten } from "@/lib/color";
-import { darken } from "@/lib/color";
+import { saturate } from "@/lib/color";
 
 import { cardSoft } from "@/lib/theme";
 import clsx from "clsx";
@@ -117,7 +117,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
                     <svg width="40" height="40">
                       {/* BG */}
                       <circle
-                        stroke={darken(config.bg, 0.22)}
+                        stroke={saturatde(config.bg, 0.22)}
                         strokeOpacity={0.4}
                         fill="transparent"
                         strokeWidth="3"
