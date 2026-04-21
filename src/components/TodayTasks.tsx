@@ -85,9 +85,6 @@ const TodayTasks = ({ selectedDate }: Props) => {
         </button>
       </div>
 
-      {/* SINGLE CATEGORY HINT */}
-      {isSingleCategory && <p className="text-xs text-muted-foreground mb-2">All tasks are in one category</p>}
-
       {/* LIST */}
       <ul className="divide-y divide-foreground/[0.06]">
         {categoryList.length === 0 ? (
