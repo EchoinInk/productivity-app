@@ -30,7 +30,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     "Health & Wellness": {
       icon: catHealth,
-      bg: "#cfcdf5", // lavender blue
+      bg: "#e7ddfe", // lavender blue
     },
     "Career Development": {
       icon: catCareer,
@@ -42,11 +42,11 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     "Family & Relationships": {
       icon: catFamily,
-      bg: "#e2d2eb", // lilac
+      bg: "#fec8f8", // lilac
     },
     Finances: {
       icon: catFinance,
-      bg: "#ffe8e8", //rose haze
+      bg: "#fbe2d1", //rose haze
     },
     Other: {
       icon: catErrands,
