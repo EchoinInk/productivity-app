@@ -43,27 +43,77 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
         onSubmit={(event) => {
           event.preventDefault();
           if (!canSave) return;
-          onSave({ ...task, label: label.trim(), notes: notes || undefined, date, time: time || undefined, recurrence: recurrence || undefined, category: category || undefined });
+          onSave({
+            ...task,
+            label: label.trim(),
+            notes: notes || undefined,
+            date,
+            time: time || undefined,
+            recurrence: recurrence || undefined,
+            category: category || undefined,
+          });
         }}
       >
-        <input autoFocus value={label} onChange={(e) => setLabel(e.target.value)} onFocus={(e) => e.target.select()} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm text-foreground resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <input
+          autoFocus
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          onFocus={(e) => e.target.select()}
+          className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm text-foreground resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
         <div className="flex gap-2">
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
         </div>
-        <select value={category} onChange={(e) => setCategory(e.target.value as TaskCategory)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !category && "text-muted-foreground")}>
-          <option value="" disabled>Category</option>
-          {taskCategories.map((item) => <option key={item}>{item}</option>)}
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value as TaskCategory)}
+          className={clsx(
+            "w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            !category && "text-muted-foreground",
+          )}
+        >
+          <option value="" disabled>
+            Category
+          </option>
+          {taskCategories.map((item) => (
+            <option key={item}>{item}</option>
+          ))}
         </select>
-        <select value={recurrence} onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !recurrence && "text-muted-foreground")}>
-          <option value="" disabled>Recurring</option>
+        <select
+          value={recurrence}
+          onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)}
+          className={clsx(
+            "w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            !recurrence && "text-muted-foreground",
+          )}
+        >
+          <option value="" disabled>
+            Recurring
+          </option>
           <option value="none">None</option>
           <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>
         </select>
         <FormActions onCancel={onClose} disabled={!canSave} />
-        <Button variant="destructive" fullWidth onClick={onDelete}>Delete Task</Button>
+        <Button variant="recall" fullWidth onClick={onDelete}>
+          Delete Task
+        </Button>
       </form>
     </BottomSheetDialog>
   );
