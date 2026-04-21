@@ -6,11 +6,11 @@ interface AddButtonProps {
   children: ReactNode;
   onClick?: () => void;
   className?: string;
-  variant?: "primary" | "secondary" | "tertiary" | "quaternary";
+  variant?: "primary" | "secondary" | "adjunct" | "recall";
 }
 
-const AddButton = ({ children, onClick, className }: AddButtonProps) => (
-  <Button onClick={onClick} fullWidth className={clsx("h-12", className)}>
+const AddButton = ({ children, onClick, className, variant = "primary" }: AddButtonProps) => (
+  <Button onClick={onClick} variant={variant} fullWidth className={clsx("h-12", className)}>
     {children}
   </Button>
 );
