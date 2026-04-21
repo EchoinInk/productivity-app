@@ -10,6 +10,7 @@ import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
 import { getToday } from "@/lib/date";
 import clsx from "clsx";
+import { formatDisplayDate } from "@/lib/date";
 
 const tabs = ["Today", "Weekly", "Monthly"];
 
@@ -104,7 +105,11 @@ const Tasks = () => {
                 >
                   <ListItem
                     label={t.label}
-                    subtitle={t.time ? `${t.notes || ""} • ${t.date} ${t.time}` : `${t.notes || ""} • ${t.date}`}
+                    subtitle={
+                      t.time
+                        ? `${t.notes || ""} • ${formatDisplayDate(t.date)} ${t.time}`
+                        : `${t.notes || ""} • ${formatDisplayDate(t.date)}`
+                    }
                     category={t.category}
                     checked={done}
                     onToggle={() => toggleTask(t.id, todayStr)}
