@@ -8,9 +8,8 @@ import { Plus } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
-import { getToday } from "@/lib/date";
+import { getToday, formatDisplayDate } from "@/lib/date";
 import clsx from "clsx";
-import { formatDisplayDate } from "@/lib/date";
 
 const tabs = ["Today", "Weekly", "Monthly"];
 
@@ -36,14 +35,17 @@ const Tasks = () => {
 
   const todayStr = getToday();
 
-  // ✅ SORT FUNCTION (KEY PART)
+  // ✅ SAFE CHECK
+  const isDone = (t: any) => t.completedDates?.includes(todayStr);
+
+  // ✅ SORT FUNCTION
   const sortTasks = (items: typeof tasks) => {
     return [...items].sort((a, b) => {
-      const aDone = a.completedDates.includes(todayStr);
-      const bDone = b.completedDates.includes(todayStr);
+      const aDone = isDone(a);
+      const bDone = isDone(b);
 
       if (aDone === bDone) return 0;
-      return aDone ? 1 : -1; // completed → bottom
+      return aDone ? 1 : -1;
     });
   };
 
@@ -51,20 +53,29 @@ const Tasks = () => {
   const todayTasks = sortTasks(tasks.filter((t) => t.date === todayStr));
 
   const overdueTasks = sortTasks(
-    tasks
-      .filter((t) => t.date < todayStr && !t.completedDates.includes(todayStr))
-      .sort((a, b) => a.date.localeCompare(b.date)),
+    tasks.filter((t) => t.date < todayStr && !isDone(t)).sort((a, b) => a.date.localeCompare(b.date)),
   );
 
   const upcomingTasks = sortTasks(tasks.filter((t) => t.date > todayStr));
 
-  const previousTasks = tasks.filter((t) => t.completedDates.length > 0);
+  // ✅ PREVIOUS (ANY COMPLETED)
+  const previousTasks = tasks.filter((t) => (t.completedDates?.length ?? 0) > 0);
 
   const toggleSection = (key: keyof typeof openSections) => {
     setOpenSections((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
+  };
+
+  // ✅ CLEAN SUBTITLE BUILDER
+  const buildSubtitle = (t: any) => {
+    const parts = [];
+
+    if (t.notes) parts.push(t.notes);
+    if (t.date) parts.push(formatDisplayDate(t.date) + (t.time ? ` ${t.time}` : ""));
+
+    return parts.join(" • ");
   };
 
   // ✅ SECTION COMPONENT
@@ -80,20 +91,18 @@ const Tasks = () => {
     items: typeof tasks;
   }) => (
     <div className="space-y-2">
-      {/* HEADER */}
       <button onClick={onToggle} className="flex items-center justify-between w-full text-left">
         <p className={clsx("text-sm font-semibold", title.includes("Overdue") && "text-red-500")}>{title}</p>
         <span className="text-xs">{isOpen ? "▼" : "▶"}</span>
       </button>
 
-      {/* CONTENT */}
       {isOpen && (
         <div className="space-y-1 transition-all duration-300">
           {items.length === 0 ? (
             <p className="text-xs text-muted-foreground px-1">No tasks</p>
           ) : (
             items.map((t) => {
-              const done = t.completedDates.includes(todayStr);
+              const done = isDone(t);
 
               return (
                 <div
@@ -105,11 +114,7 @@ const Tasks = () => {
                 >
                   <ListItem
                     label={t.label}
-                    subtitle={
-                      t.time
-                        ? `${t.notes || ""} • ${formatDisplayDate(t.date)} ${t.time}`
-                        : `${t.notes || ""} • ${formatDisplayDate(t.date)}`
-                    }
+                    subtitle={buildSubtitle(t)}
                     category={t.category}
                     checked={done}
                     onToggle={() => toggleTask(t.id, todayStr)}
@@ -185,15 +190,7 @@ const Tasks = () => {
         onClose={() => setOpen(false)}
         defaultDate={todayStr}
         onSave={(t) =>
-          addTask(
-            t.label,
-            t.date,
-            t.time,
-            undefined, // ✅ FIX
-            t.recurrence,
-            t.category,
-            t.notes,
-          )
+          addTask(t.label, t.date, t.time || undefined, undefined, t.recurrence, t.category, t.notes || undefined)
         }
       />
 
