@@ -105,3 +105,10 @@ export function HSLToHex({ h, s, l }: { h: number; s: number; l: number }) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`
 }
 
+export function saturate(hex: string, satAmt = 0.25) {
+  const hsl = hexToHSL(hex)
+
+  hsl.s = Math.min(1, hsl.s + satAmt)   // increase saturation only
+
+  return HSLToHex(hsl)
+}
