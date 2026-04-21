@@ -115,7 +115,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
                       {/* BG */}
                       <circle
                         stroke={config.bg}
-                        strokeOpacity={0.4}
+                        strokeOpacity={0.4}6
                         fill="transparent"
                         strokeWidth="3"
                         r={radius}
@@ -126,7 +126,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
                       {/* PROGRESS */}
                       <circle
                         stroke={config.bg}
-                        strokeOpacity={0.9}
+                        strokeOpacity={1}
                         fill="transparent"
                         strokeWidth="3"
                         strokeDasharray={circumference}
