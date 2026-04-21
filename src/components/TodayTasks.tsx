@@ -38,7 +38,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
     },
     "Errands & Life Admin": {
       icon: catErrands,
-      bg: "#edf2fe", // lavender blush
+      bg: "#d6ebfd", // lavender blush
     },
     "Family & Relationships": {
       icon: catFamily,
