@@ -11,7 +11,7 @@ export const backgroundAlt = "#F8F3FF"; // lilac mist
 export const glass =
   "bg-white/80 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgba(180,150,200,0.10)] rounded-3xl";
 
-export const cardSoft = "bg-white rounded-lg shadow-[0_16px_40px_rgba(80,80,120,0.14)]";
+export const cardSoft = "bg-white rounded-lg shadow-[0_3px_12px_rgba(120,110,200,0.42)]";
 
 export const sectionSpacing = "space-y-5";
 
