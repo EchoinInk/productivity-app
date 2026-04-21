@@ -13,7 +13,6 @@ interface Props {
 const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
   const [label, setLabel] = useState("");
   const [notes, setNotes] = useState("");
-  const [priority, setPriority] = useState<"Low" | "Medium" | "High">("Medium");
   const [category, setCategory] = useState<Task["category"]>("Home & Household");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -25,7 +24,6 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
 
     setLabel(task.label);
     setNotes(task.notes ?? "");
-    setPriority(task.priority ?? "Medium");
     setCategory(task.category ?? "Home & Household");
     setDate(task.date);
     setTime(task.time ?? "");
@@ -84,17 +82,6 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
             onChange={(e) => setTime(e.target.value)}
             className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
           />
-
-          {/* PRIORITY */}
-          <select
-            value={priority}
-            onChange={(e) => setPriority(e.target.value as any)}
-            className="w-full h-10 px-3 rounded-xl bg-white/60 border border-white/40 text-sm"
-          >
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-          </select>
 
           {/* RECURRENCE */}
           <select
