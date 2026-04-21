@@ -128,7 +128,7 @@ const TodayTasks = ({ selectedDate }: Props) => {
                       {/* PROGRESS */}
                       <circle
                         stroke={brightenAndSaturate(config.bg, 0.05, 0.15)}
-                        strokeOpacity={0.7}
+                        strokeOpacity={1}
                         fill="transparent"
                         strokeWidth="3"
                         strokeDasharray={circumference}
