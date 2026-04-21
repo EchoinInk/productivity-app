@@ -35,15 +35,27 @@ const Tasks = () => {
 
   const todayStr = getToday();
 
-  // ✅ GROUPING LOGIC
+  // ✅ SORT FUNCTION (KEY PART)
+  const sortTasks = (items: typeof tasks) => {
+    return [...items].sort((a, b) => {
+      const aDone = a.completedDates.includes(todayStr);
+      const bDone = b.completedDates.includes(todayStr);
 
-  const todayTasks = tasks.filter((t) => t.date === todayStr);
+      if (aDone === bDone) return 0;
+      return aDone ? 1 : -1; // completed → bottom
+    });
+  };
 
-  const overdueTasks = tasks
-    .filter((t) => t.date < todayStr && !t.completedDates.includes(todayStr))
-    .sort((a, b) => a.date.localeCompare(b.date)); // oldest first
+  // ✅ GROUPS
+  const todayTasks = sortTasks(tasks.filter((t) => t.date === todayStr));
 
-  const upcomingTasks = tasks.filter((t) => t.date > todayStr);
+  const overdueTasks = sortTasks(
+    tasks
+      .filter((t) => t.date < todayStr && !t.completedDates.includes(todayStr))
+      .sort((a, b) => a.date.localeCompare(b.date)),
+  );
+
+  const upcomingTasks = sortTasks(tasks.filter((t) => t.date > todayStr));
 
   const previousTasks = tasks.filter((t) => t.completedDates.length > 0);
 
@@ -54,7 +66,7 @@ const Tasks = () => {
     }));
   };
 
-  // ✅ REUSABLE SECTION
+  // ✅ SECTION COMPONENT
   const Section = ({
     title,
     isOpen,
@@ -70,13 +82,12 @@ const Tasks = () => {
       {/* HEADER */}
       <button onClick={onToggle} className="flex items-center justify-between w-full text-left">
         <p className={clsx("text-sm font-semibold", title.includes("Overdue") && "text-red-500")}>{title}</p>
-
         <span className="text-xs">{isOpen ? "▼" : "▶"}</span>
       </button>
 
       {/* CONTENT */}
       {isOpen && (
-        <div className="space-y-1">
+        <div className="space-y-1 transition-all duration-300">
           {items.length === 0 ? (
             <p className="text-xs text-muted-foreground px-1">No tasks</p>
           ) : (
@@ -84,18 +95,25 @@ const Tasks = () => {
               const done = t.completedDates.includes(todayStr);
 
               return (
-                <ListItem
+                <div
                   key={t.id}
-                  label={t.label}
-                  subtitle={t.time ? `${t.notes || ""} • ${t.date} ${t.time}` : `${t.notes || ""} • ${t.date}`}
-                  category={t.category}
-                  checked={done}
-                  onToggle={() => toggleTask(t.id, todayStr)}
-                  onClick={() => {
-                    setSelectedTask(t);
-                    setEditOpen(true);
-                  }}
-                />
+                  className={clsx(
+                    "transition-all duration-300 ease-in-out",
+                    done ? "opacity-50 translate-y-2 scale-[0.98]" : "opacity-100 translate-y-0 scale-100",
+                  )}
+                >
+                  <ListItem
+                    label={t.label}
+                    subtitle={t.time ? `${t.notes || ""} • ${t.date} ${t.time}` : `${t.notes || ""} • ${t.date}`}
+                    category={t.category}
+                    checked={done}
+                    onToggle={() => toggleTask(t.id, todayStr)}
+                    onClick={() => {
+                      setSelectedTask(t);
+                      setEditOpen(true);
+                    }}
+                  />
+                </div>
               );
             })
           )}
@@ -108,11 +126,9 @@ const Tasks = () => {
     <div className="space-y-5">
       <PageHeader title="Tasks" />
 
-      {/* ✅ TABS */}
       <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       <AppCard className="space-y-4">
-        {/* ✅ TODAY TAB */}
         {activeTab === "Today" && (
           <>
             <Section
@@ -145,32 +161,27 @@ const Tasks = () => {
           </>
         )}
 
-        {/* ✅ WEEKLY TAB */}
         {activeTab === "Weekly" && (
           <p className="text-sm text-muted-foreground text-center py-6">Weekly tasks (recurring view coming next)</p>
         )}
 
-        {/* ✅ MONTHLY TAB */}
         {activeTab === "Monthly" && (
           <p className="text-sm text-muted-foreground text-center py-6">Monthly overview coming soon</p>
         )}
       </AppCard>
 
-      {/* ADD BUTTON */}
       <ActionButton fullWidth onClick={() => setOpen(true)}>
         <Plus size={16} />
         Add Task
       </ActionButton>
 
-      {/* ADD TASK */}
       <AddTask
         open={open}
         onClose={() => setOpen(false)}
         defaultDate={todayStr}
-        onSave={(t) => addTask(t.label, t.date, t.time, t.priority, t.recurrence, t.category, t.notes)}
+        onSave={(t) => addTask(t.label, t.date, t.time, t.recurrence, t.category, t.notes)}
       />
 
-      {/* EDIT TASK */}
       <EditTask
         open={editOpen}
         task={selectedTask}
