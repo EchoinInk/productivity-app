@@ -30,13 +30,13 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
           >
             ${remaining}
           </span>
-          <span className="text-white text-sm font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)] mt-2">
+          <span className="text-white text-sm font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">
             left to spend
           </span>{" "}
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-3">
+      <div className="flex items-center justify-between mt-4">
         <p className="text-sm text-foreground/70">
           <span className="font-semibold text-foreground">${spent}</span> Spent
         </p>
