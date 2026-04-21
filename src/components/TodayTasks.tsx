@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "@/store/useAppStore";
 import { brightenAndSaturate } from "@/lib/color";
+import { darken } from "@/lib/color";
 
 import { cardSoft } from "@/lib/theme";
 import clsx from "clsx";
