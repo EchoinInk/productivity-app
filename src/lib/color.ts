@@ -31,3 +31,12 @@ export function brighten(hex: string, amount = 0.2) {
     .toString(16)
     .slice(1)}`
 }
+export function brightenAndSaturate(hex: string, brightenAmt = 0.18, satAmt = 0.25) {
+  const hsl = hexToHSL(hex)
+
+  hsl.l = Math.min(1, hsl.l + brightenAmt)   // brighter
+  hsl.s = Math.min(1, hsl.s + satAmt)        // more saturated
+
+  return HSLToHex(hsl)
+}
+
