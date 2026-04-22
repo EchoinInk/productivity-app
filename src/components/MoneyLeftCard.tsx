@@ -27,7 +27,7 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
         style={{ background: gradientSecondaryCss }}
       >
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-medium leading-none">${remaining}</span>
+          <span className="text-3xl font-medium drop-shadow lg leading-none">${remaining}</span>
           <span className="text-sm font-medium">left to spend</span>
         </div>
       </div>
