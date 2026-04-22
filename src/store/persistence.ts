@@ -26,4 +26,5 @@ export const partializeStore = (state: AppState) => ({
   shoppingItems: state.shoppingItems,
   bills: state.bills,
   recipes: state.recipes,
+  income: state.income,
 });
