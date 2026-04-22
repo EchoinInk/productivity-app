@@ -15,7 +15,10 @@ const TodayTasks = ({ selectedDate }: TodayTasksProps) => {
       const meta = getCategoryMetadata(categoryName);
 
       const items = tasks.filter((t) => t.category === categoryName);
-      const completed = items.filter((t) => t.isCompleted).length;
+
+      // ✔ Correct completion logic
+      const completed = items.filter((t) => t.completedDates.includes(selectedDate)).length;
+
       const total = items.length;
       const ratio = total === 0 ? 0 : completed / total;
 
@@ -29,7 +32,7 @@ const TodayTasks = ({ selectedDate }: TodayTasksProps) => {
         ratio,
       };
     });
-  }, [tasks]);
+  }, [tasks, selectedDate]);
 
   return (
     <Card className="px-5 py-4">
