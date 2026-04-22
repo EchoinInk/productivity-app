@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "./Modal"; // or whatever your base modal is called
+import Modal from "./Modal"; // same base modal used by AddExpense
 
 const AddIncome = ({ open, onClose, onSave }) => {
   const [amount, setAmount] = useState("");
