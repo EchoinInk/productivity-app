@@ -1,11 +1,17 @@
 import { useState } from "react";
-import Modal from "./Modal"; // same base modal used by AddExpense
+import { BottomSheetDialog } from "@/shared/ui/BottomSheetDialog";
 
-const AddIncome = ({ open, onClose, onSave }) => {
+interface AddIncomeProps {
+  open: boolean;
+  onClose: () => void;
+  onSave: (amount: number) => void;
+}
+
+const AddIncome = ({ open, onClose, onSave }: AddIncomeProps) => {
   const [amount, setAmount] = useState("");
 
   return (
-    <Modal open={open} onClose={onClose} title="Add Income">
+    <BottomSheetDialog open={open} onClose={onClose} title="Add Income">
       <div className="space-y-4">
         <input
           type="number"
@@ -26,7 +32,7 @@ const AddIncome = ({ open, onClose, onSave }) => {
           Save Income
         </button>
       </div>
-    </Modal>
+    </BottomSheetDialog>
   );
 };
 
