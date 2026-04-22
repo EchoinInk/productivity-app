@@ -44,7 +44,7 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-lg drop-shadows lg font-semibold leading-none">{percentage}%</span>
+            <span className="text-lg drop-shadows xl font-bold leading-none">{percentage}%</span>
           </div>
         </div>
 
