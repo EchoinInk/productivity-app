@@ -5,7 +5,7 @@ const AddIncome = ({ open, onClose, onSave }) => {
   const [amount, setAmount] = useState("");
 
   return (
-    <Modal open={open} onClose={onClose} title="Add Income">
+    <BottomSheetDialog open={open} onClose={onClose} title="Add Income">
       <div className="space-y-4">
         <input
           type="number"
@@ -26,7 +26,7 @@ const AddIncome = ({ open, onClose, onSave }) => {
           Save Income
         </button>
       </div>
-    </Modal>
+    </BottomSheetDialog>
   );
 };
 
