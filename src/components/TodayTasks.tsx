@@ -15,7 +15,7 @@ const TodayTasks = ({ selectedDate }: TodayTasksProps) => {
       const meta = getCategoryMetadata(categoryName);
 
       const items = tasks.filter((t) => t.category === categoryName);
-      const completed = items.filter((t) => t.completed).length;
+      const completed = items.filter((t) => t.isCompleted).length;
       const total = items.length;
       const ratio = total === 0 ? 0 : completed / total;
 
