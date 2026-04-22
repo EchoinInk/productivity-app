@@ -1,0 +1,33 @@
+import { useState } from "react";
+import Modal from "./Modal"; // or whatever your base modal is called
+
+const AddIncome = ({ open, onClose, onSave }) => {
+  const [amount, setAmount] = useState("");
+
+  return (
+    <Modal open={open} onClose={onClose} title="Add Income">
+      <div className="space-y-4">
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Income amount"
+          className="w-full border rounded-lg px-3 py-2"
+        />
+
+        <button
+          className="w-full py-3 rounded-xl bg-green-600 text-white font-semibold"
+          onClick={() => {
+            if (!amount) return;
+            onSave(Number(amount));
+            onClose();
+          }}
+        >
+          Save Income
+        </button>
+      </div>
+    </Modal>
+  );
+};
+
+export default AddIncome;
