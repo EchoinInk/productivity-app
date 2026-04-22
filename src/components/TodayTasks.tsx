@@ -1,108 +1,98 @@
-import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
 import { useAppStore } from "@/store/useAppStore";
-import { taskCategories, getCategoryMetadata } from "@/features/tasks/constants/categories";
+import { getCategoryMetadata } from "@/features/tasks/constants/categories";
+import { getTodayCategorySummaries } from "@/features/tasks/selectors/taskSelectors";
 import { Card } from "@/shared/ui/Card";
 
-interface TodayTasksProps {
+interface Props {
   selectedDate: string;
 }
 
-const TodayTasks = ({ selectedDate }: TodayTasksProps) => {
+const TodayTasks = ({ selectedDate }: Props) => {
   const tasks = useAppStore((s) => s.tasks);
-
-  const categories = useMemo(() => {
-    return taskCategories.map((categoryName) => {
-      const meta = getCategoryMetadata(categoryName);
-
-      const items = tasks.filter((t) => t.category === categoryName);
-
-      // ✔ Correct completion logic
-      const completed = items.filter((t) => t.completedDates.includes(selectedDate)).length;
-
-      const total = items.length;
-      const ratio = total === 0 ? 0 : completed / total;
-
-      return {
-        name: categoryName,
-        icon: meta.icon,
-        bg: meta.bg,
-        text: meta.text,
-        completed,
-        total,
-        ratio,
-      };
-    });
-  }, [tasks, selectedDate]);
+  const navigate = useNavigate();
+  const categoryList = getTodayCategorySummaries(tasks, selectedDate);
 
   return (
     <Card className="px-5 py-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-[17px] font-semibold text-foreground">Tasks by category</h2>
-        <button className="text-sm text-muted-foreground hover:text-foreground transition-colors">View All →</button>
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-[17px] font-semibold text-secondary-foreground">Tasks by category</p>
+        <button
+          type="button"
+          onClick={() => navigate(`/tasks?date=${selectedDate}`)}
+          className="text-xs font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+        >
+          View All →
+        </button>
       </div>
+      <ul className="divide-y divide-border/60">
+        {categoryList.length === 0 ? (
+          <li className="py-6 text-center text-sm text-muted-foreground">No tasks today</li>
+        ) : (
+          categoryList.map(({ category, active, total, completed }) => {
+            const config = getCategoryMetadata(category);
+            const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+            const radius = 16;
+            const circumference = 2 * Math.PI * radius;
+            const strokeDashoffset = circumference - (percent / 100) * circumference;
 
-      <div className="space-y-4">
-        {categories.map((cat) => (
-          <div key={cat.name} className="flex items-center justify-between">
-            {/* ICON TILE */}
-            <div
-              className="
-                w-10 h-10 rounded-xl flex items-center justify-center
-                shadow-sm transition-transform duration-150
-                hover:scale-[1.04]
-              "
-              style={{
-                background: "linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.55))",
-                backdropFilter: "blur(12px)",
-                border: "1px solid rgba(255,255,255,0.5)",
-                boxShadow: "inset 0 1px 2px rgba(255,255,255,0.4)",
-              }}
-            >
-              <img
-                src={cat.icon}
-                alt=""
-                className="
-                  w-5 h-5 opacity-90
-                  drop-shadow-[0_1px_3px_rgba(0,0,0,0.25)]
-                "
-                style={{
-                  filter:
-                    "brightness(0) saturate(100%) invert(20%) sepia(20%) saturate(600%) hue-rotate(220deg) brightness(95%) contrast(90%)",
-                }}
-              />
-            </div>
-
-            {/* LABEL + COUNT */}
-            <div className="flex-1 ml-3">
-              <p className="text-[14px] font-medium text-foreground">{cat.name}</p>
-              <p className="text-[11px] opacity-90 mt-1 italic tracking-[0.2px]">
-                {cat.completed} / {cat.total} completed
-              </p>
-            </div>
-
-            {/* PROGRESS CIRCLE */}
-            <div className="relative w-10 h-10">
-              <svg className="w-full h-full -rotate-90">
-                <circle cx="20" cy="20" r="16" stroke="rgba(0,0,0,0.08)" strokeWidth="4" fill="none" />
-                <circle
-                  cx="20"
-                  cy="20"
-                  r="16"
-                  stroke="hsl(220 80% 56%)"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  fill="none"
-                  strokeDasharray={2 * Math.PI * 16}
-                  strokeDashoffset={2 * Math.PI * 16 * (1 - cat.ratio)}
-                />
-              </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-[11px] font-medium text-foreground">
-                {Math.round(cat.ratio * 100)}%
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+            return (
+              <li key={category}>
+                <button
+                  type="button"
+                  onClick={() => navigate(`/tasks?date=${selectedDate}&category=${encodeURIComponent(category)}`)}
+                  className="w-full py-3 px-2 rounded-lg cursor-pointer hover:bg-muted active:scale-[0.98] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-9 h-9 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: config.bg }}
+                      >
+                        <img src={config.icon} alt="" className="w-5 h-5 object-contain opacity-90" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[12px] font-medium text-foreground">{category}</p>
+                        <p className="text-[11px] text-muted-foreground">
+                          {active} {active === 1 ? "task" : "tasks"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative w-10 h-10" aria-label={`${percent}% complete`}>
+                      <svg width="40" height="40" aria-hidden="true">
+                        <circle
+                          stroke="hsl(var(--muted))"
+                          fill="transparent"
+                          strokeWidth="3"
+                          r={radius}
+                          cx="20"
+                          cy="20"
+                        />
+                        <circle
+                          stroke={config.text}
+                          fill="transparent"
+                          strokeWidth="3"
+                          strokeDasharray={circumference}
+                          strokeDashoffset={strokeDashoffset}
+                          strokeLinecap="round"
+                          r={radius}
+                          cx="20"
+                          cy="20"
+                          transform="rotate(-90 20 20)"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-[10px] font-semibold">{percent}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </li>
+            );
+          })
+        )}
+      </ul>
     </Card>
   );
 };
