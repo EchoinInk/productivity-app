@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { useAppStore } from "@/store/useAppStore";
-import { taskCategoriesConfig } from "@/features/tasks/constants/categories";
+import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 import { Card } from "@/shared/ui/Card";
-import { safeRatio } from "@/shared/lib/number";
 
 interface TodayTasksProps {
   selectedDate: string;
@@ -11,21 +10,7 @@ interface TodayTasksProps {
 const TodayTasks = ({ selectedDate }: TodayTasksProps) => {
   const tasks = useAppStore((s) => s.tasks);
 
-  const categories = useMemo(() => {
-    return taskCategoriesConfig.map((config) => {
-      const items = tasks.filter((t) => t.category === config.name);
-      const completed = items.filter((t) => t.done).length;
-      const total = items.length;
-      const ratio = safeRatio(completed, total);
-
-      return {
-        ...config,
-        completed,
-        total,
-        ratio,
-      };
-    });
-  }, [tasks]);
+  const categories = useMemo(() => getCategoryMetadata(tasks), [tasks]);
 
   return (
     <Card className="px-5 py-4">
@@ -68,7 +53,7 @@ const TodayTasks = ({ selectedDate }: TodayTasksProps) => {
             {/* LABEL + COUNT */}
             <div className="flex-1 ml-3">
               <p className="text-[14px] font-medium text-foreground">{cat.name}</p>
-              <p className="text-[11px] opacity-80 mt-1 italic tracking-[0.2px]">
+              <p className="text-[11px] opacity-90 mt-1 italic tracking-[0.2px]">
                 {cat.completed} / {cat.total} completed
               </p>
             </div>
