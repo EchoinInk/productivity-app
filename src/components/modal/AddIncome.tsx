@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/shared/ui/BottomSheetDialog";
 
-interface AddIncomeProps {
-  open: boolean;
-  onClose: () => void;
-  onSave: (amount: number) => void;
-}
-
-const AddIncome = ({ open, onClose, onSave }: AddIncomeProps) => {
+const AddIncome = ({ open, onClose, onSave }) => {
   const [amount, setAmount] = useState("");
 
   return (
-    <BottomSheetDialog open={open} onClose={onClose} title="Add Income">
+    <Modal open={open} onClose={onClose} title="Add Income">
       <div className="space-y-4">
         <input
           type="number"
@@ -32,7 +26,7 @@ const AddIncome = ({ open, onClose, onSave }: AddIncomeProps) => {
           Save Income
         </button>
       </div>
-    </BottomSheetDialog>
+    </Modal>
   );
 };
 
