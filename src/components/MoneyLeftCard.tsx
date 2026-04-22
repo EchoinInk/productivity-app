@@ -20,10 +20,10 @@ const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCa
       {/* Inner gradient block */}
       <div
         className="
-          rounded-xl px-5 py-5
-          text-white
-          drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]
-        "
+    rounded-xl px-5 py-5
+    text-white
+    drop-shadow-[0_1px_6px_rgba(0,0,0,0.22)]
+  "
         style={{ background: gradientSecondaryCss }}
       >
         <div className="flex items-baseline gap-2">
