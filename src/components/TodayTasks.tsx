@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useAppStore } from "@/store/useAppStore";
-import { getCategoryMetadata } from "@/features/tasks/constants/categories";
+import { taskCategories, getCategoryMetadata } from "@/features/tasks/constants/categories";
 import { Card } from "@/shared/ui/Card";
 
 interface TodayTasksProps {
@@ -10,7 +10,26 @@ interface TodayTasksProps {
 const TodayTasks = ({ selectedDate }: TodayTasksProps) => {
   const tasks = useAppStore((s) => s.tasks);
 
-  const categories = useMemo(() => getCategoryMetadata(tasks), [tasks]);
+  const categories = useMemo(() => {
+    return taskCategories.map((categoryName) => {
+      const meta = getCategoryMetadata(categoryName);
+
+      const items = tasks.filter((t) => t.category === categoryName);
+      const completed = items.filter((t) => t.completed).length;
+      const total = items.length;
+      const ratio = total === 0 ? 0 : completed / total;
+
+      return {
+        name: categoryName,
+        icon: meta.icon,
+        bg: meta.bg,
+        text: meta.text,
+        completed,
+        total,
+        ratio,
+      };
+    });
+  }, [tasks]);
 
   return (
     <Card className="px-5 py-4">
