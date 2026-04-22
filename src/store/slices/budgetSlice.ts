@@ -1,3 +1,8 @@
+import type { StateCreator } from "zustand";
+import { createId } from "@/shared/lib/id";
+import type { CreateExpenseInput, Expense } from "@/features/budget/types";
+import type { AppState } from "@/store/rootStore";
+
 export interface BudgetSlice {
   weeklyBudget: number; // your planned budget
   income: number; // NEW: actual income
