@@ -1,6 +1,6 @@
-import { safeRatio } from "@/shared/lib/number";
-import { Card } from "@/shared/ui/Card";
+import { cardSoft } from "@/lib/theme";
 import { gradientSecondaryCss } from "@/lib/gradients";
+import clsx from "clsx";
 
 interface MoneyLeftCardProps {
   remaining?: number;
@@ -9,35 +9,39 @@ interface MoneyLeftCardProps {
 }
 
 const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCardProps) => {
-  safeRatio(spent, total);
+  const pct = Math.min(1, spent / total);
+  const dots = 4;
 
   return (
-    <Card className="px-5 py-4">
+    <section className={clsx(cardSoft, "px-5 py-4")}>
       <div className="flex items-center justify-between mb-5">
-        <p className="text-[17px] font-semibold text-secondary-foreground">Money left this week</p>
+        <div>
+          <p className="text-[17px] font-semibold text-secondary-foreground">Money left this week</p>
+        </div>
       </div>
-
-      {/* Inner gradient block */}
       <div
-        className="
-    rounded-xl px-5 py-5
-    text-white
-    drop-shadow-[0_1px_6px_rgba(0,0,0,0.22)]
-  "
+        className="rounded-2xl px-5 py-5 shadow-[0_3px_12px_rgba(120,110,200,0.42)]"
         style={{ background: gradientSecondaryCss }}
       >
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-medium leading-none">${remaining}</span>
-          <span className="text-sm font-medium">left to spend</span>
+          <span
+            className="text-3xl font-medium text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]
+ leading-none"
+          >
+            ${remaining}
+          </span>
+          <span className="text-white text-sm font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]">
+            left to spend
+          </span>{" "}
         </div>
       </div>
 
       <div className="flex items-center justify-between mt-5">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-foreground/70">
           <span className="font-semibold text-foreground">${spent}</span> Spent
         </p>
       </div>
-    </Card>
+    </section>
   );
 };
 

@@ -1,18 +1,38 @@
-import { type ReactNode } from "react";
+import { ReactNode } from "react";
 import clsx from "clsx";
-import { Button } from "@/shared/ui/Button";
+import { gradientPrimaryCss, gradientSecondaryCss, gradientTertiaryCss, gradientQuaternaryCss } from "@/lib/gradients";
 
 interface AddButtonProps {
   children: ReactNode;
   onClick?: () => void;
   className?: string;
-  variant?: "primary" | "secondary" | "adjunct" | "recall";
+  variant?: "primary" | "secondary" | "tertiary" | "quaternary";
 }
 
-const AddButton = ({ children, onClick, className, variant = "primary" }: AddButtonProps) => (
-  <Button onClick={onClick} variant={variant} fullWidth className={clsx("h-12", className)}>
-    {children}
-  </Button>
-);
+const AddButton = ({ children, onClick, className, variant = "secondary" }: AddButtonProps) => {
+  const backgrounds = {
+    primary: gradientPrimaryCss,
+    secondary: gradientSecondaryCss,
+    tertiary: gradientTertiaryCss,
+    quaternary: gradientQuaternaryCss,
+  };
+
+  return (
+    <button
+      onClick={onClick}
+      style={{ background: backgrounds[variant] }}
+      className={clsx(
+        "h-12 w-full rounded-lg",
+        "inline-flex items-center justify-center gap-2",
+        "text-white text-[15px] font-semibold tracking-tight",
+        "shadow-[0_3px_12px_rgba(120,110,200,0.42)]",
+        "active:scale-[0.97] transition-transform duration-150",
+        className,
+      )}
+    >
+      {children}
+    </button>
+  );
+};
 
 export default AddButton;

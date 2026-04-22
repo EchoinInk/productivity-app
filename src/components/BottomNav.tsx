@@ -1,11 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
-import todayIcon from "@/assets/navigation/today.png";
-import tasksIcon from "@/assets/navigation/tasks.png";
-import budgetIcon from "@/assets/navigation/budget.png";
-import mealsIcon from "@/assets/navigation/meals.png";
-import listsIcon from "@/assets/navigation/lists.png";
-import recipesIcon from "@/assets/navigation/recipes.png";
+
+import todayIcon from "@/assets/icons/today.png";
+import tasksIcon from "@/assets/icons/tasks.png";
+import budgetIcon from "@/assets/icons/budget.png";
+import mealsIcon from "@/assets/icons/meals.png";
+import listsIcon from "@/assets/icons/lists.png";
+import recipesIcon from "@/assets/icons/recipes.png";
 
 const navItems = [
   { path: "/", label: "Today", icon: todayIcon },
@@ -16,16 +17,58 @@ const navItems = [
   { path: "/recipes", label: "Recipes", icon: recipesIcon },
 ];
 
-const BottomNav = () => (
-  <div className="px-3 pb-3">
-    <nav aria-label="Primary" className="h-16 flex items-center justify-around rounded-lg bg-card/85 backdrop-blur-2xl border border-border shadow-elevated">
-      {navItems.map(({ path, label, icon }) => (
-        <NavLink key={path} to={path} className={({ isActive }) => clsx("flex flex-col items-center justify-center flex-1 gap-[2px] text-[11px] font-medium transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md", isActive ? "text-primary" : "text-muted-foreground opacity-70")}>
-          {({ isActive }) => <><img src={icon} alt="" className={clsx("w-8 h-8 transition-all duration-200", isActive ? "opacity-100 scale-110" : "opacity-60")} /><span className="leading-none">{label}</span></>}
-        </NavLink>
-      ))}
-    </nav>
-  </div>
-);
+const BottomNav = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  return (
+    <div className="px-3 pb-3">
+      <nav
+        className="
+          h-16 flex items-center justify-around
+          rounded-2xl
+          bg-white/75 backdrop-blur-2xl
+          border border-white/60
+          shadow-[0_20px_40px_rgba(180,150,200,0.18)]
+        "
+      >
+        {navItems.map(({ path, label, icon }) => {
+          const active = location.pathname === path;
+
+          return (
+            <button
+              key={path}
+              onClick={() => navigate(path)}
+              className="
+                flex flex-col items-center justify-center
+                flex-1 gap-[2px]
+                text-[11px] font-medium
+                transition-all duration-200 active:scale-95
+              "
+            >
+              <img
+                src={icon}
+                alt={label}
+                className={clsx(
+                  "w-8 h-8 transition-all duration-200",
+                  active ? "opacity-100 scale-110 drop-shadow-[0_0_10px_rgba(185,165,232,0.25)]" : "opacity-60",
+                )}
+              />
+
+              <span
+                className={clsx(
+                  "leading-none transition-all duration-200",
+                  active ? "text-[#B9A5E8]" : "text-muted-foreground opacity-70",
+                )}
+              >
+                {label}
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+    </div>
+  );
+};
 
 export default BottomNav;
