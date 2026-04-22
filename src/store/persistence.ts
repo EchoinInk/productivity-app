@@ -1,28 +1,29 @@
-import type { StateCreator } from "zustand";
-import { createId } from "@/shared/lib/id";
-import type { CreateExpenseInput, Expense } from "@/features/budget/types";
 import type { AppState } from "@/store/rootStore";
 
-export interface BudgetSlice {
-  weeklyBudget: number;
-  income: number; // NEW
-  expenses: Expense[];
-  addExpense: (input: CreateExpenseInput) => void;
-  setIncome: (amount: number) => void; // NEW
-}
+export const STORE_VERSION = 1;
 
-export const createBudgetSlice: StateCreator<AppState, [], [], BudgetSlice> = (set) => ({
-  weeklyBudget: 500,
-  income: 0, // NEW
-  expenses: [],
+export const migrateStore = (persistedState: unknown): AppState | unknown => {
+  if (!persistedState || typeof persistedState !== "object") return persistedState;
 
-  addExpense: (input) =>
-    set((state) => ({
-      expenses: [{ id: createId(), ...input }, ...state.expenses],
-    })),
+  const state = persistedState as Partial<AppState>;
 
-  setIncome: (amount) =>
-    set(() => ({
-      income: amount,
-    })),
+  return {
+    ...state,
+    tasks:
+      state.tasks?.map((task) => ({
+        ...task,
+        completedDates: task.completedDates ?? [],
+      })) ?? [],
+  };
+};
+
+export const partializeStore = (state: AppState) => ({
+  tasks: state.tasks,
+  weeklyBudget: state.weeklyBudget,
+  income: state.income,
+  expenses: state.expenses,
+  meals: state.meals,
+  shoppingItems: state.shoppingItems,
+  bills: state.bills,
+  recipes: state.recipes,
 });
