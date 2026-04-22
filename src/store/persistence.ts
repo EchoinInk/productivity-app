@@ -20,9 +20,10 @@ export const migrateStore = (persistedState: unknown): AppState | unknown => {
 // Only persist keys that actually exist in your slices
 export const partializeStore = (state: AppState) => ({
   tasks: state.tasks,
-  budget: state.budget,
+  weeklyBudget: state.weeklyBudget,
+  expenses: state.expenses,
   meals: state.meals,
-  shopping: state.shopping,
+  shoppingItems: state.shoppingItems,
   bills: state.bills,
   recipes: state.recipes,
 });
