@@ -50,7 +50,7 @@ const TaskProgressCard = ({ selectedDate }: Props) => {
 
         <div className="text-right">
           <p className="text-sm opacity-90">Progress</p>
-          <p className="text-lg font-semibold">Today Tasks</p>
+          <p className="text-lg drop-shadow lg font-semibold">Today Tasks</p>
           <p className="text-xs opacity-80 mt-1">
             {completed} / {total} completed
           </p>
