@@ -1,13 +1,16 @@
 import clsx from "clsx";
 import ListItem from "@/components/ListItem";
-import { formatTaskDateTime } from "@/shared/lib/date";
+
+import { formatTaskDateTime, type DateKey } from "@/shared/lib/date";
 import { isTaskCompletedOn } from "@/features/tasks/selectors/taskSelectors";
-import type { Task } from "@/features/tasks/types";
+
+import type { Task, EntityId } from "@/features/tasks/types";
 
 interface TaskRowProps {
   task: Task;
-  activeDate: string;
-  onToggleTask: (task: Task) => void;
+  activeDate: DateKey;
+
+  onToggleTask: (id: EntityId, date: DateKey) => void;
   onSelectTask: (task: Task) => void;
 }
 
@@ -33,7 +36,7 @@ export const TaskRow = ({
         subtitle={subtitle}
         category={task.category}
         checked={done}
-        onToggle={() => onToggleTask(task)}
+        onToggle={() => onToggleTask(task.id, activeDate)}
         onClick={() => onSelectTask(task)}
       />
     </div>
