@@ -1,7 +1,29 @@
+import type { ReactNode } from "react";
+
 interface EmptyStateProps {
-  children: string;
+  title?: string;
+  description?: string;
+  action?: ReactNode;
 }
 
-export const EmptyState = ({ children }: EmptyStateProps) => (
-  <p className="text-sm text-muted-foreground py-4 text-center">{children}</p>
-);
+const EmptyState = ({
+  title = "Nothing here yet",
+  description,
+  action,
+}: EmptyStateProps) => {
+  return (
+    <div className="flex flex-col items-center justify-center text-center py-8 px-4">
+      <p className="text-sm font-semibold text-foreground">{title}</p>
+
+      {description && (
+        <p className="text-xs text-muted-foreground mt-1">
+          {description}
+        </p>
+      )}
+
+      {action && <div className="mt-4">{action}</div>}
+    </div>
+  );
+};
+
+export default EmptyState;

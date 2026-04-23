@@ -1,8 +1,6 @@
-import clsx from "clsx";
-import ListItem from "@/components/ListItem";
-import { formatTaskDateTime } from "@/shared/lib/date";
-import { isTaskCompletedOn } from "@/features/tasks/selectors/taskSelectors";
+import { TaskRow } from "./TaskRow";
 import type { Task } from "@/features/tasks/types";
+import EmptyState from "@/components/ui/EmptyState";
 
 interface TaskSectionProps {
   id: string;
@@ -15,7 +13,16 @@ interface TaskSectionProps {
   onSelectTask: (task: Task) => void;
 }
 
-const TaskSection = ({ id, title, isOpen, onToggle, items, activeDate, onToggleTask, onSelectTask }: TaskSectionProps) => (
+const TaskSection = ({
+  id,
+  title,
+  isOpen,
+  onToggle,
+  items,
+  activeDate,
+  onToggleTask,
+  onSelectTask,
+}: TaskSectionProps) => (
   <section className="space-y-2">
     <button
       type="button"
@@ -25,29 +32,28 @@ const TaskSection = ({ id, title, isOpen, onToggle, items, activeDate, onToggleT
       className="flex items-center justify-between w-full rounded-md py-1 text-left transition active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <h2 className="text-sm font-semibold text-foreground">{title}</h2>
-      <span className="text-xs text-muted-foreground" aria-hidden="true">{isOpen ? "▼" : "▶"}</span>
+      <span className="text-xs text-muted-foreground" aria-hidden="true">
+        {isOpen ? "▼" : "▶"}
+      </span>
     </button>
+
     {isOpen && (
       <div id={id} className="space-y-1 animate-in fade-in duration-150">
         {items.length === 0 ? (
-          <p className="text-xs text-muted-foreground px-1">No tasks</p>
+<EmptyState
+  title="No tasks"
+  description="You're all caught up for this section"
+/>
         ) : (
-          items.map((task) => {
-            const done = isTaskCompletedOn(task, activeDate);
-            const subtitle = [task.notes, formatTaskDateTime(task.date, task.time)].filter(Boolean).join(" • ");
-            return (
-              <div key={task.id} className={clsx("transition-opacity", done && "opacity-60")}>
-                <ListItem
-                  label={task.label}
-                  subtitle={subtitle}
-                  category={task.category}
-                  checked={done}
-                  onToggle={() => onToggleTask(task)}
-                  onClick={() => onSelectTask(task)}
-                />
-              </div>
-            );
-          })
+          items.map((task) => (
+            <TaskRow
+              key={task.id}
+              task={task}
+              activeDate={activeDate}
+              onToggleTask={onToggleTask}
+              onSelectTask={onSelectTask}
+            />
+          ))
         )}
       </div>
     )}

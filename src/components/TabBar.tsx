@@ -1,32 +1,24 @@
-import clsx from "clsx";
+import type { ShoppingCategory } from "@/features/shopping/types";
 
 interface TabBarProps {
-  tabs: string[];
-  activeTab: string;
-  onTabChange: (tab: string) => void;
+  tabs: ShoppingCategory[];
+  activeTab: ShoppingCategory;
+  onTabChange: (tab: ShoppingCategory) => void; // ✅ FIX
 }
 
 const TabBar = ({ tabs, activeTab, onTabChange }: TabBarProps) => {
   return (
-    <div className="flex gap-1 bg-gray-100 rounded-xl p-1">
-      {tabs.map((tab) => {
-        const isActive = activeTab === tab;
-
-        return (
-          <button
-            key={tab}
-            onClick={() => onTabChange(tab)}
-            className={clsx(
-              "flex-1 py-2 px-3 rounded-lg text-sm font-medium",
-              "transition-all duration-150",
-
-              isActive ? "bg-white text-foreground shadow-sm" : "text-muted-foreground",
-            )}
-          >
-            {tab}
-          </button>
-        );
-      })}
+    <div className="flex gap-2">
+      {tabs.map((tab) => (
+        <button
+          key={tab}
+          type="button"
+          onClick={() => onTabChange(tab)}
+          className={tab === activeTab ? "active" : ""}
+        >
+          {tab}
+        </button>
+      ))}
     </div>
   );
 };

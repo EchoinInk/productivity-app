@@ -1,32 +1,72 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Plus } from "lucide-react";
+
 import AppCard from "@/components/AppCard";
-import ListItem from "@/components/ListItem";
 import ActionButton from "@/components/ActionButton";
 import TabBar from "@/components/TabBar";
 import PageHeader from "@/components/PageHeader";
 import AddShoppingItem from "@/components/modal/AddShoppingItem";
 import PageShell from "@/app/layout/PageShell";
-import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import EmptyState from "@/components/ui/EmptyState";
 
-const tabs = ["Groceries", "Household"];
+import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { ShoppingRow } from "@/features/shopping/components/ShoppingRow";
+import type { ShoppingCategory } from "@/features/shopping/types";
+
+const tabs: ShoppingCategory[] = ["Groceries", "Household"];
 
 const ShoppingListPage = () => {
   const items = useShoppingStore((s) => s.shoppingItems);
   const addShoppingItem = useShoppingStore((s) => s.addShoppingItem);
   const toggleShoppingItem = useShoppingStore((s) => s.toggleShoppingItem);
-  const [activeTab, setActiveTab] = useState("Groceries");
+
+  const [activeTab, setActiveTab] = useState<ShoppingCategory>("Groceries");
   const [open, setOpen] = useState(false);
+
+  const filteredItems = useMemo(
+    () => items.filter((item) => item.category === activeTab),
+    [items, activeTab]
+  );
 
   return (
     <PageShell>
       <PageHeader title="Shopping List" />
-      <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+
+      <TabBar
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
+
       <AppCard>
-        {items.length === 0 ? <p className="text-sm text-muted-foreground py-4 text-center">No items yet</p> : items.map((item) => <ListItem key={item.id} label={item.name} checked={item.done} onToggle={() => toggleShoppingItem(item.id)} />)}
+        {filteredItems.length === 0 ? (
+          <EmptyState
+            title={`No ${activeTab.toLowerCase()} items`}
+            description={`Add your first ${activeTab.toLowerCase()} item`}
+          />
+        ) : (
+          filteredItems.map((item) => (
+            <ShoppingRow
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              done={item.done}
+              onToggle={toggleShoppingItem}
+            />
+          ))
+        )}
       </AppCard>
-      <ActionButton fullWidth onClick={() => setOpen(true)}><Plus size={16} /> Add Item</ActionButton>
-      <AddShoppingItem open={open} onClose={() => setOpen(false)} onSave={(item) => addShoppingItem(item)} />
+
+      <ActionButton fullWidth onClick={() => setOpen(true)}>
+        <Plus size={16} /> Add Item
+      </ActionButton>
+
+      <AddShoppingItem
+        open={open}
+        onClose={() => setOpen(false)}
+        onSave={(item) => addShoppingItem(item)}
+        category={activeTab}
+      />
     </PageShell>
   );
 };

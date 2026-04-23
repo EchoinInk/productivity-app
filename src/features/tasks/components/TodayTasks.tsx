@@ -4,7 +4,7 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 import { getTodayCategorySummaries } from "@/features/tasks/selectors/taskSelectors";
 import { Card } from "@/components/ui/Card";
-
+import EmptyState from "@/components/ui/EmptyState";
 interface Props {
   selectedDate: string;
 }
@@ -28,7 +28,12 @@ const TodayTasks = ({ selectedDate }: Props) => {
       </div>
       <ul className="divide-y divide-border/60">
         {categoryList.length === 0 ? (
-          <li className="py-6 text-center text-sm text-muted-foreground">No tasks today</li>
+         <li className="py-6">
+  <EmptyState
+    title="No tasks today"
+    description="You're all caught up"
+  />
+</li>
         ) : (
           categoryList.map(({ category, active, total, completed }) => {
             const config = getCategoryMetadata(category);

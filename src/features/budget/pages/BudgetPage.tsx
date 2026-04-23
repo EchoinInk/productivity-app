@@ -11,6 +11,7 @@ import PageShell from "@/app/layout/PageShell";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
+import EmptyState from "@/components/ui/EmptyState";
 
 const BudgetPage = () => {
   const expenses = useBudgetStore((s) => s.expenses);
@@ -60,8 +61,13 @@ const BudgetPage = () => {
         <h2 className="text-sm font-semibold text-muted-foreground mb-2">Transactions</h2>
 
         {expenses.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-4 text-center">No transactions yet</p>
-        ) : (
+<EmptyState
+
+                  title="No transactions yet"
+
+                  description="Add a transaction"
+
+                />        ) : (
           <div className="space-y-1">
             {expenses.map((item) => (
               <ListItem

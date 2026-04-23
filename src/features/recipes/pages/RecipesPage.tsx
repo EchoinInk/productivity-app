@@ -7,6 +7,7 @@ import AddRecipe from "@/components/modal/AddRecipe";
 import PageShell from "@/app/layout/PageShell";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
+import EmptyState from "@/components/ui/EmptyState";
 
 const RecipesPage = () => {
   const recipes = useRecipesStore((s) => s.recipes);
@@ -22,9 +23,15 @@ const RecipesPage = () => {
 
       {recipes.length === 0 ? (
         <AppCard>
-          <p className="text-sm text-muted-foreground text-center py-6">
-            No recipes yet
-          </p>
+          <EmptyState
+  title="No recipes yet"
+  description="Start by adding your first recipe"
+  action={
+    <ActionButton onClick={() => setOpen(true)}>
+      Add Recipe
+    </ActionButton>
+  }
+/>
         </AppCard>
       ) : (
         recipes.map((recipe) => (
