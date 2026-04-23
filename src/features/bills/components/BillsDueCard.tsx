@@ -1,7 +1,5 @@
 import { ChevronRight } from "lucide-react";
-import clsx from "clsx";
-import { cardSoft } from "@/lib/theme";
-import moreIcon from "@/assets/icons/more-vertical.svg";
+import { Card } from "@/components/ui/Card";
 import { useBillsStore } from "@/features/bills/store/useBillsStore";
 
 interface BillView {
@@ -49,28 +47,24 @@ const BillsDueCard = () => {
     : demoBills;
 
   return (
-    <section className={clsx(cardSoft, "p-4")}>
-      <div className="flex items-center justify-between mb-2">
+    <Card>
+      <div className="flex items-center justify-between mb-3">
         <h2 className="text-base font-semibold">
           Bills Due
         </h2>
-        <button aria-label="More" className="p-1 -mr-1">
-          <img src={moreIcon} alt="" className="w-5 h-5" />
-        </button>
       </div>
 
       <ul className="divide-y divide-foreground/[0.05]">
         {bills.map((b) => (
           <li key={b.key}>
-            <button className="w-full flex items-center gap-3 py-4 active:opacity-70 transition">
+            <button className="w-full flex items-center gap-3 py-3 active:opacity-70 transition">
               <span
-                className="w-9 h-9 rounded-2xl shrink-0 flex items-center justify-center shadow-[0_4px_10px_rgba(180,150,200,0.15)]"
+                className="w-5 h-5 rounded-lg shrink-0 flex items-center justify-center shadow-[0_4px_10px_rgba(180,150,200,0.15)]"
                 style={{ background: b.iconBg }}
               >
-                <span className="block w-3 h-3 rounded-sm bg-white/90" />
+                <span className="block w-3.5 h-3.5 rounded-sm bg-white" />
               </span>
-
-              <span className="flex-1 text-left text-sm text-foreground/85">
+              <span className="flex-1 text-left text-sm font-medium text-foreground/85">
                 {b.name}
               </span>
 
@@ -86,7 +80,7 @@ const BillsDueCard = () => {
           </li>
         ))}
       </ul>
-    </section>
+    </Card>
   );
 };
 
