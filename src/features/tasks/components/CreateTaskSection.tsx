@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 
 import { TaskRow } from "./TaskRow";
-
 import type { Task, EntityId } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
 
@@ -30,24 +29,23 @@ export const TaskSection = ({
   onSelectTask,
 }: TaskSectionProps) => {
   return (
-    <section className="space-y-2">
-      {/* HEADER */}
+    <div>
+      {/* Header */}
       <button
         onClick={onToggle}
         className="flex items-center justify-between w-full py-2"
       >
         <span className="text-sm font-semibold">{title}</span>
-
         <ChevronDown
-          size={16}
           className={clsx(
             "transition-transform duration-200",
             isOpen && "rotate-180"
           )}
+          size={16}
         />
       </button>
 
-      {/* CONTENT */}
+      {/* Content */}
       {isOpen && (
         <div className="space-y-1">
           {tasks.length === 0 ? (
@@ -67,6 +65,6 @@ export const TaskSection = ({
           )}
         </div>
       )}
-    </section>
+    </div>
   );
 };

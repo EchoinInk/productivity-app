@@ -3,16 +3,13 @@ import type { Task, TasksState } from "@/features/tasks/types";
 
 /**
  * ---------------------------------------
- * CORE HELPERS (PURE — NO STATE)
+ * CORE HELPERS (PURE)
  * ---------------------------------------
  */
 
 export const isTaskCompletedOn = (task: Task, date: DateKey) =>
   task.completedDates?.includes(date) ?? false;
 
-/**
- * Safe date comparison (prevents timezone bugs)
- */
 const isSameDay = (a: string, b: string) =>
   new Date(a).toDateString() === new Date(b).toDateString();
 
@@ -40,7 +37,7 @@ export const sortTasksByTime = (items: Task[], date: DateKey) => {
 
 /**
  * ---------------------------------------
- * BASIC FILTERS (PURE)
+ * FILTERS (PURE)
  * ---------------------------------------
  */
 
@@ -55,78 +52,33 @@ export const filterTasksBeforeDate = (tasks: Task[], date: DateKey) =>
 
 /**
  * ---------------------------------------
- * ZUSTAND SELECTORS (STATE-BASED)
+ * SIMPLE SELECTORS (STATE)
  * ---------------------------------------
- */
-
-/**
- * ⚠️ CRITICAL:
- * These are the only selectors your components should use
- */
-
-/**
-
- * Tasks for a specific date
-
  */
 
 export const selectTasksForDate =
-
   (date: DateKey) =>
-
   (state: TasksState) =>
-
-    state.tasks.filter((task) =>
-
-      task.date === date
-
-    );
-
-/**
-
- * Completed tasks for a specific date
-
- */
+    filterTasksByDate(state.tasks, date);
 
 export const selectCompletedTasks =
-
   (date: DateKey) =>
-
   (state: TasksState) =>
-
     state.tasks.filter((task) =>
-
-      task.completedDates.includes(date)
-
+      isTaskCompletedOn(task, date)
     );
-
-/**
-
- * Pending tasks for a specific date
-
- */
 
 export const selectPendingTasks =
-
   (date: DateKey) =>
-
   (state: TasksState) =>
-
-    state.tasks.filter((task) =>
-
-      !task.completedDates.includes(date)
-
+    state.tasks.filter(
+      (task) => !isTaskCompletedOn(task, date)
     );
 
 /**
  * ---------------------------------------
- * MEMOIZED DERIVED SELECTORS (ADVANCED)
+ * SIMPLE MEMO UTIL
  * ---------------------------------------
- */
-
-/**
- * Prevents recalculation on every render
- * (simple memo — no external libs)
  */
 
 const memo = <T extends (...args: any[]) => any>(fn: T): T => {
@@ -149,7 +101,7 @@ const memo = <T extends (...args: any[]) => any>(fn: T): T => {
 
 /**
  * ---------------------------------------
- * TIMELINE GROUPING (MEMOIZED)
+ * TIMELINE GROUPING
  * ---------------------------------------
  */
 
@@ -172,16 +124,19 @@ export const getTaskTimelineGroups = memo(
 );
 
 /**
- * Zustand-friendly version
+ * ✅ FINAL SELECTOR (THIS IS WHAT UI SHOULD USE)
  */
-export const selectTaskTimelineGroups =
+
+export const selectTaskGroups =
   (date?: DateKey) =>
-  (state: TasksState) =>
-    getTaskTimelineGroups(state.tasks, date);
+  (state: TasksState) => {
+    const today = date ?? getToday();
+    return getTaskTimelineGroups(state.tasks, today);
+  };
 
 /**
  * ---------------------------------------
- * PROGRESS (MEMOIZED)
+ * PROGRESS
  * ---------------------------------------
  */
 
@@ -211,7 +166,7 @@ export const selectTaskProgress =
 
 /**
  * ---------------------------------------
- * CATEGORY SUMMARIES (MEMOIZED)
+ * CATEGORY SUMMARY
  * ---------------------------------------
  */
 
