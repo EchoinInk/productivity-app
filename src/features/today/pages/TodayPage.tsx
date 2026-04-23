@@ -9,15 +9,16 @@ import TaskProgressCard from "@/components/TaskProgressCard";
 import AddTask from "@/components/modal/AddTask";
 import AddExpense from "@/components/modal/AddExpense";
 import PageShell from "@/app/layout/PageShell";
-import { useAppStore } from "@/store/useAppStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { toDateString } from "@/shared/lib/date";
 import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
 
 const TodayPage = () => {
-  const addTask = useAppStore((s) => s.addTask);
-  const addExpense = useAppStore((s) => s.addExpense);
-  const expenses = useAppStore((s) => s.expenses);
-  const weeklyBudget = useAppStore((s) => s.weeklyBudget);
+  const addTask = useTasksStore((s) => s.addTask);
+  const addExpense = useBudgetStore((s) => s.addExpense);
+  const expenses = useBudgetStore((s) => s.expenses);
+  const weeklyBudget = useBudgetStore((s) => s.weeklyBudget);
 
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);

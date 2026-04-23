@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Card } from "@/shared/ui/Card";
-import { useAppStore } from "@/store/useAppStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getTaskProgress } from "@/features/tasks/selectors/taskSelectors";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const TaskProgressCard = ({ selectedDate }: Props) => {
-  const tasks = useAppStore((s) => s.tasks);
+  const tasks = useTasksStore((s) => s.tasks);
   const { total, completed, percentage } = getTaskProgress(tasks, selectedDate);
 
   const radius = 42;

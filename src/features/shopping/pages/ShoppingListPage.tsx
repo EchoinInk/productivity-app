@@ -7,14 +7,14 @@ import TabBar from "@/components/TabBar";
 import PageHeader from "@/components/PageHeader";
 import AddShoppingItem from "@/components/modal/AddShoppingItem";
 import PageShell from "@/app/layout/PageShell";
-import { useAppStore } from "@/store/useAppStore";
+import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 
 const tabs = ["Groceries", "Household"];
 
 const ShoppingListPage = () => {
-  const items = useAppStore((s) => s.shoppingItems);
-  const addShoppingItem = useAppStore((s) => s.addShoppingItem);
-  const toggleShoppingItem = useAppStore((s) => s.toggleShoppingItem);
+  const items = useShoppingStore((s) => s.shoppingItems);
+  const addShoppingItem = useShoppingStore((s) => s.addShoppingItem);
+  const toggleShoppingItem = useShoppingStore((s) => s.toggleShoppingItem);
   const [activeTab, setActiveTab] = useState("Groceries");
   const [open, setOpen] = useState(false);
 

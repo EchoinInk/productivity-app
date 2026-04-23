@@ -9,15 +9,15 @@ import AddExpense from "@/components/modal/AddExpense";
 import AddIncome from "@/components/modal/AddIncome"; // NEW
 import PageShell from "@/app/layout/PageShell";
 
-import { useAppStore } from "@/store/useAppStore";
+import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
 
 const BudgetPage = () => {
-  const expenses = useAppStore((s) => s.expenses);
-  const addExpense = useAppStore((s) => s.addExpense);
+  const expenses = useBudgetStore((s) => s.expenses);
+  const addExpense = useBudgetStore((s) => s.addExpense);
 
-  const income = useAppStore((s) => s.income); // UPDATED
-  const setIncome = useAppStore((s) => s.setIncome); // NEW
+  const income = useBudgetStore((s) => s.income);
+  const setIncome = useBudgetStore((s) => s.setIncome);
 
   const [openExpense, setOpenExpense] = useState(false);
   const [openIncome, setOpenIncome] = useState(false); // NEW

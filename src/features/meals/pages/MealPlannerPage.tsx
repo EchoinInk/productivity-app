@@ -6,11 +6,11 @@ import PageHeader from "@/components/PageHeader";
 import AddMeal from "@/components/modal/AddMeal";
 import PageShell from "@/app/layout/PageShell";
 import { weekdays } from "@/features/meals/constants/weekdays";
-import { useAppStore } from "@/store/useAppStore";
+import { useMealsStore } from "@/features/meals/store/useMealsStore";
 
 const MealPlannerPage = () => {
-  const meals = useAppStore((s) => s.meals);
-  const addMeal = useAppStore((s) => s.addMeal);
+  const meals = useMealsStore((s) => s.meals);
+  const addMeal = useMealsStore((s) => s.addMeal);
   const [open, setOpen] = useState(false);
 
   return (

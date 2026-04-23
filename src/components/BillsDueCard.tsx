@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 import clsx from "clsx";
 import { cardSoft } from "@/lib/theme";
 import moreIcon from "@/assets/icons/more-vertical.svg";
-import { useAppStore } from "@/store/useAppStore";
+import { useBillsStore } from "@/features/bills/store/useBillsStore";
 
 interface BillView {
   key: string;
@@ -36,7 +36,7 @@ const palette = [
 ];
 
 const BillsDueCard = () => {
-  const storeBills = useAppStore((s) => s.bills);
+  const storeBills = useBillsStore((s) => s.bills);
 
   const bills: BillView[] = storeBills.length
     ? storeBills.map((b, i) => ({
