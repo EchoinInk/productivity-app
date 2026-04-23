@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
-import { useAppStore } from "@/store/useAppStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 import { getTodayCategorySummaries } from "@/features/tasks/selectors/taskSelectors";
 import { Card } from "@/shared/ui/Card";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TodayTasks = ({ selectedDate }: Props) => {
-  const tasks = useAppStore((s) => s.tasks);
+  const tasks = useTasksStore((s) => s.tasks);
   const navigate = useNavigate();
   const categoryList = getTodayCategorySummaries(tasks, selectedDate);
 

@@ -9,15 +9,15 @@ import PageShell from "@/app/layout/PageShell";
 import TaskSection from "@/features/tasks/components/TaskSection";
 import { getTaskTimelineGroups } from "@/features/tasks/selectors/taskSelectors";
 import { getToday } from "@/shared/lib/date";
-import { useAppStore } from "@/store/useAppStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import type { Task } from "@/features/tasks/types";
 
 const TasksPage = () => {
-  const tasks = useAppStore((s) => s.tasks);
-  const toggleTask = useAppStore((s) => s.toggleTask);
-  const addTask = useAppStore((s) => s.addTask);
-  const updateTask = useAppStore((s) => s.updateTask);
-  const deleteTask = useAppStore((s) => s.deleteTask);
+  const tasks = useTasksStore((s) => s.tasks);
+  const toggleTask = useTasksStore((s) => s.toggleTask);
+  const addTask = useTasksStore((s) => s.addTask);
+  const updateTask = useTasksStore((s) => s.updateTask);
+  const deleteTask = useTasksStore((s) => s.deleteTask);
   const today = getToday();
 
   const [open, setOpen] = useState(false);
