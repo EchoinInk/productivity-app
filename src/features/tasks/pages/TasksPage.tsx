@@ -60,7 +60,6 @@ const TasksPage = () => {
       <div className="space-y-4">
         <PageHeader title="Tasks" />
 
-        {/* ✅ SOFT SURFACE CONTAINER */}
         <div
           className="
             rounded-2xl
@@ -70,7 +69,6 @@ const TasksPage = () => {
             p-3
           "
         >
-          {/* ✅ DIVIDERS BETWEEN SECTIONS */}
           <div className="divide-y divide-foreground/[0.06]">
             {sections.map((section) => (
               <div key={section.key} className="py-2 first:pt-0 last:pb-0">
@@ -82,7 +80,7 @@ const TasksPage = () => {
                   items={section.items}
                   activeDate={today}
                   onToggleTask={(task) =>
-                    toggleTask(task.id, task.date)
+                    toggleTask(task.id, today)
                   }
                   onSelectTask={selectTask}
                 />
@@ -91,7 +89,6 @@ const TasksPage = () => {
           </div>
         </div>
 
-        {/* ✅ ANCHORED BUTTON */}
         <div className="pt-2">
           <ActionButton fullWidth onClick={() => setOpen(true)}>
             <Plus size={16} /> Add Task
@@ -99,7 +96,7 @@ const TasksPage = () => {
         </div>
       </div>
 
-      {/* MODALS */}
+      {/* ADD TASK */}
       <AddTask
         open={open}
         onClose={() => setOpen(false)}
@@ -107,16 +104,28 @@ const TasksPage = () => {
         onSave={addTask}
       />
 
+      {/* EDIT TASK */}
       <EditTask
         open={editOpen}
         task={selectedTask}
         onClose={() => setEditOpen(false)}
-       onSave={(updated) => {
-  updateTask(updated.id, updated);
-  setEditOpen(false);
-}}
+        onSave={(updated) => {
+          if (!selectedTask) return;
+
+          updateTask(updated.id, {
+            label: updated.label,
+            date: updated.date,
+            time: updated.time,
+            category: updated.category,
+            notes: updated.notes,
+            recurrence: updated.recurrence,
+          });
+
+          setEditOpen(false);
+        }}
         onDelete={() => {
           if (!selectedTask) return;
+
           deleteTask(selectedTask.id);
           setSelectedTask(null);
           setEditOpen(false);
