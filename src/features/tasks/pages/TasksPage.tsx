@@ -111,10 +111,10 @@ const TasksPage = () => {
         open={editOpen}
         task={selectedTask}
         onClose={() => setEditOpen(false)}
-        onSave={(updated) => {
-          updateTask(updated);
-          setEditOpen(false);
-        }}
+       onSave={(updated) => {
+  updateTask(updated.id, updated);
+  setEditOpen(false);
+}}
         onDelete={() => {
           if (!selectedTask) return;
           deleteTask(selectedTask.id);
