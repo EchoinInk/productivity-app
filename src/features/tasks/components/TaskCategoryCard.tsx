@@ -1,5 +1,5 @@
-import clsx from "clsx";
 import EmptyState from "@/components/ui/EmptyState";
+import { Card } from "@/components/ui/Card";
 
 interface CategorySummary {
   category: string;
@@ -14,11 +14,13 @@ interface Props {
 }
 
 const TaskCategoryCard = ({ data, onViewAll }: Props) => {
+  const isEmpty = data.length === 0;
+
   return (
-    <section className="rounded-2xl bg-card shadow-sm p-4 space-y-4">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-foreground">
+    <Card className="p-4">
+      {/* HEADER */}
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-semibold text-foreground">
           Tasks by category
         </h2>
 
@@ -32,12 +34,14 @@ const TaskCategoryCard = ({ data, onViewAll }: Props) => {
         )}
       </div>
 
-      {/* Content */}
-      {data.length === 0 ? (
-        <EmptyState
-          title="No tasks today"
-          description="You're all caught up"
-        />
+      {/* CONTENT */}
+      {isEmpty ? (
+        <div className="flex items-center justify-center py-10">
+          <EmptyState
+            title="No tasks today"
+            description="You're all caught up"
+          />
+        </div>
       ) : (
         <ul className="space-y-3">
           {data.map((item) => {
@@ -51,7 +55,7 @@ const TaskCategoryCard = ({ data, onViewAll }: Props) => {
                 key={item.category}
                 className="flex items-center justify-between"
               >
-                {/* Left */}
+                {/* LEFT */}
                 <div className="flex flex-col">
                   <span className="text-sm font-medium text-foreground">
                     {item.category}
@@ -61,10 +65,10 @@ const TaskCategoryCard = ({ data, onViewAll }: Props) => {
                   </span>
                 </div>
 
-                {/* Right (progress ring simplified to bar for now) */}
-                <div className="w-20 h-2 rounded-full bg-muted overflow-hidden">
+                {/* RIGHT — PROGRESS BAR */}
+                <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full bg-primary transition-all"
+                    className="h-full bg-primary transition-all duration-300"
                     style={{ width: `${percent}%` }}
                   />
                 </div>
@@ -73,7 +77,7 @@ const TaskCategoryCard = ({ data, onViewAll }: Props) => {
           })}
         </ul>
       )}
-    </section>
+    </Card>
   );
 };
 

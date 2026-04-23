@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { gradientPrimaryCss } from "@/lib/gradients";
+import { Card } from "@/components/ui/Card";
 
 interface Props {
   percentage: number;
@@ -16,9 +17,13 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
     circumference - (percentage / 100) * circumference;
 
   return (
-    <section
-      className={clsx("rounded-2xl p-5 shadow-lg")}
-      style={{ background: gradientPrimaryCss }} // ✅ SYSTEM
+    <Card
+
+  className="p-5 text-white"
+
+  style={{ background: gradientPrimaryCss }}
+
+ // ✅ SYSTEM
     >
       <div className="flex items-center justify-between">
         {/* LEFT — PROGRESS RING */}
@@ -69,7 +74,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
           </p>
         </div>
       </div>
-    </section>
+    </Card>
   );
 };
 
