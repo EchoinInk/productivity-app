@@ -33,7 +33,7 @@ const TodayPage = () => {
 
   const selectedDateString = toDateString(selectedDate);
 
-  // ✅ ONLY WHAT UI NEEDS
+  // ✅ View hook (clean data layer)
   const { progress, categorySummary } = useTasksView(selectedDateString);
 
   const budget = useMemo(
@@ -44,42 +44,52 @@ const TodayPage = () => {
   return (
     <PageShell>
       <div className="space-y-4">
+        {/* HEADER */}
         <TodayHeader
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
         />
 
-        {/* 🔥 HERO CARD */}
+        {/* HERO */}
         <TaskProgressCard
           percentage={progress.percentage}
           total={progress.total}
           completed={progress.completed}
         />
 
-        {/* 🔥 THIS REPLACES TodayTasks */}
-        <TaskCategoryCard data={categorySummary} />
+        {/* GROUPED CONTENT */}
+        <div className="space-y-3">
+          <TaskCategoryCard
+            data={categorySummary}
+            onViewAll={() => {
+              // TODO: navigate to tasks page
+            }}
+          />
 
-        <MoneyLeftCard
-          remaining={Math.round(Math.max(0, budget.remaining))}
-          spent={Math.round(budget.spent)}
-          total={weeklyBudget}
-        />
+          <MoneyLeftCard
+            remaining={Math.round(Math.max(0, budget.remaining))}
+            spent={Math.round(budget.spent)}
+            total={weeklyBudget}
+          />
 
-        <BillsDueCard />
+          <BillsDueCard />
+        </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        {/* ACTIONS */}
+        <div className="grid grid-cols-2 gap-3 pt-1">
           <AddButton variant="adjunct" onClick={() => setTaskOpen(true)}>
-            <ClipboardPlus size={20} />
+            <ClipboardPlus size={20} strokeWidth={2} />
             <span>Add Task</span>
           </AddButton>
 
           <AddButton variant="recall" onClick={() => setExpenseOpen(true)}>
-            <PiggyBank size={20} />
+            <PiggyBank size={20} strokeWidth={2} />
             <span>Add Expense</span>
           </AddButton>
         </div>
       </div>
 
+      {/* MODALS (OUTSIDE LAYOUT) */}
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}

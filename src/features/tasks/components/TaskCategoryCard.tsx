@@ -1,5 +1,6 @@
 import EmptyState from "@/components/ui/EmptyState";
 import { Card } from "@/components/ui/Card";
+import { UIText } from "@/components/ui/Text";
 
 interface CategorySummary {
   category: string;
@@ -9,39 +10,31 @@ interface CategorySummary {
 }
 
 interface Props {
-  data: CategorySummary[];
+  data?: CategorySummary[];
   onViewAll?: () => void;
 }
 
-const TaskCategoryCard = ({ data, onViewAll }: Props) => {
+const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
   const isEmpty = data.length === 0;
 
   return (
-    <Card className="p-4">
-      {/* HEADER */}
+    <Card>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-semibold">
-          Tasks by category
-        </h2>
+        <UIText.Title>Tasks by category</UIText.Title>
 
         {onViewAll && (
-          <button
-            onClick={onViewAll}
-            className="text-sm font-medium text-primary"
-          >
-            View All →
+          <button onClick={onViewAll}>
+            <UIText.Highlight>View All →</UIText.Highlight>
           </button>
         )}
       </div>
 
-      {/* CONTENT */}
       {isEmpty ? (
-        <div className="flex items-center justify-center py-8">
-          <EmptyState
-            title="No tasks today"
-            description="You're all caught up"
-          />
-        </div>
+        <EmptyState
+          title="No tasks today"
+          description="You're all caught up"
+          className="py-6"
+        />
       ) : (
         <ul className="space-y-3">
           {data.map((item) => {
@@ -55,17 +48,16 @@ const TaskCategoryCard = ({ data, onViewAll }: Props) => {
                 key={item.category}
                 className="flex items-center justify-between"
               >
-                {/* LEFT */}
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-foreground">
+                <div className="space-y-0.5">
+                  <UIText.Body className="font-medium">
                     {item.category}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
+                  </UIText.Body>
+
+                  <UIText.Meta>
                     {item.completed}/{item.total} completed
-                  </span>
+                  </UIText.Meta>
                 </div>
 
-                {/* RIGHT — PROGRESS BAR */}
                 <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
                   <div
                     className="h-full bg-primary transition-all duration-300"

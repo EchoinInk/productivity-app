@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-import AppCard from "@/components/AppCard";
+import { Card } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import TabBar from "@/components/TabBar";
 import PageHeader from "@/components/PageHeader";
@@ -27,41 +27,47 @@ const ShoppingListPage = () => {
 
   return (
     <PageShell>
-      <PageHeader title="Shopping List" />
+      <div className="space-y-4">
+        <PageHeader title="Shopping List" />
 
-      <TabBar
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
+        <TabBar
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
 
-      <AppCard>
-        {items.length === 0 ? (
-          <EmptyState
-            title={`No ${activeTab.toLowerCase()} items`}
-            description={`Add your first ${activeTab.toLowerCase()} item`}
-          />
-        ) : (
-          items.map((item) => (
-            <ShoppingRow
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              done={item.done}
-              onToggle={toggleItem}
+        <Card>
+          {items.length === 0 ? (
+            <EmptyState
+              title={`No ${activeTab.toLowerCase()} items`}
+              description={`Add your first ${activeTab.toLowerCase()} item`}
+              className="py-6"
             />
-          ))
-        )}
-      </AppCard>
+          ) : (
+            <div className="space-y-1">
+              {items.map((item) => (
+                <ShoppingRow
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  done={item.done}
+                  onToggle={toggleItem}
+                />
+              ))}
+            </div>
+          )}
+        </Card>
 
-      <ActionButton fullWidth onClick={() => setOpen(true)}>
-        <Plus size={16} /> Add Item
-      </ActionButton>
+        <ActionButton fullWidth onClick={() => setOpen(true)}>
+          <Plus size={16} /> Add Item
+        </ActionButton>
+      </div>
 
+      {/* MODAL OUTSIDE */}
       <AddShoppingItem
         open={open}
         onClose={() => setOpen(false)}
-        onSave={(item) => addShoppingItem(item)}
+        onSave={addShoppingItem}
         category={activeTab}
       />
     </PageShell>

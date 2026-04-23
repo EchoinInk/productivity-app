@@ -12,17 +12,18 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
   const stroke = 6;
   const normalizedRadius = radius - stroke / 2;
   const circumference = 2 * Math.PI * normalizedRadius;
+
   const strokeDashoffset =
     circumference - (percentage / 100) * circumference;
 
   return (
     <Card variant="primary">
       <div className="flex items-center justify-between gap-3">
-        {/* LEFT — PROGRESS RING */}
+        {/* LEFT */}
         <div className="relative">
           <svg height={radius * 2} width={radius * 2}>
             <circle
-              stroke="rgba(255, 255, 255, 0.35)"
+              stroke="rgba(255,255,255,0.35)"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -49,21 +50,25 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
           </svg>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-white text-md font-semibold">
+            <UIText.LabelSoft>
               {percentage}%
-            </span>
+            </UIText.LabelSoft>
           </div>
         </div>
 
-        {/* RIGHT — TEXT */}
-        <div className="text-right">
-          <p className="text-xs">Progress</p>
-          <h2 className="text-base font-semibold leading-tight">
+        {/* RIGHT */}
+        <div className="text-right space-y-0.5">
+          <UIText.Meta className="text-white/80 text-shadow-soft">
+            Progress
+          </UIText.Meta>
+
+          <UIText.Section className="text-white text-shadow-soft">
             Today Tasks
-          </h2>
-          <p className="text-xs">
+          </UIText.Section>
+
+          <UIText.Meta className="text-white/80 text-shadow-soft">
             {completed} / {total} completed
-          </p>
+          </UIText.Meta>
         </div>
       </div>
     </Card>
