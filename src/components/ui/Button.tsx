@@ -6,9 +6,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "adjunct" | "recall";
   fullWidth?: boolean;
 }
-
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", fullWidth, type = "button", ...props }, ref) => {
+    
+
     const variantStyles = {
       primary: {
         background: gradientPrimaryCss,
