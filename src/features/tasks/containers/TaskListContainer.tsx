@@ -36,6 +36,35 @@ export const TaskListContainer = ({
     toggleTask(id, date);
   };
 
+  /**
+   * ✅ Global empty state
+   */
+  const isEmpty =
+    groups.today.length === 0 &&
+    groups.upcoming.length === 0 &&
+    groups.yesterday.length === 0;
+
+  /**
+   * ✅ Loading-ready (future-proof)
+   */
+  const isLoading = false;
+
+  if (isLoading) {
+    return (
+      <div className="py-6 text-sm text-muted-foreground">
+        Loading tasks...
+      </div>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <div className="py-10 text-center text-sm text-muted-foreground">
+        No tasks yet. Start by adding one.
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-2">
       <TaskSection

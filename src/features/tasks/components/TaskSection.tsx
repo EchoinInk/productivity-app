@@ -1,5 +1,3 @@
-// /features/tasks/components/TaskSection.tsx
-
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 
@@ -29,6 +27,19 @@ export const TaskSection = ({
   onToggleTask,
   onSelectTask,
 }: TaskSectionProps) => {
+  const getEmptyMessage = () => {
+    switch (title) {
+      case "Today":
+        return "No tasks for today";
+      case "Upcoming":
+        return "Nothing coming up";
+      case "Yesterday":
+        return "No tasks from yesterday";
+      default:
+        return "No tasks";
+    }
+  };
+
   return (
     <section className="space-y-2">
       {/* HEADER */}
@@ -51,8 +62,8 @@ export const TaskSection = ({
       {isOpen && (
         <div className="space-y-1">
           {tasks.length === 0 ? (
-            <div className="text-sm text-muted-foreground py-2">
-              No tasks
+            <div className="py-4 px-2 text-sm text-muted-foreground">
+              {getEmptyMessage()}
             </div>
           ) : (
             tasks.map((task) => (
