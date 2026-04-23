@@ -6,7 +6,7 @@ interface PageShellProps {
 
 const PageShell = ({ children }) => {
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#f7f8fc_0%,#eef1f8_100%)] px-4">
+    <div className="min-h-screen bg-[linear-gradient(145deg,#ffffff_0%,#f3f6ff_50%,#eef2ff_100%)] px-4">
       {children}
     </div>
   );

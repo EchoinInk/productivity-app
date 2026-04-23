@@ -21,7 +21,7 @@ export const Card = ({
     "backdrop-blur-xl bg-white/80 border border-white/60";
 
   const cardShadow =
-    "shadow-[0_10px_30px_rgba(120,110,200,0.17)]";
+    "shadow-[0_3px_14px_rgba(120,150,255,0.22)]";
 
   const isGradient =
     variant === "primary" ||
