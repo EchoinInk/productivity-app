@@ -1,5 +1,6 @@
 import TaskSection from "./TaskSection";
 import type { Task } from "@/features/tasks/types";
+import TaskList from "./TaskList";
 
 interface Timeline {
   today: Task[];
