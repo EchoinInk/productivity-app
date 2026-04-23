@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { BottomSheetDialog } from "@/shared/ui/BottomSheetDialog";
-import { Button } from "@/shared/ui/Button";
-import { FormActions } from "@/shared/ui/FormActions";
+import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
+import { Button } from "@/components/ui/Button";
+import { FormActions } from "@/components/ui/FormActions";
 import { taskCategories } from "@/features/tasks/constants/categories";
 import type { Task, TaskCategory, TaskRecurrence } from "@/features/tasks/types";
 

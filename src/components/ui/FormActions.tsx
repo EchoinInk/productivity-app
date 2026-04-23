@@ -1,4 +1,4 @@
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/components/ui/Button";
 
 interface FormActionsProps {
   onCancel: () => void;

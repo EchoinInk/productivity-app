@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BottomSheetDialog } from "@/shared/ui/BottomSheetDialog";
+import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 
 const AddIncome = ({ open, onClose, onSave }) => {
   const [amount, setAmount] = useState("");
