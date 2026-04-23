@@ -121,6 +121,13 @@ export const spacing = {
   24: "6rem", // 96px
 } as const;
 
+export const space = {
+  tight: spacing[2],     // 8px
+  default: spacing[3],   // 12px
+  section: spacing[4],   // 16px
+  block: spacing[6],     // 24px
+} as const;
+
 export type SpacingToken = keyof typeof spacing;
 
 // ---------------------------------------------------------------------------
