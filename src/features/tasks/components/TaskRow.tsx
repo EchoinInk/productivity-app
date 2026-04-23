@@ -29,16 +29,25 @@ export const TaskRow = ({
     .filter(Boolean)
     .join(" • ");
 
-  return (
-    <div className={clsx("transition-opacity", done && "opacity-60")}>
-      <ListItem
-        label={task.label}
-        subtitle={subtitle}
-        category={task.category}
-        checked={done}
-        onToggle={() => onToggleTask(task.id, activeDate)}
-        onClick={() => onSelectTask(task)}
-      />
-    </div>
-  );
+ return (
+  <div
+    className={clsx(
+      "transition-all duration-200 ease-out",
+      "active:scale-[0.97]",
+
+      done
+        ? "opacity-60 scale-[0.98]"
+        : "opacity-100 scale-100"
+    )}
+  >
+    <ListItem
+      label={task.label}
+      subtitle={subtitle}
+      category={task.category}
+      checked={done}
+      onToggle={() => onToggleTask(task.id, activeDate)}
+      onClick={() => onSelectTask(task)}
+    />
+  </div>
+);
 };
