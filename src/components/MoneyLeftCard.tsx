@@ -1,6 +1,6 @@
-import { safeRatio } from "@/shared/lib/number";
 import { Card } from "@/components/ui/Card";
-import { surfaces, surfaceShadow } from "@/theme/surfaces";
+import { surfaces, surfaceShadow, surfaceText } from "@/theme/surfaces";
+import { UIText } from "@/components/ui/Text";
 
 interface MoneyLeftCardProps {
   remaining?: number;
@@ -11,39 +11,34 @@ interface MoneyLeftCardProps {
 const MoneyLeftCard = ({
   remaining = 120,
   spent = 35,
-  total = 155,
 }: MoneyLeftCardProps) => {
-  const progress = safeRatio(spent, total);
-
   return (
-    <Card variant="default" className="p-4">
+    <Card variant="default">
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-semibold">
+        <UIText.Section>
           Money left this week
-        </h2>
+        </UIText.Section>
       </div>
 
       {/* Inner gradient block */}
-      <div className={`rounded-xl p-4 text-white ${surfaceShadow}`}
+    <div
+  className={`rounded-xl p-4 ${surfaceText} ${surfaceShadow}`}
   style={surfaces.gradientSubtle}
-  >
+>
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
-            ${remaining}
+<span className="text-3xl font-bold text-shadow-soft">
+              ${remaining}
           </span>
-          <span className="text-sm font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
+          <span className="text-sm font-medium text-shadow-soft">
             left to spend
           </span>
         </div>
       </div>
 
       <div className="flex items-center justify-between mt-3">
-        <p className="text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">
-            ${spent}
-          </span>{" "}
-          Spent
-        </p>
+        <UIText.Meta>
+          <span className="font-semibold">${spent}</span> Spent
+        </UIText.Meta>
       </div>
     </Card>
   );

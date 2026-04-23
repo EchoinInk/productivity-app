@@ -13,6 +13,8 @@ import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
 import EmptyState from "@/components/ui/EmptyState";
 
+import { UIText } from "@/components/ui/Text";
+
 const BudgetPage = () => {
   const expenses = useBudgetStore((s) => s.expenses);
   const addExpense = useBudgetStore((s) => s.addExpense);
@@ -58,7 +60,7 @@ const BudgetPage = () => {
 
       {/* TRANSACTIONS */}
       <AppCard>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-2">Transactions</h2>
+        <UIText.Section className="mb-2">Transactions</UIText.Section>
 
         {expenses.length === 0 ? (
 <EmptyState

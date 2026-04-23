@@ -17,9 +17,6 @@ export const Card = ({
   variant = "default",
   ...props
 }: CardProps) => {
-  // Text shadow used for gradient variants
-  const gradientTextShadow = "[text-shadow:0_1px_2px_rgba(0,0,0,0.2)]";
-
   const glassBase =
     "backdrop-blur-xl bg-white/80 border border-white/60";
 
@@ -57,9 +54,9 @@ export const Card = ({
         // GRADIENT VARIANTS
         isGradient &&
           clsx(
-            "text-white", // all text white
-            gradientTextShadow, // shadow on the card itself
-            "[&_*]:[text-shadow:0_1px_2px_rgba(0,0,0,0.2)]", // shadow on all children
+            "text-white",
+            "text-shadow-soft",            // shadow on the card
+            "[&_*]:text-shadow-soft",      // shadow on all children
             cardShadow
           ),
 

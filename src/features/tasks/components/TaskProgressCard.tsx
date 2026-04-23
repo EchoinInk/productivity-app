@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/Card";
+import { UIText } from "@/components/ui/Text";
 
 interface Props {
   percentage: number;
@@ -15,7 +16,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
     circumference - (percentage / 100) * circumference;
 
   return (
-    <Card variant="primary" className="p-4">
+    <Card variant="primary">
       <div className="flex items-center justify-between gap-3">
         {/* LEFT — PROGRESS RING */}
         <div className="relative">

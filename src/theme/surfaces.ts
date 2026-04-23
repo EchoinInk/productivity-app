@@ -1,8 +1,11 @@
 import { gradientSecondaryCss } from "@/lib/gradients";
 
-// 🔹 inner surface shadow (for blocks inside cards)
 export const surfaceShadow =
   "shadow-[0_6px_18px_rgba(120,120,200,0.18)]";
+
+// ✅ ADD THIS
+export const surfaceText =
+  "text-white drop-shadow-soft";
 
 export const surfaces = {
   gradientSubtle: {

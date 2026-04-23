@@ -8,6 +8,7 @@ import PageShell from "@/app/layout/PageShell";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
 import EmptyState from "@/components/ui/EmptyState";
+import { UIText } from "@/components/ui/Text";
 
 const RecipesPage = () => {
   const recipes = useRecipesStore((s) => s.recipes);
@@ -43,16 +44,16 @@ const RecipesPage = () => {
             >
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground">
+                  <UIText.Section>
                     {recipe.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground mt-0.5">
+                  </UIText.Section>
+                 <UIText.Meta className="mt-0.5">
                     {recipe.ingredients.length} ingredient
                     {recipe.ingredients.length === 1 ? "" : "s"}
                     {recipe.category ? ` · ${recipe.category}` : ""}
-                  </p>
+                  </UIText.Meta>
                 </div>
-                <span className="text-xs text-primary font-medium">Use</span>
+                <UIText.Highlight>Use</UIText.Highlight>
               </div>
             </button>
           </AppCard>

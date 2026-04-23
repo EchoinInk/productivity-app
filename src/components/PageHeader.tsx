@@ -1,4 +1,5 @@
 import { Bell, Menu } from "lucide-react";
+import { UIText } from "@/components/ui/Text";
 
 interface PageHeaderProps {
   title: string;
@@ -12,7 +13,7 @@ const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
       <div className="flex items-center justify-between">
         <Menu size={20} className="text-muted-foreground" />
 
-        <h1 className="text-lg font-semibold text-foreground">{title}</h1>
+        <UIText.Title>{title}</UIText.Title>
 
         <Bell size={20} className="text-muted-foreground" />
       </div>

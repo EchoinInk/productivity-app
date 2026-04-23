@@ -1,9 +1,15 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
+import type { PluginAPI } from "tailwindcss/types/config";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -14,6 +20,9 @@ export default {
       },
     },
     extend: {
+      textShadow: {
+        soft: "0 1px 2px rgba(0,0,0,0.2)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -56,20 +65,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
@@ -78,5 +79,19 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+
+plugins: [
+  tailwindcssAnimate,
+
+  function ({ addUtilities, theme }: PluginAPI) {
+    const shadows = theme("textShadow") as Record<string, string>;
+    const utilities = Object.fromEntries(
+      Object.entries(shadows).map(([key, value]) => [
+        `.text-shadow-${key}`,
+        { textShadow: value },
+      ])
+    );
+    addUtilities(utilities);
+  },
+  ],
 } satisfies Config;
