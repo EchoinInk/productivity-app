@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/components/ui/Button";
 
 interface ActionButtonProps {
   children: ReactNode;

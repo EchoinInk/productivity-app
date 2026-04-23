@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { getCategoryMetadata } from "@/features/tasks/constants/categories";
-import { CheckboxRow } from "@/shared/ui/CheckboxRow";
+import { CheckboxRow } from "@/components/ui/CheckboxRow";
 
 interface ListItemProps {
   label: string;

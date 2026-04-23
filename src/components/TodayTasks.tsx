@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 import { getTodayCategorySummaries } from "@/features/tasks/selectors/taskSelectors";
-import { Card } from "@/shared/ui/Card";
+import { Card } from "@/components/ui/Card";
 
 interface Props {
   selectedDate: string;

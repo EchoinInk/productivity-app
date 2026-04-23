@@ -1,5 +1,5 @@
 import { safeRatio } from "@/shared/lib/number";
-import { Card } from "@/shared/ui/Card";
+import { Card } from "@/components/ui/Card";
 import { gradientSecondaryCss } from "@/lib/gradients";
 
 interface MoneyLeftCardProps {

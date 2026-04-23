@@ -5,12 +5,12 @@ import { PanelLeft } from "lucide-react";
 
 import { useIsMobile } from "@/shared/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import { Button } from "@/shared/ui/shadcn/button";
-import { Input } from "@/shared/ui/shadcn/input";
-import { Separator } from "@/shared/ui/shadcn/separator";
-import { Sheet, SheetContent } from "@/shared/ui/shadcn/sheet";
-import { Skeleton } from "@/shared/ui/shadcn/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/shared/ui/shadcn/tooltip";
+import { Button } from "@/components/ui/shadcn/button";
+import { Input } from "@/components/ui/shadcn/input";
+import { Separator } from "@/components/ui/shadcn/separator";
+import { Sheet, SheetContent } from "@/components/ui/shadcn/sheet";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/shadcn/tooltip";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

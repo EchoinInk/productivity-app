@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { BottomSheetDialog } from "@/shared/ui/BottomSheetDialog";
-import { FormActions } from "@/shared/ui/FormActions";
+import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
+import { FormActions } from "@/components/ui/FormActions";
 
 interface AddBillProps {
   open: boolean;

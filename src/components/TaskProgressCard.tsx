@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Card } from "@/shared/ui/Card";
+import { Card } from "@/components/ui/Card";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getTaskProgress } from "@/features/tasks/selectors/taskSelectors";
 

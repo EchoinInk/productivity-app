@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, type ReactNode } from "react";
-import { Card } from "@/shared/ui/Card";
+import { Card } from "@/components/ui/Card";
 
 interface BottomSheetDialogProps {
   open: boolean;

@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import clsx from "clsx";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/components/ui/Button";
 
 interface AddButtonProps {
   children: ReactNode;
