@@ -16,9 +16,9 @@ const MoneyLeftCard = ({
   const progress = safeRatio(spent, total);
 
   return (
-    <Card className="px-5 py-4">
+    <Card className="p-4">
       <div className="flex items-center justify-between mb-5">
-        <p className="text-[17px] font-semibold text-secondary-foreground">
+        <p className="text-base font-semibold text-secondary-foreground">
           Money left this week
         </p>
       </div>
