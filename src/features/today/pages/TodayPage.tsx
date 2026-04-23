@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { ClipboardPlus, PiggyBank } from "lucide-react";
 
 import TodayHeader from "@/components/TodayHeader";
-import TodayTasks from "@/features/tasks/components/TodayTasks";
 import TaskProgressCard from "@/features/tasks/components/TaskProgressCard";
+import TaskCategoryCard from "@/features/tasks/components/TaskCategoryCard";
 
 import MoneyLeftCard from "@/components/MoneyLeftCard";
 import BillsDueCard from "@/features/bills/components/BillsDueCard";
@@ -33,7 +33,8 @@ const TodayPage = () => {
 
   const selectedDateString = toDateString(selectedDate);
 
-  const { timeline, progress, toggleTask } = useTasksView(selectedDateString);
+  // ✅ ONLY WHAT UI NEEDS
+  const { progress, categorySummary } = useTasksView(selectedDateString);
 
   const budget = useMemo(
     () => getBudgetSummary(expenses, weeklyBudget),
@@ -42,24 +43,21 @@ const TodayPage = () => {
 
   return (
     <PageShell>
-      {/* 🔥 CONTROL RHYTHM HERE */}
       <div className="space-y-4">
         <TodayHeader
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
         />
 
+        {/* 🔥 HERO CARD */}
         <TaskProgressCard
           percentage={progress.percentage}
           total={progress.total}
           completed={progress.completed}
         />
 
-        <TodayTasks
-          timeline={timeline}
-          onToggleTask={toggleTask}
-          activeDate={selectedDateString}
-        />
+        {/* 🔥 THIS REPLACES TodayTasks */}
+        <TaskCategoryCard data={categorySummary} />
 
         <MoneyLeftCard
           remaining={Math.round(Math.max(0, budget.remaining))}
@@ -69,15 +67,14 @@ const TodayPage = () => {
 
         <BillsDueCard />
 
-        {/* 🔧 FIXED BUTTON SECTION */}
         <div className="grid grid-cols-2 gap-2">
           <AddButton variant="adjunct" onClick={() => setTaskOpen(true)}>
-            <ClipboardPlus size={20} strokeWidth={2} />
+            <ClipboardPlus size={20} />
             <span>Add Task</span>
           </AddButton>
 
           <AddButton variant="recall" onClick={() => setExpenseOpen(true)}>
-            <PiggyBank size={20} strokeWidth={2} />
+            <PiggyBank size={20} />
             <span>Add Expense</span>
           </AddButton>
         </div>
