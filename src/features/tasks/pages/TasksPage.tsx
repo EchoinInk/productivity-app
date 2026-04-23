@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { Plus } from "lucide-react";
 
-import { Card } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import AddTask from "@/components/modal/AddTask";
@@ -61,28 +60,43 @@ const TasksPage = () => {
       <div className="space-y-4">
         <PageHeader title="Tasks" />
 
-        {/* SECTIONS (NO CARD WRAPPER) */}
-        <div className="space-y-3">
-          {sections.map((section) => (
-            <TaskSection
-              key={section.key}
-              id={`tasks-${section.key}`}
-              title={section.title}
-              isOpen={openSections[section.key]}
-              onToggle={() => toggleSection(section.key)}
-              items={section.items}
-              activeDate={today}
-              onToggleTask={(task) =>
-                toggleTask(task.id, task.date)
-              }
-              onSelectTask={selectTask}
-            />
-          ))}
+        {/* ✅ SOFT SURFACE CONTAINER */}
+        <div
+          className="
+            rounded-2xl
+            bg-white/60
+            backdrop-blur-md
+            border border-white/40
+            p-3
+          "
+        >
+          {/* ✅ DIVIDERS BETWEEN SECTIONS */}
+          <div className="divide-y divide-foreground/[0.06]">
+            {sections.map((section) => (
+              <div key={section.key} className="py-2 first:pt-0 last:pb-0">
+                <TaskSection
+                  id={`tasks-${section.key}`}
+                  title={section.title}
+                  isOpen={openSections[section.key]}
+                  onToggle={() => toggleSection(section.key)}
+                  items={section.items}
+                  activeDate={today}
+                  onToggleTask={(task) =>
+                    toggleTask(task.id, task.date)
+                  }
+                  onSelectTask={selectTask}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <ActionButton fullWidth onClick={() => setOpen(true)}>
-          <Plus size={16} /> Add Task
-        </ActionButton>
+        {/* ✅ ANCHORED BUTTON */}
+        <div className="pt-2">
+          <ActionButton fullWidth onClick={() => setOpen(true)}>
+            <Plus size={16} /> Add Task
+          </ActionButton>
+        </div>
       </div>
 
       {/* MODALS */}
