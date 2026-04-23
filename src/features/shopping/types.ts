@@ -3,7 +3,7 @@ import type { EntityId } from "@/features/tasks/types";
 export type ShoppingCategory = "Groceries" | "Household";
 
 export interface ShoppingItem {
-  id: EntityId; // ✅ FIX (not string)
+  id: EntityId;
   name: string;
   done: boolean;
   category: ShoppingCategory;
@@ -11,5 +11,5 @@ export interface ShoppingItem {
 
 export interface CreateShoppingItemInput {
   name: string;
-  category: ShoppingCategory; // ✅ REQUIRED
+  category: ShoppingCategory;
 }
