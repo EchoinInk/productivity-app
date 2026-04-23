@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 import { ClipboardPlus, PiggyBank } from "lucide-react";
 import TodayHeader from "@/components/TodayHeader";
-import TodayTasks from "@/components/TodayTasks";
+import TodayTasks from "@/features/tasks/components/TodayTasks";
 import MoneyLeftCard from "@/components/MoneyLeftCard";
-import BillsDueCard from "@/components/BillsDueCard";
+import BillsDueCard from "@/features/bills/components/BillsDueCard";
 import AddButton from "@/components/AddButton";
-import TaskProgressCard from "@/components/TaskProgressCard";
+import TaskProgressCard from "@/features/tasks/components/TaskProgressCard";
 import AddTask from "@/components/modal/AddTask";
 import AddExpense from "@/components/modal/AddExpense";
 import PageShell from "@/app/layout/PageShell";

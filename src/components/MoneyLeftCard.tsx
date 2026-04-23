@@ -8,9 +8,15 @@ interface MoneyLeftCardProps {
   total?: number;
 }
 
-const MoneyLeftCard = ({ remaining = 120, spent = 35, total = 155 }: MoneyLeftCardProps) => {
-  safeRatio(spent, total);
+const MoneyLeftCard = ({
+  remaining = 120,
+  spent = 35,
+  total = 155,
+}: MoneyLeftCardProps) => {
+  const progress = safeRatio(spent, total);
 
+  // use progress below
+};
   return (
     <Card className="px-5 py-4">
       <div className="flex items-center justify-between mb-5">
