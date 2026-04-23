@@ -18,13 +18,12 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
 
   return (
     <Card
-
-  className="p-5 text-white"
-
-  style={{ background: gradientPrimaryCss }}
-
- // ✅ SYSTEM
-    >
+  className="p-4 text-white"
+  style={{
+    background: gradientPrimaryCss,
+    filter: "saturate(1.1) contrast(1.05)",
+  }}
+>
       <div className="flex items-center justify-between">
         {/* LEFT — PROGRESS RING */}
         <div className="relative">
@@ -64,12 +63,12 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
         </div>
 
         {/* RIGHT — TEXT */}
-        <div className="text-right text-white">
+        <div className="text-right text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
           <p className="text-xs opacity-80">Progress</p>
-          <p className="text-lg font-semibold leading-tight">
+          <p className="text-base font-semibold leading-tight">
             Today Tasks
           </p>
-          <p className="text-sm opacity-80">
+          <p className="text-sm">
             {completed} / {total} completed
           </p>
         </div>

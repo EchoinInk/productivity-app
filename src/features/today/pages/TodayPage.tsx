@@ -67,7 +67,7 @@ const TodayPage = () => {
 
         <BillsDueCard />
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           <AddButton variant="adjunct" onClick={() => setTaskOpen(true)}>
             <ClipboardPlus size={20} />
             <span>Add Task</span>

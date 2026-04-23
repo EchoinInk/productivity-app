@@ -18,7 +18,7 @@ const MoneyLeftCard = ({
   return (
     <Card className="p-4">
       <div className="flex items-center justify-between mb-5">
-        <p className="text-base font-semibold text-secondary-foreground">
+        <p className="text-base font-semibold">
           Money left this week
         </p>
       </div>
@@ -33,10 +33,10 @@ const MoneyLeftCard = ({
         style={{ background: gradientSecondaryCss }}
       >
         <div className="flex items-baseline gap-2">
-          <span className="text-4xl font-bold leading-none">
+          <span className="text-3xl font-bold drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
             ${remaining}
           </span>
-          <span className="text-sm font-semibold">
+          <span className="text-sm font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
             left to spend
           </span>
         </div>
