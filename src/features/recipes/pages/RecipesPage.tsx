@@ -11,15 +11,20 @@ import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
 const RecipesPage = () => {
   const recipes = useRecipesStore((s) => s.recipes);
   const addRecipe = useRecipesStore((s) => s.addRecipe);
-  const applyRecipe = useApplyRecipe();
+
+  const { applyRecipe } = useApplyRecipe(); // ✅ FIXED
+
   const [open, setOpen] = useState(false);
 
   return (
     <PageShell>
       <PageHeader title="Recipes" />
+
       {recipes.length === 0 ? (
         <AppCard>
-          <p className="text-sm text-muted-foreground text-center py-6">No recipes yet</p>
+          <p className="text-sm text-muted-foreground text-center py-6">
+            No recipes yet
+          </p>
         </AppCard>
       ) : (
         recipes.map((recipe) => (
@@ -31,9 +36,12 @@ const RecipesPage = () => {
             >
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground">{recipe.name}</h3>
+                  <h3 className="text-sm font-semibold text-foreground">
+                    {recipe.name}
+                  </h3>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    {recipe.ingredients.length} ingredient{recipe.ingredients.length === 1 ? "" : "s"}
+                    {recipe.ingredients.length} ingredient
+                    {recipe.ingredients.length === 1 ? "" : "s"}
                     {recipe.category ? ` · ${recipe.category}` : ""}
                   </p>
                 </div>
@@ -43,10 +51,16 @@ const RecipesPage = () => {
           </AppCard>
         ))
       )}
+
       <ActionButton fullWidth onClick={() => setOpen(true)}>
         <Plus size={16} /> Add Recipe
       </ActionButton>
-      <AddRecipe open={open} onClose={() => setOpen(false)} onSave={(recipe) => addRecipe(recipe)} />
+
+      <AddRecipe
+        open={open}
+        onClose={() => setOpen(false)}
+        onSave={(recipe) => addRecipe(recipe)}
+      />
     </PageShell>
   );
 };

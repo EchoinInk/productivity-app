@@ -1,9 +1,12 @@
+// /features/recipes/hooks/useApplyRecipe.ts
+
 /**
  * Cross-feature workflow: applying a recipe writes to meals, shopping, and tasks.
  * Lives in the recipes feature because it's owned by recipes; uses other
  * feature stores via their public hooks. This is the only sanctioned way for
  * one feature to mutate another's store.
  */
+
 import { useCallback } from "react";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
@@ -16,13 +19,18 @@ export const useApplyRecipe = () => {
   const addShoppingItem = useShoppingStore((s) => s.addShoppingItem);
   const addTask = useTasksStore((s) => s.addTask);
 
-  return useCallback(
+  const applyRecipe = useCallback(
     (recipe: Pick<Recipe, "name" | "ingredients">) => {
       const workflow = buildRecipeWorkflow(recipe);
+
       addMeal(workflow.meal);
-      workflow.shoppingItems.forEach((item) => addShoppingItem(item));
+      workflow.shoppingItems.forEach((item) => {
+        addShoppingItem(item);
+      });
       addTask(workflow.task);
     },
     [addMeal, addShoppingItem, addTask],
   );
+
+  return { applyRecipe };
 };

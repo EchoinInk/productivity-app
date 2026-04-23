@@ -36,7 +36,7 @@ const palette = [
 ];
 
 const BillsDueCard = () => {
-  const storeBills = useBillsStore((s) => s.bills);
+  const bills = useBillsStore((s) => s.bills);
 
   const bills: BillView[] = storeBills.length
     ? storeBills.map((b, i) => ({
