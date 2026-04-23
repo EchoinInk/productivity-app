@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
+import { UIText } from "@/components/ui/Text";
 import { useBillsStore } from "@/features/bills/store/useBillsStore";
 
 interface BillView {
@@ -34,7 +35,7 @@ const palette = [
 ];
 
 const BillsDueCard = () => {
-  const storeBills = useBillsStore((s) => s.bills); // ✅ renamed
+  const storeBills = useBillsStore((s) => s.bills);
 
   const bills: BillView[] = storeBills.length
     ? storeBills.map((b, i) => ({
@@ -49,9 +50,7 @@ const BillsDueCard = () => {
   return (
     <Card>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-semibold">
-          Bills Due
-        </h2>
+        <UIText.Title>Bills Due</UIText.Title>
       </div>
 
       <ul className="divide-y divide-foreground/[0.05]">
@@ -59,14 +58,17 @@ const BillsDueCard = () => {
           <li key={b.key}>
             <button className="w-full flex items-center gap-3 py-3 active:opacity-70 transition">
               <span
-                className="w-5 h-5 rounded-lg shrink-0 flex items-center justify-center shadow-[0_4px_10px_rgba(180,150,200,0.15)]"
+                className="w-5 h-5 rounded-lg shrink-0 flex items-center justify-center shadow-sm"
                 style={{ background: b.iconBg }}
               >
                 <span className="block w-3.5 h-3.5 rounded-sm bg-white" />
               </span>
-              <span className="flex-1 text-left text-sm font-medium text-foreground/85">
-                {b.name}
-              </span>
+
+              <div className="flex-1 text-left">
+                <UIText.Body className="font-medium">
+                  {b.name}
+                </UIText.Body>
+              </div>
 
               <span
                 className="text-sm font-medium"
@@ -75,7 +77,7 @@ const BillsDueCard = () => {
                 {b.amount}
               </span>
 
-              <ChevronRight size={18} className="text-foreground/30" />
+              <ChevronRight size={18} className="text-muted-foreground" />
             </button>
           </li>
         ))}

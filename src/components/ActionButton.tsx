@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 interface ActionButtonProps {
   children: ReactNode;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "adjunct" | "recall";
+  variant?: "primary" | "secondary" | "adjunct" | "budget" | "recall";
   fullWidth?: boolean;
   className?: string;
 }

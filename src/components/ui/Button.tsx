@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { gradientPrimaryCss, gradientSecondaryCss, gradientTertiaryCss, gradientQuaternaryCss } from "@/lib/gradients";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "adjunct" | "recall";
+  variant?: "primary" | "secondary" | "adjunct" | "budget" | "recall";
   fullWidth?: boolean;
 }
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -18,6 +18,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       secondary: {
         background: "rgba(255,255,255,0.80)",
         class: "text-foreground border border-white/60 backdrop-blur-xl shadow-sm",
+      },
+      budget: {
+        background: gradientSecondaryCss,
+        class: "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]",
       },
       adjunct: {
         background: gradientTertiaryCss,

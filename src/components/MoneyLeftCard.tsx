@@ -26,12 +26,16 @@ const MoneyLeftCard = ({
   style={surfaces.gradientSubtle}
 >
         <div className="flex items-baseline gap-2">
-<span className="text-3xl font-bold text-shadow-soft">
-              ${remaining}
-          </span>
-          <span className="text-sm font-medium text-shadow-soft">
-            left to spend
-          </span>
+<UIText.DisplaySoft>
+
+  ${remaining}
+
+</UIText.DisplaySoft>
+          <UIText.LabelSoft>
+
+  left to spend
+
+</UIText.LabelSoft>
         </div>
       </div>
 

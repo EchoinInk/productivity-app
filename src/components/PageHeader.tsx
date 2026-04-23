@@ -21,14 +21,17 @@ const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
       {/* 📅 FLOATING DATE PILL */}
       {subtitle && (
         <div
-          className="bg-gradient-to-r from-[#DBEAFE]/80 to-[#E9D5FF]/80 backdrop-blbg-gradient-to-r from-[#DBEAFE]/70 to-[#E9D5FF]/70
-backdrop-blur-xl
-rounded-full
-px-4 py-2
-text-sm text-center text-muted-foreground
-shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_4px_20px_rgba(0,0,0,0.05)]"
+          className="
+            rounded-full px-4 py-2 text-center
+            backdrop-blur-xl
+            shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_4px_20px_rgba(0,0,0,0.05)]
+          "
+          style={{
+            background:
+              "linear-gradient(130deg, rgba(219,234,254,0.7), rgba(233,213,255,0.7))",
+          }}
         >
-          {subtitle}
+          <UIText.Meta>{subtitle}</UIText.Meta>
         </div>
       )}
     </div>

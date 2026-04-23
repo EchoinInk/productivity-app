@@ -17,7 +17,7 @@ export const gradientSecondary = [
 ];
 // used one add button on dashboard
 
-export const gradientSecondaryCss = `linear-gradient(150deg, ${gradientSecondary.join(", ")})`;
+export const gradientSecondaryCss = `linear-gradient(-150deg, ${gradientSecondary.join(", ")})`;
 
 export const gradientTertiary = [
   "#b0f7f3", // balanced aqua

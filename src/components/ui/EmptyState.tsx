@@ -1,6 +1,8 @@
-import type { ReactNode } from "react";
+import { type ReactNode, type HTMLAttributes } from "react";
+import clsx from "clsx";
+import { UIText } from "@/components/ui/Text";
 
-interface EmptyStateProps {
+interface EmptyStateProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   description?: string;
   action?: ReactNode;
@@ -10,18 +12,28 @@ const EmptyState = ({
   title = "Nothing here yet",
   description,
   action,
+  className,
+  ...props
 }: EmptyStateProps) => {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-8 px-4">
-      <p className="text-sm font-semibold text-foreground">{title}</p>
+    <div
+      className={clsx(
+        "flex flex-col items-center justify-center text-center py-8 px-4 space-y-1",
+        className
+      )}
+      {...props}
+    >
+      <UIText.Body className="font-semibold">
+        {title}
+      </UIText.Body>
 
       {description && (
-        <p className="text-xs text-muted-foreground mt-1">
+        <UIText.Meta>
           {description}
-        </p>
+        </UIText.Meta>
       )}
 
-      {action && <div className="mt-4">{action}</div>}
+      {action && <div className="pt-3">{action}</div>}
     </div>
   );
 };
