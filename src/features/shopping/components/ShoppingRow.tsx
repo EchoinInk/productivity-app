@@ -1,31 +1,35 @@
-import React, { useCallback } from "react";
-import ListItem from "@/components/ListItem";
-import type { EntityId } from "@/features/tasks/types";
+import { CheckboxRow } from "@/components/ui/CheckboxRow";
+import { ListItemBase } from "@/components/ui/ListItemBase";
+import { UIText } from "@/components/ui/Text";
+
+import type { ShoppingItem } from "@/features/shopping/types";
 
 interface ShoppingRowProps {
-  id: EntityId; // ✅ FIX
-  name: string;
-  done: boolean;
-  onToggle: (id: EntityId) => void; // ✅ FIX
+  item: ShoppingItem;
+  onToggle: (id: string) => void;
 }
 
-const ShoppingRowComponent = ({
-  id,
-  name,
-  done,
-  onToggle,
-}: ShoppingRowProps) => {
-  const handleToggle = useCallback(() => {
-    onToggle(id);
-  }, [onToggle, id]);
-
+export const ShoppingRow = ({ item, onToggle }: ShoppingRowProps) => {
   return (
-    <ListItem
-      label={name}
-      checked={done}
-      onToggle={handleToggle}
-    />
+    <CheckboxRow
+      checked={item.done}
+      onToggle={() => onToggle(item.id)}
+      className="
+        rounded-lg
+        px-2 py-2
+        transition-all duration-200
+        active:scale-[0.98]
+      "
+    >
+      <ListItemBase
+        label={
+          <UIText.Body
+            className={item.done ? "line-through opacity-50" : ""}
+          >
+            {item.name}
+          </UIText.Body>
+        }
+      />
+    </CheckboxRow>
   );
 };
-
-export const ShoppingRow = React.memo(ShoppingRowComponent);
