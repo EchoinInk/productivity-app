@@ -5,7 +5,6 @@ import { UIText } from "@/components/ui/Text";
 interface MoneyLeftCardProps {
   remaining?: number;
   spent?: number;
-  total?: number;
 }
 
 const MoneyLeftCard = ({
@@ -21,21 +20,17 @@ const MoneyLeftCard = ({
       </div>
 
       {/* Inner gradient block */}
-    <div
-  className={`rounded-xl p-4 ${surfaceText} ${surfaceShadow}`}
-  style={surfaces.gradientSubtle}
->
+      <div
+        className={`rounded-xl p-4 ${surfaceText} ${surfaceShadow}`}
+        style={surfaces.gradientSubtle}
+      >
         <div className="flex items-baseline gap-2">
-<UIText.Display>
-
-  ${remaining}
-
-</UIText.Display>
+          <UIText.Display>
+            ${remaining}
+          </UIText.Display>
           <UIText.Micro>
-
-  left to spend
-
-</UIText.Micro>
+            left to spend
+          </UIText.Micro>
         </div>
       </div>
 

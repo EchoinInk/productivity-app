@@ -34,6 +34,8 @@ const palette = [
   { iconBg: "linear-gradient(135deg,#D1F0FF,#E0E7FF)", accent: "#7C8BC4" },
 ];
 
+const fallbackPalette = palette[0];
+
 const BillsDueCard = () => {
   const storeBills = useBillsStore((s) => s.bills);
 
@@ -42,8 +44,8 @@ const BillsDueCard = () => {
         key: String(b.id),
         name: b.name,
         amount: `$${b.amount.toFixed(0)}`,
-        iconBg: palette[i % palette.length].iconBg,
-        accent: palette[i % palette.length].accent,
+        iconBg: (palette[i % palette.length] ?? fallbackPalette).iconBg,
+        accent: (palette[i % palette.length] ?? fallbackPalette).accent,
       }))
     : demoBills;
 
@@ -74,12 +76,13 @@ const BillsDueCard = () => {
                 </UIText.Micro>
               </div>
 
-              <UIText.Micro className="font-medium"
+              <UIText.Micro
+                className="font-medium"
                 style={{ color: b.accent }}
               >
                 {b.amount}
               </UIText.Micro>
--
+
               <ChevronRight size={14} className="text-[#C99BB8]" />
             </button>
           </li>

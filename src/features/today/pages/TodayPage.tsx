@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { ClipboardPlus, PiggyBank } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import TodayHeader from "@/components/TodayHeader";
 import TaskProgressCard from "@/features/tasks/components/TaskProgressCard";
@@ -8,7 +9,6 @@ import TaskCategoryCard from "@/features/tasks/components/TaskCategoryCard";
 import MoneyLeftCard from "@/components/MoneyLeftCard";
 import BillsDueCard from "@/features/bills/components/BillsDueCard";
 
-import AddButton from "@/components/AddButton";
 import AddTask from "@/components/modal/AddTask";
 import AddExpense from "@/components/modal/AddExpense";
 
@@ -23,6 +23,7 @@ import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
 import ActionButton from "@/components/ActionButton";
 
 const TodayPage = () => {
+  const navigate = useNavigate();
   const { addTask } = useTaskActions();
   const addExpense = useBudgetStore((s) => s.addExpense);
 
@@ -63,15 +64,12 @@ const TodayPage = () => {
         <div className="space-y-4">
           <TaskCategoryCard
             data={categorySummary}
-            onViewAll={() => {
-              // TODO: navigate to tasks page
-            }}
+            onViewAll={() => navigate("/tasks")}
           />
 
           <MoneyLeftCard
             remaining={Math.round(Math.max(0, budget.remaining))}
             spent={Math.round(budget.spent)}
-            total={weeklyBudget}
           />
 
           <BillsDueCard />

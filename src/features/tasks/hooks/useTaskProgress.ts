@@ -7,8 +7,8 @@ import { getToday, type DateKey } from "@/shared/lib/date";
 
 /**
  * Thin shim — prefer `useTasks(date).progress` in new code.
- * Kept so out-of-feature consumers (e.g. `TodayPage`) don't
- * need to be touched in this scoped refactor.
+ * Kept so out-of-feature consumers (e.g. `TodayPage`) can opt into
+ * the smaller subscription surface.
  */
 export const useTaskProgress = (
   date: DateKey = getToday(),

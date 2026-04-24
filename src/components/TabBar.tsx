@@ -3,7 +3,7 @@ import type { ShoppingCategory } from "@/features/shopping/types";
 interface TabBarProps {
   tabs: ShoppingCategory[];
   activeTab: ShoppingCategory;
-  onTabChange: (tab: ShoppingCategory) => void; // ✅ FIX
+  onTabChange: (tab: ShoppingCategory) => void;
 }
 
 const TabBar = ({ tabs, activeTab, onTabChange }: TabBarProps) => {

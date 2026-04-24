@@ -8,9 +8,7 @@ import {
   STORE_VERSION,
 } from "@/store/sharedPersist";
 
-import {
-  toggleTaskCompletion, // ✅ NEW (from domain)
-} from "@/features/tasks/api";
+import { toggleTaskCompletion } from "@/features/tasks/api";
 
 import type {
   CreateTaskInput,
@@ -26,7 +24,6 @@ export const useTasksStore = create<TasksState>()(
 
       /**
        * TOGGLE TASK (per date)
-       * ✅ Now fully delegated to domain
        */
       toggleTask: (id: EntityId, date: DateKey) =>
         set((state) => ({

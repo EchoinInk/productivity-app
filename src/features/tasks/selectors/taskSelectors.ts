@@ -5,7 +5,7 @@ import {
   getCategorySummaries,
   getTaskProgress,
   getTaskGroups,
-  isTaskCompleted, // ✅ FIXED
+  isTaskCompleted,
   type CategorySummary,
   type TaskProgress,
   type TaskTimelineGroups,
@@ -27,17 +27,17 @@ export const selectTasks = (state: TasksState): Task[] => state.tasks;
 export const selectTasksForDate =
   (date: DateKey) =>
   (state: TasksState): Task[] =>
-    getTasksForDate(state.tasks, date); // ✅ FIXED
+    getTasksForDate(state.tasks, date);
 
 export const selectTaskGroups =
   (date: DateKey = getToday()) =>
   (state: TasksState): TaskTimelineGroups =>
-    getTaskGroups(state.tasks, date); // ✅ FIXED
+    getTaskGroups(state.tasks, date);
 
 export const selectTaskProgress =
   (date: DateKey) =>
   (state: TasksState): TaskProgress =>
-    getTaskProgress(state.tasks, date); // ✅ FIXED
+    getTaskProgress(state.tasks, date);
 
 export const selectCategorySummaries =
   (date: DateKey) =>
@@ -51,4 +51,4 @@ export const selectUpdateTask = (s: TasksState) => s.updateTask;
 export const selectDeleteTask = (s: TasksState) => s.deleteTask;
 
 /* --- Re-export for UI --- */
-export { isTaskCompleted }; // ✅ FIXED
+export { isTaskCompleted };

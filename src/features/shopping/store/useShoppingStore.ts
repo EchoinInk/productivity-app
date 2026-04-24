@@ -27,7 +27,7 @@ export const useShoppingStore = create<ShoppingState>()(
             {
               id: createId(),
               name: input.name,
-              category: input.category, // ✅ explicit (important)
+              category: input.category,
               done: false,
             },
             ...state.shoppingItems,

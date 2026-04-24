@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { TaskRow } from "./TaskRow";
 import { UIText } from "@/components/ui/Text";
 
-import { getTaskProgress } from "@/features/tasks/api"; // ✅ FIXED
+import { getTaskProgress } from "@/features/tasks/api";
 
 import type { EntityId, Task } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
@@ -44,7 +44,7 @@ export const TaskSection = ({
   onToggleTask,
   onSelectTask,
 }: TaskSectionProps) => {
-  const progress = getTaskProgress(tasks, activeDate); // ✅ FIXED
+  const progress = getTaskProgress(tasks, activeDate);
 
   return (
     <section

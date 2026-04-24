@@ -21,7 +21,6 @@ export const useTaskInsights = (
 ): TaskInsights => {
   const summaries = useTasksStore(selectCategorySummaries(date));
 
-  // ✅ FIX: no logic in hook
   const active = getActiveCategorySummaries(summaries);
 
   return {

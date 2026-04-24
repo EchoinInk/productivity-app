@@ -15,18 +15,13 @@ const WEEKDAYS: Weekday[] = [
   "Saturday",
 ];
 
-const weekdayForToday = (): Weekday => WEEKDAYS[new Date().getDay()];
+const weekdayForToday = (): Weekday => WEEKDAYS[new Date().getDay()] ?? "Monday";
 
-/**
- * Map ingredient → shopping category
- * (aligned with ShoppingCategory type)
- */
 const mapIngredientToCategory = (
   ingredient: string
 ): CreateShoppingItemInput["category"] => {
   const name = ingredient.toLowerCase();
 
-  // Food → Groceries
   if (
     name.includes("milk") ||
     name.includes("cheese") ||
@@ -40,13 +35,9 @@ const mapIngredientToCategory = (
     return "Groceries";
   }
 
-  // Everything else → Household
   return "Household";
 };
 
-/**
- * Workflow output type
- */
 type RecipeWorkflow = {
   meal: CreateMealInput;
   shoppingItems: CreateShoppingItemInput[];

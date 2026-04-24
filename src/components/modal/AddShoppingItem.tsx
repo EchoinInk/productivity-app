@@ -7,7 +7,7 @@ interface AddShoppingItemProps {
   open: boolean;
   onClose: () => void;
   onSave: (item: { name: string; category: ShoppingCategory }) => void;
-  category: ShoppingCategory; // ✅ NEW
+  category: ShoppingCategory;
 }
 
 const AddShoppingItem = ({
@@ -25,7 +25,7 @@ const AddShoppingItem = ({
 
     onSave({
       name: name.trim(),
-      category, // ✅ FIX
+      category,
     });
 
     setName("");

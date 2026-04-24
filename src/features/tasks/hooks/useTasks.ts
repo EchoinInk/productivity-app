@@ -59,7 +59,6 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
   const updateTask = useTasksStore(selectUpdateTask);
   const deleteTask = useTasksStore(selectDeleteTask);
 
-  // ✅ FIX: moved to domain
   const active = getActiveCategorySummaries(summaries);
 
   return {
