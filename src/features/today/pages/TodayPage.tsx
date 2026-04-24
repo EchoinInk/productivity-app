@@ -14,14 +14,15 @@ import AddExpense from "@/components/modal/AddExpense";
 
 import PageShell from "@/app/layout/PageShell";
 
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { toDateString } from "@/shared/lib/date";
 import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
-import { useTasksView } from "@/features/tasks/hooks/useTasksView";
+import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
+import { useTaskProgress } from "@/features/tasks/hooks/useTaskProgress";
+import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
 
 const TodayPage = () => {
-  const addTask = useTasksStore((s) => s.addTask);
+  const { addTask } = useTaskActions();
   const addExpense = useBudgetStore((s) => s.addExpense);
 
   const expenses = useBudgetStore((s) => s.expenses);
@@ -33,8 +34,8 @@ const TodayPage = () => {
 
   const selectedDateString = toDateString(selectedDate);
 
-  // ✅ View hook (clean data layer)
-  const { progress, categorySummary } = useTasksView(selectedDateString);
+  const progress = useTaskProgress(selectedDateString);
+  const { summaries: categorySummary } = useTaskInsights(selectedDateString);
 
   const budget = useMemo(
     () => getBudgetSummary(expenses, weeklyBudget),
