@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { TaskRow } from "./TaskRow";
 import { UIText } from "@/components/ui/Text";
 
-import { getProgressForTasks } from "@/features/tasks/domain";
+import { getTaskProgress } from "@/features/tasks/domain"; // ✅ FIXED
 
 import type { EntityId, Task } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
@@ -32,9 +32,8 @@ const EMPTY_HINTS: Record<string, string> = {
 };
 
 /**
- * Presentational section. Computes progress
- * via domain helper against props only —
- * no store access, no derived state.
+ * Presentational section.
+ * Uses domain for all derived data.
  */
 export const TaskSection = ({
   title,
@@ -45,7 +44,7 @@ export const TaskSection = ({
   onToggleTask,
   onSelectTask,
 }: TaskSectionProps) => {
-  const progress = getProgressForTasks(tasks, activeDate);
+  const progress = getTaskProgress(tasks, activeDate); // ✅ FIXED
 
   return (
     <section
