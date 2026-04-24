@@ -1,7 +1,8 @@
-import clsx from "clsx";
-import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 import { CheckboxRow } from "@/components/ui/CheckboxRow";
+import { ListItemBase } from "@/components/ui/ListItemBase";
 import { UIText } from "@/components/ui/Text";
+import { getCategoryMetadata } from "@/features/tasks/constants/categories";
+
 import type { ReactNode } from "react";
 
 interface ListItemProps {
@@ -31,64 +32,30 @@ const ListItem = ({
       onToggle={onToggle}
       onClick={onClick}
       rightContent={rightContent}
-      className="
-        rounded-lg
-        px-2 py-2
-        transition-all duration-200
-        active:scale-[0.98]
-      "
+      className="rounded-lg px-2 py-2"
     >
-      <div className="flex items-stretch gap-2 w-full">
-        {/* CATEGORY COLOR BAR */}
-        {category && (
-          <div
-            className="w-1 rounded-full"
-            style={{ backgroundColor: style.text }}
-          />
-        )}
-
-        <div className="flex-1">
-          {/* LABEL */}
-          <UIText.Body
-            className={clsx(
-              "font-medium transition-all duration-200",
-              checked && "opacity-50"
-            )}
-            style={{ color: style.text }}
-          >
+      <ListItemBase
+        label={
+          <UIText.Body className="font-medium">
             {label}
           </UIText.Body>
-
-          {/* META */}
-          {(subtitle || category) && (
-            <div className="mt-1 flex items-center flex-wrap gap-2">
-              {subtitle && (
-                <UIText.Meta className="leading-tight text-muted-foreground">
-                  {subtitle}
-                </UIText.Meta>
-              )}
-
-              {category && (
-                <span
-                  className="
-                    inline-flex items-center
-                    px-2.5 py-0.5
-                    rounded-full
-                    text-[11px] font-medium
-                    backdrop-blur-sm
-                  "
-                  style={{
-                    backgroundColor: style.bg,
-                    color: style.text,
-                  }}
-                >
-                  {category}
-                </span>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
+        }
+        subtitle={
+          subtitle && (
+            <UIText.Meta className="text-muted-foreground">
+              {subtitle}
+            </UIText.Meta>
+          )
+        }
+        left={
+          category && (
+            <div
+              className="w-1 h-full rounded-full"
+              style={{ backgroundColor: style.text }}
+            />
+          )
+        }
+      />
     </CheckboxRow>
   );
 };

@@ -1,9 +1,14 @@
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
-import ListItem from "@/components/ListItem";
+import { CheckboxRow } from "@/components/ui/CheckboxRow";
+import { ListItemBase } from "@/components/ui/ListItemBase";
+import { UIText } from "@/components/ui/Text";
+
 import { formatTaskDateTime } from "@/shared/lib/date";
 import { isTaskCompletedOn } from "@/features/tasks/selectors/taskSelectors";
+import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 
 import type { Task, EntityId } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
@@ -15,47 +20,100 @@ interface TaskRowProps {
   onSelectTask: (task: Task) => void;
 }
 
-export const TaskRow = ({
-  task,
-  activeDate,
-  onToggleTask,
-  onSelectTask,
-}: TaskRowProps) => {
-  const done = isTaskCompletedOn(task, activeDate);
+export const TaskRow = memo(
+  ({
+    task,
+    activeDate,
+    onToggleTask,
+    onSelectTask,
+  }: TaskRowProps) => {
+    const done = isTaskCompletedOn(task, activeDate);
+    const style = getCategoryMetadata(task.category);
 
-  const subtitle = [
-    task.notes,
-    formatTaskDateTime(task.date, task.time),
-  ]
-    .filter(Boolean)
-    .join(" • ");
+    const subtitle = [
+      task.notes,
+      formatTaskDateTime(task.date, task.time),
+    ]
+      .filter(Boolean)
+      .join(" • ");
 
-  return (
-    <motion.div
-      layout
-      initial={false}
-      animate={{
-        opacity: done ? 0.6 : 1,
-        scale: done ? 0.98 : 1,
-      }}
-      transition={{ duration: 0.2 }}
-      className={clsx(
-        "transition-all",
-        done && "opacity-60"
-      )}
-    >
-      <ListItem
-        label={
-          <span className={clsx(done && "line-through")}>
-            {task.label}
-          </span>
-        }
-        subtitle={subtitle}
-        category={task.category}
-        checked={done}
-        onToggle={() => onToggleTask(task.id, activeDate)}
-        onClick={() => onSelectTask(task)}
-      />
-    </motion.div>
-  );
-};
+    return (
+      <motion.div
+        layout
+        layoutId={String(task.id)}
+        initial={false}
+        animate={{
+          opacity: done ? 0.6 : 1,
+          scale: done ? 0.98 : 1,
+        }}
+        transition={{
+          duration: 0.25,
+          ease: "easeOut",
+        }}
+      >
+        <CheckboxRow
+          checked={done}
+          onToggle={() => onToggleTask(task.id, activeDate)}
+          onClick={() => onSelectTask(task)}
+          className="
+            rounded-lg
+            px-2 py-2
+            transition-all duration-200
+            active:scale-[0.98]
+          "
+        >
+          <ListItemBase
+            left={
+              task.category && (
+                <div
+                  className="w-1 h-full rounded-full"
+                  style={{ backgroundColor: style.text }}
+                />
+              )
+            }
+            label={
+              <UIText.Body
+                className={clsx(
+                  "font-medium transition-all",
+                  done && "opacity-50 line-through"
+                )}
+                style={{ color: style.text }}
+              >
+                {task.label}
+              </UIText.Body>
+            }
+            subtitle={
+              <>
+                {subtitle && (
+                  <UIText.Meta className="text-muted-foreground">
+                    {subtitle}
+                  </UIText.Meta>
+                )}
+
+                {task.category && (
+                  <span
+                    className="
+                      inline-flex items-center
+                      mt-1
+                      px-2.5 py-0.5
+                      rounded-full
+                      text-[11px] font-medium
+                    "
+                    style={{
+                      backgroundColor: style.bg,
+                      color: style.text,
+                    }}
+                  >
+                    {task.category}
+                  </span>
+                )}
+              </>
+            }
+          />
+        </CheckboxRow>
+      </motion.div>
+    );
+  }
+);
+
+TaskRow.displayName = "TaskRow";
