@@ -4,7 +4,7 @@ import {
   selectDeleteTask,
   selectToggleTask,
   selectUpdateTask,
-} from "@/features/tasks/selectors/taskSelectors";
+} from "@/features/tasks/api";
 
 /**
  * Stable accessors for individual store actions.

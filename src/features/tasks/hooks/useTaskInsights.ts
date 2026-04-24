@@ -1,11 +1,11 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { selectCategorySummaries } from "@/features/tasks/selectors/taskSelectors";
-
-import { getActiveCategorySummaries } from "@/features/tasks/domain/taskDomain"; // ✅ NEW
+import {
+  getActiveCategorySummaries,
+  selectCategorySummaries,
+  type CategorySummary,
+} from "@/features/tasks/api";
 
 import { getToday, type DateKey } from "@/shared/lib/date";
-
-import type { CategorySummary } from "@/features/tasks/domain";
 
 export interface TaskInsights {
   summaries: CategorySummary[];

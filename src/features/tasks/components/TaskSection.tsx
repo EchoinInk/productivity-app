@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { TaskRow } from "./TaskRow";
 import { UIText } from "@/components/ui/Text";
 
-import { getTaskProgress } from "@/features/tasks/domain"; // ✅ FIXED
+import { getTaskProgress } from "@/features/tasks/api"; // ✅ FIXED
 
 import type { EntityId, Task } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";

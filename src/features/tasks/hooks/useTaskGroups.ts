@@ -1,8 +1,9 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { selectTaskGroups } from "@/features/tasks/selectors/taskSelectors";
+import {
+  selectTaskGroups,
+  type TaskTimelineGroups,
+} from "@/features/tasks/api";
 import { getToday, type DateKey } from "@/shared/lib/date";
-
-import type { TaskTimelineGroups } from "@/features/tasks/domain";
 
 /**
  * Thin shim over the unified `useTasks` selectors,

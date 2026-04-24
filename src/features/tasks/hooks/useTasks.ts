@@ -1,5 +1,6 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import {
+  getActiveCategorySummaries,
   selectAddTask,
   selectCategorySummaries,
   selectDeleteTask,
@@ -7,17 +8,12 @@ import {
   selectTaskProgress,
   selectToggleTask,
   selectUpdateTask,
-} from "@/features/tasks/selectors/taskSelectors";
-
-import { getActiveCategorySummaries } from "@/features/tasks/domain/taskDomain"; // ✅ NEW
+  type CategorySummary,
+  type TaskProgress,
+  type TaskTimelineGroups,
+} from "@/features/tasks/api";
 
 import { getToday, type DateKey } from "@/shared/lib/date";
-
-import type {
-  CategorySummary,
-  TaskProgress,
-  TaskTimelineGroups,
-} from "@/features/tasks/domain";
 
 import type {
   CreateTaskInput,

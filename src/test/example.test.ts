@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
 import { buildRecipeWorkflow } from "@/features/recipes/services/recipeWorkflow";
-import { getTaskProgress, getTaskTimelineGroups } from "@/features/tasks/selectors/taskSelectors";
+import { getTaskGroups, getTaskProgress } from "@/features/tasks/api";
 import { formatDisplayDate } from "@/shared/lib/date";
 import type { Task } from "@/features/tasks/types";
 
@@ -14,7 +14,7 @@ const tasks: Task[] = [
 
 describe("selectors and workflows", () => {
   it("groups tasks into timeline buckets", () => {
-    const groups = getTaskTimelineGroups(tasks, "2026-04-21");
+    const groups = getTaskGroups(tasks, "2026-04-21");
     expect(groups.today).toHaveLength(2);
     expect(groups.upcoming[0].label).toBe("Upcoming");
     expect(groups.yesterday[0].label).toBe("Yesterday");

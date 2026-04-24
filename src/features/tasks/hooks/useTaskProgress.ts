@@ -1,8 +1,9 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { selectTaskProgress } from "@/features/tasks/selectors/taskSelectors";
+import {
+  selectTaskProgress,
+  type TaskProgress,
+} from "@/features/tasks/api";
 import { getToday, type DateKey } from "@/shared/lib/date";
-
-import type { TaskProgress } from "@/features/tasks/domain";
 
 /**
  * Thin shim — prefer `useTasks(date).progress` in new code.

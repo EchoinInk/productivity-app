@@ -10,7 +10,7 @@ import {
 
 import {
   toggleTaskCompletion, // ✅ NEW (from domain)
-} from "@/features/tasks/domain/taskDomain";
+} from "@/features/tasks/api";
 
 import type {
   CreateTaskInput,
