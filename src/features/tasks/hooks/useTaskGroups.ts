@@ -3,7 +3,6 @@ import { selectTaskGroups } from "@/features/tasks/selectors/taskSelectors";
 
 /**
  * ✅ Fully selector-driven hook
- * No raw state access
  */
 export const useTaskGroups = () => {
   return useTasksStore(selectTaskGroups());

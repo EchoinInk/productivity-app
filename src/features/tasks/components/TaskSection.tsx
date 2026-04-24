@@ -2,6 +2,8 @@ import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 
 import { TaskRow } from "./TaskRow";
+import { UIText } from "@/components/ui/Text";
+import { getTaskProgress } from "@/features/tasks/selectors/taskSelectors";
 
 import type { Task, EntityId } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
@@ -27,6 +29,8 @@ export const TaskSection = ({
   onToggleTask,
   onSelectTask,
 }: TaskSectionProps) => {
+  const progress = getTaskProgress(tasks, activeDate);
+
   const getEmptyMessage = () => {
     switch (title) {
       case "Today":
@@ -54,14 +58,17 @@ export const TaskSection = ({
       {/* HEADER */}
       <button
         onClick={onToggle}
-        className="
-          flex items-center justify-between w-full
-          py-1
-        "
+        className="flex items-center justify-between w-full py-1"
       >
-        <span className="text-sm font-semibold tracking-tight">
-          {title}
-        </span>
+        <div className="flex items-center gap-2">
+          <UIText.Section className="tracking-tight">
+            {title}
+          </UIText.Section>
+
+          <UIText.Meta>
+            {progress.completed}/{progress.total}
+          </UIText.Meta>
+        </div>
 
         <ChevronDown
           size={16}
@@ -72,19 +79,28 @@ export const TaskSection = ({
         />
       </button>
 
+      {/* PROGRESS BAR */}
+      <div className="h-1 rounded-full bg-muted overflow-hidden">
+        <div
+          className="h-full bg-foreground transition-all duration-300"
+          style={{ width: `${progress.percentage}%` }}
+        />
+      </div>
+
       {/* CONTENT */}
       {isOpen && (
         <div className="space-y-2">
           {tasks.length === 0 ? (
-            <div className="py-4 px-2">
-              <p className="text-sm font-medium">
+            <div className="py-4 px-2 space-y-1">
+              <UIText.Body className="font-medium">
                 {getEmptyMessage()}
-              </p>
-              <p className="text-xs text-muted-foreground">
+              </UIText.Body>
+
+              <UIText.Meta>
                 {title === "Today"
                   ? "Add a task to get started"
                   : "Nothing scheduled here"}
-              </p>
+              </UIText.Meta>
             </div>
           ) : (
             tasks.map((task) => (
