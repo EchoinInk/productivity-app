@@ -58,6 +58,8 @@ export const TaskSection = ({
       "
     >
       <button
+        type="button"
+        aria-expanded={isOpen}
         onClick={onToggle}
         className="flex items-center justify-between w-full py-1"
       >

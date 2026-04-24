@@ -54,33 +54,47 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
           });
         }}
       >
+        <label htmlFor="edit-task-label" className="sr-only">Task name</label>
         <input
+          id="edit-task-label"
           autoFocus
           value={label}
           onChange={(e) => setLabel(e.target.value)}
           onFocus={(e) => e.target.select()}
           className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
+        <label htmlFor="edit-task-notes" className="sr-only">Notes</label>
         <textarea
+          id="edit-task-notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm text-foreground resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         <div className="flex gap-2">
-          <input
+          <div className="flex-1">
+            <label htmlFor="edit-task-date" className="sr-only">Task date</label>
+            <input
+              id="edit-task-date"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          />
-          <input
+              className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
+          <div className="flex-1">
+            <label htmlFor="edit-task-time" className="sr-only">Task time</label>
+            <input
+              id="edit-task-time"
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          />
+              className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
         </div>
+        <label htmlFor="edit-task-category" className="sr-only">Category</label>
         <select
+          id="edit-task-category"
           value={category}
           onChange={(e) => setCategory(e.target.value as TaskCategory)}
           className={clsx(
@@ -95,7 +109,9 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
             <option key={item}>{item}</option>
           ))}
         </select>
+        <label htmlFor="edit-task-recurrence" className="sr-only">Recurrence</label>
         <select
+          id="edit-task-recurrence"
           value={recurrence}
           onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)}
           className={clsx(

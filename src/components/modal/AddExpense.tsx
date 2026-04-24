@@ -23,8 +23,10 @@ const AddExpense = ({ open, onClose, onSave }: AddExpenseProps) => {
         setAmount("");
         onClose();
       }}>
-        <input autoFocus placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <input type="number" inputMode="decimal" placeholder="$ Amount" value={amount} onChange={(e) => setAmount(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <label htmlFor="add-expense-name" className="sr-only">Expense name</label>
+        <input id="add-expense-name" autoFocus placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <label htmlFor="add-expense-amount" className="sr-only">Expense amount</label>
+        <input id="add-expense-amount" type="number" inputMode="decimal" placeholder="$ Amount" value={amount} onChange={(e) => setAmount(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
         <FormActions onCancel={onClose} disabled={!canSave} />
       </form>
     </BottomSheetDialog>

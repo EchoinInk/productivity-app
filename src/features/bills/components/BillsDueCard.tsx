@@ -56,7 +56,11 @@ const BillsDueCard = () => {
       <ul className="divide-y divide-foreground/[0.05]">
         {bills.map((b) => (
           <li key={b.key}>
-            <button className="w-full flex items-center gap-3 py-3 active:opacity-70 transition">
+            <button
+              type="button"
+              aria-label={`View ${b.name}`}
+              className="w-full flex items-center gap-3 py-3 active:opacity-70 transition"
+            >
               <span
                 className="w-5 h-5 rounded-lg shrink-0 flex items-center justify-center shadow-sm"
                 style={{ background: b.iconBg }}

@@ -26,8 +26,10 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
         setDay("Monday");
         onClose();
       }}>
-        <input autoFocus placeholder="Meal name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <select value={day} onChange={(e) => setDay(e.target.value as Weekday)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <label htmlFor="add-meal-name" className="sr-only">Meal name</label>
+        <input id="add-meal-name" autoFocus placeholder="Meal name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <label htmlFor="add-meal-day" className="sr-only">Day</label>
+        <select id="add-meal-day" value={day} onChange={(e) => setDay(e.target.value as Weekday)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           {days.map((item) => <option key={item}>{item}</option>)}
         </select>
         <FormActions onCancel={onClose} disabled={!canSave} />

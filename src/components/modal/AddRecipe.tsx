@@ -31,9 +31,12 @@ const AddRecipe = ({ open, onClose, onSave }: AddRecipeProps) => {
         reset();
         onClose();
       }}>
-        <input autoFocus placeholder="Recipe name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <textarea placeholder="Ingredients (comma separated)" value={ingredients} onChange={(e) => setIngredients(e.target.value)} rows={3} className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm text-foreground resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <label htmlFor="add-recipe-name" className="sr-only">Recipe name</label>
+        <input id="add-recipe-name" autoFocus placeholder="Recipe name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <label htmlFor="add-recipe-ingredients" className="sr-only">Ingredients</label>
+        <textarea id="add-recipe-ingredients" placeholder="Ingredients (comma separated)" value={ingredients} onChange={(e) => setIngredients(e.target.value)} rows={3} className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm text-foreground resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <label htmlFor="add-recipe-category" className="sr-only">Recipe category</label>
+        <select id="add-recipe-category" value={category} onChange={(e) => setCategory(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           <option value="">No category</option>
           {categories.map((item) => <option key={item}>{item}</option>)}
         </select>

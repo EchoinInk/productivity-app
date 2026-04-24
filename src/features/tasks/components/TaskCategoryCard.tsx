@@ -23,7 +23,7 @@ const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
         <UIText.Title>Tasks by category</UIText.Title>
 
         {onViewAll && (
-          <button onClick={onViewAll}>
+          <button type="button" onClick={onViewAll}>
             <UIText.Highlight>View All →</UIText.Highlight>
           </button>
         )}

@@ -11,11 +11,11 @@ const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
     <div className="space-y-4">
       {/* 🔝 TOP BAR */}
       <div className="flex items-center justify-between">
-        <Menu size={20} className="text-muted-foreground" />
+        <Menu size={20} aria-hidden="true" className="text-muted-foreground" />
 
         <UIText.Header>{title}</UIText.Header>
 
-        <Bell size={20} className="text-muted-foreground" />
+        <Bell size={20} aria-hidden="true" className="text-muted-foreground" />
       </div>
 
       {/* 📅 FLOATING DATE PILL */}

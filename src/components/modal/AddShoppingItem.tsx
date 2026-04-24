@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
+import { FormActions } from "@/components/ui/FormActions";
 import type { ShoppingCategory } from "@/features/shopping/types";
 
 interface AddShoppingItemProps {
@@ -16,13 +18,13 @@ const AddShoppingItem = ({
 }: AddShoppingItemProps) => {
   const [name, setName] = useState("");
 
-  if (!open) return null;
+  const canSave = name.trim().length > 0;
 
   const handleSave = () => {
-    if (!name.trim()) return;
+    if (!canSave) return;
 
     onSave({
-      name,
+      name: name.trim(),
       category, // ✅ FIX
     });
 
@@ -31,21 +33,27 @@ const AddShoppingItem = ({
   };
 
   return (
-    <div className="p-4">
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Item name"
-        className="w-full border rounded px-3 py-2"
-      />
-
-      <button
-        onClick={handleSave}
-        className="mt-3 w-full bg-primary text-white py-2 rounded"
+    <BottomSheetDialog open={open} title="Add Shopping Item" onClose={onClose}>
+      <form
+        className="space-y-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSave();
+        }}
       >
-        Add Item
-      </button>
-    </div>
+        <label htmlFor="add-shopping-item-name" className="sr-only">Item name</label>
+        <input
+          id="add-shopping-item-name"
+          autoFocus
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Item name"
+          className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
+
+        <FormActions onCancel={onClose} submitLabel="Add Item" disabled={!canSave} />
+      </form>
+    </BottomSheetDialog>
   );
 };
 

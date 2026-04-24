@@ -49,16 +49,26 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
         }}
       >
         <div className="flex gap-2">
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="flex-1 w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+          <div className="flex-1">
+            <label htmlFor="add-task-date" className="sr-only">Task date</label>
+            <input id="add-task-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+          </div>
+          <div className="flex-1">
+            <label htmlFor="add-task-time" className="sr-only">Task time</label>
+            <input id="add-task-time" type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+          </div>
         </div>
-        <input autoFocus placeholder="Task name" value={label} onChange={(e) => setLabel(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <input placeholder="Notes (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <select value={category} onChange={(e) => setCategory(e.target.value as TaskCategory)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !category && "text-muted-foreground")}>
+        <label htmlFor="add-task-label" className="sr-only">Task name</label>
+        <input id="add-task-label" autoFocus placeholder="Task name" value={label} onChange={(e) => setLabel(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <label htmlFor="add-task-notes" className="sr-only">Notes</label>
+        <input id="add-task-notes" placeholder="Notes (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <label htmlFor="add-task-category" className="sr-only">Category</label>
+        <select id="add-task-category" value={category} onChange={(e) => setCategory(e.target.value as TaskCategory)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !category && "text-muted-foreground")}>
           <option value="" disabled>Category</option>
           {taskCategories.map((item) => <option key={item}>{item}</option>)}
         </select>
-        <select value={recurrence} onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !recurrence && "text-muted-foreground")}>
+        <label htmlFor="add-task-recurrence" className="sr-only">Recurrence</label>
+        <select id="add-task-recurrence" value={recurrence} onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !recurrence && "text-muted-foreground")}>
           <option value="" disabled>Recurring</option>
           <option value="none">None</option>
           <option value="weekly">Weekly</option>
