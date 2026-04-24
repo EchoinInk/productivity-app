@@ -1,128 +1,106 @@
 # 📱 LifeOS
-![React](https://img.shields.io/badge/React-TypeScript-61DAFB?style=flat-square&logo=react)
-![Zustand](https://img.shields.io/badge/Zustand-State-black?style=flat-square)
-![Tailwind](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=flat-square&logo=tailwindcss)
-> **Your life, organised in one system.**  
-Tasks. Budget. Meals. Shopping — unified.
+
+> **Your life, organised in one system**
+
+![Status](https://img.shields.io/badge/status-active-success?style=for-the-badge)
+![React](https://img.shields.io/badge/React-TypeScript-20232A?style=for-the-badge&logo=react)
+![State](https://img.shields.io/badge/State-Zustand-black?style=for-the-badge)
+![UI](https://img.shields.io/badge/UI-TailwindCSS-38B2AC?style=for-the-badge)
 
 ---
 
-## ✨ The Idea
+## ✨ Overview
 
-LifeOS replaces scattered tools with a **single, fast, focused system**.
+LifeOS is a **minimal, high-speed personal productivity system**  
+designed to replace fragmented tools with one clean workflow.
 
-No tab switching.  
-No friction.  
-No clutter.
-
-Just what you need — when you need it.
+> No clutter. No friction. Just execution.
 
 ---
 
-## ⚡ What You Get
+## 🧩 Core System
 
-### ✅ Plan Your Day
-- Clean timeline (Today / Upcoming / Yesterday)
-- Progress tracking built-in
-- Categories without complexity
-
-### 💰 Control Your Money
-- Weekly budget clarity
-- Track spending in seconds
-- Always know what’s left
-
-### 🍽 Stay Organised With Food
-- Weekly meal structure (Mon–Sun)
-- Breakfast / Lunch / Dinner planning
-- No more “what should I eat?”
-
-### 🛒 Shop Smarter
-- Auto-organised lists
-- Quick check-off flow
-- Built for real grocery runs
+| Area      | Purpose                          |
+|----------|----------------------------------|
+| ✅ Tasks  | Daily execution + timeline        |
+| 💰 Budget | Weekly financial clarity          |
+| 🍽 Meals  | Structured weekly planning        |
+| 🛒 Lists  | Fast, real-world shopping flow    |
 
 ---
 
-## 🧠 Why LifeOS Works
+## ⚡ Experience
 
-Most apps add features.  
-LifeOS removes friction.
-
-- No unnecessary screens  
-- No bloated workflows  
-- No over-engineering  
-
-Everything exists for one reason:  
-**to make daily decisions faster**
+- Timeline-driven task flow  
+- Instant feedback + progress tracking  
+- Zero-friction data entry  
+- Built for **real daily usage**, not theory  
 
 ---
 
-## 🧱 Built Differently
+## 🧱 Architecture
 
 ```
 STORE → SELECTORS → DOMAIN → HOOK → UI
 ```
 
-- **Domain-first logic**
-- **Composable architecture**
-- **Clean separation of concerns**
-
-This isn’t just an app — it’s a system.
+**Principles:**
+- Domain owns logic  
+- UI stays clean  
+- Hooks orchestrate  
+- Everything is composable  
 
 ---
 
-## ⚙️ Stack
+## 🎨 Design Philosophy
 
-- React + TypeScript  
+LifeOS follows a **calm, structured UI system**:
+
+- Soft gradients (light neutral backgrounds)  
+- High readability typography  
+- Clear visual hierarchy  
+- Minimal cognitive load  
+
+---
+
+## ⚙️ Tech Stack
+
+- React (TypeScript)  
 - Zustand  
 - Tailwind CSS  
 - Framer Motion  
 
 ---
 
-## 🔮 What’s Coming
+## 🔮 Roadmap
 
-**Core**
-- Recurring tasks (daily / weekly / custom)
-- Overdue logic
-- Calendar scheduling
+### Core
+- Recurring task engine  
+- Overdue handling  
+- Calendar integration  
 
-**UX**
-- Swipe actions
-- Haptics + motion polish
-- Inline editing
+### UX
+- Swipe gestures  
+- Haptics + animations  
+- Inline editing  
 
-**Insights**
-- Productivity tracking
-- Budget analytics
-- Smart summaries
-
-**Automation**
-- Meals → shopping list
-- Tasks → reminders
-- Intelligent suggestions
-
----
-
-## 📖 Philosophy
-
-> Speed over complexity  
-> Clarity over features  
-> Real usage over theory  
+### Intelligence
+- Smart insights  
+- Budget analytics  
+- Predictive suggestions  
 
 ---
 
 ## 🚀 Vision
 
-LifeOS isn’t trying to be another productivity app.
+LifeOS is not another productivity app.
 
-It’s aiming to become your **default operating system for life admin**.
+It’s a **personal operating system** for managing daily life.
 
 ---
 
-## 🧠 Built By
+## 🧠 Built With
 
-Designed and refined through:
 - AI-assisted development  
+- System-first thinking  
 - Real-world iteration  
-- Continuous system thinking  
