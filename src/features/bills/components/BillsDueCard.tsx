@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
 import { useBillsStore } from "@/features/bills/store/useBillsStore";
+import { brandGradients, semanticColors } from "@/theme";
 
 interface BillView {
   key: string;
@@ -16,22 +17,22 @@ const demoBills: BillView[] = [
     key: "demo-electric",
     name: "Electric Bill",
     amount: "$80",
-    iconBg: "linear-gradient(135deg,#FFE7D1,#FADCEB)",
-    accent: "#C99BB8",
+    iconBg: brandGradients.billWarm,
+    accent: semanticColors.billWarm,
   },
   {
     key: "demo-netflix",
     name: "Netflix",
     amount: "Due Today",
-    iconBg: "linear-gradient(135deg,#F8DFFF,#E7D9FF)",
-    accent: "#9B8AC4",
+    iconBg: brandGradients.billCool,
+    accent: semanticColors.billCool,
   },
 ];
 
 const palette = [
-  { iconBg: "linear-gradient(135deg,#FFE7D1,#FADCEB)", accent: "#C99BB8" },
-  { iconBg: "linear-gradient(135deg,#F8DFFF,#E7D9FF)", accent: "#9B8AC4" },
-  { iconBg: "linear-gradient(135deg,#D1F0FF,#E0E7FF)", accent: "#7C8BC4" },
+  { iconBg: brandGradients.billWarm, accent: semanticColors.billWarm },
+  { iconBg: brandGradients.billCool, accent: semanticColors.billCool },
+  { iconBg: brandGradients.billBlue, accent: semanticColors.accentText },
 ];
 
 const fallbackPalette = palette[0];
@@ -83,7 +84,7 @@ const BillsDueCard = () => {
                 {b.amount}
               </UIText.Micro>
 
-              <ChevronRight size={14} className="text-[#C99BB8]" />
+              <ChevronRight size={14} style={{ color: semanticColors.billWarm }} />
             </button>
           </li>
         ))}

@@ -84,6 +84,32 @@ export const gradients = {
 
 export type GradientToken = keyof typeof gradients;
 
+export const brandGradientStops = {
+  primary: ["#b8fff8", "#d2e1fb", "#d9ddff", "#eeddf7", "#ffe8e8"],
+  secondary: ["#b4fdf6", "#cde0f7", "#d4d7fb", "#e9d7f3", "#ffe2e2"],
+  tertiary: ["#b0f7f3", "#c0d0f3", "#c7c9f6", "#ded0e7", "#f6d0d0"],
+  quaternary: ["#b2f4ee", "#c4d4f0", "#cfcdf5", "#e2d2eb", "#f7d2d2"],
+} as const;
+
+export const brandGradients = {
+  primary: `linear-gradient(165deg, ${brandGradientStops.primary.join(", ")})`,
+  secondary: `linear-gradient(-150deg, ${brandGradientStops.secondary.join(", ")})`,
+  tertiary: `linear-gradient(130deg, ${brandGradientStops.tertiary.join(", ")})`,
+  quaternary: `linear-gradient(110deg, ${brandGradientStops.quaternary.join(", ")})`,
+  page: "linear-gradient(145deg, #ffffff 0%, #f3f6ff 50%, #eef2ff 100%)",
+  datePill: "linear-gradient(130deg, rgba(219,234,254,0.7), rgba(233,213,255,0.7))",
+  billWarm: "linear-gradient(135deg,#FFE7D1,#FADCEB)",
+  billCool: "linear-gradient(135deg,#F8DFFF,#E7D9FF)",
+  billBlue: "linear-gradient(135deg,#D1F0FF,#E0E7FF)",
+} as const;
+
+export const semanticColors = {
+  softText: "#5A626D",
+  accentText: "#7C8BC4",
+  billWarm: "#C99BB8",
+  billCool: "#9B8AC4",
+} as const;
+
 // ---------------------------------------------------------------------------
 // Shadows — match `--shadow-*` in src/index.css
 // ---------------------------------------------------------------------------
@@ -91,6 +117,8 @@ export type GradientToken = keyof typeof gradients;
 export const shadows = {
   card: "0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px var(--space-1) -1px hsl(220 20% 10% / 0.04)",
   elevated: "0 var(--space-2) var(--space-5) -var(--space-1) hsl(220 20% 10% / 0.08)",
+  glass: "0 3px 14px rgba(120,150,255,0.22)",
+  surface: "0 var(--space-3) 18px rgba(120,120,200,0.18)",
 } as const;
 
 export type ShadowToken = keyof typeof shadows;
@@ -218,6 +246,9 @@ export type ZIndexToken = keyof typeof zIndex;
 export const tokens = {
   colors,
   gradients,
+  brandGradients,
+  brandGradientStops,
+  semanticColors,
   shadows,
   spacing,
   radius,

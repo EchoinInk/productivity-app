@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import clsx from "clsx";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { Button } from "@/components/ui/Button";
 import { FormActions } from "@/components/ui/FormActions";
+import { Field, ModalForm, SelectField, TextareaField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
 import type { Task, TaskCategory, TaskRecurrence } from "@/features/tasks/types";
 
@@ -38,8 +38,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
 
   return (
     <BottomSheetDialog open={open} title="Edit Task" onClose={onClose}>
-      <form
-        className="space-y-4"
+      <ModalForm
         onSubmit={(event) => {
           event.preventDefault();
           if (!canSave) return;
@@ -54,53 +53,46 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
           });
         }}
       >
-        <label htmlFor="edit-task-label" className="sr-only">Task name</label>
-        <input
+        <Field
           id="edit-task-label"
+          label="Task name"
           autoFocus
           value={label}
           onChange={(e) => setLabel(e.target.value)}
           onFocus={(e) => e.target.select()}
-          className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
-        <label htmlFor="edit-task-notes" className="sr-only">Notes</label>
-        <textarea
+        <TextareaField
           id="edit-task-notes"
+          label="Notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm text-foreground resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         <div className="flex gap-2">
           <div className="flex-1">
-            <label htmlFor="edit-task-date" className="sr-only">Task date</label>
-            <input
+            <Field
               id="edit-task-date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-              className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              label="Task date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
           <div className="flex-1">
-            <label htmlFor="edit-task-time" className="sr-only">Task time</label>
-            <input
+            <Field
               id="edit-task-time"
-            type="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-              className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              label="Task time"
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
             />
           </div>
         </div>
-        <label htmlFor="edit-task-category" className="sr-only">Category</label>
-        <select
+        <SelectField
           id="edit-task-category"
+          label="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value as TaskCategory)}
-          className={clsx(
-            "w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            !category && "text-muted-foreground",
-          )}
+          placeholder={!category}
         >
           <option value="" disabled>
             Category
@@ -108,16 +100,13 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
           {taskCategories.map((item) => (
             <option key={item}>{item}</option>
           ))}
-        </select>
-        <label htmlFor="edit-task-recurrence" className="sr-only">Recurrence</label>
-        <select
+        </SelectField>
+        <SelectField
           id="edit-task-recurrence"
+          label="Recurrence"
           value={recurrence}
           onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)}
-          className={clsx(
-            "w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            !recurrence && "text-muted-foreground",
-          )}
+          placeholder={!recurrence}
         >
           <option value="" disabled>
             Recurring
@@ -125,12 +114,12 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
           <option value="none">None</option>
           <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>
-        </select>
+        </SelectField>
         <FormActions onCancel={onClose} disabled={!canSave} />
         <Button variant="recall" fullWidth onClick={onDelete}>
           Delete Task
         </Button>
-      </form>
+      </ModalForm>
     </BottomSheetDialog>
   );
 };

@@ -1,12 +1,6 @@
 import { type HTMLAttributes } from "react";
 import clsx from "clsx";
-
-import {
-  gradientPrimaryCss,
-  gradientSecondaryCss,
-  gradientTertiaryCss,
-  gradientQuaternaryCss,
-} from "@/lib/gradients";
+import { brandGradients } from "@/theme";
 
 type CardVariant = "default" | "primary" | "budget" | "alert" | "adjunct" | "recall";
 type GradientCardVariant = Exclude<CardVariant, "default" | "alert">;
@@ -16,10 +10,10 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const gradientMap: Record<GradientCardVariant, string> = {
-  primary: gradientPrimaryCss,
-  budget: gradientSecondaryCss,
-  adjunct: gradientTertiaryCss,
-  recall: gradientQuaternaryCss,
+  primary: brandGradients.primary,
+  budget: brandGradients.secondary,
+  adjunct: brandGradients.tertiary,
+  recall: brandGradients.quaternary,
 };
 
 const isGradientVariant = (variant: CardVariant): variant is GradientCardVariant =>
@@ -33,8 +27,7 @@ export const Card = ({
   const glassBase =
     "backdrop-blur-xl bg-white/80 border border-white/60";
 
-  const cardShadow =
-    "shadow-[0_3px_14px_rgba(120,150,255,0.22)]";
+  const cardShadow = "shadow-[var(--shadow-glass)]";
 
   const isGradient = isGradientVariant(variant);
 
@@ -48,7 +41,7 @@ export const Card = ({
   return (
     <div
       className={clsx(
-        "rounded-2xl p-4 transition-all duration-200",
+        "rounded-lg p-4 transition-all duration-200",
 
         variant === "default" && clsx(glassBase, cardShadow),
 

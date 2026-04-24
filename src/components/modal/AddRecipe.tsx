@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
+import { Field, ModalForm, SelectField, TextareaField } from "@/components/ui/FormField";
 
 interface AddRecipeProps {
   open: boolean;
@@ -24,24 +25,21 @@ const AddRecipe = ({ open, onClose, onSave }: AddRecipeProps) => {
 
   return (
     <BottomSheetDialog open={open} title="Add Recipe" onClose={onClose}>
-      <form className="space-y-4" onSubmit={(event) => {
+      <ModalForm onSubmit={(event) => {
         event.preventDefault();
         if (!canSave) return;
         onSave({ name: name.trim(), ingredients: ingredients.split(",").map((item) => item.trim()).filter(Boolean), category: category || undefined });
         reset();
         onClose();
       }}>
-        <label htmlFor="add-recipe-name" className="sr-only">Recipe name</label>
-        <input id="add-recipe-name" autoFocus placeholder="Recipe name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <label htmlFor="add-recipe-ingredients" className="sr-only">Ingredients</label>
-        <textarea id="add-recipe-ingredients" placeholder="Ingredients (comma separated)" value={ingredients} onChange={(e) => setIngredients(e.target.value)} rows={3} className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm text-foreground resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <label htmlFor="add-recipe-category" className="sr-only">Recipe category</label>
-        <select id="add-recipe-category" value={category} onChange={(e) => setCategory(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <Field id="add-recipe-name" label="Recipe name" autoFocus placeholder="Recipe name" value={name} onChange={(e) => setName(e.target.value)} />
+        <TextareaField id="add-recipe-ingredients" label="Ingredients" placeholder="Ingredients (comma separated)" value={ingredients} onChange={(e) => setIngredients(e.target.value)} rows={3} />
+        <SelectField id="add-recipe-category" label="Recipe category" value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">No category</option>
           {categories.map((item) => <option key={item}>{item}</option>)}
-        </select>
+        </SelectField>
         <FormActions onCancel={() => { reset(); onClose(); }} disabled={!canSave} />
-      </form>
+      </ModalForm>
     </BottomSheetDialog>
   );
 };

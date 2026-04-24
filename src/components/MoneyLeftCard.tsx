@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/Card";
-import { surfaces, surfaceShadow, surfaceText } from "@/theme/surfaces";
 import { UIText } from "@/components/ui/Text";
+import { brandGradients } from "@/theme";
 
 interface MoneyLeftCardProps {
   remaining?: number;
@@ -21,8 +21,11 @@ const MoneyLeftCard = ({
 
       {/* Inner gradient block */}
       <div
-        className={`rounded-xl p-4 ${surfaceText} ${surfaceShadow}`}
-        style={surfaces.gradientSubtle}
+        className="rounded-lg p-4 text-white drop-shadow-soft shadow-[var(--shadow-surface)]"
+        style={{
+          background: brandGradients.secondary,
+          filter: "saturate(1.1) contrast(1.05)",
+        }}
       >
         <div className="flex items-baseline gap-2">
           <UIText.Display>

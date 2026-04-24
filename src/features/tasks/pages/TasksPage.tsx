@@ -41,7 +41,7 @@ const TasksPage = () => {
 
         <div
           className="
-            rounded-2xl
+            rounded-lg
             bg-white/60
             backdrop-blur-md
             border border-white/40

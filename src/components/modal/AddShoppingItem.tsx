@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
+import { Field, ModalForm } from "@/components/ui/FormField";
 import type { ShoppingCategory } from "@/features/shopping/types";
 
 interface AddShoppingItemProps {
@@ -34,25 +35,23 @@ const AddShoppingItem = ({
 
   return (
     <BottomSheetDialog open={open} title="Add Shopping Item" onClose={onClose}>
-      <form
-        className="space-y-4"
+      <ModalForm
         onSubmit={(event) => {
           event.preventDefault();
           handleSave();
         }}
       >
-        <label htmlFor="add-shopping-item-name" className="sr-only">Item name</label>
-        <input
+        <Field
           id="add-shopping-item-name"
+          label="Item name"
           autoFocus
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Item name"
-          className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
 
         <FormActions onCancel={onClose} submitLabel="Add Item" disabled={!canSave} />
-      </form>
+      </ModalForm>
     </BottomSheetDialog>
   );
 };

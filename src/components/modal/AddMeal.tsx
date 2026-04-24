@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
+import { Field, ModalForm, SelectField } from "@/components/ui/FormField";
 import type { Weekday } from "@/features/meals/types";
 
 interface AddMealProps {
@@ -18,7 +19,7 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
 
   return (
     <BottomSheetDialog open={open} title="Add Meal" onClose={onClose}>
-      <form className="space-y-4" onSubmit={(event) => {
+      <ModalForm onSubmit={(event) => {
         event.preventDefault();
         if (!canSave) return;
         onSave({ name: name.trim(), day });
@@ -26,14 +27,12 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
         setDay("Monday");
         onClose();
       }}>
-        <label htmlFor="add-meal-name" className="sr-only">Meal name</label>
-        <input id="add-meal-name" autoFocus placeholder="Meal name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <label htmlFor="add-meal-day" className="sr-only">Day</label>
-        <select id="add-meal-day" value={day} onChange={(e) => setDay(e.target.value as Weekday)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <Field id="add-meal-name" label="Meal name" autoFocus placeholder="Meal name" value={name} onChange={(e) => setName(e.target.value)} />
+        <SelectField id="add-meal-day" label="Day" value={day} onChange={(e) => setDay(e.target.value as Weekday)}>
           {days.map((item) => <option key={item}>{item}</option>)}
-        </select>
+        </SelectField>
         <FormActions onCancel={onClose} disabled={!canSave} />
-      </form>
+      </ModalForm>
     </BottomSheetDialog>
   );
 };

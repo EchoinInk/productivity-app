@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import { brandGradients } from "@/theme";
 
 interface PageShellProps {
   children: ReactNode;
@@ -6,7 +7,7 @@ interface PageShellProps {
 
 const PageShell = ({ children }: PageShellProps) => {
   return (
-    <div className="min-h-screen bg-[linear-gradient(145deg,#ffffff_0%,#f3f6ff_50%,#eef2ff_100%)] px-4">
+    <div className="min-h-screen px-4" style={{ background: brandGradients.page }}>
       {children}
     </div>
   );

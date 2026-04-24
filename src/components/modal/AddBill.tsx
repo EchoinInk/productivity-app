@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
+import { Field, ModalForm } from "@/components/ui/FormField";
 
 interface AddBillProps {
   open: boolean;
@@ -16,7 +17,7 @@ const AddBill = ({ open, onClose, onSave }: AddBillProps) => {
 
   return (
     <BottomSheetDialog open={open} title="Add Bill" onClose={onClose}>
-      <form className="space-y-4" onSubmit={(event) => {
+      <ModalForm onSubmit={(event) => {
         event.preventDefault();
         if (!canSave) return;
         onSave({ name: name.trim(), amount: parseFloat(amount), date });
@@ -25,14 +26,11 @@ const AddBill = ({ open, onClose, onSave }: AddBillProps) => {
         setDate("");
         onClose();
       }}>
-        <label htmlFor="add-bill-name" className="sr-only">Bill name</label>
-        <input id="add-bill-name" autoFocus placeholder="Bill name" value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <label htmlFor="add-bill-amount" className="sr-only">Amount</label>
-        <input id="add-bill-amount" type="number" inputMode="decimal" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <label htmlFor="add-bill-date" className="sr-only">Due date</label>
-        <input id="add-bill-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <Field id="add-bill-name" label="Bill name" autoFocus placeholder="Bill name" value={name} onChange={(e) => setName(e.target.value)} />
+        <Field id="add-bill-amount" label="Amount" type="number" inputMode="decimal" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+        <Field id="add-bill-date" label="Due date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         <FormActions onCancel={onClose} disabled={!canSave} />
-      </form>
+      </ModalForm>
     </BottomSheetDialog>
   );
 };

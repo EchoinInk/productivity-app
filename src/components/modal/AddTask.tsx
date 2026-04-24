@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import clsx from "clsx";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
+import { Field, ModalForm, SelectField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
 import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types";
 
@@ -38,8 +38,7 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
 
   return (
     <BottomSheetDialog open={open} title="New Task" onClose={onClose}>
-      <form
-        className="space-y-4"
+      <ModalForm
         onSubmit={(event) => {
           event.preventDefault();
           if (!canSave) return;
@@ -50,32 +49,26 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
       >
         <div className="flex gap-2">
           <div className="flex-1">
-            <label htmlFor="add-task-date" className="sr-only">Task date</label>
-            <input id="add-task-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+            <Field id="add-task-date" label="Task date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
           <div className="flex-1">
-            <label htmlFor="add-task-time" className="sr-only">Task time</label>
-            <input id="add-task-time" type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+            <Field id="add-task-time" label="Task time" type="time" value={time} onChange={(e) => setTime(e.target.value)} />
           </div>
         </div>
-        <label htmlFor="add-task-label" className="sr-only">Task name</label>
-        <input id="add-task-label" autoFocus placeholder="Task name" value={label} onChange={(e) => setLabel(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <label htmlFor="add-task-notes" className="sr-only">Notes</label>
-        <input id="add-task-notes" placeholder="Notes (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-        <label htmlFor="add-task-category" className="sr-only">Category</label>
-        <select id="add-task-category" value={category} onChange={(e) => setCategory(e.target.value as TaskCategory)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !category && "text-muted-foreground")}>
+        <Field id="add-task-label" label="Task name" autoFocus placeholder="Task name" value={label} onChange={(e) => setLabel(e.target.value)} />
+        <Field id="add-task-notes" label="Notes" placeholder="Notes (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} />
+        <SelectField id="add-task-category" label="Category" value={category} onChange={(e) => setCategory(e.target.value as TaskCategory)} placeholder={!category}>
           <option value="" disabled>Category</option>
           {taskCategories.map((item) => <option key={item}>{item}</option>)}
-        </select>
-        <label htmlFor="add-task-recurrence" className="sr-only">Recurrence</label>
-        <select id="add-task-recurrence" value={recurrence} onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)} className={clsx("w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", !recurrence && "text-muted-foreground")}>
+        </SelectField>
+        <SelectField id="add-task-recurrence" label="Recurrence" value={recurrence} onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)} placeholder={!recurrence}>
           <option value="" disabled>Recurring</option>
           <option value="none">None</option>
           <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>
-        </select>
+        </SelectField>
         <FormActions onCancel={onClose} disabled={!canSave} />
-      </form>
+      </ModalForm>
     </BottomSheetDialog>
   );
 };

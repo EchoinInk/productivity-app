@@ -52,6 +52,10 @@
 
     --shadow-card: 0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px var(--space-1) -1px hsl(220 20% 10% / 0.04);
     --shadow-elevated: 0 var(--space-2) var(--space-5) -var(--space-1) hsl(220 20% 10% / 0.08);
+    --shadow-glass: 0 3px 14px rgba(120,150,255,0.22);
+    --shadow-surface: 0 var(--space-3) 18px rgba(120,120,200,0.18);
+
+    --progress-track: rgba(90, 98, 109, 0.15);
   }
 }
 
@@ -69,12 +73,12 @@
 
 @layer components {
   .card-base {
-    @apply bg-card rounded-xl p-4;
+    @apply bg-card rounded-lg p-4;
     box-shadow: var(--shadow-card);
   }
 
   .card-elevated {
-    @apply bg-card rounded-xl p-4;
+    @apply bg-card rounded-lg p-4;
     box-shadow: var(--shadow-elevated);
   }
 
@@ -89,7 +93,7 @@
 
 @layer components {
   .input {
-    @apply w-full px-3 py-2 rounded-xl border border-border text-sm bg-white/70 backdrop-blur-md;
+    @apply w-full px-3 py-2 rounded-md border border-border text-sm bg-white/70 backdrop-blur-md;
   }
 
   .modal {
@@ -97,6 +101,6 @@
   }
 
   .card {
-    @apply rounded-2xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-sm p-4;
+    @apply rounded-lg bg-white/60 backdrop-blur-xl border border-white/40 shadow-sm p-4;
   }
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
+import { Field, ModalForm } from "@/components/ui/FormField";
 
 interface AddIncomeProps {
   open: boolean;
@@ -14,8 +15,7 @@ const AddIncome = ({ open, onClose, onSave }: AddIncomeProps) => {
 
   return (
     <BottomSheetDialog open={open} onClose={onClose} title="Add Income">
-      <form
-        className="space-y-4"
+      <ModalForm
         onSubmit={(event) => {
           event.preventDefault();
           if (!canSave) return;
@@ -24,19 +24,18 @@ const AddIncome = ({ open, onClose, onSave }: AddIncomeProps) => {
           onClose();
         }}
       >
-        <label htmlFor="add-income-amount" className="sr-only">Income amount</label>
-        <input
+        <Field
           id="add-income-amount"
+          label="Income amount"
           type="number"
           inputMode="decimal"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="Income amount"
-          className="w-full h-11 px-3 rounded-xl bg-background border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
 
         <FormActions onCancel={onClose} submitLabel="Save Income" disabled={!canSave} />
-      </form>
+      </ModalForm>
     </BottomSheetDialog>
   );
 };

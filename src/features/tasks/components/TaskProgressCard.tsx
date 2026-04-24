@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
+import { semanticColors } from "@/theme";
 
 interface Props {
   percentage: number;
@@ -23,7 +24,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
         <div className="relative">
           <svg height={radius * 2} width={radius * 2}>
             <circle
-              stroke="rgba(90, 98, 109, 0.15)"
+              stroke="var(--progress-track)"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -32,7 +33,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
             />
 
             <circle
-              stroke="rgba(90, 98, 109,1)"
+              stroke={semanticColors.softText}
               fill="transparent"
               strokeWidth={stroke}
               strokeLinecap="round"
@@ -58,15 +59,15 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
 
         {/* RIGHT */}
         <div className="text-right space-y-0.5">
-          <UIText.Meta className="text-[#5A626D]">
+          <UIText.Meta style={{ color: semanticColors.softText }}>
             Progress
           </UIText.Meta>
 
-          <UIText.Title className="text-[#5A626D]">
+          <UIText.Title style={{ color: semanticColors.softText }}>
             Today Tasks
           </UIText.Title>
 
-          <UIText.Meta className="text-[#5A626D]">
+          <UIText.Meta style={{ color: semanticColors.softText }}>
             {completed} / {total} completed
           </UIText.Meta>
         </div>
