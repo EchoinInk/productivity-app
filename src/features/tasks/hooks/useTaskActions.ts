@@ -1,19 +1,21 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-
-import type { TasksState } from "@/features/tasks/types";
+import {
+  selectAddTask,
+  selectDeleteTask,
+  selectToggleTask,
+  selectUpdateTask,
+} from "@/features/tasks/selectors/taskSelectors";
 
 /**
- * Stable, side-effect-free accessors for the
- * tasks store. Each action is selected
- * individually so consumers don't subscribe
- * to the full state.
+ * Stable accessors for individual store actions.
+ *
+ * Kept as a thin shim over the new unified `useTasks`
+ * hook so existing call sites (e.g. `TodayPage`,
+ * `TasksPage`) keep working without change.
+ *
+ * Each action is selected individually so consumers
+ * never subscribe to the full store.
  */
-
-const selectAddTask = (s: TasksState) => s.addTask;
-const selectToggleTask = (s: TasksState) => s.toggleTask;
-const selectUpdateTask = (s: TasksState) => s.updateTask;
-const selectDeleteTask = (s: TasksState) => s.deleteTask;
-
 export const useTaskActions = () => ({
   addTask: useTasksStore(selectAddTask),
   toggleTask: useTasksStore(selectToggleTask),

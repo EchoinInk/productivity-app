@@ -7,10 +7,8 @@ import { ListItemBase } from "@/components/ui/ListItemBase";
 import { UIText } from "@/components/ui/Text";
 
 import { getCategoryMetadata } from "@/features/tasks/constants/categories";
-import {
-  buildTaskSubtitle,
-  isTaskCompletedOn,
-} from "@/features/tasks/domain";
+import { isTaskCompletedOn } from "@/features/tasks/domain";
+import { buildTaskSubtitle } from "@/shared/lib/taskFormat";
 
 import type { EntityId, Task } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
