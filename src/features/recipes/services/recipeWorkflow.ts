@@ -1,8 +1,21 @@
 import { getToday } from "@/shared/lib/date";
 
 import type { Recipe } from "@/features/recipes/types";
+import type { CreateMealInput, Weekday } from "@/features/meals/types";
 import type { CreateTaskInput } from "@/features/tasks/types";
 import type { CreateShoppingItemInput } from "@/features/shopping/types";
+
+const WEEKDAYS: Weekday[] = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const weekdayForToday = (): Weekday => WEEKDAYS[new Date().getDay()];
 
 /**
  * Map ingredient → shopping category
@@ -35,10 +48,7 @@ const mapIngredientToCategory = (
  * Workflow output type
  */
 type RecipeWorkflow = {
-  meal: {
-    name: string;
-    day: string;
-  };
+  meal: CreateMealInput;
   shoppingItems: CreateShoppingItemInput[];
   task: CreateTaskInput;
 };
@@ -51,12 +61,12 @@ export const buildRecipeWorkflow = (
   return {
     meal: {
       name: recipe.name,
-      day: today,
+      day: weekdayForToday(),
     },
 
     shoppingItems: recipe.ingredients.map((ingredient) => ({
       name: ingredient,
-      category: mapIngredientToCategory(ingredient), // ✅ valid
+      category: mapIngredientToCategory(ingredient),
     })),
 
     task: {

@@ -6,10 +6,10 @@ import { formatDisplayDate } from "@/shared/lib/date";
 import type { Task } from "@/features/tasks/types";
 
 const tasks: Task[] = [
-  { id: "1", label: "Today", date: "2026-04-21", completedDates: [], time: "09:00" },
-  { id: "2", label: "Done", date: "2026-04-21", completedDates: ["2026-04-21"], time: "08:00" },
-  { id: "3", label: "Upcoming", date: "2026-04-22", completedDates: [] },
-  { id: "4", label: "Yesterday", date: "2026-04-20", completedDates: [] },
+  { id: "1", label: "Today", date: "2026-04-21", completedDates: [], time: "09:00", createdAt: "2026-04-21T00:00:00.000Z" },
+  { id: "2", label: "Done", date: "2026-04-21", completedDates: ["2026-04-21"], time: "08:00", createdAt: "2026-04-21T00:00:00.000Z" },
+  { id: "3", label: "Upcoming", date: "2026-04-22", completedDates: [], createdAt: "2026-04-21T00:00:00.000Z" },
+  { id: "4", label: "Yesterday", date: "2026-04-20", completedDates: [], createdAt: "2026-04-20T00:00:00.000Z" },
 ];
 
 describe("selectors and workflows", () => {
