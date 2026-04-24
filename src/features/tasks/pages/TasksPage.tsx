@@ -11,7 +11,10 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getToday } from "@/shared/lib/date";
 
 import { TaskListContainer } from "@/features/tasks/containers/TaskListContainer";
+import { TaskInsights } from "@/features/tasks/components/TaskInsights";
+
 import type { Task } from "@/features/tasks/types";
+import { TaskProgress } from "@/features/tasks/components/TaskProgress";
 
 const TasksPage = () => {
   const addTask = useTasksStore((s) => s.addTask);
@@ -33,8 +36,11 @@ const TasksPage = () => {
     <PageShell>
       <div className="space-y-4">
         <PageHeader title="Tasks" />
+<TaskProgress />   {/* 👈 NEW */}
+        {/* 🧠 INSIGHTS (NEW — P2.2) */}
+        <TaskInsights />
 
-        {/* ✅ TASK LIST (now isolated) */}
+        {/* ✅ TASK LIST */}
         <div
           className="
             rounded-2xl
