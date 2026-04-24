@@ -45,3 +45,66 @@ into a single, clean interface.
 ## 🧱 Architecture
 
 This project uses a **domain-driven frontend architecture**:
+STORE → SELECTORS → DOMAIN → HOOK → UI
+### Principles:
+- Domain = all business logic  
+- Selectors = thin wrappers  
+- Hooks = orchestration only  
+- UI = presentational only  
+
+---
+
+## ⚙️ Tech Stack
+
+- React (TypeScript)
+- Zustand
+- Tailwind CSS
+- Framer Motion
+
+---
+
+🔮 Roadmap
+
+🔥 Core
+
+* Recurring task engine (daily / weekly / custom)
+* Overdue task handling
+* Calendar-based scheduling
+
+⚡ UX
+
+* Swipe actions (complete / delete)
+* Haptic feedback + animations
+* Inline editing
+
+📊 Insights
+
+* Productivity analytics
+* Budget trends
+* Smart summaries
+
+🔗 Automation
+
+* Recipes → shopping list
+* Tasks → reminders / budgeting
+* Smart suggestions
+
+⸻
+
+📖 Philosophy
+
+LifeOS prioritizes:
+
+* Speed over complexity
+* Clarity over features
+* Real usage over theoretical design
+
+⸻
+
+🧠 Author
+
+Built as a personal productivity system using:
+
+* AI-assisted development
+* Manual architecture refinement
+* Real-world iteration
