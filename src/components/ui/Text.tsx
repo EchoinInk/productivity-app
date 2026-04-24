@@ -8,7 +8,7 @@ const base = "leading-snug";
 export const UIText = {
   Title: ({ className, ...props }: TextProps) => (
     <p
-      className={clsx(base, "text-base font-semibold text-foreground", className)}
+      className={clsx(base, "text-2xl font-semibold text-foreground", className)}
       {...props}
     />
   ),
