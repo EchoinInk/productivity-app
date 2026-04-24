@@ -1,21 +1,15 @@
-import { useMemo } from "react";
-import { getToday } from "@/shared/lib/date";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { getTodayCategorySummaries } from "@/features/tasks/selectors/taskSelectors";
 import { UIText } from "@/components/ui/Text";
 
+import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
+
+/**
+ * Today insights card. Purely presentational;
+ * UI-ready data comes from `useTaskInsights`.
+ */
 export const TaskInsights = () => {
-  const tasks = useTasksStore((s) => s.tasks);
-  const today = getToday();
+  const { active, hasInsights } = useTaskInsights();
 
-  const summaries = useMemo(
-    () => getTodayCategorySummaries(tasks, today),
-    [tasks, today]
-  );
-
-  const active = summaries.filter((s) => s.active > 0);
-
-  if (active.length === 0) return null;
+  if (!hasInsights) return null;
 
   return (
     <div
@@ -41,8 +35,8 @@ export const TaskInsights = () => {
             </UIText.Body>
 
             <UIText.Meta className="text-foreground font-medium">
-  {item.active} left
-</UIText.Meta>
+              {item.active} left
+            </UIText.Meta>
           </div>
         ))}
       </div>

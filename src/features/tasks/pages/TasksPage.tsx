@@ -7,19 +7,17 @@ import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
 import PageShell from "@/app/layout/PageShell";
 
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getToday } from "@/shared/lib/date";
 
 import { TaskListContainer } from "@/features/tasks/containers/TaskListContainer";
 import { TaskInsights } from "@/features/tasks/components/TaskInsights";
+import { TaskProgress } from "@/features/tasks/components/TaskProgress";
+import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
 
 import type { Task } from "@/features/tasks/types";
-import { TaskProgress } from "@/features/tasks/components/TaskProgress";
 
 const TasksPage = () => {
-  const addTask = useTasksStore((s) => s.addTask);
-  const updateTask = useTasksStore((s) => s.updateTask);
-  const deleteTask = useTasksStore((s) => s.deleteTask);
+  const { addTask, updateTask, deleteTask } = useTaskActions();
 
   const today = getToday();
 
@@ -36,11 +34,11 @@ const TasksPage = () => {
     <PageShell>
       <div className="space-y-4">
         <PageHeader title="Tasks" />
-<TaskProgress />   {/* 👈 NEW */}
-        {/* 🧠 INSIGHTS (NEW — P2.2) */}
+
+        <TaskProgress />
+
         <TaskInsights />
 
-        {/* ✅ TASK LIST */}
         <div
           className="
             rounded-2xl
@@ -53,7 +51,6 @@ const TasksPage = () => {
           <TaskListContainer onSelectTask={handleSelectTask} />
         </div>
 
-        {/* ADD BUTTON */}
         <div className="pt-2">
           <ActionButton fullWidth onClick={() => setOpen(true)}>
             <Plus size={16} /> Add Task
@@ -61,7 +58,6 @@ const TasksPage = () => {
         </div>
       </div>
 
-      {/* ADD TASK */}
       <AddTask
         open={open}
         onClose={() => setOpen(false)}
@@ -69,7 +65,6 @@ const TasksPage = () => {
         onSave={addTask}
       />
 
-      {/* EDIT TASK */}
       <EditTask
         open={editOpen}
         task={selectedTask}

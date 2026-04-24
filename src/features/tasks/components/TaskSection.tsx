@@ -3,9 +3,10 @@ import { ChevronDown } from "lucide-react";
 
 import { TaskRow } from "./TaskRow";
 import { UIText } from "@/components/ui/Text";
-import { getTaskProgress } from "@/features/tasks/selectors/taskSelectors";
 
-import type { Task, EntityId } from "@/features/tasks/types";
+import { getProgressForTasks } from "@/features/tasks/domain";
+
+import type { EntityId, Task } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
 
 interface TaskSectionProps {
@@ -20,6 +21,21 @@ interface TaskSectionProps {
   onSelectTask: (task: Task) => void;
 }
 
+const EMPTY_MESSAGES: Record<string, string> = {
+  Today: "No tasks for today",
+  Upcoming: "Nothing coming up",
+  Yesterday: "No tasks from yesterday",
+};
+
+const EMPTY_HINTS: Record<string, string> = {
+  Today: "Add a task to get started",
+};
+
+/**
+ * Presentational section. Computes progress
+ * via domain helper against props only —
+ * no store access, no derived state.
+ */
 export const TaskSection = ({
   title,
   isOpen,
@@ -29,20 +45,7 @@ export const TaskSection = ({
   onToggleTask,
   onSelectTask,
 }: TaskSectionProps) => {
-  const progress = getTaskProgress(tasks, activeDate);
-
-  const getEmptyMessage = () => {
-    switch (title) {
-      case "Today":
-        return "No tasks for today";
-      case "Upcoming":
-        return "Nothing coming up";
-      case "Yesterday":
-        return "No tasks from yesterday";
-      default:
-        return "No tasks";
-    }
-  };
+  const progress = getProgressForTasks(tasks, activeDate);
 
   return (
     <section
@@ -55,7 +58,6 @@ export const TaskSection = ({
         space-y-2
       "
     >
-      {/* HEADER */}
       <button
         onClick={onToggle}
         className="flex items-center justify-between w-full py-1"
@@ -74,12 +76,11 @@ export const TaskSection = ({
           size={16}
           className={clsx(
             "transition-transform duration-200 text-muted-foreground",
-            isOpen && "rotate-180"
+            isOpen && "rotate-180",
           )}
         />
       </button>
 
-      {/* PROGRESS BAR */}
       <div className="h-1 rounded-full bg-muted overflow-hidden">
         <div
           className="h-full bg-foreground transition-all duration-300"
@@ -87,19 +88,16 @@ export const TaskSection = ({
         />
       </div>
 
-      {/* CONTENT */}
       {isOpen && (
         <div className="space-y-2">
           {tasks.length === 0 ? (
             <div className="py-4 px-2 space-y-1">
               <UIText.Body className="font-medium">
-                {getEmptyMessage()}
+                {EMPTY_MESSAGES[title] ?? "No tasks"}
               </UIText.Body>
 
               <UIText.Meta>
-                {title === "Today"
-                  ? "Add a task to get started"
-                  : "Nothing scheduled here"}
+                {EMPTY_HINTS[title] ?? "Nothing scheduled here"}
               </UIText.Meta>
             </div>
           ) : (

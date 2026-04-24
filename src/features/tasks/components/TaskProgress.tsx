@@ -1,13 +1,13 @@
-import { getToday } from "@/shared/lib/date";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { getTaskProgress } from "@/features/tasks/selectors/taskSelectors";
 import { UIText } from "@/components/ui/Text";
 
-export const TaskProgress = () => {
-  const tasks = useTasksStore((s) => s.tasks);
-  const today = getToday();
+import { useTaskProgress } from "@/features/tasks/hooks/useTaskProgress";
 
-  const progress = getTaskProgress(tasks, today);
+/**
+ * Today's progress card. Pure presentation;
+ * data comes from `useTaskProgress`.
+ */
+export const TaskProgress = () => {
+  const progress = useTaskProgress();
 
   if (progress.total === 0) return null;
 
@@ -22,7 +22,6 @@ export const TaskProgress = () => {
         space-y-2
       "
     >
-      {/* HEADER */}
       <div className="flex items-center justify-between">
         <UIText.Section>Today Progress</UIText.Section>
 
@@ -31,14 +30,13 @@ export const TaskProgress = () => {
         </UIText.Meta>
       </div>
 
-      {/* BAR */}
       <div className="h-2 rounded-full bg-muted overflow-hidden">
         <div
-className="h-full bg-foreground transition-all duration-500 ease-out"          style={{ width: `${progress.percentage}%` }}
+          className="h-full bg-foreground transition-all duration-500 ease-out"
+          style={{ width: `${progress.percentage}%` }}
         />
       </div>
 
-      {/* FOOTER */}
       <UIText.Meta>
         {progress.percentage === 100
           ? "All tasks completed 🎉"

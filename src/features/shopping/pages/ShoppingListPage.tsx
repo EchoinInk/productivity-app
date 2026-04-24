@@ -48,9 +48,7 @@ const ShoppingListPage = () => {
               {items.map((item) => (
                 <ShoppingRow
                   key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  done={item.done}
+                  item={item}
                   onToggle={toggleItem}
                 />
               ))}
