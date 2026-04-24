@@ -6,11 +6,13 @@ import { CheckboxRow } from "@/components/ui/CheckboxRow";
 import { ListItemBase } from "@/components/ui/ListItemBase";
 import { UIText } from "@/components/ui/Text";
 
-import { formatTaskDateTime } from "@/shared/lib/date";
-import { isTaskCompletedOn } from "@/features/tasks/selectors/taskSelectors";
 import { getCategoryMetadata } from "@/features/tasks/constants/categories";
+import {
+  buildTaskSubtitle,
+  isTaskCompletedOn,
+} from "@/features/tasks/domain";
 
-import type { Task, EntityId } from "@/features/tasks/types";
+import type { EntityId, Task } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
 
 interface TaskRowProps {
@@ -20,22 +22,15 @@ interface TaskRowProps {
   onSelectTask: (task: Task) => void;
 }
 
+/**
+ * Purely presentational task row.
+ * All derivations come from the domain layer.
+ */
 export const TaskRow = memo(
-  ({
-    task,
-    activeDate,
-    onToggleTask,
-    onSelectTask,
-  }: TaskRowProps) => {
+  ({ task, activeDate, onToggleTask, onSelectTask }: TaskRowProps) => {
     const done = isTaskCompletedOn(task, activeDate);
     const style = getCategoryMetadata(task.category);
-
-    const subtitle = [
-      task.notes,
-      formatTaskDateTime(task.date, task.time),
-    ]
-      .filter(Boolean)
-      .join(" • ");
+    const subtitle = buildTaskSubtitle(task);
 
     return (
       <motion.div
@@ -75,7 +70,7 @@ export const TaskRow = memo(
               <UIText.Body
                 className={clsx(
                   "font-medium transition-all",
-                  done && "opacity-50 line-through"
+                  done && "opacity-50 line-through",
                 )}
                 style={{ color: style.text }}
               >
@@ -113,7 +108,7 @@ export const TaskRow = memo(
         </CheckboxRow>
       </motion.div>
     );
-  }
+  },
 );
 
 TaskRow.displayName = "TaskRow";
