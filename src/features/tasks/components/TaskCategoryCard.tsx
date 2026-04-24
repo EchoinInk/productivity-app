@@ -49,11 +49,11 @@ const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
                 className="flex items-center justify-between"
               >
                 <div className="space-y-0.5">
-                  <UIText.Body className="font-medium">
+                  <UIText.Micro>
                     {item.category}
-                  </UIText.Body>
+                  </UIText.Micro>
 
-                  <UIText.Meta>
+                  <UIText.Meta className="italic">
                     {item.completed}/{item.total} completed
                   </UIText.Meta>
                 </div>

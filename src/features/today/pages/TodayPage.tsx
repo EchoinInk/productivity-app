@@ -20,6 +20,7 @@ import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
 import { useTaskProgress } from "@/features/tasks/hooks/useTaskProgress";
 import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
+import ActionButton from "@/components/ActionButton";
 
 const TodayPage = () => {
   const { addTask } = useTaskActions();
@@ -59,7 +60,7 @@ const TodayPage = () => {
         />
 
         {/* GROUPED CONTENT */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           <TaskCategoryCard
             data={categorySummary}
             onViewAll={() => {
@@ -77,16 +78,16 @@ const TodayPage = () => {
         </div>
 
         {/* ACTIONS */}
-        <div className="grid grid-cols-2 gap-3 pt-1">
-          <AddButton variant="adjunct" onClick={() => setTaskOpen(true)}>
+        <div className="space-y-3 pt-4">
+          <ActionButton variant="adjunct" fullWidth onClick={() => setTaskOpen(true)}>
             <ClipboardPlus size={20} strokeWidth={2} />
             <span>Add Task</span>
-          </AddButton>
+          </ActionButton>
 
-          <AddButton variant="recall" onClick={() => setExpenseOpen(true)}>
+          <ActionButton variant="recall" fullWidth onClick={() => setExpenseOpen(true)}>
             <PiggyBank size={20} strokeWidth={2} />
             <span>Add Expense</span>
-          </AddButton>
+          </ActionButton>
         </div>
       </div>
 

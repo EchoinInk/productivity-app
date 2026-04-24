@@ -23,11 +23,11 @@ export const ShoppingRow = ({ item, onToggle }: ShoppingRowProps) => {
     >
       <ListItemBase
         label={
-          <UIText.Body
+          <UIText.Micro
             className={item.done ? "line-through opacity-50" : ""}
           >
             {item.name}
-          </UIText.Body>
+          </UIText.Micro>
         }
       />
     </CheckboxRow>

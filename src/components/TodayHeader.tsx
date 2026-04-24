@@ -36,7 +36,7 @@ const TodayHeader = ({ selectedDate, onDateChange }: TodayHeaderProps) => {
       </div>
 
       {/* DATE PILL */}
-      <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-muted/60 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
+      <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-muted/90 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
         <button
           onClick={() => shift(-1)}
           className="text-muted-foreground active:scale-95 transition"
@@ -45,9 +45,9 @@ const TodayHeader = ({ selectedDate, onDateChange }: TodayHeaderProps) => {
         </button>
 
         <div className="flex-1 text-center">
-          <UIText.Section>
+          <UIText.LabelSoft className="font-bold">
             {formatDate(selectedDate)}
-          </UIText.Section>
+          </UIText.LabelSoft>
         </div>
 
         <button

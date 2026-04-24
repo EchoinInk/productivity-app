@@ -37,15 +37,15 @@ const BudgetPage = () => {
         {/* TOP CARD */}
         <Card variant="budget">
           <div className="space-y-3">
-            <UIText.Meta>Weekly Budget</UIText.Meta>
+            <UIText.Title>Weekly Budget</UIText.Title>
 
-            <UIText.Display>
+            <UIText.Section>
               ${summary.remaining.toFixed(2)}
-            </UIText.Display>
+            </UIText.Section>
 
-            <UIText.Meta>
+            <UIText.Micro>
               remaining of ${income.toFixed(2)}
-            </UIText.Meta>
+            </UIText.Micro>
 
             {/* PROGRESS BAR */}
             <div className="h-2 w-full bg-primary-foreground/30 rounded-full overflow-hidden">
@@ -58,17 +58,17 @@ const BudgetPage = () => {
             {/* STATS */}
             <div className="grid grid-cols-2 gap-2 pt-2">
               <div className="space-y-1">
-                <UIText.Meta>Income</UIText.Meta>
-                <UIText.Body className="font-semibold">
+                <UIText.Micro>Income</UIText.Micro>
+                <UIText.Meta className="font-semibold">
                   ${income.toFixed(2)}
-                </UIText.Body>
+                </UIText.Meta>
               </div>
 
               <div className="space-y-1">
-                <UIText.Meta>Expenses</UIText.Meta>
-                <UIText.Body className="font-semibold">
+                <UIText.Micro>Expenses</UIText.Micro>
+                <UIText.Meta className="font-semibold">
                   ${summary.spent.toFixed(2)}
-                </UIText.Body>
+                </UIText.Meta>
               </div>
             </div>
           </div>
@@ -76,9 +76,9 @@ const BudgetPage = () => {
 
         {/* TRANSACTIONS */}
         <Card>
-          <UIText.Section className="mb-2">
+          <UIText.Title className="mb-2">
             Transactions
-          </UIText.Section>
+          </UIText.Title>
 
           {expenses.length === 0 ? (
             <EmptyState

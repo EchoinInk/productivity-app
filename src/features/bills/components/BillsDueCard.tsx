@@ -65,19 +65,18 @@ const BillsDueCard = () => {
               </span>
 
               <div className="flex-1 text-left">
-                <UIText.Body className="font-medium">
+                <UIText.Micro className="font-medium">
                   {b.name}
-                </UIText.Body>
+                </UIText.Micro>
               </div>
 
-              <span
-                className="text-sm font-medium"
+              <UIText.Micro className="font-medium"
                 style={{ color: b.accent }}
               >
                 {b.amount}
-              </span>
-
-              <ChevronRight size={18} className="text-muted-foreground" />
+              </UIText.Micro>
+-
+              <ChevronRight size={14} className="text-[#C99BB8]" />
             </button>
           </li>
         ))}

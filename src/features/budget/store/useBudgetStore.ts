@@ -15,8 +15,8 @@ interface BudgetState {
 export const useBudgetStore = create<BudgetState>()(
   persist(
     (set) => ({
-      weeklyBudget: 500,
-      income: 0,
+      weeklyBudget: 1200,
+      income: 1200,
       expenses: [],
       addExpense: (input) =>
         set((state) => ({ expenses: [{ id: createId(), ...input }, ...state.expenses] })),

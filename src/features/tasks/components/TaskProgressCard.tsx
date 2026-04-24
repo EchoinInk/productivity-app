@@ -23,7 +23,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
         <div className="relative">
           <svg height={radius * 2} width={radius * 2}>
             <circle
-              stroke="rgba(255,255,255,0.35)"
+              stroke="rgba(90, 98, 109, 0.15)"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -32,7 +32,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
             />
 
             <circle
-              stroke="white"
+              stroke="rgba(90, 98, 109,1)"
               fill="transparent"
               strokeWidth={stroke}
               strokeLinecap="round"
@@ -58,15 +58,15 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
 
         {/* RIGHT */}
         <div className="text-right space-y-0.5">
-          <UIText.Meta className="text-white/80 text-shadow-soft">
+          <UIText.Meta className="text-[#5A626D]">
             Progress
           </UIText.Meta>
 
-          <UIText.Section className="text-white text-shadow-soft">
+          <UIText.Title className="text-[#5A626D]">
             Today Tasks
-          </UIText.Section>
+          </UIText.Title>
 
-          <UIText.Meta className="text-white/80 text-shadow-soft">
+          <UIText.Meta className="text-[#5A626D]">
             {completed} / {total} completed
           </UIText.Meta>
         </div>

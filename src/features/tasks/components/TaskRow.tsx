@@ -65,7 +65,7 @@ export const TaskRow = memo(
               )
             }
             label={
-              <UIText.Body
+              <UIText.Micro
                 className={clsx(
                   "font-medium transition-all",
                   done && "opacity-50 line-through",
@@ -73,7 +73,7 @@ export const TaskRow = memo(
                 style={{ color: style.text }}
               >
                 {task.label}
-              </UIText.Body>
+              </UIText.Micro>
             }
             subtitle={
               <>
