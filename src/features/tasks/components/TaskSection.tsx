@@ -41,18 +41,32 @@ export const TaskSection = ({
   };
 
   return (
-    <section className="space-y-2">
+    <section
+      className="
+        rounded-xl
+        bg-white/60
+        backdrop-blur-md
+        border border-white/40
+        px-3 py-2
+        space-y-2
+      "
+    >
       {/* HEADER */}
       <button
         onClick={onToggle}
-        className="flex items-center justify-between w-full py-2"
+        className="
+          flex items-center justify-between w-full
+          py-1
+        "
       >
-        <span className="text-sm font-semibold">{title}</span>
+        <span className="text-sm font-semibold tracking-tight">
+          {title}
+        </span>
 
         <ChevronDown
           size={16}
           className={clsx(
-            "transition-transform duration-200",
+            "transition-transform duration-200 text-muted-foreground",
             isOpen && "rotate-180"
           )}
         />
@@ -60,10 +74,17 @@ export const TaskSection = ({
 
       {/* CONTENT */}
       {isOpen && (
-        <div className="space-y-1">
+        <div className="space-y-2">
           {tasks.length === 0 ? (
-            <div className="py-4 px-2 text-sm text-muted-foreground">
-              {getEmptyMessage()}
+            <div className="py-4 px-2">
+              <p className="text-sm font-medium">
+                {getEmptyMessage()}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {title === "Today"
+                  ? "Add a task to get started"
+                  : "Nothing scheduled here"}
+              </p>
             </div>
           ) : (
             tasks.map((task) => (

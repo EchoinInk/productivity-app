@@ -5,7 +5,7 @@ import { UIText } from "@/components/ui/Text";
 import type { ReactNode } from "react";
 
 interface ListItemProps {
-  label: ReactNode; // ✅ FIXED
+  label: ReactNode;
   subtitle?: string;
   checked?: boolean;
   onToggle?: () => void;
@@ -31,11 +31,17 @@ const ListItem = ({
       onToggle={onToggle}
       onClick={onClick}
       rightContent={rightContent}
+      className="
+        rounded-lg
+        px-2 py-2
+        transition-all duration-200
+        active:scale-[0.98]
+      "
     >
       {/* LABEL */}
       <UIText.Body
         className={clsx(
-          "font-semibold transition-all",
+          "font-medium transition-all duration-200",
           checked && "opacity-50"
         )}
         style={{ color: style.text }}
@@ -44,31 +50,33 @@ const ListItem = ({
       </UIText.Body>
 
       {/* META */}
-      <div className="mt-1 flex flex-col gap-1">
-        {subtitle && (
-          <UIText.Meta className="leading-tight">
-            {subtitle}
-          </UIText.Meta>
-        )}
+      {(subtitle || category) && (
+        <div className="mt-1 flex items-center flex-wrap gap-2">
+          {subtitle && (
+            <UIText.Meta className="leading-tight text-muted-foreground">
+              {subtitle}
+            </UIText.Meta>
+          )}
 
-        {category && (
-          <span
-            className="
-              inline-block
-              w-fit
-              px-2 py-0.5
-              rounded-full
-              text-xs font-medium
-            "
-            style={{
-              backgroundColor: style.bg,
-              color: style.text,
-            }}
-          >
-            {category}
-          </span>
-        )}
-      </div>
+          {category && (
+            <span
+              className="
+                inline-flex items-center
+                px-2.5 py-0.5
+                rounded-full
+                text-[11px] font-medium
+                backdrop-blur-sm
+              "
+              style={{
+                backgroundColor: style.bg,
+                color: style.text,
+              }}
+            >
+              {category}
+            </span>
+          )}
+        </div>
+      )}
     </CheckboxRow>
   );
 };

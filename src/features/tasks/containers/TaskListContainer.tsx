@@ -5,6 +5,8 @@ import { useTaskGroups } from "@/features/tasks/hooks/useTaskGroups";
 import { getToday, type DateKey } from "@/shared/lib/date";
 
 import { TaskSection } from "@/features/tasks/components/TaskSection";
+import { UIText } from "@/components/ui/Text";
+
 import type { Task, EntityId } from "@/features/tasks/types";
 
 interface TaskListContainerProps {
@@ -51,22 +53,28 @@ export const TaskListContainer = ({
 
   if (isLoading) {
     return (
-      <div className="py-6 text-sm text-muted-foreground">
-        Loading tasks...
+      <div className="py-6 text-center">
+        <UIText.Meta>Loading tasks...</UIText.Meta>
       </div>
     );
   }
 
   if (isEmpty) {
     return (
-      <div className="py-10 text-center text-sm text-muted-foreground">
-        No tasks yet. Start by adding one.
+      <div className="py-10 text-center space-y-2">
+        <UIText.Body className="font-medium">
+          No tasks yet
+        </UIText.Body>
+
+        <UIText.Meta>
+          Add your first task to get started
+        </UIText.Meta>
       </div>
     );
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <TaskSection
         title="Today"
         isOpen={openSections.today}
