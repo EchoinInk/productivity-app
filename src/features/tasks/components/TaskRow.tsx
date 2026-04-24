@@ -7,7 +7,7 @@ import { ListItemBase } from "@/components/ui/ListItemBase";
 import { UIText } from "@/components/ui/Text";
 
 import { getCategoryMetadata } from "@/features/tasks/constants/categories";
-import { isTaskCompletedOn } from "@/features/tasks/domain";
+import { isTaskCompleted } from "@/features/tasks/domain"; // ✅ FIXED
 import { buildTaskSubtitle } from "@/shared/lib/taskFormat";
 
 import type { EntityId, Task } from "@/features/tasks/types";
@@ -26,7 +26,7 @@ interface TaskRowProps {
  */
 export const TaskRow = memo(
   ({ task, activeDate, onToggleTask, onSelectTask }: TaskRowProps) => {
-    const done = isTaskCompletedOn(task, activeDate);
+    const done = isTaskCompleted(task, activeDate); // ✅ FIXED
     const style = getCategoryMetadata(task.category);
     const subtitle = buildTaskSubtitle(task);
 

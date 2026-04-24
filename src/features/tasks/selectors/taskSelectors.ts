@@ -1,11 +1,11 @@
 import { getToday } from "@/shared/lib/date";
 
 import {
-  filterTasksByDate,
+  getTasksForDate,
   getCategorySummaries,
-  getTaskProgress as getTaskProgressDomain,
-  getTaskTimelineGroups as getTaskTimelineGroupsDomain,
-  isTaskCompletedOn,
+  getTaskProgress,
+  getTaskGroups,
+  isTaskCompleted, // ✅ FIXED
   type CategorySummary,
   type TaskProgress,
   type TaskTimelineGroups,
@@ -18,14 +18,7 @@ import type { DateKey } from "@/shared/lib/date";
  * ---------------------------------------
  * SELECTORS — thin wrappers
  * ---------------------------------------
- *
- * Each selector ONLY calls a domain function.
- * No inline filtering / sorting / mapping.
  */
-
-/* --- Domain re-exports kept for back-compat (used by tests) --- */
-export const getTaskProgress = getTaskProgressDomain;
-export const getTaskTimelineGroups = getTaskTimelineGroupsDomain;
 
 /* --- Store selectors --- */
 
@@ -34,17 +27,17 @@ export const selectTasks = (state: TasksState): Task[] => state.tasks;
 export const selectTasksForDate =
   (date: DateKey) =>
   (state: TasksState): Task[] =>
-    filterTasksByDate(state.tasks, date);
+    getTasksForDate(state.tasks, date); // ✅ FIXED
 
 export const selectTaskGroups =
   (date: DateKey = getToday()) =>
   (state: TasksState): TaskTimelineGroups =>
-    getTaskTimelineGroupsDomain(state.tasks, date);
+    getTaskGroups(state.tasks, date); // ✅ FIXED
 
 export const selectTaskProgress =
   (date: DateKey) =>
   (state: TasksState): TaskProgress =>
-    getTaskProgressDomain(state.tasks, date);
+    getTaskProgress(state.tasks, date); // ✅ FIXED
 
 export const selectCategorySummaries =
   (date: DateKey) =>
@@ -57,5 +50,5 @@ export const selectToggleTask = (s: TasksState) => s.toggleTask;
 export const selectUpdateTask = (s: TasksState) => s.updateTask;
 export const selectDeleteTask = (s: TasksState) => s.deleteTask;
 
-/* --- Re-exported for components that already import from here --- */
-export { isTaskCompletedOn };
+/* --- Re-export for UI --- */
+export { isTaskCompleted }; // ✅ FIXED
