@@ -1,109 +1,47 @@
-📱 LifeOS – Personal Productivity App
+# 📱 LifeOS — Personal Productivity System
 
-A mobile-first personal productivity app designed to manage daily life in one place.
+> A mobile-first app to manage tasks, budget, meals, and shopping in one place.
 
-This app combines task management, budgeting, meal planning, and shopping lists into a single, clean interface focused on simplicity and speed.
+---
 
-⸻
+## ✨ Overview
 
-🚀 Features
+LifeOS is a fast, minimal productivity system designed to reduce friction in daily planning.
 
-🏠 Today Dashboard
-• View tasks for today
-• See weekly budget summary
-• Track upcoming bills
-• View planned meals
-• Quick actions for adding items
+Instead of switching between multiple apps, LifeOS combines:
 
-⸻
+- ✅ Tasks  
+- 💰 Budget  
+- 🍽 Meals  
+- 🛒 Shopping  
 
-✅ Task Management
-• Organize tasks by:
-• Today
-• Upcoming
-• Weekly
-• Monthly
-• Simple checklist interface
-• Optional due dates
+into a single, clean interface.
 
-⸻
+---
 
-💰 Budget Tracker
-• Weekly income and expenses
-• Remaining budget calculation
-• Transaction tracking
+## 🚀 Features
 
-⸻
+### ✅ Task Management
+- Timeline grouping (Today / Upcoming / Yesterday)
+- Per-section progress tracking
+- Category tagging
+- Completion tracking per date
 
-🍽 Meal Planner
-• Weekly meal planning (Mon–Sun)
-• Breakfast, lunch, dinner tracking
-• Text-based recipes (no images for simplicity)
+### 💰 Budget Tracker
+- Weekly income + expense tracking
+- Remaining budget calculation
+- Transaction list
 
-⸻
+### 🍽 Meal Planner
+- Weekly meal planning (Mon–Sun)
+- Breakfast / Lunch / Dinner structure
 
-🛒 Shopping List
-• Separate lists for:
-• Groceries
-• Household items
-• Checklist-style interaction
+### 🛒 Shopping List
+- Groceries + household categories
+- Checklist interaction
 
-⸻
+---
 
-🎨 Design Philosophy
-• Clean, minimal, and fast
-• Soft modern UI with subtle gradients
-• Focus on usability over visual clutter
-• Gradients used only for emphasis (actions, highlights)
+## 🧱 Architecture
 
-⸻
-
-🧱 Tech Stack
-• React (TypeScript / TSX)
-• Tailwind CSS
-• Generated with Lovable (AI scaffolding)
-• Manually refined for UI/UX and performance
-
-⸻
-
-🛠 Development Approach
-
-This project follows a hybrid workflow: 1. Lovable generates the base structure and components 2. Manual refinement (TSX + Tailwind) improves:
-• UI consistency
-• Component structure
-• User experience 3. Iterative improvements based on real usage
-
-⸻
-
-📌 Goals
-• Create a fast, personal “life dashboard”
-• Reduce friction in daily planning
-• Keep everything in one place
-• Optimize for single-user efficiency
-
-⸻
-
-🔮 Future Improvements
-• Smart automation (e.g. recipes → shopping list)
-• Recurring tasks and bills
-• Budget insights and trends
-• Customizable UI modes (focus / boost)
-
-⸻
-
-📖 Notes
-
-This app is designed for personal use, prioritizing speed and clarity over complexity.
-
-⸻
-
-⚡ Getting Started
-
-npm install
-npm run dev
-
-⸻
-
-🧠 Author
-
-Built as a personal productivity system using AI-assisted development and custom UI/UX design.
+This project uses a **domain-driven frontend architecture**:
