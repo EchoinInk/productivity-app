@@ -5,9 +5,9 @@ import { getToday, type DateKey } from "@/shared/lib/date";
 import type { TaskTimelineGroups } from "@/features/tasks/domain";
 
 /**
- * UI-ready timeline grouping for a given date
- * (defaults to today). Pure selector usage —
- * no inline logic, no full-state subscription.
+ * Thin shim over the unified `useTasks` selectors,
+ * preserved for any call site that only needs groups.
+ * Prefer `useTasks(date).groups` in new code.
  */
 export const useTaskGroups = (
   date: DateKey = getToday(),

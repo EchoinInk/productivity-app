@@ -4,11 +4,13 @@ import type { Task } from "@/features/tasks/types";
 
 /**
  * ---------------------------------------
- * FORMATTING DOMAIN
+ * TASK FORMATTING (presentation helpers)
  * ---------------------------------------
  *
- * Presentation-agnostic string builders that
- * keep formatting logic out of components.
+ * Lives in /shared/lib (not /features/tasks/domain)
+ * because formatting is a presentation concern,
+ * not business logic. Domain functions stay pure
+ * and free of any string/UI shaping.
  */
 
 export const buildTaskSubtitle = (task: Task): string =>

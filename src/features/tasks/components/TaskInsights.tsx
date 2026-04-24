@@ -1,15 +1,15 @@
 import { UIText } from "@/components/ui/Text";
 
-import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
 
 /**
- * Today insights card. Purely presentational;
- * UI-ready data comes from `useTaskInsights`.
+ * Today insights card. Pure presentation — data comes
+ * from the unified `useTasks` hook.
  */
 export const TaskInsights = () => {
-  const { active, hasInsights } = useTaskInsights();
+  const { insights } = useTasks();
 
-  if (!hasInsights) return null;
+  if (!insights.hasInsights) return null;
 
   return (
     <div
@@ -25,14 +25,12 @@ export const TaskInsights = () => {
       <UIText.Section>Today Overview</UIText.Section>
 
       <div className="space-y-1">
-        {active.slice(0, 3).map((item) => (
+        {insights.active.slice(0, 3).map((item) => (
           <div
             key={item.category}
             className="flex items-center justify-between"
           >
-            <UIText.Body className="font-medium">
-              {item.category}
-            </UIText.Body>
+            <UIText.Body className="font-medium">{item.category}</UIText.Body>
 
             <UIText.Meta className="text-foreground font-medium">
               {item.active} left

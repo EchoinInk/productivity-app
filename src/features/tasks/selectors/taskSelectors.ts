@@ -1,15 +1,11 @@
 import { getToday } from "@/shared/lib/date";
 
 import {
+  filterTasksByDate,
   getCategorySummaries,
   getTaskProgress as getTaskProgressDomain,
   getTaskTimelineGroups as getTaskTimelineGroupsDomain,
   isTaskCompletedOn,
-  memoOne,
-  sortTasksByTime,
-  filterTasksByDate,
-  filterTasksAfterDate,
-  filterTasksBeforeDate,
   type CategorySummary,
   type TaskProgress,
   type TaskTimelineGroups,
@@ -20,28 +16,16 @@ import type { DateKey } from "@/shared/lib/date";
 
 /**
  * ---------------------------------------
- * SELECTORS
+ * SELECTORS — thin wrappers
  * ---------------------------------------
  *
- * Thin adapters between the Zustand store
- * and the domain layer. NO business logic
- * here — only memoization and store-shape
- * access.
+ * Each selector ONLY calls a domain function.
+ * No inline filtering / sorting / mapping.
  */
 
-/* --- Domain re-exports for back-compat --- */
-export {
-  isTaskCompletedOn,
-  sortTasksByTime,
-  filterTasksByDate,
-  filterTasksAfterDate,
-  filterTasksBeforeDate,
-};
-
-/* --- Memoized derivations --- */
-export const getTaskTimelineGroups = memoOne(getTaskTimelineGroupsDomain);
-export const getTaskProgress = memoOne(getTaskProgressDomain);
-export const getTodayCategorySummaries = memoOne(getCategorySummaries);
+/* --- Domain re-exports kept for back-compat (used by tests) --- */
+export const getTaskProgress = getTaskProgressDomain;
+export const getTaskTimelineGroups = getTaskTimelineGroupsDomain;
 
 /* --- Store selectors --- */
 
@@ -52,29 +36,26 @@ export const selectTasksForDate =
   (state: TasksState): Task[] =>
     filterTasksByDate(state.tasks, date);
 
-export const selectCompletedTasks =
-  (date: DateKey) =>
-  (state: TasksState): Task[] =>
-    state.tasks.filter((task) => isTaskCompletedOn(task, date));
-
-export const selectPendingTasks =
-  (date: DateKey) =>
-  (state: TasksState): Task[] =>
-    state.tasks.filter((task) => !isTaskCompletedOn(task, date));
-
 export const selectTaskGroups =
-  (date?: DateKey) =>
+  (date: DateKey = getToday()) =>
   (state: TasksState): TaskTimelineGroups =>
-    getTaskTimelineGroups(state.tasks, date ?? getToday());
+    getTaskTimelineGroupsDomain(state.tasks, date);
 
 export const selectTaskProgress =
   (date: DateKey) =>
   (state: TasksState): TaskProgress =>
-    getTaskProgress(state.tasks, date);
+    getTaskProgressDomain(state.tasks, date);
 
 export const selectCategorySummaries =
   (date: DateKey) =>
   (state: TasksState): CategorySummary[] =>
-    getTodayCategorySummaries(state.tasks, date);
+    getCategorySummaries(state.tasks, date);
 
-export const selectTodayCategorySummaries = selectCategorySummaries;
+/** Action selectors — keep references stable across renders. */
+export const selectAddTask = (s: TasksState) => s.addTask;
+export const selectToggleTask = (s: TasksState) => s.toggleTask;
+export const selectUpdateTask = (s: TasksState) => s.updateTask;
+export const selectDeleteTask = (s: TasksState) => s.deleteTask;
+
+/* --- Re-exported for components that already import from here --- */
+export { isTaskCompletedOn };

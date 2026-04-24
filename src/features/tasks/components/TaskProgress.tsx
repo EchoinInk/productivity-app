@@ -1,13 +1,13 @@
 import { UIText } from "@/components/ui/Text";
 
-import { useTaskProgress } from "@/features/tasks/hooks/useTaskProgress";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
 
 /**
- * Today's progress card. Pure presentation;
- * data comes from `useTaskProgress`.
+ * Today's progress card. Pure presentation — data
+ * comes from the unified `useTasks` hook.
  */
 export const TaskProgress = () => {
-  const progress = useTaskProgress();
+  const { progress } = useTasks();
 
   if (progress.total === 0) return null;
 
