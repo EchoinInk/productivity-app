@@ -8,6 +8,9 @@ import {
   selectToggleTask,
   selectUpdateTask,
 } from "@/features/tasks/selectors/taskSelectors";
+
+import { getActiveCategorySummaries } from "@/features/tasks/domain/taskDomain"; // ✅ NEW
+
 import { getToday, type DateKey } from "@/shared/lib/date";
 
 import type {
@@ -15,6 +18,7 @@ import type {
   TaskProgress,
   TaskTimelineGroups,
 } from "@/features/tasks/domain";
+
 import type {
   CreateTaskInput,
   EntityId,
@@ -23,10 +27,7 @@ import type {
 
 /**
  * Unified UI hook for the tasks feature.
- *
- * Composes selectors only — contains zero business logic.
- * Returns everything a screen needs: grouped tasks, progress,
- * category insights, and stable action references.
+ * Pure orchestration — no business logic.
  */
 
 export interface TaskInsights {
@@ -62,7 +63,8 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
   const updateTask = useTasksStore(selectUpdateTask);
   const deleteTask = useTasksStore(selectDeleteTask);
 
-  const active = summaries.filter((s) => s.active > 0);
+  // ✅ FIX: moved to domain
+  const active = getActiveCategorySummaries(summaries);
 
   return {
     activeDate,

@@ -1,5 +1,8 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { selectCategorySummaries } from "@/features/tasks/selectors/taskSelectors";
+
+import { getActiveCategorySummaries } from "@/features/tasks/domain/taskDomain"; // ✅ NEW
+
 import { getToday, type DateKey } from "@/shared/lib/date";
 
 import type { CategorySummary } from "@/features/tasks/domain";
@@ -11,15 +14,19 @@ export interface TaskInsights {
 }
 
 /**
- * Thin shim — prefer `useTasks(date).insights` in new code.
- * Kept so out-of-feature consumers (e.g. `TodayPage`) don't
- * need to be touched in this scoped refactor.
+ * Thin shim — prefer `useTasks(date).insights`
  */
 export const useTaskInsights = (
   date: DateKey = getToday(),
 ): TaskInsights => {
   const summaries = useTasksStore(selectCategorySummaries(date));
-  const active = summaries.filter((s) => s.active > 0);
 
-  return { summaries, active, hasInsights: active.length > 0 };
+  // ✅ FIX: no logic in hook
+  const active = getActiveCategorySummaries(summaries);
+
+  return {
+    summaries,
+    active,
+    hasInsights: active.length > 0,
+  };
 };

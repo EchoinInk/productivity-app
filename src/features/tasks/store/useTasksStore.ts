@@ -8,6 +8,10 @@ import {
   STORE_VERSION,
 } from "@/store/sharedPersist";
 
+import {
+  toggleTaskCompletion, // ✅ NEW (from domain)
+} from "@/features/tasks/domain/taskDomain";
+
 import type {
   CreateTaskInput,
   EntityId,
@@ -22,21 +26,15 @@ export const useTasksStore = create<TasksState>()(
 
       /**
        * TOGGLE TASK (per date)
+       * ✅ Now fully delegated to domain
        */
       toggleTask: (id: EntityId, date: DateKey) =>
         set((state) => ({
-          tasks: state.tasks.map((task) => {
-            if (task.id !== id) return task;
-
-            const exists = task.completedDates.includes(date);
-
-            return {
-              ...task,
-              completedDates: exists
-                ? task.completedDates.filter((d) => d !== date)
-                : [...task.completedDates, date],
-            };
-          }),
+          tasks: state.tasks.map((task) =>
+            task.id === id
+              ? toggleTaskCompletion(task, date)
+              : task
+          ),
         })),
 
       /**
@@ -65,7 +63,7 @@ export const useTasksStore = create<TasksState>()(
         }),
 
       /**
-       * UPDATE TASK (correct API)
+       * UPDATE TASK
        */
       updateTask: (id: EntityId, updates: Partial<Task>) =>
         set((state) => ({
