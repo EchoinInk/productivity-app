@@ -1,15 +1,16 @@
 import clsx from "clsx";
-import ListItem from "@/components/ListItem";
+import { motion } from "framer-motion";
 
-import { formatTaskDateTime, type DateKey } from "@/shared/lib/date";
+import ListItem from "@/components/ListItem";
+import { formatTaskDateTime } from "@/shared/lib/date";
 import { isTaskCompletedOn } from "@/features/tasks/selectors/taskSelectors";
 
 import type { Task, EntityId } from "@/features/tasks/types";
+import type { DateKey } from "@/shared/lib/date";
 
 interface TaskRowProps {
   task: Task;
   activeDate: DateKey;
-
   onToggleTask: (id: EntityId, date: DateKey) => void;
   onSelectTask: (task: Task) => void;
 }
@@ -29,25 +30,32 @@ export const TaskRow = ({
     .filter(Boolean)
     .join(" • ");
 
- return (
-  <div
-    className={clsx(
-      "transition-all duration-200 ease-out",
-      "active:scale-[0.97]",
-
-      done
-        ? "opacity-60 scale-[0.98]"
-        : "opacity-100 scale-100"
-    )}
-  >
-    <ListItem
-      label={task.label}
-      subtitle={subtitle}
-      category={task.category}
-      checked={done}
-      onToggle={() => onToggleTask(task.id, activeDate)}
-      onClick={() => onSelectTask(task)}
-    />
-  </div>
-);
+  return (
+    <motion.div
+      layout
+      initial={false}
+      animate={{
+        opacity: done ? 0.6 : 1,
+        scale: done ? 0.98 : 1,
+      }}
+      transition={{ duration: 0.2 }}
+      className={clsx(
+        "transition-all",
+        done && "opacity-60"
+      )}
+    >
+      <ListItem
+        label={
+          <span className={clsx(done && "line-through")}>
+            {task.label}
+          </span>
+        }
+        subtitle={subtitle}
+        category={task.category}
+        checked={done}
+        onToggle={() => onToggleTask(task.id, activeDate)}
+        onClick={() => onSelectTask(task)}
+      />
+    </motion.div>
+  );
 };
