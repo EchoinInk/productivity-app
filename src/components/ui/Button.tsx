@@ -13,7 +13,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const variantStyles = {
       primary: {
         background: gradientPrimaryCss,
-        class: "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]",
+        class: "text-white drop-shadow-[0_1px_var(--space-2)_rgba(0,0,0,0.22)]",
       },
       secondary: {
         background: "rgba(255,255,255,0.80)",
@@ -21,15 +21,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       },
       budget: {
         background: gradientSecondaryCss,
-        class: "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]",
+        class: "text-white drop-shadow-[0_1px_var(--space-2)_rgba(0,0,0,0.22)]",
       },
       adjunct: {
         background: gradientTertiaryCss,
-        class: "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]",
+        class: "text-white drop-shadow-[0_1px_var(--space-2)_rgba(0,0,0,0.22)]",
       },
       recall: {
         background: gradientQuaternaryCss,
-        class: "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.22)]",
+        class: "text-white drop-shadow-[0_1px_var(--space-2)_rgba(0,0,0,0.22)]",
       },
     }[variant];
 

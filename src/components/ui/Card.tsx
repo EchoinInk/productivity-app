@@ -62,7 +62,7 @@ export const Card = ({
 
         // ALERT VARIANT
         variant === "alert" &&
-          "bg-destructive text-destructive-foreground shadow-[0_6px_20px_rgba(255,0,0,0.2)]",
+          "bg-destructive text-destructive-foreground shadow-[0_var(--space-3)_20px_rgba(255,0,0,0.2)]",
 
         className
       )}

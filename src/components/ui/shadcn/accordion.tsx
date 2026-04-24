@@ -27,11 +27,11 @@ const ActionButton = ({
 
         // 🌈 PRIMARY (soft + depth)
         variant === "primary" &&
-          "bg-gradient-to-r from-blue-300 to-purple-300 text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]",
+          "bg-gradient-to-r from-blue-300 to-purple-300 text-white shadow-[0_var(--space-4)_20px_rgba(0,0,0,0.12)]",
 
         // 🧊 SECONDARY (glass)
         variant === "secondary" &&
-          "bg-white/60 backdrop-blur-xl border border-white/40 text-foreground shadow-[0_4px_15px_rgba(0,0,0,0.05)]",
+          "bg-white/60 backdrop-blur-xl border border-white/40 text-foreground shadow-[0_var(--space-2)_15px_rgba(0,0,0,0.05)]",
 
         // 👻 GHOST
         variant === "ghost" &&

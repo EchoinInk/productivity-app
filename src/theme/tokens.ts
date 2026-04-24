@@ -89,8 +89,8 @@ export type GradientToken = keyof typeof gradients;
 // ---------------------------------------------------------------------------
 
 export const shadows = {
-  card: "0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px 2px -1px hsl(220 20% 10% / 0.04)",
-  elevated: "0 4px 12px -2px hsl(220 20% 10% / 0.08)",
+  card: "0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px var(--space-1) -1px hsl(220 20% 10% / 0.04)",
+  elevated: "0 var(--space-2) var(--space-5) -var(--space-1) hsl(220 20% 10% / 0.08)",
 } as const;
 
 export type ShadowToken = keyof typeof shadows;

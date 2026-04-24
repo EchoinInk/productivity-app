@@ -1,7 +1,7 @@
 import { gradientSecondaryCss } from "@/lib/gradients";
 
 export const surfaceShadow =
-  "shadow-[0_6px_18px_rgba(120,120,200,0.18)]";
+  "shadow-[0_var(--space-3)_18px_rgba(120,120,200,0.18)]";
 
 // ✅ ADD THIS
 export const surfaceText =

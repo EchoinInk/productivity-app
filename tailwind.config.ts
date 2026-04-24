@@ -21,7 +21,7 @@ export default {
     },
     extend: {
       textShadow: {
-        soft: "0 1px 2px rgba(0,0,0,0.2)",
+        soft: "0 1px var(--space-1) rgba(0,0,0,0.2)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -60,8 +60,8 @@ export default {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - var(--space-1))",
+        sm: "calc(var(--radius) - var(--space-2))",
       },
       keyframes: {
         "accordion-down": {
