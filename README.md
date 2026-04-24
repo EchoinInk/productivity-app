@@ -1,6 +1,6 @@
 # 📱 LifeOS
 
-> **Your life, organised in one system**
+> **Your life, organised — simply.**
 
 ![Status](https://img.shields.io/badge/status-active-success?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-TypeScript-20232A?style=for-the-badge&logo=react)
@@ -11,30 +11,50 @@
 
 ## ✨ Overview
 
-LifeOS is a **minimal, high-speed personal productivity system**  
-designed to replace fragmented tools with one clean workflow.
+LifeOS is a **calm, minimal productivity system**  
+designed to bring structure to your day without adding noise.
 
-> No clutter. No friction. Just execution.
+It combines your essential workflows into one place:
 
----
-
-## 🧩 Core System
-
-| Area      | Purpose                          |
-|----------|----------------------------------|
-| ✅ Tasks  | Daily execution + timeline        |
-| 💰 Budget | Weekly financial clarity          |
-| 🍽 Meals  | Structured weekly planning        |
-| 🛒 Lists  | Fast, real-world shopping flow    |
+- Tasks  
+- Budget  
+- Meals  
+- Shopping  
 
 ---
 
-## ⚡ Experience
+## 🎨 Experience
 
-- Timeline-driven task flow  
-- Instant feedback + progress tracking  
-- Zero-friction data entry  
-- Built for **real daily usage**, not theory  
+Designed with a **soft, distraction-free interface**:
+
+- Subtle gradients  
+- Light surfaces  
+- Clear typography  
+- Focused layout  
+
+Everything is built to feel **fast, quiet, and intentional**.
+
+---
+
+## 🧩 Core Features
+
+### ✅ Tasks
+- Timeline structure (Today / Upcoming / Yesterday)
+- Progress tracking
+- Category-based organisation
+
+### 💰 Budget
+- Weekly spending clarity
+- Remaining balance visibility
+- Simple tracking flow
+
+### 🍽 Meals
+- Weekly planning (Mon–Sun)
+- Structured daily meals
+
+### 🛒 Shopping
+- Clean, fast checklist interaction
+- Organised categories
 
 ---
 
@@ -44,26 +64,14 @@ designed to replace fragmented tools with one clean workflow.
 STORE → SELECTORS → DOMAIN → HOOK → UI
 ```
 
-**Principles:**
-- Domain owns logic  
-- UI stays clean  
-- Hooks orchestrate  
-- Everything is composable  
+- Domain-driven logic  
+- Thin selectors  
+- Clean UI separation  
+- Fully composable system  
 
 ---
 
-## 🎨 Design Philosophy
-
-LifeOS follows a **calm, structured UI system**:
-
-- Soft gradients (light neutral backgrounds)  
-- High readability typography  
-- Clear visual hierarchy  
-- Minimal cognitive load  
-
----
-
-## ⚙️ Tech Stack
+## ⚙️ Stack
 
 - React (TypeScript)  
 - Zustand  
@@ -74,33 +82,40 @@ LifeOS follows a **calm, structured UI system**:
 
 ## 🔮 Roadmap
 
-### Core
-- Recurring task engine  
+**Core**
+- Recurring tasks  
 - Overdue handling  
 - Calendar integration  
 
-### UX
+**UX**
 - Swipe gestures  
-- Haptics + animations  
+- Haptic feedback  
 - Inline editing  
 
-### Intelligence
-- Smart insights  
+**Insights**
+- Productivity tracking  
 - Budget analytics  
-- Predictive suggestions  
+- Smart summaries  
+
+---
+
+## 📖 Philosophy
+
+> Clarity over clutter  
+> Speed over complexity  
+> Real use over features  
 
 ---
 
 ## 🚀 Vision
 
-LifeOS is not another productivity app.
-
-It’s a **personal operating system** for managing daily life.
+LifeOS is designed to become a **personal operating system for daily life** —  
+not just another productivity app.
 
 ---
 
 ## 🧠 Built With
 
 - AI-assisted development  
-- System-first thinking  
 - Real-world iteration  
+- System-first thinking  
