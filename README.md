@@ -1,5 +1,7 @@
 # 📱 LifeOS
-
+![React](https://img.shields.io/badge/React-TypeScript-61DAFB?style=flat-square&logo=react)
+![Zustand](https://img.shields.io/badge/Zustand-State-black?style=flat-square)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=flat-square&logo=tailwindcss)
 > **Your life, organised in one system.**  
 Tasks. Budget. Meals. Shopping — unified.
 
