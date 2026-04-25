@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import { Card } from "@/components/ui/Card";
@@ -10,7 +10,7 @@ import AddIncome from "@/components/modal/AddIncome";
 import PageShell from "@/app/layout/PageShell";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
+import { useBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
 import EmptyState from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
@@ -24,10 +24,7 @@ const BudgetPage = () => {
   const [openExpense, setOpenExpense] = useState(false);
   const [openIncome, setOpenIncome] = useState(false);
 
-  const summary = useMemo(
-    () => getBudgetSummary(expenses, income),
-    [expenses, income]
-  );
+  const summary = useBudgetSummary();
 
   return (
     <PageShell>
