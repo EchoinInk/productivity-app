@@ -2,85 +2,183 @@ import clsx from "clsx";
 import { type HTMLAttributes } from "react";
 import { semanticColors } from "@/theme";
 
-type TextProps = HTMLAttributes<HTMLElement>;
+type Weight = "regular" | "medium" | "semibold" | "bold";
+type Tone = "default" | "soft" | "muted" | "accent" | "danger" | "success";
+type Align = "left" | "center" | "right";
+type Transform = "none" | "uppercase" | "capitalize";
 
-const base = "leading-snug";
+type TextProps = HTMLAttributes<HTMLElement> & {
+  as?: keyof JSX.IntrinsicElements;
+  weight?: Weight;
+  tone?: Tone;
+  align?: Align;
+  truncate?: boolean;
+  noWrap?: boolean;
+  transform?: Transform;
+  leading?: "tight" | "snug" | "normal" | "relaxed";
+  tracking?: "tight" | "normal" | "wide" | "wider";
+};
+
+const weightMap: Record<Weight, string> = {
+  regular: "font-normal",
+  medium: "font-medium",
+  semibold: "font-semibold",
+  bold: "font-bold",
+};
+
+const toneMap: Record<Tone, string> = {
+  default: semanticColors.foreground,
+  soft: semanticColors.softText,
+  muted: semanticColors.mutedForeground,
+  accent: semanticColors.accentText,
+  danger: semanticColors.danger,
+  success: semanticColors.success,
+};
+
+const leadingMap = {
+  tight: "leading-tight",
+  snug: "leading-snug",
+  normal: "leading-normal",
+  relaxed: "leading-relaxed",
+};
+
+const trackingMap = {
+  tight: "tracking-tight",
+  normal: "tracking-normal",
+  wide: "tracking-wide",
+  wider: "tracking-wider",
+};
+
+// Standardised mobile-friendly font scale
+const size = {
+  display: "text-3xl",
+  headingXL: "text-2xl",
+  headingL: "text-xl",
+  headingM: "text-lg",
+  headingS: "text-base",
+  body: "text-sm",
+  label: "text-sm",
+  micro: "text-xs",
+  meta: "text-[11px]",
+};
+
+function TextBase({
+  as,
+  className,
+  weight = "regular",
+  tone = "default",
+  align = "left",
+  truncate = false,
+  noWrap = false,
+  transform = "none",
+  leading = "snug",
+  tracking = "normal",
+  style,
+  ...props
+}: TextProps) {
+  const Component = as ?? "p";
+
+  return (
+    <Component
+      className={clsx(
+        weightMap[weight],
+        leadingMap[leading],
+        trackingMap[tracking],
+        {
+          truncate: truncate,
+          "whitespace-nowrap": noWrap,
+          "text-left": align === "left",
+          "text-center": align === "center",
+          "text-right": align === "right",
+          uppercase: transform === "uppercase",
+          capitalize: transform === "capitalize",
+        },
+        className,
+      )}
+      style={{ color: toneMap[tone], ...style }}
+      {...props}
+    />
+  );
+}
 
 export const UIText = {
-  Display: ({ className, ...props }: TextProps) => (
-    <span
-      className={clsx("text-3xl font-bold", className)}
-      style={{ color: semanticColors.softText, ...props.style }}
+  // DISPLAY
+  Display: (props: TextProps) => (
+    <TextBase {...props} as={props.as ?? "span"} className={clsx(size.display, props.className)} weight="bold" />
+  ),
+
+  DisplaySoft: (props: TextProps) => (
+    <TextBase
       {...props}
+      as={props.as ?? "span"}
+      className={clsx(size.display, "text-shadow-soft", props.className)}
+      weight="bold"
+      tone="soft"
     />
   ),
 
-  DisplaySoft: ({ className, ...props }: TextProps) => (
-    <span
-      className={clsx(
-        "text-3xl font-bold text-white text-shadow-soft",
-        className
-      )}
+  // HEADINGS
+  HeadingXL: (props: TextProps) => (
+    <TextBase {...props} className={clsx(size.headingXL, props.className)} weight="bold" />
+  ),
+
+  HeadingL: (props: TextProps) => (
+    <TextBase {...props} className={clsx(size.headingL, props.className)} weight="semibold" />
+  ),
+
+  HeadingM: (props: TextProps) => (
+    <TextBase {...props} className={clsx(size.headingM, props.className)} weight="semibold" />
+  ),
+
+  HeadingS: (props: TextProps) => (
+    <TextBase {...props} className={clsx(size.headingS, props.className)} weight="medium" />
+  ),
+
+  // BODY
+  Body: (props: TextProps) => <TextBase {...props} className={clsx(size.body, props.className)} />,
+
+  BodySoft: (props: TextProps) => <TextBase {...props} className={clsx(size.body, props.className)} tone="soft" />,
+
+  BodyStrong: (props: TextProps) => (
+    <TextBase {...props} className={clsx(size.body, props.className)} weight="semibold" />
+  ),
+
+  // LABELS
+  Label: (props: TextProps) => (
+    <TextBase {...props} as={props.as ?? "span"} className={clsx(size.label, props.className)} weight="medium" />
+  ),
+
+  LabelSoft: (props: TextProps) => (
+    <TextBase
       {...props}
+      as={props.as ?? "span"}
+      className={clsx(size.label, props.className)}
+      weight="medium"
+      tone="soft"
     />
   ),
 
-  Header: ({ className, ...props }: TextProps) => (
-    <p
-      className={clsx(base, "text-2xl font-bold text-foreground", className)}
+  LabelStrong: (props: TextProps) => (
+    <TextBase {...props} as={props.as ?? "span"} className={clsx(size.label, props.className)} weight="semibold" />
+  ),
+
+  // MICROCOPY
+  Micro: (props: TextProps) => (
+    <TextBase {...props} className={clsx(size.micro, props.className)} weight="medium" tone="muted" />
+  ),
+
+  Meta: (props: TextProps) => <TextBase {...props} className={clsx(size.meta, props.className)} tone="muted" />,
+
+  Highlight: (props: TextProps) => (
+    <TextBase
       {...props}
+      as={props.as ?? "span"}
+      className={clsx(size.meta, props.className)}
+      weight="medium"
+      tone="accent"
     />
   ),
 
-  Title: ({ className, ...props }: TextProps) => (
-    <p
-      className={clsx(base, "text-base font-semibold text-foreground tracking-wide", className)}
-      {...props}
-    />
-  ),
-
-  Section: ({ className, ...props }: TextProps) => (
-    <p
-      className={clsx(base, "text-sm font-semibold text-foreground", className)}
-      {...props}
-    />
-  ),
-
-  LabelSoft: ({ className, ...props }: TextProps) => (
-    <span
-      className={clsx("text-sm font-medium", className)}
-      style={{ color: semanticColors.softText, ...props.style }}
-      {...props}
-    />
-  ),
-
-  Body: ({ className, ...props }: TextProps) => (
-    <p
-      className={clsx(base, "text-sm text-foreground", className)}
-      {...props}
-    />
-  ),
-
-  Micro: ({ className, ...props }: TextProps) => (
-    <p
-      className={clsx(base, "text-xs font-medium text-muted-foreground", className)}
-      {...props}
-    />
-  ),
-
-  Meta: ({ className, ...props }: TextProps) => (
-    <p
-      className={clsx(base, "text-[11px] text-muted-foreground", className)}
-      {...props}
-    />
-  ),
-
-  Highlight: ({ className, ...props }: TextProps) => (
-    <span
-      className={clsx("text-[11px] font-medium", className)}
-      style={{ color: semanticColors.accentText, ...props.style }}
-      {...props}
-    />
-  ),
-
+  // UNIVERSAL
+  Text: TextBase,
 };
