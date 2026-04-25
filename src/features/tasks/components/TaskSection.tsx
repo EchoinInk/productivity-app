@@ -64,9 +64,9 @@ export const TaskSection = ({
         className="flex items-center justify-between w-full py-1"
       >
         <div className="flex items-center gap-2">
-          <UIText.Title>
+          <UIText.HeadingL>
             {title}
-          </UIText.Title>
+          </UIText.HeadingL>
 
           <UIText.Meta>
             {progress.completed}/{progress.total}
@@ -93,9 +93,9 @@ export const TaskSection = ({
         <div className="space-y-2">
           {tasks.length === 0 ? (
             <div className="py-4 px-2 space-y-1">
-              <UIText.Section>
+              <UIText.HeadingM>
                 {EMPTY_MESSAGES[title] ?? "No tasks"}
-              </UIText.Section>
+              </UIText.HeadingM>
 
               <UIText.Micro>
                 {EMPTY_HINTS[title] ?? "Nothing scheduled here"}

@@ -63,9 +63,9 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
             Progress
           </UIText.Meta>
 
-          <UIText.Title style={{ color: semanticColors.softText }}>
+          <UIText.HeadingL style={{ color: semanticColors.softText }}>
             Today Tasks
-          </UIText.Title>
+          </UIText.HeadingL>
 
           <UIText.Meta style={{ color: semanticColors.softText }}>
             {completed} / {total} completed

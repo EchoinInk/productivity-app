@@ -23,7 +23,7 @@ export const TaskProgress = () => {
       "
     >
       <div className="flex items-center justify-between">
-        <UIText.Section>Today Progress</UIText.Section>
+        <UIText.HeadingM>Today Progress</UIText.HeadingM>
 
         <UIText.Meta>
           {progress.completed}/{progress.total}

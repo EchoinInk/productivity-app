@@ -20,7 +20,7 @@ const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
   return (
     <Card>
       <div className="flex items-center justify-between mb-3">
-        <UIText.Title>Tasks by category</UIText.Title>
+        <UIText.HeadingL>Tasks by category</UIText.HeadingL>
 
         {onViewAll && (
           <button type="button" onClick={onViewAll}>

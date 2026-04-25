@@ -26,13 +26,25 @@ const weightMap: Record<Weight, string> = {
   bold: "font-bold",
 };
 
-const toneMap: Record<Tone, string> = {
-  default: semanticColors.foreground,
+// Tone → either a CSS color string (used in inline style) or `null` to fall
+// back to a Tailwind class. We keep semantic palette colors for `soft` and
+// `accent` (brand voice) and lean on design-system tokens for the rest.
+const toneColor: Record<Tone, string | null> = {
+  default: null,
   soft: semanticColors.softText,
-  muted: semanticColors.mutedForeground,
+  muted: null,
   accent: semanticColors.accentText,
-  danger: semanticColors.danger,
-  success: semanticColors.success,
+  danger: null,
+  success: null,
+};
+
+const toneClass: Record<Tone, string> = {
+  default: "text-foreground",
+  soft: "",
+  muted: "text-muted-foreground",
+  accent: "",
+  danger: "text-destructive",
+  success: "text-accent",
 };
 
 const leadingMap = {
@@ -63,7 +75,7 @@ const size = {
 };
 
 function TextBase({
-  as,
+  as = "p",
   className,
   weight = "regular",
   tone = "default",
@@ -76,7 +88,8 @@ function TextBase({
   style,
   ...props
 }: TextProps) {
-  const Component = as ?? "p";
+  const Component = as as "p";
+  const inlineColor = toneColor[tone];
 
   return (
     <Component
@@ -84,6 +97,7 @@ function TextBase({
         weightMap[weight],
         leadingMap[leading],
         trackingMap[tracking],
+        toneClass[tone],
         {
           truncate: truncate,
           "whitespace-nowrap": noWrap,
@@ -95,7 +109,7 @@ function TextBase({
         },
         className,
       )}
-      style={{ color: toneMap[tone], ...style }}
+      style={inlineColor ? { color: inlineColor, ...style } : style}
       {...props}
     />
   );
