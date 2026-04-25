@@ -13,7 +13,7 @@ const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
       <div className="flex items-center justify-between">
         <Menu size={20} aria-hidden="true" className="text-muted-foreground" />
 
-        <UIText.Header>{title}</UIText.Header>
+        <UIText.HeadingXL>{title}</UIText.HeadingXL>
 
         <Bell size={20} aria-hidden="true" className="text-muted-foreground" />
       </div>

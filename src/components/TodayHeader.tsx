@@ -32,7 +32,7 @@ const TodayHeader = ({ selectedDate, onDateChange }: TodayHeaderProps) => {
           <Menu size={22} />
         </button>
 
-        <UIText.Title>Today</UIText.Title>
+        <UIText.HeadingL>Today</UIText.HeadingL>
 
         <button
           type="button"

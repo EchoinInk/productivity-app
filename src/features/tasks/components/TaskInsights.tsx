@@ -22,7 +22,7 @@ export const TaskInsights = () => {
         space-y-2
       "
     >
-      <UIText.Title>Today Overview</UIText.Title>
+      <UIText.HeadingL>Today Overview</UIText.HeadingL>
 
       <div className="space-y-1">
         {insights.active.slice(0, 3).map((item) => (

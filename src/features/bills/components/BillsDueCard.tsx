@@ -56,7 +56,7 @@ const BillsDueCard = () => {
   return (
     <Card>
       <div className="flex items-center justify-between mb-3">
-        <UIText.Title>Bills Due</UIText.Title>
+        <UIText.HeadingL>Bills Due</UIText.HeadingL>
       </div>
 
       <ul className="divide-y divide-foreground/[0.05]">

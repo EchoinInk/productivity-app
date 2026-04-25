@@ -48,9 +48,9 @@ const RecipesPage = () => {
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <UIText.Title>
+                      <UIText.HeadingL>
                         {recipe.name}
-                      </UIText.Title>
+                      </UIText.HeadingL>
 
                       <UIText.Meta className="mt-0.5">
                         {recipe.ingredients.length} ingredient

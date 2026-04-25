@@ -34,11 +34,11 @@ const BudgetPage = () => {
         {/* TOP CARD */}
         <Card variant="budget">
           <div className="space-y-3">
-            <UIText.Title>Weekly Budget</UIText.Title>
+            <UIText.HeadingL>Weekly Budget</UIText.HeadingL>
 
-            <UIText.Section>
+            <UIText.HeadingM>
               ${summary.remaining.toFixed(2)}
-            </UIText.Section>
+            </UIText.HeadingM>
 
             <UIText.Micro>
               remaining of ${income.toFixed(2)}
@@ -73,9 +73,9 @@ const BudgetPage = () => {
 
         {/* TRANSACTIONS */}
         <Card>
-          <UIText.Title className="mb-2">
+          <UIText.HeadingL className="mb-2">
             Transactions
-          </UIText.Title>
+          </UIText.HeadingL>
 
           {expenses.length === 0 ? (
             <EmptyState

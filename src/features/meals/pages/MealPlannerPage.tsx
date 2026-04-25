@@ -29,9 +29,9 @@ const MealPlannerPage = () => {
 
           return (
             <Card key={day}>
-              <UIText.Title className="mb-2">
+              <UIText.HeadingL className="mb-2">
                 {day}
-              </UIText.Title>
+              </UIText.HeadingL>
 
               {dayMeals.length === 0 ? (
                 <EmptyState

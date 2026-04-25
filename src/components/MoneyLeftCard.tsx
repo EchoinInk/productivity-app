@@ -14,9 +14,9 @@ const MoneyLeftCard = ({
   return (
     <Card variant="default">
       <div className="flex items-center justify-between mb-3">
-        <UIText.Title>
+        <UIText.HeadingL>
           Money left this week
-        </UIText.Title>
+        </UIText.HeadingL>
       </div>
 
       {/* Inner gradient block */}
