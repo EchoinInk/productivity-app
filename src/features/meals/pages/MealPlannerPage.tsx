@@ -11,10 +11,11 @@ import { UIText } from "@/components/ui/Text";
 
 import { weekdays } from "@/features/meals/constants/weekdays";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
+import { useMealsByDay } from "@/features/meals/selectors/mealsSelectors";
 
 const MealPlannerPage = () => {
-  const meals = useMealsStore((s) => s.meals);
   const addMeal = useMealsStore((s) => s.addMeal);
+  const mealsByDay = useMealsByDay();
 
   const [open, setOpen] = useState(false);
 
@@ -24,7 +25,7 @@ const MealPlannerPage = () => {
         <PageHeader title="Meal Planner" />
 
         {weekdays.map((day) => {
-          const dayMeals = meals.filter((meal) => meal.day === day);
+          const dayMeals = mealsByDay[day] ?? [];
 
           return (
             <Card key={day}>

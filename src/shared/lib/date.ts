@@ -1,3 +1,5 @@
+import { safeDate } from "@/utils/safeDate";
+
 export type DateKey = string;
 
 export const toDateString = (date: Date): DateKey =>
@@ -14,7 +16,7 @@ export const getYesterday = (date: Date = new Date()) => {
 };
 
 export const formatDisplayDate = (date: string) => {
-  const d = new Date(date);
+  const d = safeDate(date);
 
   if (Number.isNaN(d.getTime())) return date;
 

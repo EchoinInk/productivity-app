@@ -1,7 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
-import { useBillsStore } from "@/features/bills/store/useBillsStore";
+import { useBillViews } from "@/features/bills/selectors/billsSelectors";
 import { brandGradients, semanticColors } from "@/theme";
 
 interface BillView {
@@ -38,16 +38,19 @@ const palette = [
 const fallbackPalette = palette[0];
 
 const BillsDueCard = () => {
-  const storeBills = useBillsStore((s) => s.bills);
+  const billViews = useBillViews();
 
-  const bills: BillView[] = storeBills.length
-    ? storeBills.map((b, i) => ({
-        key: String(b.id),
-        name: b.name,
-        amount: `$${b.amount.toFixed(0)}`,
-        iconBg: (palette[i % palette.length] ?? fallbackPalette).iconBg,
-        accent: (palette[i % palette.length] ?? fallbackPalette).accent,
-      }))
+  const bills: BillView[] = billViews.length
+    ? billViews.map((b) => {
+        const colors = palette[b.index % palette.length] ?? fallbackPalette;
+        return {
+          key: b.key,
+          name: b.name,
+          amount: b.amount,
+          iconBg: colors.iconBg,
+          accent: colors.accent,
+        };
+      })
     : demoBills;
 
   return (
