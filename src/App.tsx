@@ -6,7 +6,7 @@ import MealPlannerPage from "@/features/meals/pages/MealPlannerPage";
 import ShoppingListPage from "@/features/shopping/pages/ShoppingListPage";
 import RecipesPage from "@/features/recipes/pages/RecipesPage";
 import AppShell from "@/app/layout/AppShell";
-import NotFound from "./pages/NotFound";
+import NotFound from "@/app/pages/NotFound";
 
 const App = () => (
   <BrowserRouter>
