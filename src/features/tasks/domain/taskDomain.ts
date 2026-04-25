@@ -35,7 +35,7 @@ export const toggleTaskCompletion = (
  */
 
 const isSameDay = (a: string, b: string) =>
-  new Date(a).toDateString() === new Date(b).toDateString();
+  safeDate(a).toDateString() === safeDate(b).toDateString();
 
 export const getTasksForDate = (
   tasks: Task[],
@@ -99,9 +99,9 @@ export const getTaskGroups = (
   tasks: Task[],
   today: DateKey
 ): TaskTimelineGroups => {
-  const yesterday = new Date(today);
+  const yesterday = safeDate(today);
   yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayKey = yesterday.toISOString().split("T")[0];
+  const yesterdayKey = toDateString(yesterday);
 
   return {
     today: sortTasks(getTasksForDate(tasks, today), today),
