@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import type { Meal } from "@/features/meals/types";
-import type { Weekday } from "@/features/meals/constants/weekdays";
+import type { Meal, Weekday } from "@/features/meals/types";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 
 export const selectAllMeals = (state: { meals: Meal[] }) => state.meals;
