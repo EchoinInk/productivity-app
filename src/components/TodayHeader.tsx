@@ -49,9 +49,9 @@ const TodayHeader = ({ selectedDate, onDateChange }: TodayHeaderProps) => {
           type="button"
           aria-label="Show previous day"
           onClick={() => shift(-1)}
-          className="text-muted-foreground active:scale-95 transition"
+          className="p-2 text-muted-foreground active:scale-95 transition"
         >
-          <ChevronLeft size={18} />
+          <ChevronLeft size={20} />
         </button>
 
         <div className="flex-1 text-center">
@@ -64,9 +64,9 @@ const TodayHeader = ({ selectedDate, onDateChange }: TodayHeaderProps) => {
           type="button"
           aria-label="Show next day"
           onClick={() => shift(1)}
-          className="text-muted-foreground active:scale-95 transition"
+          className="p-2 text-muted-foreground active:scale-95 transition"
         >
-          <ChevronRight size={18} />
+          <ChevronRight size={20} />
         </button>
       </div>
     </header>

@@ -47,11 +47,11 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
           onClose();
         }}
       >
-        <div className="flex gap-2">
-          <div className="flex-1">
+        <div className="flex flex-col space-y-2">
+          <div>
             <Field id="add-task-date" label="Task date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
-          <div className="flex-1">
+          <div>
             <Field id="add-task-time" label="Task time" type="time" value={time} onChange={(e) => setTime(e.target.value)} />
           </div>
         </div>

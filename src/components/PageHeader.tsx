@@ -1,4 +1,3 @@
-import { Bell, Menu } from "lucide-react";
 import { UIText } from "@/components/ui/Text";
 import { brandGradients } from "@/theme";
 
@@ -10,12 +9,8 @@ interface PageHeaderProps {
 const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <Menu size={20} aria-hidden="true" className="text-muted-foreground" />
-
+      <div className="flex items-center justify-center">
         <UIText.HeadingXL>{title}</UIText.HeadingXL>
-
-        <Bell size={20} aria-hidden="true" className="text-muted-foreground" />
       </div>
 
       {subtitle && (

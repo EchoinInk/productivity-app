@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
 import { useBillViews } from "@/features/bills/selectors/billsSelectors";
 import { brandGradients, semanticColors } from "@/theme";
+import EmptyState from "@/components/ui/EmptyState";
 
 interface BillView {
   key: string;
@@ -11,23 +12,6 @@ interface BillView {
   iconBg: string;
   accent: string;
 }
-
-const demoBills: BillView[] = [
-  {
-    key: "demo-electric",
-    name: "Electric Bill",
-    amount: "$80",
-    iconBg: brandGradients.billWarm,
-    accent: semanticColors.billWarm,
-  },
-  {
-    key: "demo-netflix",
-    name: "Netflix",
-    amount: "Due Today",
-    iconBg: brandGradients.billCool,
-    accent: semanticColors.billCool,
-  },
-];
 
 const palette = [
   { iconBg: brandGradients.billWarm, accent: semanticColors.billWarm },
@@ -40,18 +24,16 @@ const fallbackPalette = palette[0];
 const BillsDueCard = () => {
   const billViews = useBillViews();
 
-  const bills: BillView[] = billViews.length
-    ? billViews.map((b) => {
-        const colors = palette[b.index % palette.length] ?? fallbackPalette;
-        return {
-          key: b.key,
-          name: b.name,
-          amount: b.amount,
-          iconBg: colors.iconBg,
-          accent: colors.accent,
-        };
-      })
-    : demoBills;
+  const bills: BillView[] = billViews.map((b) => {
+    const colors = palette[b.index % palette.length] ?? fallbackPalette;
+    return {
+      key: b.key,
+      name: b.name,
+      amount: b.amount,
+      iconBg: colors.iconBg,
+      accent: colors.accent,
+    };
+  });
 
   return (
     <Card>
@@ -59,39 +41,47 @@ const BillsDueCard = () => {
         <UIText.HeadingL>Bills Due</UIText.HeadingL>
       </div>
 
-      <ul className="divide-y divide-foreground/[0.05]">
-        {bills.map((b) => (
-          <li key={b.key}>
-            <button
-              type="button"
-              aria-label={`View ${b.name}`}
-              className="w-full flex items-center gap-3 py-3 active:opacity-70 transition"
-            >
-              <span
-                className="w-5 h-5 rounded-lg shrink-0 flex items-center justify-center shadow-sm"
-                style={{ background: b.iconBg }}
+      {bills.length === 0 ? (
+        <EmptyState
+          title="No bills due"
+          description="You're all caught up"
+          className="py-6"
+        />
+      ) : (
+        <ul className="divide-y divide-foreground/[0.05]">
+          {bills.map((b) => (
+            <li key={b.key}>
+              <button
+                type="button"
+                aria-label={`View ${b.name}`}
+                className="w-full flex items-center gap-3 py-3 active:opacity-70 transition"
               >
-                <span className="block w-3.5 h-3.5 rounded-sm bg-white" />
-              </span>
+                <span
+                  className="w-5 h-5 rounded-lg shrink-0 flex items-center justify-center shadow-sm"
+                  style={{ background: b.iconBg }}
+                >
+                  <span className="block w-3.5 h-3.5 rounded-sm bg-white" />
+                </span>
 
-              <div className="flex-1 text-left">
-                <UIText.Micro className="font-medium">
-                  {b.name}
+                <div className="flex-1 text-left">
+                  <UIText.Micro className="font-medium">
+                    {b.name}
+                  </UIText.Micro>
+                </div>
+
+                <UIText.Micro
+                  className="font-medium"
+                  style={{ color: b.accent }}
+                >
+                  {b.amount}
                 </UIText.Micro>
-              </div>
 
-              <UIText.Micro
-                className="font-medium"
-                style={{ color: b.accent }}
-              >
-                {b.amount}
-              </UIText.Micro>
-
-              <ChevronRight size={14} style={{ color: semanticColors.billWarm }} />
-            </button>
-          </li>
-        ))}
-      </ul>
+                <ChevronRight size={14} style={{ color: semanticColors.billWarm }} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </Card>
   );
 };
