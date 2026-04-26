@@ -71,7 +71,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="w-20 h-20 object-contain shrink-0 drop-shadow-soft"
+          className="w-15 h-15 object-contain shrink-0 drop-shadow-soft"
           style={{ width: "6.5rem", height: "6.5rem" }}
         />
       </div>
