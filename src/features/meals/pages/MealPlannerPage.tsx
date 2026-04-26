@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-import { Card } from "@/components/ui/Card";
+import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import AddMeal from "@/components/modal/AddMeal";
@@ -29,25 +29,24 @@ const MealPlannerPage = () => {
 
           return (
             <Card key={day}>
-              <UIText.HeadingL className="mb-2">
-                {day}
-              </UIText.HeadingL>
-
-              {dayMeals.length === 0 ? (
-                <EmptyState
-                  title="No meals planned"
-                  description="Add a meal for this day"
-                  className="py-4"
-                />
-              ) : (
-                <div className="space-y-1">
-                  {dayMeals.map((meal) => (
-                    <UIText.Body key={meal.id}>
-                      {meal.name}
-                    </UIText.Body>
-                  ))}
-                </div>
-              )}
+              <CardHeader title={day} />
+              <CardBody>
+                {dayMeals.length === 0 ? (
+                  <EmptyState
+                    title="No meals planned"
+                    description="Add a meal for this day"
+                    className="py-4"
+                  />
+                ) : (
+                  <div className="space-y-1">
+                    {dayMeals.map((meal) => (
+                      <UIText.Body key={meal.id}>
+                        {meal.name}
+                      </UIText.Body>
+                    ))}
+                  </div>
+                )}
+              </CardBody>
             </Card>
           );
         })}

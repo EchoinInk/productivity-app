@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-import { Card } from "@/components/ui/Card";
+import { Card, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import AddRecipe from "@/components/modal/AddRecipe";
@@ -26,44 +26,48 @@ const RecipesPage = () => {
 
         {recipes.length === 0 ? (
           <Card>
-            <EmptyState
-              title="No recipes yet"
-              description="Start by adding your first recipe"
-              action={
-                <ActionButton onClick={() => setOpen(true)}>
-                  Add Recipe
-                </ActionButton>
-              }
-              className="py-6"
-            />
+            <CardBody>
+              <EmptyState
+                title="No recipes yet"
+                description="Start by adding your first recipe"
+                action={
+                  <ActionButton onClick={() => setOpen(true)}>
+                    Add Recipe
+                  </ActionButton>
+                }
+                className="py-6"
+              />
+            </CardBody>
           </Card>
         ) : (
           <div className="space-y-2">
             {recipes.map((recipe) => (
               <Card key={recipe.id}>
-                <button
-                  type="button"
-                  onClick={() => applyRecipe(recipe)}
-                  className="w-full text-left rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:opacity-80 transition"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <UIText.HeadingL>
-                        {recipe.name}
-                      </UIText.HeadingL>
+                <CardBody>
+                  <button
+                    type="button"
+                    onClick={() => applyRecipe(recipe)}
+                    className="w-full text-left rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:opacity-80 transition"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <UIText.HeadingL>
+                          {recipe.name}
+                        </UIText.HeadingL>
 
-                      <UIText.Meta className="mt-0.5">
-                        {recipe.ingredients.length} ingredient
-                        {recipe.ingredients.length === 1 ? "" : "s"}
-                        {recipe.category ? ` · ${recipe.category}` : ""}
-                      </UIText.Meta>
+                        <UIText.Meta className="mt-0.5">
+                          {recipe.ingredients.length} ingredient
+                          {recipe.ingredients.length === 1 ? "" : "s"}
+                          {recipe.category ? ` · ${recipe.category}` : ""}
+                        </UIText.Meta>
+                      </div>
+
+                      <UIText.Highlight className="opacity-70">
+                        Use
+                      </UIText.Highlight>
                     </div>
-
-                    <UIText.Highlight className="opacity-70">
-                      Use
-                    </UIText.Highlight>
-                  </div>
-                </button>
+                  </button>
+                </CardBody>
               </Card>
             ))}
           </div>

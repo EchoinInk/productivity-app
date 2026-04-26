@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, type ReactNode } from "react";
-import { Card } from "@/components/ui/Card";
+import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 
 interface BottomSheetDialogProps {
   open: boolean;
@@ -46,10 +46,10 @@ export const BottomSheetDialog = ({ open, title, onClose, children }: BottomShee
         onMouseDown={(event) => event.stopPropagation()}
       >
         <Card className="space-y-4">
-          <h2 id={titleId} className="text-lg font-semibold text-foreground">
-            {title}
-          </h2>
-          {children}
+          <CardHeader title={title} />
+          <CardBody>
+            {children}
+          </CardBody>
         </Card>
       </div>
     </div>

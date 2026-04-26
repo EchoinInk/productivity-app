@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-import { Card } from "@/components/ui/Card";
+import { Card, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import TabBar from "@/components/TabBar";
 import PageHeader from "@/components/PageHeader";
@@ -37,23 +37,25 @@ const ShoppingListPage = () => {
         />
 
         <Card>
-          {items.length === 0 ? (
-            <EmptyState
-              title={`No ${activeTab.toLowerCase()} items`}
-              description={`Add your first ${activeTab.toLowerCase()} item`}
-              className="py-6"
-            />
-          ) : (
-            <div className="space-y-1">
-              {items.map((item) => (
-                <ShoppingRow
-                  key={item.id}
-                  item={item}
-                  onToggle={toggleItem}
-                />
-              ))}
-            </div>
-          )}
+          <CardBody>
+            {items.length === 0 ? (
+              <EmptyState
+                title={`No ${activeTab.toLowerCase()} items`}
+                description={`Add your first ${activeTab.toLowerCase()} item`}
+                className="py-6"
+              />
+            ) : (
+              <div className="space-y-1">
+                {items.map((item) => (
+                  <ShoppingRow
+                    key={item.id}
+                    item={item}
+                    onToggle={toggleItem}
+                  />
+                ))}
+              </div>
+            )}
+          </CardBody>
         </Card>
 
         <ActionButton fullWidth onClick={() => setOpen(true)}>
