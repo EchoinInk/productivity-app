@@ -115,4 +115,32 @@ export const UIText = {
 
   // UNIVERSAL
   Text: TextBase,
+
+  // ----- LEGACY ALIASES -----
+  // Kept so the existing codebase keeps compiling. New code should use the
+  // semantic variants above (HeroTitle, Metric, Heading, Body, ...).
+  HeadingXL: (props: TextProps) => (
+    <TextBase {...props} as="h1" className={clsx("text-2xl", props.className)} weight="bold" />
+  ),
+  HeadingL: (props: TextProps) => (
+    <TextBase {...props} as="h2" className={clsx("text-lg", props.className)} weight="semibold" />
+  ),
+  HeadingM: (props: TextProps) => (
+    <TextBase {...props} as="h3" className={clsx("text-base", props.className)} weight="semibold" />
+  ),
+  Display: (props: TextProps) => (
+    <TextBase {...props} className={clsx("text-3xl", props.className)} weight="bold" />
+  ),
+  Meta: (props: TextProps) => (
+    <TextBase {...props} as="span" className={clsx("text-xs", props.className)} tone="muted" />
+  ),
+  Micro: (props: TextProps) => (
+    <TextBase {...props} as="span" className={clsx("text-sm", props.className)} />
+  ),
+  LabelSoft: (props: TextProps) => (
+    <TextBase {...props} as="span" className={clsx("text-sm", props.className)} weight="medium" />
+  ),
+  Highlight: (props: TextProps) => (
+    <TextBase {...props} as="span" className={clsx("text-sm", props.className)} tone="accent" weight="semibold" />
+  ),
 };

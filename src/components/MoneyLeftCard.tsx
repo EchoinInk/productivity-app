@@ -1,46 +1,58 @@
 import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
-import { brandGradients } from "@/theme";
 
 interface MoneyLeftCardProps {
   remaining?: number;
   spent?: number;
+  weeklyBudget?: number;
 }
 
 const MoneyLeftCard = ({
   remaining = 120,
   spent = 35,
+  weeklyBudget,
 }: MoneyLeftCardProps) => {
+  const budget = weeklyBudget ?? remaining + spent;
+  const percent = budget > 0 ? Math.min(100, Math.round((spent / budget) * 100)) : 0;
+
   return (
-    <Card variant="default">
-      <div className="flex items-center justify-between mb-3">
-        <UIText.HeadingL>
-          Money left this week
-        </UIText.HeadingL>
-      </div>
-
-      {/* Inner gradient block */}
-      <div
-        className="rounded-lg p-4 text-white drop-shadow-soft shadow-[var(--shadow-surface)]"
-        style={{
-          background: brandGradients.secondary,
-          filter: "saturate(1.1) contrast(1.05)",
-        }}
-      >
-        <div className="flex items-baseline gap-2">
-          <UIText.Display>
-            ${remaining}
-          </UIText.Display>
-          <UIText.Micro>
-            left to spend
-          </UIText.Micro>
+    <Card variant="data">
+      <div className="flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <UIText.Metric>${remaining}</UIText.Metric>
+          <UIText.MetricLabel>left this week</UIText.MetricLabel>
+          <UIText.BodyMuted className="mt-1">
+            <span className="font-semibold text-foreground">${spent}</span> spent so far
+          </UIText.BodyMuted>
         </div>
-      </div>
 
-      <div className="flex items-center justify-between mt-3">
-        <UIText.Micro>
-          <span className="font-bold">${spent}</span> Spent
-        </UIText.Micro>
+        {/* Right — progress indicator */}
+        <div className="w-16 h-16 shrink-0 relative">
+          <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+            <circle
+              cx="18"
+              cy="18"
+              r="15"
+              fill="none"
+              stroke="hsl(var(--muted))"
+              strokeWidth="3"
+            />
+            <circle
+              cx="18"
+              cy="18"
+              r="15"
+              fill="none"
+              stroke="hsl(var(--primary))"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={`${(percent / 100) * 94.25} 94.25`}
+              style={{ transition: "stroke-dasharray 0.3s ease" }}
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <UIText.Label>{percent}%</UIText.Label>
+          </div>
+        </div>
       </div>
     </Card>
   );

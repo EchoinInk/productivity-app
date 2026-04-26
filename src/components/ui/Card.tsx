@@ -1,6 +1,6 @@
 import { type HTMLAttributes } from "react";
 import clsx from "clsx";
-import { brandGradients } from "@/theme";
+import { brandGradients, gradients } from "@/theme";
 
 /**
  * 🎯 Card Variants (UX-driven, not just visual)
@@ -10,7 +10,8 @@ export type CardVariant =
   | "default"  // Standard content
   | "data"     // Metrics / insights
   | "alert"    // Urgent / attention
-  | "subtle";  // Minimal / transparent
+  | "subtle"   // Minimal / transparent
+  | "budget";  // Budget-focused gradient (legacy)
 
 /**
  * 📏 Size Variants (controls padding + radius)
@@ -28,6 +29,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 const gradientVariants: Partial<Record<CardVariant, string>> = {
   hero: brandGradients.primary,
   data: brandGradients.secondary,
+  budget: gradients.budget,
 };
 
 export const Card = ({
@@ -64,6 +66,10 @@ export const Card = ({
         // 🟣 HERO (dominant card)
         variant === "hero" &&
           "text-white shadow-[0_20px_40px_rgba(0,0,0,0.15)]",
+
+        // 💙 BUDGET (legacy gradient surface)
+        variant === "budget" &&
+          "text-primary-foreground shadow-[var(--shadow-glass)]",
 
         // 💸 DATA (metrics / financial)
         variant === "data" &&
