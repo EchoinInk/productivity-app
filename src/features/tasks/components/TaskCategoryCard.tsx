@@ -18,47 +18,45 @@ const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
   const isEmpty = data.length === 0;
 
   return (
-    <Card>
+    <Card variant="default">
       <div className="flex items-center justify-between mb-3">
-        <UIText.HeadingL>Tasks by category</UIText.HeadingL>
+        <UIText.Heading>Tasks by category</UIText.Heading>
 
         {onViewAll && (
-          <button type="button" onClick={onViewAll}>
-            <UIText.Highlight>View All →</UIText.Highlight>
+          <button type="button" onClick={onViewAll} className="active:scale-95 transition">
+            <UIText.CTA tone="accent">View all →</UIText.CTA>
           </button>
         )}
       </div>
 
       {isEmpty ? (
-        <EmptyState
-          title="No tasks today"
-          description="You're all caught up"
-          className="py-6"
-        />
+        <EmptyState title="No tasks today" description="You're all caught up" className="py-6" />
       ) : (
         <ul className="space-y-3">
           {data.map((item) => {
             const percent =
-              item.total === 0
-                ? 0
-                : Math.round((item.completed / item.total) * 100);
+              item.total === 0 ? 0 : Math.round((item.completed / item.total) * 100);
 
             return (
-              <li
-                key={item.category}
-                className="flex items-center justify-between"
-              >
-                <div className="space-y-0.5">
-                  <UIText.Micro>
-                    {item.category}
-                  </UIText.Micro>
+              <li key={item.category} className="flex items-center gap-3">
+                {/* Soft circle icon placeholder */}
+                <span
+                  aria-hidden
+                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center shrink-0"
+                >
+                  <span className="w-3 h-3 rounded-full bg-primary/70" />
+                </span>
 
-                  <UIText.Meta className="italic">
+                <div className="flex-1 min-w-0">
+                  <UIText.Body weight="medium" truncate>
+                    {item.category}
+                  </UIText.Body>
+                  <UIText.BodyMuted>
                     {item.completed}/{item.total} completed
-                  </UIText.Meta>
+                  </UIText.BodyMuted>
                 </div>
 
-                <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
+                <div className="w-20 h-2 rounded-full bg-muted overflow-hidden shrink-0">
                   <div
                     className="h-full bg-primary transition-all duration-300"
                     style={{ width: `${percent}%` }}

@@ -36,9 +36,9 @@ const BillsDueCard = () => {
   });
 
   return (
-    <Card>
+    <Card variant="default">
       <div className="flex items-center justify-between mb-3">
-        <UIText.HeadingL>Bills Due</UIText.HeadingL>
+        <UIText.Heading>Bills Due</UIText.Heading>
       </div>
 
       {bills.length === 0 ? (
@@ -57,26 +57,22 @@ const BillsDueCard = () => {
                 className="w-full flex items-center gap-3 py-3 active:opacity-70 transition"
               >
                 <span
-                  className="w-5 h-5 rounded-lg shrink-0 flex items-center justify-center shadow-sm"
+                  className="w-9 h-9 rounded-full shrink-0 flex items-center justify-center shadow-sm"
                   style={{ background: b.iconBg }}
                 >
-                  <span className="block w-3.5 h-3.5 rounded-sm bg-white" />
+                  <span className="block w-3.5 h-3.5 rounded-sm bg-white/90" />
                 </span>
 
-                <div className="flex-1 text-left">
-                  <UIText.Micro className="font-medium">
-                    {b.name}
-                  </UIText.Micro>
+                <div className="flex-1 text-left min-w-0">
+                  <UIText.BodyStrong truncate>{b.name}</UIText.BodyStrong>
+                  <UIText.Label tone="danger">Due today</UIText.Label>
                 </div>
 
-                <UIText.Micro
-                  className="font-medium"
-                  style={{ color: b.accent }}
-                >
+                <UIText.BodyStrong style={{ color: b.accent }}>
                   {b.amount}
-                </UIText.Micro>
+                </UIText.BodyStrong>
 
-                <ChevronRight size={14} style={{ color: semanticColors.billWarm }} />
+                <ChevronRight size={16} className="text-muted-foreground" />
               </button>
             </li>
           ))}
