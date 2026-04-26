@@ -1,124 +1,150 @@
-import { Card } from "@/components/ui/Card";
+import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
-import clipboardIllustration from "@/assets/3d-clipboard.png";
+import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 
-interface Props {
-  percentage: number;
+interface CategorySummary {
+  category: string;
   total: number;
   completed: number;
-  onAddTask?: () => void; // ✅ added
 }
 
-const TaskProgressCard = ({
-  percentage,
-  total,
-  completed,
-  onAddTask,
-}: Props) => {
-  const radius = 36;
-  const stroke = 6;
-  const normalizedRadius = radius - stroke / 2;
-  const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset =
-    circumference - (percentage / 100) * circumference;
+interface Props {
+  data: CategorySummary[];
+  onCategoryClick?: (category: string) => void;
+  onViewAll?: () => void;
+}
 
-  const remaining = Math.max(0, total - completed);
+const TodayFocusCard = ({ data, onCategoryClick, onViewAll }: Props) => {
+  const totalTasks = data.reduce((sum, item) => sum + item.total, 0);
+  const completedTasks = data.reduce((sum, item) => sum + item.completed, 0);
+  const percent =
+    totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
-  // --- TEXT LOGIC ---
-  const progressText =
-    total === 0
-      ? "No tasks today"
-      : `${completed} of ${total} completed`;
-
-  const motivation =
-    total === 0
-      ? null
-      : remaining === 0
-      ? "Nothing left on your list 🩶"
-      : "You’re making progress ✨";
+  // 🎯 Smart sorting → most urgent first
+  const priorities = data
+    .filter((item) => item.total > 0 && item.completed < item.total)
+    .sort(
+      (a, b) =>
+        (b.total - b.completed) - (a.total - a.completed)
+    )
+    .slice(0, 4);
 
   return (
-    <Card
-      variant="hero"
-      className="h-40"
-      style={{ filter: "saturate(1.25) contrast(1.1)" }}
-    >
-      <Card.Body layout="between" size="md" className="h-full">
-        
-        {/* LEFT — Progress Ring */}
-        <div className="relative shrink-0 h-[84px] w-[84px]">
-          <div className="absolute inset-0 rounded-full bg-white/20" />
+    <Card variant="default">
+      {/* HEADER */}
+      <CardHeader title="Today focus">
+        <div className="text-xs px-2 py-1 rounded-full bg-muted/40">
+          ✨ Smart
+        </div>
+      </CardHeader>
 
-          <svg viewBox="0 0 72 72" className="w-full h-full relative">
-            <circle
-              stroke="rgba(255,255,255,0.25)"
-              fill="transparent"
-              strokeWidth={stroke}
-              r={normalizedRadius}
-              cx={radius}
-              cy={radius}
-            />
-
-            <circle
-              stroke="white"
-              fill="transparent"
-              strokeWidth={stroke}
-              strokeLinecap="round"
-              strokeDasharray={circumference}
-              strokeDashoffset={strokeDashoffset}
-              r={normalizedRadius}
-              cx={radius}
-              cy={radius}
+      <CardBody className="space-y-5">
+        {/* PROGRESS SECTION */}
+        <div className="rounded-2xl bg-gradient-to-r from-purple-200/40 via-blue-200/30 to-pink-200/40 p-4 flex items-center gap-4">
+          
+          {/* Progress Circle */}
+          <div className="relative w-16 h-16 shrink-0">
+            <div className="w-full h-full rounded-full border-[6px] border-muted/30" />
+            <div
+              className="absolute top-0 left-0 w-full h-full rounded-full border-[6px] border-primary"
               style={{
-                transform: "rotate(-90deg)",
-                transformOrigin: "50% 50%",
+                clipPath: `inset(${100 - percent}% 0 0 0)`
               }}
             />
-          </svg>
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <UIText.Heading className="text-white">
-              {percentage}%
-            </UIText.Heading>
+            <div className="absolute inset-0 flex items-center justify-center text-sm font-medium">
+              {percent}%
+            </div>
           </div>
+
+          {/* Text */}
+          <div className="flex-1">
+            <UIText.Body weight="semibold">
+              Keep it going!
+            </UIText.Body>
+            <UIText.BodyMutedS>
+              {completedTasks} of {totalTasks} completed
+            </UIText.BodyMutedS>
+            <UIText.BodyMutedS className="text-xs mt-1">
+              You're making great progress ✨
+            </UIText.BodyMutedS>
+          </div>
+
+          {/* Optional icon */}
+          <div className="text-3xl opacity-60">📋</div>
         </div>
 
-        {/* CENTER — Text + CTA */}
-        <div className="flex flex-col gap-1 flex-1 min-w-0 -mt-1">
-          <UIText.HeroTitle className="text-white">
-            Today’s Tasks
-          </UIText.HeroTitle>
+        {/* PRIORITIES HEADER */}
+        <div>
+          <UIText.Body weight="semibold">
+            ⚡ Your top priorities
+          </UIText.Body>
+          <UIText.BodyMutedS className="text-xs">
+            Focus on these first
+          </UIText.BodyMutedS>
+        </div>
 
-          <UIText.HeroSubtext className="text-white/90">
-            {progressText}
-          </UIText.HeroSubtext>
+        {/* PRIORITY LIST */}
+        <ul className="space-y-2">
+          {priorities.map((item, index) => {
+            const remaining = item.total - item.completed;
+            const { icon } = getCategoryMetadata(item.category);
 
-          {total === 0 ? (
-            <Card.Action align="left">
-              <button
-                onClick={onAddTask}
-                className="mt-1 px-9 py-1.5 rounded-full bg-white/70 text-[12px] font-medium shadow-sm shadow-black/10 hover:bg-white transition active:scale-[0.98] text-[#7C8BC4]"
+            return (
+              <li
+                key={item.category}
+                onClick={() => onCategoryClick?.(item.category)}
+                className="flex items-center gap-3 p-3 rounded-xl bg-muted/20 hover:bg-muted/30 active:scale-[0.98] transition cursor-pointer"
               >
-                Add a task →
-              </button>
-            </Card.Action>
-          ) : (
-            <UIText.HeroSupport className="text-white/80 mt-1">
-              {motivation}
-            </UIText.HeroSupport>
-          )}
-        </div>
+                {/* Rank */}
+                <div className="w-6 h-6 text-xs rounded-full bg-primary/10 flex items-center justify-center font-medium">
+                  {index + 1}
+                </div>
 
-        {/* RIGHT — Illustration */}
-        <img
-          src={clipboardIllustration}
-          alt=""
-          aria-hidden
-          className="w-20 h-20 shrink-0 object-contain drop-shadow-soft"
-        />
-      </Card.Body>
+                {/* Icon */}
+                <div className="w-10 h-10 rounded-xl bg-muted/30 flex items-center justify-center">
+                  <img src={icon} className="w-6 h-6" />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1 min-w-0">
+                  <UIText.Body weight="medium" truncate>
+                    {item.category}
+                  </UIText.Body>
+                  <UIText.BodyMutedS className="text-xs">
+                    {item.completed}/{item.total} done
+                  </UIText.BodyMutedS>
+                </div>
+
+                {/* Remaining */}
+                <UIText.Body
+                  className={`text-sm ${
+                    remaining <= 1
+                      ? "text-amber-600 font-medium"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {remaining} left
+                </UIText.Body>
+
+                {/* Arrow */}
+                <div className="text-muted-foreground">›</div>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* CTA */}
+        {onViewAll && (
+          <button
+            onClick={onViewAll}
+            className="w-full py-3 rounded-xl bg-muted/30 hover:bg-muted/40 transition text-sm font-medium"
+          >
+            View all tasks →
+          </button>
+        )}
+      </CardBody>
     </Card>
   );
 };
 
-export default TaskProgressCard;
+export default TodayFocusCard;

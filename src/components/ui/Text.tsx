@@ -92,7 +92,7 @@ export const UIText = {
   ),
 
   BodyMuted: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-sm", props.className)} tone="muted" />
+    <TextBase {...props} className={clsx("text-[11px]", props.className)} tone="muted" />
   ),
 
   BodyMutedS: (props: TextProps) => (
@@ -100,7 +100,7 @@ export const UIText = {
   ),
 
   BodyStrong: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-sm", props.className)} weight="semibold" />
+    <TextBase {...props} className={clsx("text-[13px]", props.className)} weight="semibold" />
   ),
 
   // CTA
