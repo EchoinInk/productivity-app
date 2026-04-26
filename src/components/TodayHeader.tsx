@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Bell, ChevronLeft, ChevronRight, Menu } from "lucide-react";
 import { UIText } from "@/components/ui/Text";
 
 interface TodayHeaderProps {
@@ -22,9 +22,32 @@ const TodayHeader = ({ selectedDate, onDateChange }: TodayHeaderProps) => {
 
   return (
     <header className="pt-6 space-y-4">
-      {/* TOP BAR */}
-      <div className="flex items-center justify-center">
-        <UIText.HeadingL>Today</UIText.HeadingL>
+      {/* TOP BAR — menu · greeting · notifications */}
+      <div className="flex items-center justify-between gap-3">
+        <button
+          type="button"
+          aria-label="Open menu"
+          className="p-2 -ml-2 text-foreground active:scale-95 transition"
+        >
+          <Menu size={22} />
+        </button>
+
+        <div className="flex-1 text-center">
+          <UIText.HeadingL>Hi, Alex</UIText.HeadingL>
+          <UIText.Meta>Let's get things done</UIText.Meta>
+        </div>
+
+        <button
+          type="button"
+          aria-label="Notifications"
+          className="p-2 -mr-2 text-foreground active:scale-95 transition relative"
+        >
+          <Bell size={22} />
+          <span
+            aria-hidden
+            className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"
+          />
+        </button>
       </div>
 
       {/* DATE PILL */}
