@@ -16,20 +16,33 @@ export const CardHeader = ({
 }: CardHeaderProps) => {
   return (
     <div
-      className={clsx("space-y-2", className)}
+  className={clsx(
+    "flex items-start justify-between gap-4 px-4 pt-4",
+    className
+  )}
       {...props}
     >
-      {title && (
-        <UIText.Heading>
-          {title}
-        </UIText.Heading>
+      {/* LEFT */}
+      <div className="min-w-0">
+        {title && (
+          <UIText.Heading as="h3">
+            {title}
+          </UIText.Heading>
+        )}
+
+        {description && (
+          <UIText.BodyMutedS>
+            {description}
+          </UIText.BodyMutedS>
+        )}
+      </div>
+
+      {/* RIGHT */}
+      {children && (
+        <div className="shrink-0">
+          {children}
+        </div>
       )}
-      {description && (
-        <UIText.BodyMutedS>
-          {description}
-        </UIText.BodyMutedS>
-      )}
-      {children}
     </div>
   );
 };
