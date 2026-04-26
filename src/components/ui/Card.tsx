@@ -2,63 +2,100 @@ import { type HTMLAttributes } from "react";
 import clsx from "clsx";
 import { brandGradients } from "@/theme";
 
-type CardVariant = "default" | "primary" | "budget" | "alert" | "adjunct" | "recall";
-type GradientCardVariant = Exclude<CardVariant, "default" | "alert">;
+/**
+ * 🎯 Card Variants (UX-driven, not just visual)
+ */
+export type CardVariant =
+  | "hero"     // Primary focus (top of screen)
+  | "default"  // Standard content
+  | "data"     // Metrics / insights
+  | "alert"    // Urgent / attention
+  | "subtle";  // Minimal / transparent
+
+/**
+ * 📏 Size Variants (controls padding + radius)
+ */
+export type CardSize = "sm" | "md" | "lg";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
+  size?: CardSize;
 }
 
-const gradientMap: Record<GradientCardVariant, string> = {
-  primary: brandGradients.primary,
-  budget: brandGradients.secondary,
-  adjunct: brandGradients.tertiary,
-  recall: brandGradients.quaternary,
+/**
+ * 🎨 Gradient Mapping (LIMITED USE = better hierarchy)
+ */
+const gradientVariants: Partial<Record<CardVariant, string>> = {
+  hero: brandGradients.primary,
+  data: brandGradients.secondary,
 };
-
-const isGradientVariant = (variant: CardVariant): variant is GradientCardVariant =>
-  variant in gradientMap;
 
 export const Card = ({
   className,
   variant = "default",
+  size = "md",
+  style,
   ...props
 }: CardProps) => {
-  const glassBase =
-    "backdrop-blur-xl bg-white/80 border border-white/60";
-
-  const cardShadow = "shadow-[var(--shadow-glass)]";
-
-  const isGradient = isGradientVariant(variant);
-
-  const gradientStyle = isGradient
-    ? {
-        background: gradientMap[variant],
-        filter: "saturate(1.1) contrast(1.05)",
-      }
-    : undefined;
+  /**
+   * 🎨 Apply gradient ONLY to specific variants
+   */
+  const gradientStyle =
+    gradientVariants[variant]
+      ? {
+          background: gradientVariants[variant],
+          filter: "saturate(1.05) contrast(1.03)",
+        }
+      : undefined;
 
   return (
     <div
       className={clsx(
-        "rounded-lg p-4 transition-all duration-200",
+        "transition-all duration-200",
 
-        variant === "default" && clsx(glassBase, cardShadow),
+        /**
+         * 🧩 VARIANTS
+         */
 
-        isGradient &&
-          clsx(
-            "text-white",
-            "text-shadow-soft",
-            "[&_*]:text-shadow-soft",
-            cardShadow
-          ),
+        // ⚪ DEFAULT (glass style)
+        variant === "default" &&
+          "bg-white/80 backdrop-blur-xl border border-white/60 shadow-[var(--shadow-glass)]",
 
+        // 🟣 HERO (dominant card)
+        variant === "hero" &&
+          "text-white shadow-[0_20px_40px_rgba(0,0,0,0.15)]",
+
+        // 💸 DATA (metrics / financial)
+        variant === "data" &&
+          "bg-white/90 backdrop-blur-lg border border-white/50 shadow-[var(--shadow-glass)]",
+
+        // 🚨 ALERT (urgent but not aggressive)
         variant === "alert" &&
-          "bg-destructive text-destructive-foreground shadow-[0_var(--space-3)_20px_rgba(255,0,0,0.2)]",
+          "bg-white border border-red-200 text-red-600 shadow-[0_8px_20px_rgba(255,0,0,0.08)]",
+
+        // 🔘 SUBTLE (no background)
+        variant === "subtle" &&
+          "bg-transparent",
+
+        /**
+         * 📏 SIZE SYSTEM
+         */
+
+        size === "sm" && "p-3 rounded-lg",
+        size === "md" && "p-4 rounded-xl",
+        size === "lg" && "p-6 rounded-2xl",
+
+        /**
+         * ✨ INTERACTIONS (optional but recommended)
+         */
+        "hover:shadow-md active:scale-[0.99]",
 
         className
       )}
-      style={gradientStyle}
+      style={{
+        ...gradientStyle,
+        ...style,
+      }}
       {...props}
     />
   );
