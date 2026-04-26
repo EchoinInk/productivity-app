@@ -1,0 +1,10 @@
+{
+    "providers": {
+      "deepseek": {
+        "api_key": "sk-d54e7342dc874e4c83879849cb50dd52",
+        "base_url": "https://api.deepseek.com",
+        "models": ["deepseek-chat", "deepseek-reasoner"]
+      }
+    }
+  }
+  
