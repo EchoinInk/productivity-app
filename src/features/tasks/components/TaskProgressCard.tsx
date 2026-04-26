@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/Card";
+import { Card, CardBody, CardFooter } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
 
@@ -43,7 +43,7 @@ const TaskProgressCard = ({
       className="h-40"
       style={{ filter: "saturate(1.25) contrast(1.1)" }}
     >
-      <Card.Body layout="between" size="md" className="h-full">
+      <CardBody layout="between" size="md" className="h-full">
         
         {/* LEFT — Progress Ring */}
         <div className="relative shrink-0 h-[84px] w-[84px]">
@@ -94,14 +94,14 @@ const TaskProgressCard = ({
           </UIText.HeroSubtext>
 
           {total === 0 ? (
-            <Card.Action align="left">
+            <CardFooter className="justify-start">
               <button
                 onClick={onAddTask}
-                className="mt-1 px-9 py-1.5 rounded-full bg-white/30 text-[12px] font-medium shadow-sm shadow-black/10 hover:bg-white transition active:scale-[0.98] text-[#7C8BC4]"
+                className="mt-1 px-9 py-1.5 rounded-full bg-white/30 text-[12px] font-medium shadow-sm shadow-black/10 hover:bg-white transition active:scale-[0.98] text-primary"
               >
                 Add a task →
               </button>
-            </Card.Action>
+            </CardFooter>
           ) : (
             
             <UIText.HeroSupport className="text-white/80 mt-1">
@@ -117,7 +117,7 @@ const TaskProgressCard = ({
           aria-hidden
           className="w-20 h-20 shrink-0 object-contain drop-shadow-soft"
         />
-      </Card.Body>
+      </CardBody>
     </Card>
   );
 };

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ClipboardPlus, PiggyBank } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ import PageShell from "@/app/layout/PageShell";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { toDateString } from "@/shared/lib/date";
-import { getBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
+import { useBudgetSummary, selectIncome } from "@/features/budget/selectors/budgetSelectors";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
 import { useTaskProgress } from "@/features/tasks/hooks/useTaskProgress";
 import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
@@ -27,9 +27,6 @@ const TodayPage = () => {
   const { addTask } = useTaskActions();
   const addExpense = useBudgetStore((s) => s.addExpense);
 
-  const expenses = useBudgetStore((s) => s.expenses);
-  const weeklyBudget = useBudgetStore((s) => s.weeklyBudget);
-
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -38,11 +35,8 @@ const TodayPage = () => {
 
   const progress = useTaskProgress(selectedDateString);
   const { summaries: categorySummary } = useTaskInsights(selectedDateString);
-
-  const budget = useMemo(
-    () => getBudgetSummary(expenses, weeklyBudget),
-    [expenses, weeklyBudget]
-  );
+  const budget = useBudgetSummary();
+  const weeklyBudget = useBudgetStore(selectIncome);
 
   /**
    * ✅ HANDLERS (CORRECT LOCATION)
