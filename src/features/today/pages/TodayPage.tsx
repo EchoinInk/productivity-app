@@ -46,7 +46,7 @@ const TodayPage = () => {
 
   return (
     <PageShell>
-      <div className="space-y-4">
+      <div className="space-y-6">
         {/* HEADER */}
         <TodayHeader
           selectedDate={selectedDate}
@@ -70,19 +70,20 @@ const TodayPage = () => {
           <MoneyLeftCard
             remaining={Math.round(Math.max(0, budget.remaining))}
             spent={Math.round(budget.spent)}
+            weeklyBudget={weeklyBudget}
           />
 
           <BillsDueCard />
         </div>
 
         {/* ACTIONS */}
-        <div className="space-y-3 pt-4">
-          <ActionButton variant="adjunct" fullWidth onClick={() => setTaskOpen(true)}>
+        <div className="space-y-3 pt-2">
+          <ActionButton variant="primary" fullWidth onClick={() => setTaskOpen(true)}>
             <ClipboardPlus size={20} strokeWidth={2} />
             <span>Add Task</span>
           </ActionButton>
 
-          <ActionButton variant="recall" fullWidth onClick={() => setExpenseOpen(true)}>
+          <ActionButton variant="secondary" fullWidth onClick={() => setExpenseOpen(true)}>
             <PiggyBank size={20} strokeWidth={2} />
             <span>Add Expense</span>
           </ActionButton>
