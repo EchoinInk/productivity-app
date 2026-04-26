@@ -1,5 +1,6 @@
 import { type HTMLAttributes } from "react";
 import clsx from "clsx";
+import { UIText } from "@/components/ui/Text";
 
 interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -19,14 +20,14 @@ export const CardHeader = ({
       {...props}
     >
       {title && (
-        <h3 className="text-lg font-semibold text-foreground">
+        <UIText.Heading>
           {title}
-        </h3>
+        </UIText.Heading>
       )}
       {description && (
-        <p className="text-sm text-muted-foreground">
+        <UIText.BodyMuted>
           {description}
-        </p>
+        </UIText.BodyMuted>
       )}
       {children}
     </div>

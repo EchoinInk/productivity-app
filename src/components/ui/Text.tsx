@@ -88,11 +88,15 @@ export const UIText = {
 
   // BODY
   Body: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-sm", props.className)} />
+    <TextBase {...props} className={clsx("text-[13px]", props.className)} />
   ),
 
   BodyMuted: (props: TextProps) => (
     <TextBase {...props} className={clsx("text-sm", props.className)} tone="muted" />
+  ),
+
+  BodyMutedS: (props: TextProps) => (
+    <TextBase {...props} className={clsx("text-[11px]", props.className)} tone="muted" />
   ),
 
   BodyStrong: (props: TextProps) => (

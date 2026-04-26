@@ -48,7 +48,7 @@ export const colors = {
   muted: "220 14% 95%",
   mutedForeground: "220 10% 46%",
 
-  accent: "160 60% 45%",
+  accent: "236 72% 71%",
   accentForeground: "0 0% 100%",
 
   destructive: "0 72% 56%",
@@ -78,7 +78,7 @@ export const cssVar = (token: ColorToken, alpha?: number): string => {
 
 export const gradients = {
  primary: "linear-gradient (135deg, hsl(220 60% 46%), hsl(240 55% 52%))",
-  accent: "linear-gradient(135deg, hsl(160 60% 45%), hsl(180 50% 50%))",
+  accent: "linear-gradient(135deg, hsl(225, 33%, 65%), hsl(225, 33%, 65%))",
   budget: "linear-gradient(135deg, hsl(220 80% 56%), hsl(200 80% 50%))",
 } as const;
 

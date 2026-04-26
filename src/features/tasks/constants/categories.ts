@@ -1,9 +1,9 @@
-import catHome from "@/assets/categories/cathome.png";
-import catHealth from "@/assets/categories/cathealth.png";
-import catCareer from "@/assets/categories/catcareer.png";
-import catErrands from "@/assets/categories/caterrands.png";
-import catFamily from "@/assets/categories/catfamily.png";
-import catFinance from "@/assets/categories/catfinance.png";
+import categoryHome from "@/assets/categoryicons/category-home.png";
+import catHealth from "@/assets/categoryicons/category-health.png";
+import catCareer from "@/assets/categoryicons/category-career.png";
+import catErrands from "@/assets/categoryicons/category-errands.png";
+import catFamily from "@/assets/categoryicons/category-family.png";
+import catFinance from "@/assets/categoryicons/category-finance.png";
 import type { TaskCategory } from "@/features/tasks/types";
 
 export const taskCategories = [
@@ -16,7 +16,7 @@ export const taskCategories = [
 ] as const satisfies readonly TaskCategory[];
 
 export const categoryMetadata = {
-  "Home & Household": { bg: "hsl(211 84% 97%)", text: "hsl(214 38% 47%)", icon: catHome },
+  "Home & Household": { bg: "hsl(211 84% 97%)", text: "hsl(214 38% 47%)", icon: categoryHome },
   "Health & Wellness": { bg: "hsl(348 67% 97%)", text: "hsl(340 48% 56%)", icon: catHealth },
   "Career Development": { bg: "hsl(45 22% 96%)", text: "hsl(0 0% 42%)", icon: catCareer },
   "Errands & Life Admin": { bg: "hsl(193 70% 98%)", text: "hsl(194 38% 47%)", icon: catErrands },

@@ -13,6 +13,7 @@ interface Props {
   data?: CategorySummary[];
   onViewAll?: () => void;
 }
+const listRow = "flex items-center gap-4 pl-1";
 
 const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
   const isEmpty = data.length === 0;
@@ -36,7 +37,7 @@ const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
                 item.total === 0 ? 0 : Math.round((item.completed / item.total) * 100);
 
               return (
-                <li key={item.category} className="flex items-center gap-3">
+                <li className={listRow}>
                   {/* Soft circle icon placeholder */}
                   <span
                     aria-hidden
@@ -49,9 +50,9 @@ const TaskCategoryCard = ({ data = [], onViewAll }: Props) => {
                     <UIText.Body weight="medium" truncate>
                       {item.category}
                     </UIText.Body>
-                    <UIText.BodyMuted>
+                    <UIText.BodyMutedS>
                       {item.completed}/{item.total} completed
-                    </UIText.BodyMuted>
+                    </UIText.BodyMutedS>
                   </div>
 
                   <div className="w-20 h-2 rounded-full bg-muted overflow-hidden shrink-0">
