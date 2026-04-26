@@ -15,8 +15,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
   const normalizedRadius = radius - stroke / 2;
   const circumference = 2 * Math.PI * normalizedRadius;
 
-  const strokeDashoffset =
-    circumference - (percentage / 100) * circumference;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
     <Card variant="primary">
@@ -52,21 +51,15 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
           </svg>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <UIText.LabelSoft>
-              {percentage}%
-            </UIText.LabelSoft>
+            <UIText.LabelSoft>{percentage}%</UIText.LabelSoft>
           </div>
         </div>
 
         {/* MIDDLE — text */}
         <div className="flex-1 text-right space-y-0.5">
-          <UIText.Meta style={{ color: semanticColors.softText }}>
-            Progress
-          </UIText.Meta>
+          <UIText.Meta style={{ color: semanticColors.softText }}>Progress</UIText.Meta>
 
-          <UIText.HeadingL style={{ color: semanticColors.softText }}>
-            Today Tasks
-          </UIText.HeadingL>
+          <UIText.HeadingL style={{ color: semanticColors.softText }}>Today Tasks</UIText.HeadingL>
 
           <UIText.Meta style={{ color: semanticColors.softText }}>
             {completed} / {total} completed
@@ -78,7 +71,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="w-26 h-26 object-contain shrink-0 drop-shadow-soft"
+          className="w-20 h-20 object-contain shrink-0 drop-shadow-soft"
           style={{ width: "6.5rem", height: "6.5rem" }}
         />
       </div>
