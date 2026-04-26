@@ -60,15 +60,16 @@ function TextBase({
 export const UIText = {
   // HERO
   HeroTitle: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-lg", props.className)} weight="semibold" />
+    <TextBase {...props} className={clsx("text-lg drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]",
+      props.className)} weight="semibold" />
   ),
 
   HeroSubtext: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[13px] opacity-90", props.className)} />
+    <TextBase {...props} className={clsx("text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)", props.className)} />
   ),
 
   HeroSupport: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[12px]", props.className)} />
+    <TextBase {...props} className={clsx("text-[12px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.22)", props.className)} />
   ),
 
   // METRIC (Money)

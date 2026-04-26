@@ -18,58 +18,95 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
 
   const remaining = Math.max(0, total - completed);
 
+  // --- TEXT LOGIC ---
+  const progressText =
+    total === 0
+      ? "No tasks today"
+      : `${completed} of ${total} completed`;
+
   const motivation =
-    remaining === 0
-      ? "Nothing left on your list 🤍"
-      : `${remaining} task${remaining === 1 ? "" : "s"} to go. Small steps, big results ✨`;
+    total === 0
+      ? null // CTA replaces this
+      : remaining === 0
+      ? "Nothing left on your list 🩶"
+      : "You’re making progress ✨";
 
   return (
-   <Card
-  variant="hero"
-  className="h-44"   // ~176px tall, matches your bottom card
->
-  <div className="flex items-center gap-4 p-4 h-full">
+    <Card variant="hero" className="h-44">
+      <div className="flex items-center gap-3 p-4 h-full">
 
-    {/* LEFT — Progress Ring */}
-    <div className="bg-white/20 p-3 rounded-full shrink-0">
-      <div className="relative">
-        <svg height={64} width={64}>
-          {/* circles unchanged */}
-        </svg>
+        {/* LEFT — Progress Ring */}
+       {/* LEFT — Progress Ring */}
+<div className="bg-white/20 p-3 rounded-full shrink-0 flex items-center justify-center h-[80px] w-[80px]">
+  <div className="relative flex items-center justify-center">
+    <svg height={64} width={64}>
+      <circle
+        stroke="rgba(255,255,255,0.25)"
+        fill="transparent"
+        strokeWidth={stroke}
+        r={normalizedRadius}
+        cx={radius}
+        cy={radius}
+      />
+      <circle
+        stroke="white"
+        fill="transparent"
+        strokeWidth={stroke}
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        strokeDashoffset={strokeDashoffset}
+        r={normalizedRadius}
+        cx={radius}
+        cy={radius}
+        style={{
+          transform: "rotate(-90deg)",
+          transformOrigin: "50% 50%",
+          transition: "stroke-dashoffset 0.3s ease",
+        }}
+      />
+    </svg>
 
-        <div className="absolute inset-0 flex items-center justify-center">
-          <UIText.Heading className="text-white">
-            {percentage}%
-          </UIText.Heading>
-        </div>
-      </div>
+    <div className="absolute inset-0 flex items-center justify-center">
+      <UIText.Heading className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]">
+        {percentage}%
+      </UIText.Heading>
     </div>
-
-    {/* CENTER — Text */}
-    <div className="flex flex-col gap-1 flex-1 min-w-0">
-      <UIText.HeroTitle className="text-white">
-        Today’s Tasks
-      </UIText.HeroTitle>
-
-      <UIText.HeroSubtext className="text-white/90">
-        {completed} of {total} completed
-      </UIText.HeroSubtext>
-
-      <UIText.HeroSupport className="text-white/75">
-        {motivation}
-      </UIText.HeroSupport>
-    </div>
-
-    {/* RIGHT — Illustration */}
-    <img
-      src={clipboardIllustration}
-      alt=""
-      aria-hidden
-      className="w-20 h-20 shrink-0 object-contain drop-shadow-soft"
-    />
   </div>
-</Card>
+</div>
 
+        {/* CENTER — Text */}
+<div className="flex flex-col gap-1 flex-1 min-w-0 justify-start -mt-2">
+  <UIText.HeroTitle className="text-white">
+    Today’s Tasks
+  </UIText.HeroTitle>
+
+  <UIText.HeroSubtext className="text-white/90">
+    {progressText}
+  </UIText.HeroSubtext>
+
+  {total === 0 ? (
+   <button
+  className="mt-1 px-3 py-1.5 rounded-full bg-white/70 text-[13px] font-medium shadow-sm shadow-black/10 hover:bg-white transition active:scale-[0.98] text-[#7C8BC4]"
+>
+  Add a task →
+</button>
+  ) : (
+    <UIText.HeroSupport className="text-white/80 mt-1">
+      {motivation}
+    </UIText.HeroSupport>
+  )}
+
+</div>
+
+        {/* RIGHT — Illustration */}
+        <img
+          src={clipboardIllustration}
+          alt=""
+          aria-hidden
+          className="w-20 h-20 shrink-0 object-contain drop-shadow-soft"
+        />
+      </div>
+    </Card>
   );
 };
 

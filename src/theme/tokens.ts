@@ -77,7 +77,7 @@ export const cssVar = (token: ColorToken, alpha?: number): string => {
 // ---------------------------------------------------------------------------
 
 export const gradients = {
-  primary: "linear-gradient(135deg, hsl(220 80% 56%), hsl(240 70% 62%))",
+ primary: "linear-gradient (135deg, hsl(220 60% 46%), hsl(240 55% 52%))",
   accent: "linear-gradient(135deg, hsl(160 60% 45%), hsl(180 50% 50%))",
   budget: "linear-gradient(135deg, hsl(220 80% 56%), hsl(200 80% 50%))",
 } as const;
@@ -85,7 +85,7 @@ export const gradients = {
 export type GradientToken = keyof typeof gradients;
 
 export const brandGradientStops = {
-  primary: ["#b8fff8", "#d2e1fb", "#d9ddff", "#eeddf7", "#ffe8e8"],
+  primary: ["#a4f0e8", "#c0d3f0", "#c7c9f4", "#ddc9eb", "#f7d0d0"],
   secondary: ["#b4fdf6", "#cde0f7", "#d4d7fb", "#e9d7f3", "#ffe2e2"],
   tertiary: ["#b0f7f3", "#c0d0f3", "#c7c9f6", "#ded0e7", "#f6d0d0"],
   quaternary: ["#b2f4ee", "#c4d4f0", "#cfcdf5", "#e2d2eb", "#f7d2d2"],
