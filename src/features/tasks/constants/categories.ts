@@ -1,4 +1,4 @@
-import categoryHome from "@/assets/categoryIcons/category-home.png";
+import catHome from "@/assets/categoryIcons/category-home.png";
 import catHealth from "@/assets/categoryIcons/category-health.png";
 import catCareer from "@/assets/categoryIcons/category-career.png";
 import catErrands from "@/assets/categoryIcons/category-errands.png";
@@ -16,7 +16,7 @@ export const taskCategories = [
 ] as const satisfies readonly TaskCategory[];
 
 export const categoryMetadata = {
-  "Home & Household": { bg: "hsl(211 84% 97%)", text: "hsl(214 38% 47%)", icon: categoryHome },
+  "Home & Household": { bg: "hsl(211 84% 97%)", text: "hsl(214 38% 47%)", icon: catHome },
   "Health & Wellness": { bg: "hsl(348 67% 97%)", text: "hsl(340 48% 56%)", icon: catHealth },
   "Career Development": { bg: "hsl(45 22% 96%)", text: "hsl(0 0% 42%)", icon: catCareer },
   "Errands & Life Admin": { bg: "hsl(193 70% 98%)", text: "hsl(194 38% 47%)", icon: catErrands },
