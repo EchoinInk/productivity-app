@@ -44,6 +44,17 @@ const TodayPage = () => {
     [expenses, weeklyBudget]
   );
 
+  /**
+   * ✅ HANDLERS (CORRECT LOCATION)
+   */
+  const handleAddTask = () => {
+    setTaskOpen(true);
+  };
+
+  const handleAddExpense = () => {
+    setExpenseOpen(true);
+  };
+
   return (
     <PageShell>
       <div className="space-y-6">
@@ -58,6 +69,7 @@ const TodayPage = () => {
           percentage={progress.percentage}
           total={progress.total}
           completed={progress.completed}
+          onAddTask={handleAddTask} // 🔥 THIS WAS MISSING
         />
 
         {/* GROUPED CONTENT */}
@@ -78,19 +90,19 @@ const TodayPage = () => {
 
         {/* ACTIONS */}
         <div className="space-y-3 pt-2">
-          <ActionButton variant="primary" fullWidth onClick={() => setTaskOpen(true)}>
+          <ActionButton variant="primary" fullWidth onClick={handleAddTask}>
             <ClipboardPlus size={20} strokeWidth={2} />
             <span>Add Task</span>
           </ActionButton>
 
-          <ActionButton variant="secondary" fullWidth onClick={() => setExpenseOpen(true)}>
+          <ActionButton variant="secondary" fullWidth onClick={handleAddExpense}>
             <PiggyBank size={20} strokeWidth={2} />
             <span>Add Expense</span>
           </ActionButton>
         </div>
       </div>
 
-      {/* MODALS (OUTSIDE LAYOUT) */}
+      {/* MODALS */}
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
