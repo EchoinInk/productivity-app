@@ -31,8 +31,7 @@ const TaskProgressCard = ({ percentage, total, completed }: Props) => {
     <Card variant="hero" className="h-44">
       <div className="flex items-center gap-3 p-4 h-full">
         {/* LEFT — Progress Ring */}
-        {/* LEFT — Progress Ring */}
-        <div className="bg-white/20 p-3 rounded-full shrink-0 flex items-center justify-center h-[80px] w-[80px]">
+<div className="bg-white/20 p-2 rounded-full shrink-0 flex items-center justify-center h-[80px] w-[80px]">
           <div className="relative flex items-center justify-center">
             <svg height={64} width={64}>
               <circle
