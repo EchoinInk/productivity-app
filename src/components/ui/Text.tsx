@@ -64,11 +64,11 @@ export const UIText = {
   ),
 
   HeroSubtext: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-sm opacity-90", props.className)} />
+    <TextBase {...props} className={clsx("text-[13px] opacity-90", props.className)} />
   ),
 
   HeroSupport: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-sm opacity-80", props.className)} />
+    <TextBase {...props} className={clsx("text-[12px]", props.className)} />
   ),
 
   // METRIC (Money)
