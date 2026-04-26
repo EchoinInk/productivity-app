@@ -110,6 +110,7 @@ export const semanticColors = {
   billCool: "#9B8AC4",
 } as const;
 
+
 // ---------------------------------------------------------------------------
 // Shadows — match `--shadow-*` in src/index.css
 // ---------------------------------------------------------------------------
@@ -122,6 +123,7 @@ export const shadows = {
 } as const;
 
 export type ShadowToken = keyof typeof shadows;
+
 
 // ---------------------------------------------------------------------------
 // Spacing scale — values in rem, mirroring Tailwind's default 4px-based scale
@@ -157,6 +159,49 @@ export const space = {
 } as const;
 
 export type SpacingToken = keyof typeof spacing;
+
+// ---------------------------------------------------------------------------
+// Surfaces — semantic background layers used across the UI.
+// These map visual hierarchy (hero, cards, data, etc.) to consistent
+// background treatments (gradients, glass, elevated surfaces).
+//
+// USAGE
+// -----
+// - Use these instead of raw colors or gradients in components.
+// - Ensures consistent layering, depth, and theming.
+// - Prefer `surfaces.*` over hardcoded `bg-*` or inline gradients.
+//
+// MAPPING
+// -------
+// hero     → Primary gradient (top-level emphasis)
+// data     → Secondary gradient (metrics, highlights)
+// glass    → Frosted card background
+// elevated → Stronger solid surface
+// subtle   → Low-emphasis background
+// page     → App background gradient
+// ---------------------------------------------------------------------------
+
+export const surfaces = {
+  // Frosted glass card background
+  glass: "hsl(var(--card) / 0.8)",
+
+  // Stronger, more opaque surface
+  elevated: "hsl(var(--card) / 0.95)",
+
+  // Subtle background (sections, soft containers)
+  subtle: "hsl(var(--muted))",
+
+  // HERO (primary emphasis)
+  hero: brandGradients.primary,
+
+  // DATA (secondary emphasis, e.g. money card)
+  data: brandGradients.secondary,
+
+  // Full page background
+  page: brandGradients.page,
+} as const;
+
+export type SurfaceToken = keyof typeof surfaces;
 
 // ---------------------------------------------------------------------------
 // Border radius — derived from `--radius: 0.75rem` in src/index.css.
