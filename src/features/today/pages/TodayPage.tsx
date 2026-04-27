@@ -15,7 +15,7 @@ import PageShell from "@/app/layout/PageShell";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { toDateString } from "@/shared/lib/date";
-import { useBudgetSummary, selectIncome } from "@/features/budget/selectors/budgetSelectors";
+import { useBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
 import { useTaskProgress } from "@/features/tasks/hooks/useTaskProgress";
 import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
@@ -35,7 +35,6 @@ const TodayPage = () => {
   const progress = useTaskProgress(selectedDateString);
   const { summaries: categorySummary } = useTaskInsights(selectedDateString);
   const budget = useBudgetSummary();
-  const weeklyBudget = useBudgetStore(selectIncome);
   const billViews = useBillViews();
 
   /**
