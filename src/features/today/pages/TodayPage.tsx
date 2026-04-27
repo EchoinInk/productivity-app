@@ -4,7 +4,15 @@ import { ClipboardPlus, PiggyBank } from "lucide-react";
 
 import PageShell from "@/app/layout/PageShell";
 import TodayHeader from "@/components/TodayHeader";
+<<<<<<< Updated upstream
 import ActionButton from "@/components/ActionButton";
+=======
+import TodayHeroCard from "@/features/today/components/TodayHeroCard";
+import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
+
+import { useBillViews } from "@/features/bills/selectors/billsSelectors";
+
+>>>>>>> Stashed changes
 import AddTask from "@/components/modal/AddTask";
 import AddExpense from "@/components/modal/AddExpense";
 
@@ -38,6 +46,7 @@ const TodayPage = () => {
   const budget = useBudgetSummary();
   const billViews = useBillViews();
 
+<<<<<<< Updated upstream
   const remainingRounded = useMemo(
     () => Math.round(Math.max(0, budget.remaining)),
     [budget.remaining],
@@ -46,11 +55,32 @@ const TodayPage = () => {
   return (
     <PageShell>
       <div className="space-y-6">
+=======
+  /**
+   * HANDLERS
+   */
+  const handleAddTask = () => {
+    setTaskOpen(true);
+  };
+
+  const handleAddExpense = () => {
+    setExpenseOpen(true);
+  };
+
+  return (
+    <PageShell>
+      <div className="space-y-4">
+        {/* HEADER */}
+>>>>>>> Stashed changes
         <TodayHeader
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
         />
 
+<<<<<<< Updated upstream
+=======
+        {/* HERO (PRIMARY) */}
+>>>>>>> Stashed changes
         <TodayHeroCard
           percentage={progress.percentage}
           total={progress.total}
@@ -60,10 +90,20 @@ const TodayPage = () => {
           onViewAll={() => navigate("/tasks")}
         />
 
+<<<<<<< Updated upstream
         <TodaySummaryCard
           remaining={remainingRounded}
           billsDueCount={billViews.length}
         />
+=======
+        {/* SUMMARY (LIGHTWEIGHT ROW) */}
+        <div className="pt-1">
+          <TodaySummaryRow
+            remaining={Math.round(Math.max(0, budget.remaining))}
+            billsDueCount={billViews.length}
+          />
+        </div>
+>>>>>>> Stashed changes
 
         <div className="space-y-3 pt-2">
           <ActionButton variant="primary" fullWidth onClick={() => setTaskOpen(true)}>
