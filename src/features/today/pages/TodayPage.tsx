@@ -3,8 +3,7 @@ import { ClipboardPlus, PiggyBank } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import TodayHeader from "@/components/TodayHeader";
-import TaskProgressCard from "@/features/tasks/components/TaskProgressCard";
-import TaskCategoryCard from "@/features/tasks/components/TaskCategoryCard";
+import TodayHeroCard from "@/features/today/components/TodayHeroCard";
 
 import MoneyLeftCard from "@/components/MoneyLeftCard";
 import BillsDueCard from "@/features/bills/components/BillsDueCard";
@@ -58,21 +57,18 @@ const TodayPage = () => {
           onDateChange={setSelectedDate}
         />
 
-        {/* HERO */}
-        <TaskProgressCard
+        {/* UNIFIED HERO + CATEGORIES */}
+        <TodayHeroCard
           percentage={progress.percentage}
           total={progress.total}
           completed={progress.completed}
-          onAddTask={handleAddTask} // 🔥 THIS WAS MISSING
+          categories={categorySummary}
+          onAddTask={handleAddTask}
+          onViewAll={() => navigate("/tasks")}
         />
 
-        {/* GROUPED CONTENT */}
+        {/* SECONDARY CARDS */}
         <div className="space-y-4">
-          <TaskCategoryCard
-            data={categorySummary}
-            onViewAll={() => navigate("/tasks")}
-          />
-
           <MoneyLeftCard
             remaining={Math.round(Math.max(0, budget.remaining))}
             spent={Math.round(budget.spent)}

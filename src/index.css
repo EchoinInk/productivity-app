@@ -34,6 +34,9 @@
     --input: 220 14% 90%;
     --ring: 220 80% 56%;
 
+    --accent-soft: 225 33% 65%;
+    --warning: 38 92% 50%;
+
     --radius: 0.75rem;
 
     --gradient-primary: linear-gradient(135deg, hsl(220 80% 56%), hsl(240 70% 62%));
