@@ -4,19 +4,28 @@ import { getCategoryMetadata } from "@/features/tasks/constants/categories";
 import { isTaskCompleted } from "@/features/tasks/api";
 import { buildTaskSubtitle } from "@/shared/lib/taskFormat";
 import { TaskRowUI } from "@/features/tasks/components/ui/TaskRowUI";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 
 import type { EntityId, Task } from "@/features/tasks/types";
 import type { DateKey } from "@/shared/lib/date";
 
 interface TaskRowProps {
-  task: Task;
+  taskId: EntityId;
   activeDate: DateKey;
   onToggleTask: (id: EntityId, date: DateKey) => void;
   onSelectTask: (task: Task) => void;
 }
 
 export const TaskRow = memo(
-  ({ task, activeDate, onToggleTask, onSelectTask }: TaskRowProps) => {
+  ({ taskId, activeDate, onToggleTask, onSelectTask }: TaskRowProps) => {
+    const task = useTasksStore((state) =>
+      state.tasks.find((item) => item.id === taskId),
+    );
+
+    if (!task) {
+      return null;
+    }
+
     const isCompleted = isTaskCompleted(task, activeDate);
     const categoryStyle = getCategoryMetadata(task.category);
     const subtitle = buildTaskSubtitle(task);
@@ -35,7 +44,7 @@ export const TaskRow = memo(
 
     return (
       <TaskRowUI
-        id={String(task.id)}
+        id={String(taskId)}
         title={task.label}
         subtitle={subtitle}
         categoryLabel={task.category ?? ""}
@@ -47,7 +56,7 @@ export const TaskRow = memo(
         categoryIndicatorOpacity={categoryIndicatorOpacity}
         rowOpacity={rowOpacity}
         rowScale={rowScale}
-        onToggleTask={() => onToggleTask(task.id, activeDate)}
+        onToggleTask={() => onToggleTask(taskId, activeDate)}
         onSelectTask={() => onSelectTask(task)}
       />
     );

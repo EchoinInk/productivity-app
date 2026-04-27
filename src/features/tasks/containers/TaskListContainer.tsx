@@ -4,6 +4,7 @@ import { UIText } from "@/components/ui/Text";
 
 import { TaskSection } from "@/features/tasks/components/TaskSection";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksViewModel } from "@/features/tasks/view-models/useTasksViewModel";
 
 import type { Task } from "@/features/tasks/types";
 
@@ -19,7 +20,8 @@ interface TaskListContainerProps {
 export const TaskListContainer = ({
   onSelectTask,
 }: TaskListContainerProps) => {
-  const { activeDate, groups, actions } = useTasks();
+  const { actions } = useTasks();
+  const { activeDate, sections } = useTasksViewModel();
 
   const [openSections, setOpenSections] = useState({
     today: true,
@@ -31,10 +33,7 @@ export const TaskListContainer = ({
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const isEmpty =
-    groups.today.length === 0 &&
-    groups.upcoming.length === 0 &&
-    groups.yesterday.length === 0;
+  const isEmpty = sections.every((section) => section.taskIds.length === 0);
 
   if (isEmpty) {
     return (
@@ -47,35 +46,23 @@ export const TaskListContainer = ({
 
   return (
     <div className="space-y-3">
-      <TaskSection
-        title="Today"
-        isOpen={openSections.today}
-        onToggle={() => toggleSection("today")}
-        tasks={groups.today}
-        activeDate={activeDate}
-        onToggleTask={actions.toggleTask}
-        onSelectTask={onSelectTask}
-      />
-
-      <TaskSection
-        title="Upcoming"
-        isOpen={openSections.upcoming}
-        onToggle={() => toggleSection("upcoming")}
-        tasks={groups.upcoming}
-        activeDate={activeDate}
-        onToggleTask={actions.toggleTask}
-        onSelectTask={onSelectTask}
-      />
-
-      <TaskSection
-        title="Yesterday"
-        isOpen={openSections.yesterday}
-        onToggle={() => toggleSection("yesterday")}
-        tasks={groups.yesterday}
-        activeDate={activeDate}
-        onToggleTask={actions.toggleTask}
-        onSelectTask={onSelectTask}
-      />
+      {sections.map((section) => (
+        <TaskSection
+          key={section.key}
+          title={section.title}
+          isOpen={openSections[section.key]}
+          onToggle={() => toggleSection(section.key)}
+          taskIds={section.taskIds}
+          total={section.total}
+          completed={section.completed}
+          percentage={section.percentage}
+          emptyMessage={section.emptyMessage}
+          emptyHint={section.emptyHint}
+          activeDate={activeDate}
+          onToggleTask={actions.toggleTask}
+          onSelectTask={onSelectTask}
+        />
+      ))}
     </div>
   );
 };
