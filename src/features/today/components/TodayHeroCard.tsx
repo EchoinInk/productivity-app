@@ -4,7 +4,7 @@ import { UIText } from "@/components/ui/Text";
 import EmptyState from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
-import { getCategoryMetadata } from "@/features/tasks/constants/categories";
+import { getCategoryMetadata } from "@/features/tasks/api";
 
 interface CategorySummary {
   category: string;

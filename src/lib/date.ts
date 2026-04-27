@@ -1,6 +1,5 @@
 export {
   formatDisplayDate,
-  formatTaskDateTime,
   getToday,
   getYesterday,
   toDateString,

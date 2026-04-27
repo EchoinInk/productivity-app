@@ -24,6 +24,3 @@ export const categoryMetadata = {
   Finances: { bg: "hsl(240 38% 95%)", text: "hsl(240 38% 53%)", icon: catFinance },
   Other: { bg: "hsl(var(--muted))", text: "hsl(var(--muted-foreground))", icon: catErrands },
 } as const;
-
-export const getCategoryMetadata = (category?: string) =>
-  categoryMetadata[(category || "Other") as keyof typeof categoryMetadata] ?? categoryMetadata.Other;

@@ -1,1 +1,2 @@
-export { categoryMetadata as categoryStyles, getCategoryMetadata, taskCategories } from "@/features/tasks/constants/categories";
+export { categoryMetadata as categoryStyles, taskCategories } from "@/features/tasks/constants/categories";
+export { getCategoryMetadata } from "@/features/tasks/domain/taskDomain";

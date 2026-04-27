@@ -1,7 +1,7 @@
 import EmptyState from "@/components/ui/EmptyState";
 import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
-import { getCategoryMetadata } from "@/features/tasks/constants/categories";
+import { getCategoryMetadata } from "@/features/tasks/api";
 
 interface CategorySummary {
   category: string;

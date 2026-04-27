@@ -25,6 +25,3 @@ export const formatDisplayDate = (date: string) => {
     month: "short",
   });
 };
-
-export const formatTaskDateTime = (date: string, time?: string) =>
-  [formatDisplayDate(date), time].filter(Boolean).join(" • ");

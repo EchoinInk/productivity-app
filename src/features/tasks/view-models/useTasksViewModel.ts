@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 
 import {
+  buildTaskSubtitle,
+  getCategoryMetadata,
   getTaskGroups,
   isTaskCompleted,
   selectTasks,
@@ -9,8 +11,6 @@ import {
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 
 import { getToday, type DateKey } from "@/shared/lib/date";
-import { getCategoryMetadata } from "@/features/tasks/constants/categories";
-import { buildTaskSubtitle } from "@/shared/lib/taskFormat";
 
 import type { Task } from "@/features/tasks/types";
 

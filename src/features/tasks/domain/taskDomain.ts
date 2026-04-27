@@ -1,6 +1,7 @@
 import type { Task } from "@/features/tasks/types";
 import { toDateString, type DateKey } from "@/shared/lib/date";
 import { safeDate } from "@/utils/safeDate";
+import { categoryMetadata } from "@/features/tasks/constants/categories";
 
 /**
  * ---------------------------------------
@@ -13,6 +14,10 @@ export const isTaskCompleted = (
   date: DateKey
 ): boolean => {
   return task.completedDates.includes(date);
+};
+
+export const isTaskOverdue = (task: Task, date: DateKey): boolean => {
+  return task.date < date && !isTaskCompleted(task, date);
 };
 
 export const toggleTaskCompletion = (
@@ -197,4 +202,45 @@ export const getActiveCategorySummaries = (
   summaries: CategorySummary[]
 ): CategorySummary[] => {
   return summaries.filter((s) => s.active > 0);
+};
+
+/**
+ * ---------------------------------------
+ * PRESENTATION DERIVATION (TASK-SCOPED)
+ * ---------------------------------------
+ */
+
+export type TaskCategoryMetadata = {
+  bg: string;
+  text: string;
+  icon: string;
+};
+
+export const getCategoryMetadata = (category?: string): TaskCategoryMetadata => {
+  const fallbackKey = "Other";
+  const key = (category || fallbackKey) as keyof typeof categoryMetadata;
+  return categoryMetadata[key] ?? categoryMetadata[fallbackKey];
+};
+
+export const formatTaskDisplayDate = (date: string): string => {
+  const parsed = safeDate(date);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return date;
+  }
+
+  return parsed.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+  });
+};
+
+export const formatTaskDateTime = (date: string, time?: string): string => {
+  return [formatTaskDisplayDate(date), time].filter(Boolean).join(" • ");
+};
+
+export const buildTaskSubtitle = (task: Task): string => {
+  return [task.notes, formatTaskDateTime(task.date, task.time)]
+    .filter(Boolean)
+    .join(" • ");
 };
