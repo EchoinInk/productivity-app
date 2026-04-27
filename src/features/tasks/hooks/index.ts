@@ -13,3 +13,5 @@ export type {
 } from "./useTasks";
 
 export { useTaskActions } from "./useTaskActions";
+export { useTasksData } from "./useTasksData";
+export type { UseTasksDataResult } from "./useTasksData";
