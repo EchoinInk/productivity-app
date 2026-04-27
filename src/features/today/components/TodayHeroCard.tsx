@@ -55,7 +55,7 @@ const TodayHeroCard = ({
   );
 
   return (
-    <Card variant="hero" className="h-40">
+    <Card variant="hero" className="overflow-hidden p-0">
       {/* TOP — gradient hero */}
       <div className="flex items-center gap-4 p-5">
         {/* Progress ring */}
