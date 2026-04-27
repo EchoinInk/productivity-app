@@ -23,7 +23,7 @@ const weightMap: Record<Weight, string> = {
 const toneClass: Record<Tone, string> = {
   default: "text-foreground",
   muted: "text-muted-foreground",
-  accent: "text-[#7C8BC4]",
+  accent: "text-[hsl(var(--accent-soft))]",
   danger: "text-destructive",
   success: "text-accent",
 };
