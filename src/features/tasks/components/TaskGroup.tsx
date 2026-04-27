@@ -6,14 +6,21 @@ import type { TaskRowVM } from "@/features/tasks/view-models/useTasksViewModel";
 
 type TaskGroupProps = {
   title: string;
-  taskRows: TaskRowVM[];
+  tasks: TaskRowVM[];
+  onToggleTask: (id: string) => void;
+  onSelectTask: (id: string) => void;
 };
 
 export const TaskGroup = memo(
-  ({ title, taskRows }: TaskGroupProps) => (
+  ({ title, tasks, onToggleTask, onSelectTask }: TaskGroupProps) => (
     <TaskGroupUI title={title}>
-      {taskRows.map((taskRow) => (
-        <TaskRow key={taskRow.id} taskRow={taskRow} />
+      {tasks.map((task) => (
+        <TaskRow
+          key={task.id}
+          task={task}
+          onToggleTask={onToggleTask}
+          onSelectTask={onSelectTask}
+        />
       ))}
     </TaskGroupUI>
   ),

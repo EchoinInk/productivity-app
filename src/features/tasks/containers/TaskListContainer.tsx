@@ -4,12 +4,13 @@ import { UIText } from "@/components/ui/Text";
 
 import { TaskSection } from "@/features/tasks/components/TaskSection";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useTasksViewModel } from "@/features/tasks/view-models/useTasksViewModel";
-
-import type { Task } from "@/features/tasks/types";
+import {
+  useTasksViewModel,
+  type TaskGroupType,
+} from "@/features/tasks/view-models/useTasksViewModel";
 
 interface TaskListContainerProps {
-  onSelectTask: (task: Task) => void;
+  onSelectTask: (id: string) => void;
 }
 
 /**
@@ -20,20 +21,20 @@ interface TaskListContainerProps {
 export const TaskListContainer = ({
   onSelectTask,
 }: TaskListContainerProps) => {
-  const { actions } = useTasks();
-  const { activeDate, sections } = useTasksViewModel();
+  const { activeDate, actions } = useTasks();
+  const { sections } = useTasksViewModel();
 
-  const [openSections, setOpenSections] = useState({
+  const [openSections, setOpenSections] = useState<Record<TaskGroupType, boolean>>({
     today: true,
     upcoming: false,
     yesterday: false,
   });
 
-  const toggleSection = (key: keyof typeof openSections) => {
+  const toggleSection = (key: TaskGroupType) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const isEmpty = sections.every((section) => section.taskIds.length === 0);
+  const isEmpty = sections.every((section) => section.tasks.length === 0);
 
   if (isEmpty) {
     return (
@@ -46,23 +47,13 @@ export const TaskListContainer = ({
 
   return (
     <div className="space-y-3">
-      {sections.map((section) => (
-        <TaskSection
-          key={section.key}
-          title={section.title}
-          isOpen={openSections[section.key]}
-          onToggle={() => toggleSection(section.key)}
-          taskIds={section.taskIds}
-          total={section.total}
-          completed={section.completed}
-          percentage={section.percentage}
-          emptyMessage={section.emptyMessage}
-          emptyHint={section.emptyHint}
-          activeDate={activeDate}
-          onToggleTask={actions.toggleTask}
-          onSelectTask={onSelectTask}
-        />
-      ))}
+      <TaskSection
+        sections={sections}
+        expandedSections={openSections}
+        onToggleSection={toggleSection}
+        onToggleTask={(id) => actions.toggleTask(id, activeDate)}
+        onSelectTask={onSelectTask}
+      />
     </div>
   );
 };

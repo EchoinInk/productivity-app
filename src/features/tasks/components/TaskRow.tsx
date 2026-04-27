@@ -1,30 +1,24 @@
 import { memo } from "react";
 import { TaskRowUI } from "@/features/tasks/components/ui/TaskRowUI";
+import type { TaskRowVM } from "@/features/tasks/view-models/useTasksViewModel";
 
-export type TaskRowVM = {
-  id: string;
-  title: string;
-  subtitle: string;
-  isCompleted: boolean;
-  category: string | null;
-};
-
-type Props = TaskRowVM & {
+type Props = {
+  task: TaskRowVM;
   onToggleTask: (id: string) => void;
   onSelectTask: (id: string) => void;
 };
 
 export const TaskRow = memo(
-  ({ id, title, subtitle, isCompleted, category, onToggleTask, onSelectTask }: Props) => {
+  ({ task, onToggleTask, onSelectTask }: Props) => {
     return (
       <TaskRowUI
-        id={id}
-        title={title}
-        subtitle={subtitle}
-        isCompleted={isCompleted}
-        category={category}
-        onToggleTask={() => onToggleTask(id)}
-        onSelectTask={() => onSelectTask(id)}
+        id={task.id}
+        title={task.title}
+        subtitle={task.subtitle}
+        isCompleted={task.isCompleted}
+        category={task.category}
+        onToggleTask={() => onToggleTask(task.id)}
+        onSelectTask={() => onSelectTask(task.id)}
       />
     );
   }

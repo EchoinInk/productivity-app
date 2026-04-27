@@ -3,23 +3,17 @@ import { ChevronDown } from "lucide-react";
 
 import { TaskGroup } from "@/features/tasks/components/TaskGroup";
 import { UIText } from "@/components/ui/Text";
-
-import type { EntityId, Task } from "@/features/tasks/types";
-import type { DateKey } from "@/shared/lib/date";
+import type {
+  TaskGroupType,
+  TaskGroupVM,
+} from "@/features/tasks/view-models/useTasksViewModel";
 
 interface TaskSectionProps {
-  title: string;
-  isOpen: boolean;
-  onToggle: () => void;
-  taskIds: EntityId[];
-  total: number;
-  completed: number;
-  percentage: number;
-  emptyMessage: string;
-  emptyHint: string;
-  activeDate: DateKey;
-  onToggleTask: (id: EntityId, date: DateKey) => void;
-  onSelectTask: (task: Task) => void;
+  sections: TaskGroupVM[];
+  expandedSections: Record<TaskGroupType, boolean>;
+  onToggleSection: (type: TaskGroupType) => void;
+  onToggleTask: (id: string) => void;
+  onSelectTask: (id: string) => void;
 }
 
 /**
@@ -27,85 +21,81 @@ interface TaskSectionProps {
  * Uses domain for all derived data.
  */
 export const TaskSection = ({
-  title,
-  isOpen,
-  onToggle,
-  taskIds,
-  total,
-  completed,
-  percentage,
-  emptyMessage,
-  emptyHint,
-  activeDate,
+  sections,
+  expandedSections,
+  onToggleSection,
   onToggleTask,
   onSelectTask,
 }: TaskSectionProps) => {
   return (
-    <section
-      className="
-        rounded-lg
-        bg-white/60
-        backdrop-blur-md
-        border border-white/40
-        px-3 py-2
-        space-y-2
-      "
-    >
-      <button
-        type="button"
-        aria-expanded={isOpen}
-        onClick={onToggle}
-        className="flex items-center justify-between w-full py-1"
-      >
-        <div className="flex items-center gap-2">
-          <UIText.HeadingL>
-            {title}
-          </UIText.HeadingL>
+    <>
+      {sections.map((section) => {
+        const isOpen = expandedSections[section.type];
 
-          <UIText.Meta>
-            {completed}/{total}
-          </UIText.Meta>
-        </div>
+        return (
+          <section
+            key={section.type}
+            className="
+              rounded-lg
+              bg-white/60
+              backdrop-blur-md
+              border border-white/40
+              px-3 py-2
+              space-y-2
+            "
+          >
+            <button
+              type="button"
+              aria-expanded={isOpen}
+              onClick={() => onToggleSection(section.type)}
+              className="flex items-center justify-between w-full py-1"
+            >
+              <div className="flex items-center gap-2">
+                <UIText.HeadingL>
+                  {section.title}
+                </UIText.HeadingL>
 
-        <ChevronDown
-          size={16}
-          className={clsx(
-            "transition-transform duration-200 text-muted-foreground",
-            isOpen && "rotate-180",
-          )}
-        />
-      </button>
+                <UIText.Meta>
+                  {section.completed}/{section.total}
+                </UIText.Meta>
+              </div>
 
-      <div className="h-1 rounded-full bg-muted overflow-hidden">
-        <div
-          className="h-full bg-foreground transition-all duration-300"
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
+              <ChevronDown
+                size={16}
+                className={clsx(
+                  "transition-transform duration-200 text-muted-foreground",
+                  isOpen && "rotate-180",
+                )}
+              />
+            </button>
 
-      {isOpen && (
-        <div className="space-y-2">
-          {taskIds.length === 0 ? (
-            <div className="py-4 px-2 space-y-1">
-              <UIText.HeadingM>
-                {emptyMessage}
-              </UIText.HeadingM>
-
-              <UIText.Micro>
-                {emptyHint}
-              </UIText.Micro>
+            <div className="h-1 rounded-full bg-muted overflow-hidden">
+              <div
+                className="h-full bg-foreground transition-all duration-300"
+                style={{ width: `${section.percentage}%` }}
+              />
             </div>
-          ) : (
-            <TaskGroup
-              title={title}
-              taskIds={taskIds}
-              activeDate={activeDate}
-              onToggleTask={onToggleTask}
-              onSelectTask={onSelectTask}
-            />
-          )}
-        </div>
-      )}
-    </section>
+
+            {isOpen && (
+              <div className="space-y-2">
+                {section.tasks.length === 0 ? (
+                  <div className="py-4 px-2 space-y-1">
+                    <UIText.HeadingM>{section.emptyMessage}</UIText.HeadingM>
+                    <UIText.Micro>{section.emptyHint}</UIText.Micro>
+                  </div>
+                ) : (
+                  <TaskGroup
+                    title={section.title}
+                    tasks={section.tasks}
+                    onToggleTask={onToggleTask}
+                    onSelectTask={onSelectTask}
+                  />
+                )}
+              </div>
+            )}
+          </section>
+        );
+      })}
+    </>
   );
 };

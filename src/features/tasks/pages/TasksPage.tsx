@@ -13,11 +13,14 @@ import { TaskListContainer } from "@/features/tasks/containers/TaskListContainer
 import { TaskInsights } from "@/features/tasks/components/TaskInsights";
 import { TaskProgress } from "@/features/tasks/components/TaskProgress";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { selectTasks } from "@/features/tasks/api";
 
 import type { Task } from "@/features/tasks/types";
 
 const TasksPage = () => {
   const { addTask, updateTask, deleteTask } = useTaskActions();
+  const tasks = useTasksStore(selectTasks);
 
   const today = getToday();
 
@@ -25,7 +28,9 @@ const TasksPage = () => {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [editOpen, setEditOpen] = useState(false);
 
-  const handleSelectTask = (task: Task) => {
+  const handleSelectTask = (id: string) => {
+    const task = tasks.find((item) => String(item.id) === id) ?? null;
+    if (!task) return;
     setSelectedTask(task);
     setEditOpen(true);
   };

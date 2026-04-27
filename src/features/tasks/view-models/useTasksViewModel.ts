@@ -18,35 +18,42 @@ export type TaskRowVM = {
   category: string | null;
 };
 
+export type TaskGroupType = "today" | "upcoming" | "yesterday";
+
 export type TaskGroupVM = {
+  type: TaskGroupType;
   title: string;
   tasks: TaskRowVM[];
   total: number;
   completed: number;
   percentage: number;
   emptyMessage: string;
+  emptyHint: string;
 };
 
 export type TasksViewModel = {
-  activeDate: DateKey;
-  groups: TaskGroupVM[];
+  sections: TaskGroupVM[];
 };
 
-type GroupKey = "today" | "upcoming" | "yesterday";
-
-const GROUP_TITLES: Record<GroupKey, string> = {
+const GROUP_TITLES: Record<TaskGroupType, string> = {
   today: "Today",
   upcoming: "Upcoming",
   yesterday: "Yesterday",
 };
 
-const EMPTY_MESSAGES: Record<GroupKey, string> = {
+const EMPTY_MESSAGES: Record<TaskGroupType, string> = {
   today: "No tasks for today",
   upcoming: "Nothing coming up",
   yesterday: "No tasks from yesterday",
 };
 
-const GROUP_ORDER: GroupKey[] = ["today", "upcoming", "yesterday"];
+const EMPTY_HINTS: Record<TaskGroupType, string> = {
+  today: "Add a task to get started",
+  upcoming: "Nothing scheduled here",
+  yesterday: "Nothing scheduled here",
+};
+
+const GROUP_ORDER: TaskGroupType[] = ["today", "upcoming", "yesterday"];
 
 export const useTasksViewModel = (
   date?: DateKey,
@@ -54,7 +61,7 @@ export const useTasksViewModel = (
   const activeDate = date ?? getToday();
   const tasks = useTasksStore(selectTasks);
 
-  const groups = useMemo<TaskGroupVM[]>(() => {
+  const sections = useMemo<TaskGroupVM[]>(() => {
     const groupedTasks = getTaskGroups(tasks, activeDate);
 
     return GROUP_ORDER.map((key) => {
@@ -74,15 +81,17 @@ export const useTasksViewModel = (
       }));
 
       return {
+        type: key,
         title: GROUP_TITLES[key],
         tasks: taskRows,
         total,
         completed,
         percentage,
         emptyMessage: EMPTY_MESSAGES[key],
+        emptyHint: EMPTY_HINTS[key],
       };
     });
   }, [tasks, activeDate]);
 
-  return { activeDate, groups };
+  return { sections };
 };

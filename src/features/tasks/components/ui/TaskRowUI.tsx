@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type Props = {
   id: string;
   title: string;
