@@ -1,15 +1,24 @@
+import { useMemo } from "react";
+
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import {
-  selectTaskProgress,
+  getTaskProgress,
+  selectTasks,
   type TaskProgress,
 } from "@/features/tasks/api";
 import { getToday, type DateKey } from "@/shared/lib/date";
 
 /**
- * Thin shim — prefer `useTasks(date).progress` in new code.
- * Kept so out-of-feature consumers (e.g. `TodayPage`) can opt into
- * the smaller subscription surface.
+ * Memoized task-progress hook.
+ *
+ * Subscribes only to the raw tasks list and derives progress via `useMemo`,
+ * so consumers re-render only when `tasks` or `date` actually change.
+ *
+ * Prefer `useTasks(date).progress` in new code.
  */
 export const useTaskProgress = (
   date: DateKey = getToday(),
-): TaskProgress => useTasksStore(selectTaskProgress(date));
+): TaskProgress => {
+  const tasks = useTasksStore(selectTasks);
+  return useMemo(() => getTaskProgress(tasks, date), [tasks, date]);
+};
