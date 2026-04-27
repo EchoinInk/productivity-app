@@ -20,6 +20,32 @@ export const isTaskOverdue = (task: Task, date: DateKey): boolean => {
   return task.date < date && !isTaskCompleted(task, date);
 };
 
+export type TaskDateKey = DateKey;
+
+export type TaskCompletionStats = {
+  total: number;
+  completed: number;
+  percentage: number;
+};
+
+export const getTodayDateKey = (): TaskDateKey => {
+  return toDateString(new Date());
+};
+
+export const getTaskCompletionStats = (
+  tasks: Task[],
+  date: DateKey
+): TaskCompletionStats => {
+  const total = tasks.length;
+  const completed = tasks.filter((task) => isTaskCompleted(task, date)).length;
+
+  return {
+    total,
+    completed,
+    percentage: total === 0 ? 0 : Math.round((completed / total) * 100),
+  };
+};
+
 export const toggleTaskCompletion = (
   task: Task,
   date: DateKey

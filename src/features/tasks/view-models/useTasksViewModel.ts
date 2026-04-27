@@ -2,13 +2,15 @@ import { useMemo } from "react";
 
 import {
   buildTaskSubtitle,
+  getTaskCompletionStats,
   getTaskGroups,
+  getTodayDateKey,
   isTaskCompleted,
   selectTasks,
 } from "@/features/tasks/api";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-
-import { getToday, type DateKey } from "@/shared/lib/date";
+import type { Task } from "@/features/tasks/types";
+import type { TaskDateKey } from "@/features/tasks/domain/taskDomain";
 
 export type TaskRowVM = {
   id: string;
@@ -35,60 +37,67 @@ export type TasksViewModel = {
   sections: TaskGroupVM[];
 };
 
-const GROUP_TITLES: Record<TaskGroupType, string> = {
-  today: "Today",
-  upcoming: "Upcoming",
-  yesterday: "Yesterday",
+type GroupConfig = {
+  type: TaskGroupType;
+  title: string;
+  emptyMessage: string;
+  emptyHint: string;
 };
 
-const EMPTY_MESSAGES: Record<TaskGroupType, string> = {
-  today: "No tasks for today",
-  upcoming: "Nothing coming up",
-  yesterday: "No tasks from yesterday",
-};
+const GROUP_CONFIG: GroupConfig[] = [
+  {
+    type: "today",
+    title: "Today",
+    emptyMessage: "No tasks for today",
+    emptyHint: "Add a task to get started",
+  },
+  {
+    type: "upcoming",
+    title: "Upcoming",
+    emptyMessage: "Nothing coming up",
+    emptyHint: "Nothing scheduled here",
+  },
+  {
+    type: "yesterday",
+    title: "Yesterday",
+    emptyMessage: "No tasks from yesterday",
+    emptyHint: "Nothing scheduled here",
+  },
+];
 
-const EMPTY_HINTS: Record<TaskGroupType, string> = {
-  today: "Add a task to get started",
-  upcoming: "Nothing scheduled here",
-  yesterday: "Nothing scheduled here",
-};
-
-const GROUP_ORDER: TaskGroupType[] = ["today", "upcoming", "yesterday"];
+const mapToTaskRowVM = (task: Task, activeDate: TaskDateKey): TaskRowVM => ({
+  id: String(task.id),
+  title: task.label,
+  subtitle: buildTaskSubtitle(task),
+  isCompleted: isTaskCompleted(task, activeDate),
+  category: task.category ?? null,
+});
 
 export const useTasksViewModel = (
-  date?: DateKey,
+  date?: TaskDateKey,
 ): TasksViewModel => {
-  const activeDate = date ?? getToday();
+  const activeDate = date ?? getTodayDateKey();
   const tasks = useTasksStore(selectTasks);
 
   const sections = useMemo<TaskGroupVM[]>(() => {
     const groupedTasks = getTaskGroups(tasks, activeDate);
 
-    return GROUP_ORDER.map((key) => {
-      const groupTasks = groupedTasks[key];
-      const total = groupTasks.length;
-      const completed = groupTasks.filter((task) =>
-        isTaskCompleted(task, activeDate),
-      ).length;
-      const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
-
-      const taskRows: TaskRowVM[] = groupTasks.map((task) => ({
-        id: String(task.id),
-        title: task.label,
-        subtitle: buildTaskSubtitle(task),
-        isCompleted: isTaskCompleted(task, activeDate),
-        category: task.category ?? null,
-      }));
+    return GROUP_CONFIG.map((group) => {
+      const groupTasks = groupedTasks[group.type];
+      const stats = getTaskCompletionStats(groupTasks, activeDate);
+      const taskRows: TaskRowVM[] = groupTasks.map((task: Task) =>
+        mapToTaskRowVM(task, activeDate),
+      );
 
       return {
-        type: key,
-        title: GROUP_TITLES[key],
+        type: group.type,
+        title: group.title,
         tasks: taskRows,
-        total,
-        completed,
-        percentage,
-        emptyMessage: EMPTY_MESSAGES[key],
-        emptyHint: EMPTY_HINTS[key],
+        total: stats.total,
+        completed: stats.completed,
+        percentage: stats.percentage,
+        emptyMessage: group.emptyMessage,
+        emptyHint: group.emptyHint,
       };
     });
   }, [tasks, activeDate]);
