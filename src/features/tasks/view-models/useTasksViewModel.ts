@@ -2,12 +2,14 @@ import { useMemo } from "react";
 
 import {
   buildTaskSubtitle,
+  filterTodayTasks,
+  filterUpcomingTasks,
+  filterYesterdayTasks,
   getTaskCompletionStats,
-  getTaskGroups,
   getTodayDateKey,
   isTaskCompleted,
-  selectTasks,
-} from "@/features/tasks/api";
+} from "@/features/tasks/domain/taskDomain";
+import { selectTasks } from "@/features/tasks/selectors/taskSelectors";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import type { Task } from "@/features/tasks/types";
 import type { TaskDateKey } from "@/features/tasks/domain/taskDomain";
@@ -39,6 +41,7 @@ export type TasksViewModel = {
 
 type GroupConfig = {
   type: TaskGroupType;
+  filter: (tasks: Task[], date: TaskDateKey) => Task[];
   title: string;
   emptyMessage: string;
   emptyHint: string;
@@ -47,18 +50,21 @@ type GroupConfig = {
 const GROUP_CONFIG: GroupConfig[] = [
   {
     type: "today",
+    filter: filterTodayTasks,
     title: "Today",
     emptyMessage: "No tasks for today",
     emptyHint: "Add a task to get started",
   },
   {
     type: "upcoming",
+    filter: filterUpcomingTasks,
     title: "Upcoming",
     emptyMessage: "Nothing coming up",
     emptyHint: "Nothing scheduled here",
   },
   {
     type: "yesterday",
+    filter: filterYesterdayTasks,
     title: "Yesterday",
     emptyMessage: "No tasks from yesterday",
     emptyHint: "Nothing scheduled here",
@@ -80,10 +86,8 @@ export const useTasksViewModel = (
   const tasks = useTasksStore(selectTasks);
 
   const sections = useMemo<TaskGroupVM[]>(() => {
-    const groupedTasks = getTaskGroups(tasks, activeDate);
-
     return GROUP_CONFIG.map((group) => {
-      const groupTasks = groupedTasks[group.type];
+      const groupTasks = group.filter(tasks, activeDate);
       const stats = getTaskCompletionStats(groupTasks, activeDate);
       const taskRows: TaskRowVM[] = groupTasks.map((task: Task) =>
         mapToTaskRowVM(task, activeDate),

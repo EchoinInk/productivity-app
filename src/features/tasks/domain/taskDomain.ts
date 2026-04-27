@@ -90,6 +90,34 @@ export const getTasksBeforeDate = (
   return tasks.filter((task) => task.date < date);
 };
 
+const getYesterdayDateKey = (date: DateKey): DateKey => {
+  const yesterday = safeDate(date);
+  yesterday.setDate(yesterday.getDate() - 1);
+  return toDateString(yesterday);
+};
+
+export const filterTodayTasks = (
+  tasks: Task[],
+  date: DateKey
+): Task[] => {
+  return sortTasks(getTasksForDate(tasks, date), date);
+};
+
+export const filterUpcomingTasks = (
+  tasks: Task[],
+  date: DateKey
+): Task[] => {
+  return sortTasks(getTasksAfterDate(tasks, date), date);
+};
+
+export const filterYesterdayTasks = (
+  tasks: Task[],
+  date: DateKey
+): Task[] => {
+  const yesterdayKey = getYesterdayDateKey(date);
+  return sortTasks(getTasksForDate(tasks, yesterdayKey), yesterdayKey);
+};
+
 /**
  * ---------------------------------------
  * SORTING
@@ -131,14 +159,10 @@ export const getTaskGroups = (
   tasks: Task[],
   today: DateKey
 ): TaskTimelineGroups => {
-  const yesterday = safeDate(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayKey = toDateString(yesterday);
-
   return {
-    today: sortTasks(getTasksForDate(tasks, today), today),
-    upcoming: sortTasks(getTasksAfterDate(tasks, today), today),
-    yesterday: sortTasks(getTasksForDate(tasks, yesterdayKey), yesterdayKey),
+    today: filterTodayTasks(tasks, today),
+    upcoming: filterUpcomingTasks(tasks, today),
+    yesterday: filterYesterdayTasks(tasks, today),
   };
 };
 
