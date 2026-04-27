@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { memo, useMemo } from "react";
 import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
 import EmptyState from "@/components/ui/EmptyState";
@@ -38,20 +38,28 @@ const TodayHeroCard = ({
   const stroke = 6;
   const normalizedRadius = radius - stroke / 2;
   const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+  const strokeDashoffset = useMemo(
+    () => circumference - (percentage / 100) * circumference,
+    [circumference, percentage],
+  );
 
-  const remaining = Math.max(0, total - completed);
-  const progressText =
-    total === 0 ? "No tasks today" : `${completed} of ${total} completed`;
-  const motivation =
-    total === 0
-      ? null
-      : remaining === 0
-      ? "Nothing left on your list 🩶"
-      : "You're making progress ✨";
+  const { progressText, motivation } = useMemo(() => {
+    const remaining = Math.max(0, total - completed);
+    return {
+      progressText:
+        total === 0 ? "No tasks today" : `${completed} of ${total} completed`,
+      motivation:
+        total === 0
+          ? null
+          : remaining === 0
+          ? "Nothing left on your list 🩶"
+          : "You're making progress ✨",
+    };
+  }, [total, completed]);
 
-  const visibleCategories = categories.filter(
-    (c) => c.total > 0 && c.completed < c.total
+  const visibleCategories = useMemo(
+    () => categories.filter((c) => c.total > 0 && c.completed < c.total),
+    [categories],
   );
 
   return (
@@ -197,4 +205,4 @@ const TodayHeroCard = ({
   );
 };
 
-export default TodayHeroCard;
+export default memo(TodayHeroCard);

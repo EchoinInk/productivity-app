@@ -1,11 +1,14 @@
+import { useMemo } from "react";
+
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import {
   getActiveCategorySummaries,
+  getCategorySummaries,
+  getTaskGroups,
+  getTaskProgress,
   selectAddTask,
-  selectCategorySummaries,
   selectDeleteTask,
-  selectTaskGroups,
-  selectTaskProgress,
+  selectTasks,
   selectToggleTask,
   selectUpdateTask,
   type CategorySummary,
@@ -23,7 +26,10 @@ import type {
 
 /**
  * Unified UI hook for the tasks feature.
- * Pure orchestration — no business logic.
+ *
+ * Subscribes to raw `tasks` once and derives all views via `useMemo`.
+ * This avoids creating fresh selector closures per render and ensures
+ * derived results are reused across renders when inputs are unchanged.
  */
 
 export interface TaskInsights {
@@ -50,26 +56,44 @@ export interface UseTasksResult {
 export const useTasks = (date?: DateKey): UseTasksResult => {
   const activeDate = date ?? getToday();
 
-  const groups = useTasksStore(selectTaskGroups(activeDate));
-  const progress = useTasksStore(selectTaskProgress(activeDate));
-  const summaries = useTasksStore(selectCategorySummaries(activeDate));
+  // Single subscription to the underlying list.
+  const tasks = useTasksStore(selectTasks);
 
+  // Stable action references (Zustand actions are stable by construction).
   const addTask = useTasksStore(selectAddTask);
   const toggleTask = useTasksStore(selectToggleTask);
   const updateTask = useTasksStore(selectUpdateTask);
   const deleteTask = useTasksStore(selectDeleteTask);
 
-  const active = getActiveCategorySummaries(summaries);
+  const groups = useMemo(
+    () => getTaskGroups(tasks, activeDate),
+    [tasks, activeDate],
+  );
 
-  return {
-    activeDate,
-    groups,
-    progress,
-    insights: {
-      summaries,
-      active,
-      hasInsights: active.length > 0,
-    },
-    actions: { addTask, toggleTask, updateTask, deleteTask },
-  };
+  const progress = useMemo(
+    () => getTaskProgress(tasks, activeDate),
+    [tasks, activeDate],
+  );
+
+  const summaries = useMemo(
+    () => getCategorySummaries(tasks, activeDate),
+    [tasks, activeDate],
+  );
+
+  const active = useMemo(
+    () => getActiveCategorySummaries(summaries),
+    [summaries],
+  );
+
+  const insights = useMemo<TaskInsights>(
+    () => ({ summaries, active, hasInsights: active.length > 0 }),
+    [summaries, active],
+  );
+
+  const actions = useMemo<TaskActions>(
+    () => ({ addTask, toggleTask, updateTask, deleteTask }),
+    [addTask, toggleTask, updateTask, deleteTask],
+  );
+
+  return { activeDate, groups, progress, insights, actions };
 };

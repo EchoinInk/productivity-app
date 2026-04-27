@@ -1,7 +1,10 @@
+import { useMemo } from "react";
+
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import {
   getActiveCategorySummaries,
-  selectCategorySummaries,
+  getCategorySummaries,
+  selectTasks,
   type CategorySummary,
 } from "@/features/tasks/api";
 
@@ -14,18 +17,27 @@ export interface TaskInsights {
 }
 
 /**
- * Thin shim — prefer `useTasks(date).insights`
+ * Memoized category-summary hook.
+ *
+ * Prefer `useTasks(date).insights` in new code.
  */
 export const useTaskInsights = (
   date: DateKey = getToday(),
 ): TaskInsights => {
-  const summaries = useTasksStore(selectCategorySummaries(date));
+  const tasks = useTasksStore(selectTasks);
 
-  const active = getActiveCategorySummaries(summaries);
+  const summaries = useMemo(
+    () => getCategorySummaries(tasks, date),
+    [tasks, date],
+  );
 
-  return {
-    summaries,
-    active,
-    hasInsights: active.length > 0,
-  };
+  const active = useMemo(
+    () => getActiveCategorySummaries(summaries),
+    [summaries],
+  );
+
+  return useMemo(
+    () => ({ summaries, active, hasInsights: active.length > 0 }),
+    [summaries, active],
+  );
 };

@@ -1,15 +1,21 @@
+import { useMemo } from "react";
+
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import {
-  selectTaskGroups,
+  getTaskGroups,
+  selectTasks,
   type TaskTimelineGroups,
 } from "@/features/tasks/api";
 import { getToday, type DateKey } from "@/shared/lib/date";
 
 /**
- * Thin shim over the unified `useTasks` selectors,
- * preserved for any call site that only needs groups.
+ * Memoized task-grouping hook.
+ *
  * Prefer `useTasks(date).groups` in new code.
  */
 export const useTaskGroups = (
   date: DateKey = getToday(),
-): TaskTimelineGroups => useTasksStore(selectTaskGroups(date));
+): TaskTimelineGroups => {
+  const tasks = useTasksStore(selectTasks);
+  return useMemo(() => getTaskGroups(tasks, date), [tasks, date]);
+};
