@@ -1,98 +1,88 @@
-import { useState } from "react";
-import { ClipboardPlus, PiggyBank } from "lucide-react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipboardPlus, PiggyBank } from "lucide-react";
 
+import PageShell from "@/app/layout/PageShell";
 import TodayHeader from "@/components/TodayHeader";
-import TodayHeroCard from "@/features/today/components/TodayHeroCard";
-
-import TodaySummaryCard from "@/features/today/components/TodaySummaryCard";
-import { useBillViews } from "@/features/bills/selectors/billsSelectors";
-
+import ActionButton from "@/components/ActionButton";
 import AddTask from "@/components/modal/AddTask";
 import AddExpense from "@/components/modal/AddExpense";
 
-import PageShell from "@/app/layout/PageShell";
+import TodayHeroCard from "@/features/today/components/TodayHeroCard";
+import TodaySummaryCard from "@/features/today/components/TodaySummaryCard";
 
-import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { toDateString } from "@/shared/lib/date";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useBillViews } from "@/features/bills/selectors/billsSelectors";
 import { useBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
-import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
-import { useTaskProgress } from "@/features/tasks/hooks/useTaskProgress";
-import { useTaskInsights } from "@/features/tasks/hooks/useTaskInsights";
-import ActionButton from "@/components/ActionButton";
+import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
+
+import { toDateString } from "@/shared/lib/date";
+import { useState } from "react";
 
 const TodayPage = () => {
   const navigate = useNavigate();
-  const { addTask } = useTaskActions();
   const addExpense = useBudgetStore((s) => s.addExpense);
 
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const selectedDateString = toDateString(selectedDate);
+  const selectedDateString = useMemo(
+    () => toDateString(selectedDate),
+    [selectedDate],
+  );
 
-  const progress = useTaskProgress(selectedDateString);
-  const { summaries: categorySummary } = useTaskInsights(selectedDateString);
+  // Single, memoized subscription for everything tasks-related on this page.
+  const { progress, insights, actions } = useTasks(selectedDateString);
+
   const budget = useBudgetSummary();
   const billViews = useBillViews();
 
-  /**
-   * ✅ HANDLERS (CORRECT LOCATION)
-   */
-  const handleAddTask = () => {
-    setTaskOpen(true);
-  };
-
-  const handleAddExpense = () => {
-    setExpenseOpen(true);
-  };
+  const remainingRounded = useMemo(
+    () => Math.round(Math.max(0, budget.remaining)),
+    [budget.remaining],
+  );
 
   return (
     <PageShell>
       <div className="space-y-6">
-        {/* HEADER */}
         <TodayHeader
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
         />
 
-        {/* UNIFIED HERO + CATEGORIES */}
         <TodayHeroCard
           percentage={progress.percentage}
           total={progress.total}
           completed={progress.completed}
-          categories={categorySummary}
-          onAddTask={handleAddTask}
+          categories={insights.summaries}
+          onAddTask={() => setTaskOpen(true)}
           onViewAll={() => navigate("/tasks")}
         />
 
-        {/* SECONDARY SUMMARY — single compact row */}
         <TodaySummaryCard
-          remaining={Math.round(Math.max(0, budget.remaining))}
+          remaining={remainingRounded}
           billsDueCount={billViews.length}
         />
 
-        {/* ACTIONS */}
         <div className="space-y-3 pt-2">
-          <ActionButton variant="primary" fullWidth onClick={handleAddTask}>
+          <ActionButton variant="primary" fullWidth onClick={() => setTaskOpen(true)}>
             <ClipboardPlus size={20} strokeWidth={2} />
             <span>Add Task</span>
           </ActionButton>
 
-          <ActionButton variant="secondary" fullWidth onClick={handleAddExpense}>
+          <ActionButton variant="secondary" fullWidth onClick={() => setExpenseOpen(true)}>
             <PiggyBank size={20} strokeWidth={2} />
             <span>Add Expense</span>
           </ActionButton>
         </div>
       </div>
 
-      {/* MODALS */}
       <AddTask
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
         defaultDate={selectedDateString}
-        onSave={addTask}
+        onSave={actions.addTask}
       />
 
       <AddExpense
