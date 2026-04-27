@@ -1,34 +1,35 @@
 /**
  * Task Service Layer
- * Isolates data operations for future React Query integration.
- * Currently wraps local Zustand store; will be replaced with API calls.
+ *
+ * Pure data-access boundary. Currently a typed placeholder; will be
+ * swapped for HTTP/edge-function calls without changing consumer code.
+ *
+ * NOTE: Hook layer (`useTasks`) currently reads from the local Zustand
+ * store. When we move to a remote source, mutations should be issued
+ * through this service and React Query (or equivalent) should drive
+ * the cache.
  */
 
-import type { CreateTaskInput, Task } from "../types";
+import type { CreateTaskInput, EntityId, Task } from "../types";
 
 export interface TaskService {
   getTasks(): Promise<Task[]>;
   createTask(input: CreateTaskInput): Promise<Task>;
-  updateTask(id: string, updates: Partial<Task>): Promise<Task>;
-  deleteTask(id: string): Promise<void>;
+  updateTask(id: EntityId, updates: Partial<Task>): Promise<Task>;
+  deleteTask(id: EntityId): Promise<void>;
 }
 
-// Placeholder implementation using local store
-// TODO: Replace with React Query + API calls
 export const taskService: TaskService = {
-  async getTasks() {
-    // Simulate API call
+  async getTasks(): Promise<Task[]> {
     return [];
   },
-  async createTask(input: CreateTaskInput) {
-    // Simulate API call
-    return {} as Task;
+  async createTask(_input: CreateTaskInput): Promise<Task> {
+    throw new Error("taskService.createTask not implemented");
   },
-  async updateTask(id: string, updates: Partial<Task>) {
-    // Simulate API call
-    return {} as Task;
+  async updateTask(_id: EntityId, _updates: Partial<Task>): Promise<Task> {
+    throw new Error("taskService.updateTask not implemented");
   },
-  async deleteTask(id: string) {
-    // Simulate API call
+  async deleteTask(_id: EntityId): Promise<void> {
+    return;
   },
 };

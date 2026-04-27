@@ -1,29 +1,30 @@
 /**
  * Budget Service Layer
- * Isolates data operations for future React Query integration.
+ *
+ * Pure data-access boundary. Currently a typed placeholder; will be
+ * swapped for HTTP/edge-function calls without changing consumer code.
  */
 
-import type { Expense } from "../types";
+import type { CreateExpenseInput, Expense } from "../types";
 
 export interface BudgetService {
   getExpenses(): Promise<Expense[]>;
   getIncome(): Promise<number>;
-  addExpense(expense: Expense): Promise<void>;
+  addExpense(input: CreateExpenseInput): Promise<Expense>;
   setIncome(income: number): Promise<void>;
 }
 
-// Placeholder implementation
 export const budgetService: BudgetService = {
-  async getExpenses() {
+  async getExpenses(): Promise<Expense[]> {
     return [];
   },
-  async getIncome() {
+  async getIncome(): Promise<number> {
     return 0;
   },
-  async addExpense(expense: Expense) {
-    // Simulate
+  async addExpense(_input: CreateExpenseInput): Promise<Expense> {
+    throw new Error("budgetService.addExpense not implemented");
   },
-  async setIncome(income: number) {
-    // Simulate
+  async setIncome(_income: number): Promise<void> {
+    return;
   },
 };

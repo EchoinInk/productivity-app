@@ -205,4 +205,4 @@ const TodayHeroCard = ({
   );
 };
 
-export default TodayHeroCard;
+export default memo(TodayHeroCard);
