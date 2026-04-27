@@ -2,35 +2,18 @@ import { memo } from "react";
 
 import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { TaskGroupUI } from "@/features/tasks/components/ui/TaskGroupUI";
-
-import type { EntityId, Task } from "@/features/tasks/types";
-import type { DateKey } from "@/shared/lib/date";
+import type { TaskRowVM } from "@/features/tasks/view-models/useTasksViewModel";
 
 type TaskGroupProps = {
   title: string;
-  taskIds: EntityId[];
-  activeDate: DateKey;
-  onToggleTask: (id: EntityId, date: DateKey) => void;
-  onSelectTask: (task: Task) => void;
+  taskRows: TaskRowVM[];
 };
 
 export const TaskGroup = memo(
-  ({
-    title,
-    taskIds,
-    activeDate,
-    onToggleTask,
-    onSelectTask,
-  }: TaskGroupProps) => (
+  ({ title, taskRows }: TaskGroupProps) => (
     <TaskGroupUI title={title}>
-      {taskIds.map((taskId) => (
-        <TaskRow
-          key={taskId}
-          taskId={taskId}
-          activeDate={activeDate}
-          onToggleTask={onToggleTask}
-          onSelectTask={onSelectTask}
-        />
+      {taskRows.map((taskRow) => (
+        <TaskRow key={taskRow.id} taskRow={taskRow} />
       ))}
     </TaskGroupUI>
   ),
