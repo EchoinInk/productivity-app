@@ -5,7 +5,6 @@ import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
-import PageShell from "@/app/layout/PageShell";
 
 import { getToday } from "@/shared/lib/date";
 
@@ -36,7 +35,7 @@ const TasksPage = () => {
   };
 
   return (
-    <PageShell>
+    <>
       <div className="space-y-4">
         <PageHeader title="Tasks" />
 
@@ -96,7 +95,7 @@ const TasksPage = () => {
           setEditOpen(false);
         }}
       />
-    </PageShell>
+    </>
   );
 };
 

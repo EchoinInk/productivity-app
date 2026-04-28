@@ -5,7 +5,6 @@ import { Card, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import AddRecipe from "@/components/modal/AddRecipe";
-import PageShell from "@/app/layout/PageShell";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
 import EmptyState from "@/components/ui/EmptyState";
@@ -20,7 +19,7 @@ const RecipesPage = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <PageShell>
+    <>
       <div className="space-y-4">
         <PageHeader title="Recipes" />
 
@@ -87,7 +86,7 @@ const RecipesPage = () => {
         onClose={() => setOpen(false)}
         onSave={addRecipe}
       />
-    </PageShell>
+    </>
   );
 };
 

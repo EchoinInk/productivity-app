@@ -5,7 +5,6 @@ import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import AddMeal from "@/components/modal/AddMeal";
-import PageShell from "@/app/layout/PageShell";
 import EmptyState from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
@@ -20,7 +19,7 @@ const MealPlannerPage = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <PageShell>
+    <>
       <div className="space-y-4">
         <PageHeader title="Meal Planner" />
 
@@ -62,7 +61,7 @@ const MealPlannerPage = () => {
         onClose={() => setOpen(false)}
         onSave={addMeal}
       />
-    </PageShell>
+    </>
   );
 };
 

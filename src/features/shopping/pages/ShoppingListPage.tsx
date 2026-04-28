@@ -6,7 +6,6 @@ import ActionButton from "@/components/ActionButton";
 import TabBar from "@/components/TabBar";
 import PageHeader from "@/components/PageHeader";
 import AddShoppingItem from "@/components/modal/AddShoppingItem";
-import PageShell from "@/app/layout/PageShell";
 import EmptyState from "@/components/ui/EmptyState";
 
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
@@ -26,7 +25,7 @@ const ShoppingListPage = () => {
   const { items, toggleItem } = useShoppingList(activeTab);
 
   return (
-    <PageShell>
+    <>
       <div className="space-y-4">
         <PageHeader title="Shopping List" />
 
@@ -70,7 +69,7 @@ const ShoppingListPage = () => {
         onSave={addShoppingItem}
         category={activeTab}
       />
-    </PageShell>
+    </>
   );
 };
 
