@@ -48,8 +48,13 @@ export const colors = {
   muted: "220 14% 95%",
   mutedForeground: "220 10% 46%",
 
-  accent: "236 72% 71%",
+  accent: "160 60% 45%",
   accentForeground: "0 0% 100%",
+
+  warning: "38 92% 50%",
+  warningForeground: "0 0% 100%",
+  success: "160 60% 40%",
+  successForeground: "0 0% 100%",
 
   destructive: "0 72% 56%",
   destructiveForeground: "0 0% 100%",
@@ -77,8 +82,8 @@ export const cssVar = (token: ColorToken, alpha?: number): string => {
 // ---------------------------------------------------------------------------
 
 export const gradients = {
- primary: "linear-gradient (135deg, hsl(220 60% 46%), hsl(240 55% 52%))",
-  accent: "linear-gradient(135deg, hsl(225, 33%, 65%), hsl(225, 33%, 65%))",
+  primary: "linear-gradient(135deg, hsl(220 80% 56%), hsl(240 70% 62%))",
+  accent: "linear-gradient(135deg, hsl(160 60% 45%), hsl(180 50% 50%))",
   budget: "linear-gradient(135deg, hsl(220 80% 56%), hsl(200 80% 50%))",
 } as const;
 
@@ -117,9 +122,9 @@ export const semanticColors = {
 
 export const shadows = {
   card: "0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px var(--space-1) -1px hsl(220 20% 10% / 0.04)",
-  elevated: "0 var(--space-2) var(--space-5) -var(--space-1) hsl(220 20% 10% / 0.08)",
-  glass: "0 3px 14px rgba(120,150,255,0.22)",
-  surface: "0 var(--space-3) 18px rgba(120,120,200,0.18)",
+  elevated: "0 var(--space-2) var(--space-5) calc(-1 * var(--space-1)) hsl(220 20% 10% / 0.08)",
+  glass: "0 3px 14px hsl(220 80% 70% / 0.22)",
+  surface: "0 var(--space-3) 18px hsl(240 40% 60% / 0.18)",
 } as const;
 
 export type ShadowToken = keyof typeof shadows;

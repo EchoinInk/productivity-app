@@ -3,9 +3,9 @@ import { Plus } from "lucide-react";
 
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
+import { Surface } from "@/components/ui/Surface";
 import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
-import PageShell from "@/app/layout/PageShell";
 
 import { getToday } from "@/shared/lib/date";
 
@@ -36,7 +36,7 @@ const TasksPage = () => {
   };
 
   return (
-    <PageShell>
+    <>
       <div className="space-y-4">
         <PageHeader title="Tasks" />
 
@@ -44,17 +44,9 @@ const TasksPage = () => {
 
         <TaskInsights />
 
-        <div
-          className="
-            rounded-lg
-            bg-white/60
-            backdrop-blur-md
-            border border-white/40
-            p-3
-          "
-        >
+        <Surface>
           <TaskListContainer onSelectTask={handleSelectTask} />
-        </div>
+        </Surface>
 
         <div className="pt-2">
           <ActionButton fullWidth onClick={() => setOpen(true)}>
@@ -96,7 +88,7 @@ const TasksPage = () => {
           setEditOpen(false);
         }}
       />
-    </PageShell>
+    </>
   );
 };
 

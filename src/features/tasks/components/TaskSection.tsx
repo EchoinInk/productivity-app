@@ -2,6 +2,8 @@ import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 
 import { TaskGroup } from "@/features/tasks/components/TaskGroup";
+import { Surface } from "@/components/ui/Surface";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 import { UIText } from "@/components/ui/Text";
 import type {
   TaskSection as TaskSectionVM,
@@ -33,27 +35,20 @@ export const TaskSection = ({
         const isOpen = expandedSections[section.type];
 
         return (
-          <section
+          <Surface
             key={section.type}
-            className="
-              rounded-lg
-              bg-white/60
-              backdrop-blur-md
-              border border-white/40
-              px-3 py-2
-              space-y-2
-            "
+            as="section"
+            padding="sm"
+            className="space-y-2"
           >
             <button
               type="button"
               aria-expanded={isOpen}
               onClick={() => onToggleSection(section.type)}
-              className="flex items-center justify-between w-full py-1"
+              className="flex items-center justify-between w-full py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
             >
               <div className="flex items-center gap-2">
-                <UIText.HeadingL>
-                  {section.title}
-                </UIText.HeadingL>
+                <UIText.HeadingL>{section.title}</UIText.HeadingL>
 
                 <UIText.Meta>
                   {section.completed}/{section.total}
@@ -69,12 +64,11 @@ export const TaskSection = ({
               />
             </button>
 
-            <div className="h-1 rounded-full bg-muted overflow-hidden">
-              <div
-                className="h-full bg-foreground transition-all duration-300"
-                style={{ width: `${section.percentage}%` }}
-              />
-            </div>
+            <ProgressBar
+              value={section.percentage}
+              size="sm"
+              ariaLabel={`${section.title} progress`}
+            />
 
             {isOpen && (
               <div className="space-y-2">
@@ -93,7 +87,7 @@ export const TaskSection = ({
                 )}
               </div>
             )}
-          </section>
+          </Surface>
         );
       })}
     </>

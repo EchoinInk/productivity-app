@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipboardPlus, PiggyBank } from "lucide-react";
 
-import PageShell from "@/app/layout/PageShell";
 import ActionButton from "@/components/ActionButton";
 import TodayHeader from "@/components/TodayHeader";
 import TodayHeroCard from "@/features/today/components/TodayHeroCard";
@@ -38,7 +37,7 @@ const TodayPage = () => {
   const billViews = useBillViews();
 
   return (
-    <PageShell>
+    <>
       <div className="space-y-4">
         <TodayHeader
           selectedDate={selectedDate}
@@ -94,7 +93,7 @@ const TodayPage = () => {
         onClose={() => setExpenseOpen(false)}
         onSave={addExpense}
       />
-    </PageShell>
+    </>
   );
 };
 

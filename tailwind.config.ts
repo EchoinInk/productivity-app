@@ -57,6 +57,29 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+      },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-accent": "var(--gradient-accent)",
+        "gradient-budget": "var(--gradient-budget)",
+        "gradient-hero": "var(--gradient-hero)",
+        "gradient-data": "var(--gradient-data)",
+        "gradient-page": "var(--gradient-page)",
+        "gradient-date-pill": "var(--gradient-date-pill)",
+      },
+      boxShadow: {
+        card: "var(--shadow-card)",
+        elevated: "var(--shadow-elevated)",
+        glass: "var(--shadow-glass)",
+        surface: "var(--shadow-surface)",
       },
       borderRadius: {
         lg: "var(--radius)",
