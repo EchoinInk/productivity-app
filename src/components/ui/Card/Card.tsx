@@ -4,8 +4,8 @@ import { brandGradients, gradients } from "@/theme";
 import type { CardVariant, CardSize } from "./types";
 
 import { CardBody } from "./CardBody";
-import { CardAction } from "./CardAction";
-// (optional: import CardHeader, CardFooter, CardIcon if created)
+import { CardHeader } from "./CardHeader";
+import { CardFooter } from "./CardFooter";
 
 /**
  * -----------------------------
@@ -116,11 +116,8 @@ const CardBase = ({
 
 type CardComponent = typeof CardBase & {
   Body: typeof CardBody;
-  Action: typeof CardAction;
-  // Add these later if you build them:
-  // Header: typeof CardHeader;
-  // Footer: typeof CardFooter;
-  // Icon: typeof CardIcon;
+  Header: typeof CardHeader;
+  Footer: typeof CardFooter;
 };
 
 /**
@@ -131,5 +128,6 @@ type CardComponent = typeof CardBase & {
 
 export const Card = Object.assign(CardBase, {
   Body: CardBody,
-  Action: CardAction,
+  Header: CardHeader,
+  Footer: CardFooter,
 }) as CardComponent;

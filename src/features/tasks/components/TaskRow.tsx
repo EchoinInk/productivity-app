@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { TaskRowUI } from "@/features/tasks/components/ui/TaskRowUI";
-import type { TaskRowVM } from "@/features/tasks/view-models/useTasksViewModel";
+import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
 
 type Props = {
   task: TaskRowVM;

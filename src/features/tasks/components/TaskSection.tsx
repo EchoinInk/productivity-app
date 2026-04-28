@@ -4,14 +4,14 @@ import { ChevronDown } from "lucide-react";
 import { TaskGroup } from "@/features/tasks/components/TaskGroup";
 import { UIText } from "@/components/ui/Text";
 import type {
-  TaskGroupType,
-  TaskGroupVM,
-} from "@/features/tasks/view-models/useTasksViewModel";
+  TaskSection as TaskSectionVM,
+  TaskSectionType,
+} from "@/features/tasks/hooks/useTasks";
 
 interface TaskSectionProps {
-  sections: TaskGroupVM[];
-  expandedSections: Record<TaskGroupType, boolean>;
-  onToggleSection: (type: TaskGroupType) => void;
+  sections: TaskSectionVM[];
+  expandedSections: Record<TaskSectionType, boolean>;
+  onToggleSection: (type: TaskSectionType) => void;
   onToggleTask: (id: string) => void;
   onSelectTask: (id: string) => void;
 }

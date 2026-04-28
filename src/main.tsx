@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
 import ErrorBoundary from "@/app/providers/ErrorBoundary";
-import { QueryProvider } from "@/app/providers/QueryProvider";
 import App from "./App.tsx";
 import "./index.css";
 
@@ -12,8 +11,6 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <ErrorBoundary>
-    <QueryProvider>
-      <App />
-    </QueryProvider>
+    <App />
   </ErrorBoundary>,
 );

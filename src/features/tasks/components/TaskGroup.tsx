@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { TaskGroupUI } from "@/features/tasks/components/ui/TaskGroupUI";
-import type { TaskRowVM } from "@/features/tasks/view-models/useTasksViewModel";
+import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
 
 type TaskGroupProps = {
   title: string;
