@@ -70,7 +70,8 @@ const TodayHeroCard = ({
         <div className="relative shrink-0 h-[84px] w-[84px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
-              stroke="rgba(255,255,255,0.25)"
+              stroke="currentColor"
+              className="text-white/25"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -78,7 +79,8 @@ const TodayHeroCard = ({
               cy={radius}
             />
             <circle
-              stroke="white"
+              stroke="currentColor"
+              className="text-white origin-center -rotate-90 transition-[stroke-dashoffset] duration-500 ease-out"
               fill="transparent"
               strokeWidth={stroke}
               strokeLinecap="round"
@@ -87,11 +89,6 @@ const TodayHeroCard = ({
               r={normalizedRadius}
               cx={radius}
               cy={radius}
-              style={{
-                transform: "rotate(-90deg)",
-                transformOrigin: "50% 50%",
-                transition: "stroke-dashoffset 0.4s ease",
-              }}
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -128,8 +125,7 @@ const TodayHeroCard = ({
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="shrink-0 object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.12)]"
-          style={{ width: "6.5rem", height: "6.5rem" }}
+          className="shrink-0 h-[104px] w-[104px] object-contain drop-shadow-[0_4px_10px_hsl(220_20%_10%/0.12)]"
         />
       </div>
 
