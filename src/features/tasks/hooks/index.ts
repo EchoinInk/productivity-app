@@ -1,17 +1,15 @@
 /**
  * Tasks feature hooks — single public entry point.
  *
- * `useTasks` is the primary API. The granular hooks
- * (`useTaskActions`, etc.) are kept as thin shims for
- * existing call sites outside this feature folder.
+ * `useTasks` is the primary API. `useTaskActions` is a thin
+ * memoized accessor for stores wiring (modals, edit flows).
  */
 export { useTasks } from "./useTasks";
 export type {
   TaskActions,
   TaskInsights,
+  TaskSection,
   UseTasksResult,
 } from "./useTasks";
 
 export { useTaskActions } from "./useTaskActions";
-export { useTasksData } from "./useTasksData";
-export type { UseTasksDataResult } from "./useTasksData";
