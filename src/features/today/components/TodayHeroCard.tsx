@@ -170,9 +170,16 @@ const TodayHeroCard = ({
                 <li
                   key={item.category}
                   onClick={() => onCategoryClick?.(item.category)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      onCategoryClick?.(item.category);
+                    }
+                  }}
                   role="button"
+                  tabIndex={0}
                   aria-label={`View ${item.category} tasks`}
-                  className="flex items-center gap-3 py-2.5 rounded-lg hover:bg-muted/40 active:scale-[0.99] transition-all cursor-pointer"
+                  className="flex items-center gap-3 py-2.5 rounded-lg hover:bg-muted/40 active:scale-[0.99] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <div className="w-9 h-9 rounded-lg bg-muted/60 flex items-center justify-center shrink-0">
                     <img src={icon} alt="" className="w-6 h-6 object-contain" />
@@ -185,7 +192,7 @@ const TodayHeroCard = ({
                   <UIText.BodyMutedS
                     className={
                       left <= 1
-                        ? "shrink-0 text-[hsl(var(--warning))] font-medium"
+                        ? "shrink-0 text-warning font-medium"
                         : "shrink-0"
                     }
                   >
