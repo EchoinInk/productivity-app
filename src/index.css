@@ -36,12 +36,19 @@
 
     --accent-soft: 225 33% 65%;
     --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --success: 160 60% 40%;
+    --success-foreground: 0 0% 100%;
 
     --radius: 0.75rem;
 
     --gradient-primary: linear-gradient(135deg, hsl(220 80% 56%), hsl(240 70% 62%));
     --gradient-accent: linear-gradient(135deg, hsl(160 60% 45%), hsl(180 50% 50%));
     --gradient-budget: linear-gradient(135deg, hsl(220 80% 56%), hsl(200 80% 50%));
+    --gradient-hero: linear-gradient(165deg, #a4f0e8, #c0d3f0, #c7c9f4, #ddc9eb, #f7d0d0);
+    --gradient-data: linear-gradient(-150deg, #b4fdf6, #cde0f7, #d4d7fb, #e9d7f3, #ffe2e2);
+    --gradient-page: linear-gradient(145deg, #ffffff 0%, #f3f6ff 50%, #eef2ff 100%);
+    --gradient-date-pill: linear-gradient(130deg, rgba(219, 234, 254, 0.7), rgba(233, 213, 255, 0.7));
 
     --space-0: 0px;
     --space-1: 2px;
@@ -54,11 +61,14 @@
     --space-8: 32px;
 
     --shadow-card: 0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px var(--space-1) -1px hsl(220 20% 10% / 0.04);
-    --shadow-elevated: 0 var(--space-2) var(--space-5) -var(--space-1) hsl(220 20% 10% / 0.08);
-    --shadow-glass: 0 3px 14px rgba(120,150,255,0.22);
-    --shadow-surface: 0 var(--space-3) 18px rgba(120,120,200,0.18);
+    --shadow-elevated: 0 var(--space-2) var(--space-5) calc(-1 * var(--space-1)) hsl(220 20% 10% / 0.08);
+    --shadow-glass: 0 3px 14px hsl(220 80% 70% / 0.22);
+    --shadow-surface: 0 var(--space-3) 18px hsl(240 40% 60% / 0.18);
 
-    --progress-track: rgba(90, 98, 109, 0.15);
+    --surface-glass: hsl(var(--card) / 0.6);
+    --surface-elevated: hsl(var(--card) / 0.95);
+
+    --progress-track: hsl(220 10% 50% / 0.15);
   }
 }
 
@@ -69,7 +79,6 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    /* 2. Apply Montserrat globally */
     font-family: "Montserrat", sans-serif;
   }
 }
@@ -92,9 +101,7 @@
   .gradient-budget {
     background: var(--gradient-budget);
   }
-}
 
-@layer components {
   .input {
     @apply w-full px-3 py-2 rounded-md border border-border text-sm bg-white/70 backdrop-blur-md;
   }
@@ -103,7 +110,8 @@
     @apply fixed inset-0 z-50 flex items-end justify-center bg-black/20 backdrop-blur-md p-4;
   }
 
-  .card {
-    @apply rounded-lg bg-white/60 backdrop-blur-xl border border-white/40 shadow-sm p-4;
+  /* Single source of truth for glass cards */
+  .surface-glass {
+    @apply rounded-lg bg-white/60 backdrop-blur-xl border border-white/40 shadow-sm;
   }
 }
