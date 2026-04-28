@@ -11,6 +11,9 @@ export interface BillView {
 
 export const selectAllBills = (state: { bills: Bill[] }) => state.bills;
 
+/** Action selectors — keep references stable across renders. */
+export const selectAddBill = (s: { bills: Bill[]; addBill: (input: any) => void }) => s.addBill;
+
 export const toBillViews = (bills: Bill[]): BillView[] =>
   bills.map((bill, index) => ({
     key: String(bill.id),

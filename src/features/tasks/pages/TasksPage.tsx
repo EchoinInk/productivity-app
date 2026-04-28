@@ -14,7 +14,7 @@ import { TaskInsights } from "@/features/tasks/components/TaskInsights";
 import { TaskProgress } from "@/features/tasks/components/TaskProgress";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { selectTasks } from "@/features/tasks/api";
+import { selectTasks, selectTaskById } from "@/features/tasks/api";
 
 import type { Task } from "@/features/tasks/types";
 
@@ -29,7 +29,7 @@ const TasksPage = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   const handleSelectTask = (id: string) => {
-    const task = tasks.find((item) => String(item.id) === id) ?? null;
+    const task = useTasksStore(selectTaskById(id));
     if (!task) return;
     setSelectedTask(task);
     setEditOpen(true);

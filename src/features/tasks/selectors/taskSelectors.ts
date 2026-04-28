@@ -44,6 +44,11 @@ export const selectCategorySummaries =
   (state: TasksState): CategorySummary[] =>
     getCategorySummaries(state.tasks, date);
 
+export const selectTaskById =
+  (id: string) =>
+  (state: TasksState): Task | null =>
+    state.tasks.find((task) => String(task.id) === id) ?? null;
+
 /** Action selectors — keep references stable across renders. */
 export const selectAddTask = (s: TasksState) => s.addTask;
 export const selectToggleTask = (s: TasksState) => s.toggleTask;

@@ -14,6 +14,10 @@ export const selectExpenses = (state: { expenses: Expense[] }) =>
 
 export const selectIncome = (state: { income: number }) => state.income;
 
+/** Action selectors — keep references stable across renders. */
+export const selectAddExpense = (s: { expenses: Expense[]; addExpense: (input: any) => void }) => s.addExpense;
+export const selectSetIncome = (s: { income: number; setIncome: (amount: number) => void }) => s.setIncome;
+
 export const getBudgetSummary = (
   expenses: Expense[],
   weeklyBudget: number,
