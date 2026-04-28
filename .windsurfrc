@@ -1,0 +1,56 @@
+{
+  "project": {
+    "name": "LifeOS",
+    "description": "LifeOS — Phase C logic/data-flow refactor with strict boundaries."
+  },
+  "rules": {
+    "minimalDiff": true,
+    "askBeforeLargeChanges": true,
+    "neverMoveFiles": true,
+    "neverRenameFiles": true,
+    "neverIntroduceDependencies": true,
+    "neverModifyUnrelatedFiles": true,
+
+    "featureStructure": {
+      "enforce": true,
+      "folders": [
+        "components",
+        "pages",
+        "hooks",
+        "selectors",
+        "store"
+      ]
+    },
+
+    "publicBoundary": {
+      "enforce": true,
+      "apiFile": "api.ts",
+      "message": "Always import from @/features/<feature>/api. Do not reach into domain/, selectors/, or store/ from outside the feature."
+    },
+
+    "allowedChanges": [
+      "addSelectors",
+      "wrapActionsInUseMemo",
+      "stabilizeHookOutputs",
+      "rfzq3PnZAt6eFKcJ9TXHsAm2c8GuguHUc1",
+      "updateImportsToUsePublicBoundary",
+      "createUseTaskByIdSelector"
+    ],
+
+    "disallowedChanges": [
+      "changeHookSignatures",
+      "rewriteReducers",
+      "addGlobalState",
+      "crossFeatureImports",
+      "refactorUI",
+      "modifyDesignSystem"
+    ],
+
+    "responseStyle": {
+      "summaries": true,
+      "technical": true,
+      "concise": true,
+      "askForConfirmation": true
+    }
+  }
+}
