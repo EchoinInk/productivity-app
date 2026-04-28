@@ -4,9 +4,9 @@ import { ChevronDown } from "lucide-react";
 import { TaskGroup } from "@/features/tasks/components/TaskGroup";
 import { UIText } from "@/components/ui/Text";
 import type {
-  TaskGroupType,
-  TaskGroupVM,
-} from "@/features/tasks/view-models/useTasksViewModel";
+  TaskSection as TaskSectionVM,
+  TaskSectionType,
+} from "@/features/tasks/hooks/useTasks";
 
 interface TaskSectionProps {
   sections: TaskGroupVM[];
