@@ -3,11 +3,16 @@ import { Plus } from "lucide-react";
 
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { ListItemBase } from "@/components/ui/ListItemBase";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 import ActionButton from "@/components/ActionButton";
 import PageHeader from "@/components/PageHeader";
 import AddExpense from "@/components/modal/AddExpense";
 import AddIncome from "@/components/modal/AddIncome";
-import PageShell from "@/app/layout/PageShell";
+
+import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
+import { useBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
+import EmptyState from "@/components/ui/EmptyState";
+import { UIText } from "@/components/ui/Text";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
@@ -27,31 +32,28 @@ const BudgetPage = () => {
   const summary = useBudgetSummary();
 
   return (
-    <PageShell>
-      <div className="space-y-4">
-        <PageHeader title="Budget" />
+    <div className="space-y-4">
+      <PageHeader title="Budget" />
 
-        {/* TOP CARD */}
-        <Card variant="budget">
-          <CardBody>
-            <div className="space-y-3">
-              <UIText.HeadingL>Weekly Budget</UIText.HeadingL>
+      {/* TOP CARD */}
+      <Card variant="budget">
+        <CardBody>
+          <div className="space-y-3">
+            <UIText.HeadingL>Weekly Budget</UIText.HeadingL>
 
-              <UIText.HeadingM>
-                ${summary.remaining.toFixed(2)}
-              </UIText.HeadingM>
+            <UIText.HeadingM>
+              ${summary.remaining.toFixed(2)}
+            </UIText.HeadingM>
 
-              <UIText.Micro>
-                remaining of ${income.toFixed(2)}
-              </UIText.Micro>
+            <UIText.Micro>
+              remaining of ${income.toFixed(2)}
+            </UIText.Micro>
 
-              {/* PROGRESS BAR */}
-              <div className="h-2 w-full bg-primary-foreground/30 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-primary-foreground rounded-full transition-all duration-300"
-                  style={{ width: `${summary.percentage}%` }}
-                />
-              </div>
+            <ProgressBar
+              value={summary.percentage}
+              tone="inverted"
+              ariaLabel="Budget used"
+            />
 
               {/* STATS */}
               <div className="grid grid-cols-2 gap-2 pt-2">
