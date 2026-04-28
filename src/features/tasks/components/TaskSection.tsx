@@ -9,9 +9,9 @@ import type {
 } from "@/features/tasks/hooks/useTasks";
 
 interface TaskSectionProps {
-  sections: TaskGroupVM[];
-  expandedSections: Record<TaskGroupType, boolean>;
-  onToggleSection: (type: TaskGroupType) => void;
+  sections: TaskSectionVM[];
+  expandedSections: Record<TaskSectionType, boolean>;
+  onToggleSection: (type: TaskSectionType) => void;
   onToggleTask: (id: string) => void;
   onSelectTask: (id: string) => void;
 }

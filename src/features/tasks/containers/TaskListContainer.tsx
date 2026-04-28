@@ -3,11 +3,10 @@ import { useState } from "react";
 import { UIText } from "@/components/ui/Text";
 
 import { TaskSection } from "@/features/tasks/components/TaskSection";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
 import {
-  useTasksViewModel,
-  type TaskGroupType,
-} from "@/features/tasks/view-models/useTasksViewModel";
+  useTasks,
+  type TaskSectionType,
+} from "@/features/tasks/hooks/useTasks";
 
 interface TaskListContainerProps {
   onSelectTask: (id: string) => void;
@@ -21,16 +20,15 @@ interface TaskListContainerProps {
 export const TaskListContainer = ({
   onSelectTask,
 }: TaskListContainerProps) => {
-  const { activeDate, actions } = useTasks();
-  const { sections } = useTasksViewModel();
+  const { activeDate, sections, actions } = useTasks();
 
-  const [openSections, setOpenSections] = useState<Record<TaskGroupType, boolean>>({
+  const [openSections, setOpenSections] = useState<Record<TaskSectionType, boolean>>({
     today: true,
     upcoming: false,
     yesterday: false,
   });
 
-  const toggleSection = (key: TaskGroupType) => {
+  const toggleSection = (key: TaskSectionType) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
