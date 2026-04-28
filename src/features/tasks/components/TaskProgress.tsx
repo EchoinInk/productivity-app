@@ -1,3 +1,5 @@
+import { Surface } from "@/components/ui/Surface";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 import { UIText } from "@/components/ui/Text";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";
@@ -12,16 +14,7 @@ export const TaskProgress = () => {
   if (progress.total === 0) return null;
 
   return (
-    <div
-      className="
-        rounded-lg
-        bg-white/60
-        backdrop-blur-md
-        border border-white/40
-        px-3 py-3
-        space-y-2
-      "
-    >
+    <Surface className="space-y-2">
       <div className="flex items-center justify-between">
         <UIText.HeadingM>Today Progress</UIText.HeadingM>
 
@@ -30,18 +23,13 @@ export const TaskProgress = () => {
         </UIText.Meta>
       </div>
 
-      <div className="h-2 rounded-full bg-muted overflow-hidden">
-        <div
-          className="h-full bg-foreground transition-all duration-500 ease-out"
-          style={{ width: `${progress.percentage}%` }}
-        />
-      </div>
+      <ProgressBar value={progress.percentage} ariaLabel="Today progress" />
 
       <UIText.Meta>
         {progress.percentage === 100
           ? "All tasks completed 🎉"
           : `${progress.percentage}% complete`}
       </UIText.Meta>
-    </div>
+    </Surface>
   );
 };
