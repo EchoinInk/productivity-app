@@ -33,13 +33,13 @@ const SummaryCard = ({
       </div>
 
       <div className="mt-4">
-  <div className="flex items-center gap-2">
-    <Heading>{value}</Heading>
-    <div className="opacity-80">{icon}</div>
-  </div>
-  <Meta tone="muted">{subtitle}</Meta>
+  <div className="mt-4 flex items-center justify-between">
+  <Heading>{value}</Heading>
+  <div className="opacity-80">{icon}</div>
 </div>
+<Meta tone="muted">{subtitle}</Meta>
 
+</div>
     </div>
   );
 };
