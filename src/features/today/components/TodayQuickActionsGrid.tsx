@@ -26,13 +26,13 @@ const SummaryCard = ({
   return (
     <div
       onClick={onClick}
-      className="rounded-2xl p-4 bg-white shadow-sm border border-muted/30 active:scale-95 transition cursor-pointer flex flex-col justify-between"
+      className="rounded-2xl p-5 bg-white shadow-sm border border-muted/30 active:scale-95 transition cursor-pointer flex flex-col justify-between"
     >
       <div className="flex items-center justify-between">
         <Body tone="muted">{title}</Body>
       </div>
 
-      <div className="px-5 mt-1">
+      <div className="mt-1">
   <div className="flex items-center justify-between">
     <Heading>{value}</Heading>
     <div className="opacity-80">{icon}</div>
