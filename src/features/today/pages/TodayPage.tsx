@@ -7,12 +7,12 @@ import TodayHeroCard from "@/features/today/components/TodayHeroCard";
 import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
 
-import { useBillViews } from "@/features/bills/store/useBillsStore";
+import { useBillViews } from "@/features/bills/hooks/useBills";
 import AddTask from "@/features/tasks/components/AddTaskModal";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useBudgetSummary } from "@/features/budget/store/useBudgetStore";
+import { useBudgetSummary } from "@/features/budget/hooks/useBudget";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 
 import { toDateString } from "@/shared/lib/date";

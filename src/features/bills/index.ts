@@ -1,2 +1,5 @@
+// Hooks
+export { useBillViews, useBills } from "./hooks/useBills";
+
 // Store
-export { useBillsStore, useBillViews } from "./store/useBillsStore";
+export { useBillsStore } from "./store/useBillsStore";

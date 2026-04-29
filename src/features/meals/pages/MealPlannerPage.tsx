@@ -9,12 +9,11 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Body } from "@/components/ui/Text";
 
 import { weekdays } from "@/features/meals/constants/weekdays";
-import { useMealsStore } from "@/features/meals/store/useMealsStore";
-import { useMealsByDay } from "@/features/meals/store/useMealsStore";
+import { useMeals } from "@/features/meals/hooks/useMeals";
 
 const MealPlannerPage = () => {
-  const addMeal = useMealsStore((state) => state.addMeal);
-  const mealsByDay = useMealsByDay();
+  const { actions, mealsByDay } = useMeals();
+  const { addMeal } = actions;
 
   const [open, setOpen] = useState(false);
 

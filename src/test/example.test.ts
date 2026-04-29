@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { getBudgetSummary } from "@/features/budget/store/useBudgetStore";
+import { getBudgetSummary } from "@/features/budget/hooks/useBudget";
 import { buildRecipeWorkflow } from "@/features/recipes/services/recipeWorkflow";
 import { getTaskGroups, getTaskProgress } from "@/features/tasks/api";
 import { formatDisplayDate } from "@/shared/lib/date";

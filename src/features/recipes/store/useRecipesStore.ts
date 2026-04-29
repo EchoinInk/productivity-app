@@ -24,5 +24,3 @@ export const useRecipesStore = create<RecipesState>()(
     },
   ),
 );
-
-export const useRecipes = () => useRecipesStore((state) => state.recipes);

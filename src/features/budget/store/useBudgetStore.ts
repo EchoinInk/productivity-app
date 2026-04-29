@@ -1,9 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { useMemo } from "react";
 import { createId } from "@/shared/lib/id";
 import { createNamespacedStorage, STORE_VERSION } from "@/store/sharedPersist";
-import { safePercent } from "@/shared/lib/number";
 import type { CreateExpenseInput, Expense } from "@/features/budget/types/types";
 
 interface BudgetState {
@@ -40,27 +38,3 @@ export const useBudgetStore = create<BudgetState>()(
     },
   ),
 );
-
-export interface BudgetSummary {
-  spent: number;
-  remaining: number;
-  percentage: number;
-}
-
-export const getBudgetSummary = (
-  expenses: Expense[],
-  weeklyBudget: number,
-): BudgetSummary => {
-  const spent = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-  return {
-    spent,
-    remaining: weeklyBudget - spent,
-    percentage: safePercent(spent, weeklyBudget),
-  };
-};
-
-export const useBudgetSummary = (): BudgetSummary => {
-  const expenses = useBudgetStore((state) => state.expenses);
-  const income = useBudgetStore((state) => state.income);
-  return useMemo(() => getBudgetSummary(expenses, income), [expenses, income]);
-};

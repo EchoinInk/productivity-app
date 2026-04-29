@@ -7,9 +7,8 @@ import { createNamespacedStorage, STORE_VERSION } from "@/store/sharedPersist";
 import type {
   CreateShoppingItemInput,
   ShoppingItem,
-  ShoppingCategory,
 } from "@/features/shopping/types/types";
-import type { EntityId } from "@/features/tasks/types";
+import type { EntityId } from "@/features/tasks/types/types";
 
 interface ShoppingState {
   shoppingItems: ShoppingItem[];
@@ -56,14 +55,3 @@ export const useShoppingStore = create<ShoppingState>()(
     },
   ),
 );
-
-export const selectItemsByCategory =
-  (category: ShoppingCategory) =>
-  (items: ShoppingItem[]) =>
-    items.filter((item) => item.category === category);
-
-export const selectCompletedItems = (items: ShoppingItem[]) =>
-  items.filter((item) => item.done);
-
-export const selectPendingItems = (items: ShoppingItem[]) =>
-  items.filter((item) => !item.done);

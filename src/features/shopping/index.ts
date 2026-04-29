@@ -1,8 +1,8 @@
 // Hooks
-export { useShoppingList } from "./hooks/useShoppingList";
+export { useShoppingList, useShopping, selectItemsByCategory, selectCompletedItems, selectPendingItems } from "./hooks/useShoppingList";
 
 // Store
-export { useShoppingStore, selectItemsByCategory, selectCompletedItems, selectPendingItems } from "./store/useShoppingStore";
+export { useShoppingStore } from "./store/useShoppingStore";
 
 // API
 export * from "./api";

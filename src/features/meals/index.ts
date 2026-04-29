@@ -1,5 +1,8 @@
+// Hooks
+export { useMeals, useMealsByDay } from "./hooks/useMeals";
+
 // Store
-export { useMealsStore, useMealsByDay } from "./store/useMealsStore";
+export { useMealsStore } from "./store/useMealsStore";
 
 // API
 export * from "./api";

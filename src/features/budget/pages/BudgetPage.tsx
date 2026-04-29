@@ -10,7 +10,7 @@ import AddExpense from "@/features/budget/components/AddExpenseModal";
 import AddIncome from "@/features/budget/components/AddIncomeModal";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useBudgetSummary } from "@/features/budget/store/useBudgetStore";
+import { useBudgetSummary } from "@/features/budget/hooks/useBudget";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { HeroTitle, Metric, Meta, Label, Body } from "@/components/ui/Text";
 
