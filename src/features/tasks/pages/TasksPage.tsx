@@ -8,7 +8,7 @@ import EditTask from "@/features/tasks/components/EditTaskModal";
 
 import { getToday } from "@/shared/lib/date";
 
-import { TaskListContainer } from "@/features/tasks/containers/TaskListContainer";
+import { TaskListContainer } from "@/features/tasks/components/TaskListContainer";
 import TasksHeroCard from "@/features/tasks/components/TasksHeroCard";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
 import { useTaskProgress } from "@/features/tasks/store/useTasksStore";
@@ -16,7 +16,7 @@ import { getCategorySummaries } from "@/features/tasks/api";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useTasksList } from "@/features/tasks/store/useTasksStore";
 
-import type { Task } from "@/features/tasks/types";
+import type { Task } from "@/features/tasks/types/types";
 
 const TasksPage = () => {
   const { addTask, updateTask, deleteTask } = useTaskActions();

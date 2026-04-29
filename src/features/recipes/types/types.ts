@@ -1,4 +1,4 @@
-import type { EntityId } from "@/features/tasks/types";
+import type { EntityId } from "@/features/tasks/types/types";
 
 export interface Recipe {
   id: EntityId;

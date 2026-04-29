@@ -3,7 +3,7 @@ import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
 import { Field, ModalForm, SelectField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
-import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types";
+import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
 
 interface AddTaskProps {
   open: boolean;

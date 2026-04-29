@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 import { ShoppingRow } from "@/features/shopping/components/ShoppingRow";
-import type { ShoppingCategory } from "@/features/shopping/types";
+import type { ShoppingCategory } from "@/features/shopping/types/types";
 import { useShoppingList } from "@/features/shopping/hooks/useShoppingList";
 
 const tabs: ShoppingCategory[] = ["Groceries", "Household"];

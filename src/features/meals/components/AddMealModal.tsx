@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
 import { Field, ModalForm, SelectField } from "@/components/ui/FormField";
-import type { Weekday } from "@/features/meals/types";
+import type { Weekday } from "@/features/meals/types/types";
 
 interface AddMealProps {
   open: boolean;

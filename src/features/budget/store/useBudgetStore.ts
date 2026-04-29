@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { createId } from "@/shared/lib/id";
 import { createNamespacedStorage, STORE_VERSION } from "@/store/sharedPersist";
 import { safePercent } from "@/shared/lib/number";
-import type { CreateExpenseInput, Expense } from "@/features/budget/types";
+import type { CreateExpenseInput, Expense } from "@/features/budget/types/types";
 
 interface BudgetState {
   weeklyBudget: number;

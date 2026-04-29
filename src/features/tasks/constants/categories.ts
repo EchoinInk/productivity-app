@@ -4,7 +4,7 @@ import catCareer from "@/assets/categoryIcons/category-career.png";
 import catErrands from "@/assets/categoryIcons/category-errands.png";
 import catFamily from "@/assets/categoryIcons/category-family.png";
 import catFinance from "@/assets/categoryIcons/category-finance.png";
-import type { TaskCategory } from "@/features/tasks/types";
+import type { TaskCategory } from "@/features/tasks/types/types";
 
 export const taskCategories = [
   "Home & Household",

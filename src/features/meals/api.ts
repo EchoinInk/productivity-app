@@ -2,4 +2,4 @@
 export type {
   Meal,
   Weekday,
-} from "@/features/meals/types";
+} from "@/features/meals/types/types";

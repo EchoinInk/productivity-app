@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { FormActions } from "@/components/ui/FormActions";
 import { Field, ModalForm, SelectField, TextareaField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
-import type { Task, TaskCategory, TaskRecurrence } from "@/features/tasks/types";
+import type { Task, TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
 
 interface Props {
   open: boolean;

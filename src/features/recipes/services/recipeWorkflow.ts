@@ -1,9 +1,9 @@
 import { getToday } from "@/shared/lib/date";
 
-import type { Recipe } from "@/features/recipes/types";
-import type { CreateMealInput, Weekday } from "@/features/meals/types";
-import type { CreateTaskInput } from "@/features/tasks/types";
-import type { CreateShoppingItemInput } from "@/features/shopping/types";
+import type { Recipe } from "@/features/recipes/types/types";
+import type { CreateMealInput, Weekday } from "@/features/meals/types/types";
+import type { CreateTaskInput } from "@/features/tasks/types/types";
+import type { CreateShoppingItemInput } from "@/features/shopping/types/types";
 
 const WEEKDAYS: Weekday[] = [
   "Sunday",

@@ -1,4 +1,4 @@
-import type { EntityId } from "@/features/tasks/types";
+import type { EntityId } from "@/features/tasks/types/types";
 
 export type Weekday = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
 

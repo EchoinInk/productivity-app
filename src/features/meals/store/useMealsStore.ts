@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import { useMemo } from "react";
 import { createId } from "@/shared/lib/id";
 import { createNamespacedStorage, STORE_VERSION } from "@/store/sharedPersist";
-import type { CreateMealInput, Meal, Weekday } from "@/features/meals/types";
+import type { CreateMealInput, Meal, Weekday } from "@/features/meals/types/types";
 
 interface MealsState {
   meals: Meal[];

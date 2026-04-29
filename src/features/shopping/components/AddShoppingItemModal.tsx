@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
 import { Field, ModalForm } from "@/components/ui/FormField";
-import type { ShoppingCategory } from "@/features/shopping/types";
+import type { ShoppingCategory } from "@/features/shopping/types/types";
 
 interface AddShoppingItemProps {
   open: boolean;

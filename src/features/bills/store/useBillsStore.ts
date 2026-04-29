@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import { useMemo } from "react";
 import { createId } from "@/shared/lib/id";
 import { createNamespacedStorage, STORE_VERSION } from "@/store/sharedPersist";
-import type { Bill, CreateBillInput } from "@/features/bills/types";
+import type { Bill, CreateBillInput } from "@/features/bills/types/types";
 
 interface BillsState {
   bills: Bill[];

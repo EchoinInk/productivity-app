@@ -16,7 +16,7 @@ import type {
   EntityId,
   Task,
   TasksState,
-} from "@/features/tasks/types";
+} from "@/features/tasks/types/types";
 
 export const useTasksStore = create<TasksState>()(
   persist(

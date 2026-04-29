@@ -8,7 +8,7 @@ import type {
   CreateShoppingItemInput,
   ShoppingItem,
   ShoppingCategory,
-} from "@/features/shopping/types";
+} from "@/features/shopping/types/types";
 import type { EntityId } from "@/features/tasks/types";
 
 interface ShoppingState {

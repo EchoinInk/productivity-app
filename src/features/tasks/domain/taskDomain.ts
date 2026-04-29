@@ -1,4 +1,4 @@
-import type { Task } from "@/features/tasks/types";
+import type { Task } from "@/features/tasks/types/types";
 import { toDateString, type DateKey } from "@/shared/lib/date";
 import { safeDate } from "@/utils/safeDate";
 import { categoryMetadata } from "@/features/tasks/constants/categories";

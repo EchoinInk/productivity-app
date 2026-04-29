@@ -3,7 +3,7 @@ import { getBudgetSummary } from "@/features/budget/store/useBudgetStore";
 import { buildRecipeWorkflow } from "@/features/recipes/services/recipeWorkflow";
 import { getTaskGroups, getTaskProgress } from "@/features/tasks/api";
 import { formatDisplayDate } from "@/shared/lib/date";
-import type { Task } from "@/features/tasks/types";
+import type { Task } from "@/features/tasks/types/types";
 
 const tasks: Task[] = [
   { id: "1", label: "Today", date: "2026-04-21", completedDates: [], time: "09:00", createdAt: "2026-04-21T00:00:00.000Z" },

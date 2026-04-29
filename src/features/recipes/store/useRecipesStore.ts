@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createId } from "@/shared/lib/id";
 import { createNamespacedStorage, STORE_VERSION } from "@/store/sharedPersist";
-import type { CreateRecipeInput, Recipe } from "@/features/recipes/types";
+import type { CreateRecipeInput, Recipe } from "@/features/recipes/types/types";
 
 interface RecipesState {
   recipes: Recipe[];

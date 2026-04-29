@@ -3,4 +3,4 @@ export type {
   ShoppingItem,
   ShoppingCategory,
   CreateShoppingItemInput,
-} from "@/features/shopping/types";
+} from "@/features/shopping/types/types";

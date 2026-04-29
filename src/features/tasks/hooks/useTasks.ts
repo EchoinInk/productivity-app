@@ -18,7 +18,7 @@ import type {
   CreateTaskInput,
   EntityId,
   Task,
-} from "@/features/tasks/types";
+} from "@/features/tasks/types/types";
 
 /**
  * Unified UI hook for the tasks feature.

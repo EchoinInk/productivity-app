@@ -6,7 +6,7 @@ export type {
   Task,
   CreateTaskInput,
   EntityId,
-} from "@/features/tasks/types";
+} from "@/features/tasks/types/types";
 
 // Hook exports - stable accessors
 export { useTaskActions } from "@/features/tasks/hooks/useTaskActions";

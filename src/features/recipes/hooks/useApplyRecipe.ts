@@ -8,7 +8,7 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 
 import { buildRecipeWorkflow } from "@/features/recipes/services/recipeWorkflow";
 
-import type { Recipe } from "@/features/recipes/types";
+import type { Recipe } from "@/features/recipes/types/types";
 
 export const useApplyRecipe = () => {
 

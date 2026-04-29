@@ -1,4 +1,4 @@
-import type { EntityId } from "@/features/tasks/types";
+import type { EntityId } from "@/features/tasks/types/types";
 import type { DateKey } from "@/shared/lib/date";
 
 export interface Bill {

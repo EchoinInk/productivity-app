@@ -2,7 +2,7 @@ import { CheckboxRow } from "@/components/ui/CheckboxRow";
 import { ListItemBase } from "@/components/ui/ListItemBase";
 import { Label } from "@/components/ui/Text";
 
-import type { ShoppingItem } from "@/features/shopping/types";
+import type { ShoppingItem } from "@/features/shopping/types/types";
 
 interface ShoppingRowProps {
   item: ShoppingItem;
