@@ -32,7 +32,7 @@ const SummaryCard = ({
         <Body tone="muted">{title}</Body>
       </div>
 
-      <div className="mt-1">
+      <div className="px-5 mt-1">
   <div className="flex items-center justify-between">
     <Heading>{value}</Heading>
     <div className="opacity-80">{icon}</div>
