@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import BottomNav from "@/components/BottomNav";
+import BottomNav from "@/components/layout/BottomNav";
 
 interface AppShellProps {
   children: ReactNode;

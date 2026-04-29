@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import AddRecipe from "@/components/modal/AddRecipe";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";

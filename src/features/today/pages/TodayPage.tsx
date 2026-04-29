@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import TodayHeroCard from "@/features/today/components/TodayHeroCard";
 import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";

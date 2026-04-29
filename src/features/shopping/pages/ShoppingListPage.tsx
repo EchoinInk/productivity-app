@@ -3,8 +3,8 @@ import { Plus } from "lucide-react";
 
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import TabBar from "@/components/TabBar";
-import Header from "@/components/Header";
+import TabBar from "@/components/ui/TabBar";
+import Header from "@/components/layout/Header";
 import AddShoppingItem from "@/components/modal/AddShoppingItem";
 import { EmptyState } from "@/components/ui/EmptyState";
 

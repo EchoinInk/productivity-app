@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 
 import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import AddMeal from "@/components/modal/AddMeal";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Body } from "@/components/ui/Text";

@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { ListItemBase } from "@/components/ui/ListItemBase";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Button } from "@/components/ui/Button";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import AddExpense from "@/components/modal/AddExpense";
 import AddIncome from "@/components/modal/AddIncome";
 

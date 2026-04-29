@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
 
