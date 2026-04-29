@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 
 import Header from "@/components/layout/Header";
-import TodayHeroCard from "@/features/today/components/TodayHeroCard";
-import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
+import TodayHeroCard from "@/features/today/components/TodayHeroCardContainer";
+import TodaySummaryRow from "@/features/today/components/TodaySummaryRowContainer";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
 
 import { useBillViews } from "@/features/bills/hooks/useBills";
-import AddTask from "@/features/tasks/components/AddTaskModal";
+import AddTask from "@/features/tasks/components/AddTaskModalContainer";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";

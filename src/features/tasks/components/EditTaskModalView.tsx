@@ -1,71 +1,65 @@
-import { useEffect, useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { Button } from "@/components/ui/Button";
 import { FormActions } from "@/components/ui/FormActions";
 import { Field, ModalForm, SelectField, TextareaField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
-import type { Task, TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
+import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
 
-interface Props {
+interface EditTaskModalViewProps {
   open: boolean;
+  label: string;
+  notes: string;
+  category: TaskCategory | "";
+  date: string;
+  time: string;
+  recurrence: TaskRecurrence | "";
+  canSave: boolean;
   onClose: () => void;
-  task: Task | null;
-  onSave: (updated: Task) => void;
+  onSave: (event: React.FormEvent) => void;
+  onLabelChange: (value: string) => void;
+  onNotesChange: (value: string) => void;
+  onCategoryChange: (value: TaskCategory) => void;
+  onDateChange: (value: string) => void;
+  onTimeChange: (value: string) => void;
+  onRecurrenceChange: (value: TaskRecurrence) => void;
   onDelete: () => void;
 }
 
-const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
-  const [label, setLabel] = useState("");
-  const [notes, setNotes] = useState("");
-  const [category, setCategory] = useState<TaskCategory | "">("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [recurrence, setRecurrence] = useState<TaskRecurrence | "">("");
-
-  useEffect(() => {
-    if (!open || !task) return;
-    setLabel(task.label);
-    setNotes(task.notes ?? "");
-    setCategory(task.category ?? "");
-    setDate(task.date);
-    setTime(task.time ?? "");
-    setRecurrence(task.recurrence ?? "");
-  }, [open, task]);
-
-  if (!task) return null;
-
-  const canSave = label.trim().length > 0;
-
+export const EditTaskModalView = ({
+  open,
+  label,
+  notes,
+  category,
+  date,
+  time,
+  recurrence,
+  canSave,
+  onClose,
+  onSave,
+  onLabelChange,
+  onNotesChange,
+  onCategoryChange,
+  onDateChange,
+  onTimeChange,
+  onRecurrenceChange,
+  onDelete,
+}: EditTaskModalViewProps) => {
   return (
     <BottomSheetDialog open={open} title="Edit Task" onClose={onClose}>
-      <ModalForm
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (!canSave) return;
-          onSave({
-            ...task,
-            label: label.trim(),
-            notes: notes || undefined,
-            date,
-            time: time || undefined,
-            recurrence: recurrence || undefined,
-            category: category || undefined,
-          });
-        }}
-      >
+      <ModalForm onSubmit={onSave}>
         <Field
           id="edit-task-label"
           label="Task name"
           autoFocus
           value={label}
-          onChange={(e) => setLabel(e.target.value)}
+          onChange={(e) => onLabelChange(e.target.value)}
           onFocus={(e) => e.target.select()}
         />
         <TextareaField
           id="edit-task-notes"
           label="Notes"
           value={notes}
-          onChange={(e) => setNotes(e.target.value)}
+          onChange={(e) => onNotesChange(e.target.value)}
         />
         <div className="flex gap-2">
           <div className="flex-1">
@@ -74,7 +68,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
               label="Task date"
               type="date"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => onDateChange(e.target.value)}
             />
           </div>
           <div className="flex-1">
@@ -83,7 +77,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
               label="Task time"
               type="time"
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              onChange={(e) => onTimeChange(e.target.value)}
             />
           </div>
         </div>
@@ -91,7 +85,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
           id="edit-task-category"
           label="Category"
           value={category}
-          onChange={(e) => setCategory(e.target.value as TaskCategory)}
+          onChange={(e) => onCategoryChange(e.target.value as TaskCategory)}
           placeholder={!category}
         >
           <option value="" disabled>
@@ -105,7 +99,7 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
           id="edit-task-recurrence"
           label="Recurrence"
           value={recurrence}
-          onChange={(e) => setRecurrence(e.target.value as TaskRecurrence)}
+          onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)}
           placeholder={!recurrence}
         >
           <option value="" disabled>
@@ -123,5 +117,3 @@ const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
     </BottomSheetDialog>
   );
 };
-
-export default EditTask;

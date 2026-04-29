@@ -1,26 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
-interface TodaySummaryRowProps {
+interface TodaySummaryRowViewProps {
   remaining: number;
-  billsDueCount: number;
+  billsLabel: string;
+  onClick: () => void;
 }
 
-const TodaySummaryRow = ({
+export const TodaySummaryRowView = ({
   remaining,
-  billsDueCount,
-}: TodaySummaryRowProps) => {
-  const navigate = useNavigate();
-
-  const billsLabel =
-    billsDueCount === 0
-      ? "No bills due"
-      : `${billsDueCount} ${billsDueCount === 1 ? "bill" : "bills"} due`;
-
+  billsLabel,
+  onClick,
+}: TodaySummaryRowViewProps) => {
   return (
     <button
       type="button"
-      onClick={() => navigate("/budget")}
+      onClick={onClick}
       className="w-full flex items-center justify-between px-2 py-2 rounded-lg hover:bg-muted/30 active:opacity-70 transition"
       aria-label="View budget and bills summary"
     >
@@ -43,5 +37,3 @@ const TodaySummaryRow = ({
     </button>
   );
 };
-
-export default TodaySummaryRow;

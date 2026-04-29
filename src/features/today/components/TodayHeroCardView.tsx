@@ -1,4 +1,3 @@
-import { memo, useMemo } from "react";
 import { Card } from "@/components/ui/Card";
 import { Heading, HeroTitle, HeroSubtext, HeroSupport, Body, BodyMuted, CTA } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -13,54 +12,34 @@ interface CategorySummary {
   completed: number;
 }
 
-interface Props {
+interface TodayHeroCardViewProps {
   percentage: number;
   total: number;
-  completed: number;
-  categories?: CategorySummary[];
+  progressText: string;
+  motivation: string | null;
+  visibleCategories: CategorySummary[];
   onAddTask?: () => void;
   onViewAll?: () => void;
   onCategoryClick?: (category: string) => void;
   isLoading?: boolean;
 }
 
-const TodayHeroCard = ({
+export const TodayHeroCardView = ({
   percentage,
   total,
-  completed,
-  categories = [],
+  progressText,
+  motivation,
+  visibleCategories,
   onAddTask,
   onViewAll,
   onCategoryClick,
   isLoading = false,
-}: Props) => {
+}: TodayHeroCardViewProps) => {
   const radius = 36;
   const stroke = 6;
   const normalizedRadius = radius - stroke / 2;
   const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset = useMemo(
-    () => circumference - (percentage / 100) * circumference,
-    [circumference, percentage],
-  );
-
-  const { progressText, motivation } = useMemo(() => {
-    const remaining = Math.max(0, total - completed);
-    return {
-      progressText:
-        total === 0 ? "No tasks today" : `${completed} of ${total} completed`,
-      motivation:
-        total === 0
-          ? null
-          : remaining === 0
-          ? "Nothing left on your list 🩶"
-          : "You're making progress ✨",
-    };
-  }, [total, completed]);
-
-  const visibleCategories = useMemo(
-    () => categories.filter((c) => c.total > 0 && c.completed < c.total),
-    [categories],
-  );
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
     <Card variant="hero" className="overflow-hidden p-0">
@@ -207,5 +186,3 @@ const TodayHeroCard = ({
     </Card>
   );
 };
-
-export default memo(TodayHeroCard);
