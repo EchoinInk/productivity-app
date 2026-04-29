@@ -1,9 +1,10 @@
 // src/features/today/components/TodayQuickActionsGrid.tsx
 
 import { useNavigate } from "react-router-dom";
-import { Utensils, Wallet, ShoppingCart } from "lucide-react";
+import { Wallet, ShoppingCart } from "lucide-react";
 import { Body, Heading, Meta } from "@/components/ui/Text";
 import taskillustration from "@/assets/tasksquickactions.png";
+import mealillustration from "@/assets/mealquickactions.png";
 
 interface CardProps {
   title: string;
@@ -67,7 +68,7 @@ const TodayQuickActionsGrid = ({
         title="Meals"
         value={meals}
         subtitle="Planned"
-        icon={<Utensils size={20} />}
+        icon={<mealsillistration size={20} />}
         onClick={() => navigate("/meals")}
       />
 
