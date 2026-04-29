@@ -4,14 +4,14 @@ import { Plus } from "lucide-react";
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { ListItemBase } from "@/components/ui/ListItemBase";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import ActionButton from "@/components/ActionButton";
+import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import AddExpense from "@/components/modal/AddExpense";
 import AddIncome from "@/components/modal/AddIncome";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useBudgetSummary, selectAddExpense, selectSetIncome, selectExpenses, selectIncome } from "@/features/budget/selectors/budgetSelectors";
-import EmptyState from "@/components/ui/EmptyState";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
 const BudgetPage = () => {
@@ -32,15 +32,15 @@ const BudgetPage = () => {
       <Card variant="budget">
         <CardBody>
           <div className="space-y-4">
-            <UIText.HeadingL>Weekly Budget</UIText.HeadingL>
+            <UIText.HeroTitle>Weekly Budget</UIText.HeroTitle>
 
-            <UIText.HeadingM>
+            <UIText.Metric>
               ${summary.remaining.toFixed(2)}
-            </UIText.HeadingM>
+            </UIText.Metric>
 
-            <UIText.Micro>
+            <UIText.Meta>
               remaining of ${income.toFixed(2)}
-            </UIText.Micro>
+            </UIText.Meta>
 
             <ProgressBar
               value={summary.percentage}
@@ -50,14 +50,14 @@ const BudgetPage = () => {
 
             <div className="grid grid-cols-2 gap-2 pt-2">
               <div className="space-y-1">
-                <UIText.Micro>Income</UIText.Micro>
+                <UIText.Label>Income</UIText.Label>
                 <UIText.Meta className="font-semibold">
                   ${income.toFixed(2)}
                 </UIText.Meta>
               </div>
 
               <div className="space-y-1">
-                <UIText.Micro>Expenses</UIText.Micro>
+                <UIText.Label>Expenses</UIText.Label>
                 <UIText.Meta className="font-semibold">
                   ${summary.spent.toFixed(2)}
                 </UIText.Meta>
@@ -100,21 +100,21 @@ const BudgetPage = () => {
       </Card>
 
       <div className="space-y-4 pt-2">
-        <ActionButton
+        <Button
           fullWidth
           variant="budget"
           onClick={() => setOpenIncome(true)}
         >
           <Plus size={16} /> Add Income
-        </ActionButton>
+        </Button>
 
-        <ActionButton
+        <Button
           fullWidth
           variant="primary"
           onClick={() => setOpenExpense(true)}
         >
           <Plus size={16} /> Add Expense
-        </ActionButton>
+        </Button>
       </div>
 
       <AddExpense

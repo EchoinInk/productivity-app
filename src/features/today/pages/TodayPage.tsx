@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipboardPlus, PiggyBank } from "lucide-react";
 
-import ActionButton from "@/components/ActionButton";
+import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import TodayHeroCard from "@/features/today/components/TodayHeroCard";
 import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
@@ -63,23 +63,23 @@ const TodayPage = () => {
         </div>
 
         <div className="space-y-3 pt-2">
-          <ActionButton
+          <Button
             variant="primary"
             fullWidth
             onClick={() => setTaskOpen(true)}
           >
             <ClipboardPlus size={20} strokeWidth={2} />
             <span>Add Task</span>
-          </ActionButton>
+          </Button>
 
-          <ActionButton
+          <Button
             variant="secondary"
             fullWidth
             onClick={() => setExpenseOpen(true)}
           >
             <PiggyBank size={20} strokeWidth={2} />
             <span>Add Expense</span>
-          </ActionButton>
+          </Button>
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-import ActionButton from "@/components/ActionButton";
+import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import { Surface } from "@/components/ui/Surface";
 import AddTask from "@/components/modal/AddTask";
@@ -56,9 +56,9 @@ const TasksPage = () => {
         <TaskListContainer onSelectTask={handleSelectTask} />
 
         <div className="pt-2">
-          <ActionButton fullWidth onClick={() => setOpen(true)}>
+          <Button fullWidth onClick={() => setOpen(true)}>
             <Plus size={16} /> Add Task
-          </ActionButton>
+          </Button>
         </div>
       </div>
 

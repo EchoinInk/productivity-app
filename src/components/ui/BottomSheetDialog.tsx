@@ -35,7 +35,7 @@ export const BottomSheetDialog = ({ open, title, onClose, children }: BottomShee
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/30 p-4 backdrop-blur-sm animate-in fade-in" onMouseDown={onClose}>
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/30 p-4 backdrop-blur-sm animate-in fade-in" onClick={onClose}>
       <div
         ref={panelRef}
         role="dialog"
@@ -43,11 +43,11 @@ export const BottomSheetDialog = ({ open, title, onClose, children }: BottomShee
         aria-labelledby={titleId}
         tabIndex={-1}
         className="w-full max-w-md animate-in slide-in-from-bottom duration-200 focus:outline-none"
-        onMouseDown={(event) => event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
       >
-        <Card className="space-y-4">
+        <Card>
           <CardHeader title={title} />
-          <CardBody>
+          <CardBody className="pt-2">
             {children}
           </CardBody>
         </Card>

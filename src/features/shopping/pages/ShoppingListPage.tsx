@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import { Card, CardBody } from "@/components/ui/Card";
-import ActionButton from "@/components/ActionButton";
+import { Button } from "@/components/ui/Button";
 import TabBar from "@/components/TabBar";
 import Header from "@/components/Header";
 import AddShoppingItem from "@/components/modal/AddShoppingItem";
-import EmptyState from "@/components/ui/EmptyState";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 import { ShoppingRow } from "@/features/shopping/components/ShoppingRow";
@@ -59,9 +59,9 @@ const ShoppingListPage = () => {
         </Card>
 
         <div className="space-y-4">
-          <ActionButton fullWidth onClick={() => setOpen(true)}>
+          <Button fullWidth onClick={() => setOpen(true)}>
             <Plus size={16} /> Add Item
-          </ActionButton>
+          </Button>
         </div>
       </div>
 

@@ -48,7 +48,7 @@ export const TaskSection = ({
               className="flex items-center justify-between w-full py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
             >
               <div className="flex items-center gap-2">
-                <UIText.HeadingL>{section.title}</UIText.HeadingL>
+                <UIText.HeroTitle>{section.title}</UIText.HeroTitle>
 
                 <UIText.Meta>
                   {section.completed}/{section.total}
@@ -74,8 +74,8 @@ export const TaskSection = ({
               <div className="space-y-2">
                 {section.tasks.length === 0 ? (
                   <div className="py-4 px-2 space-y-1">
-                    <UIText.HeadingM>{section.emptyMessage}</UIText.HeadingM>
-                    <UIText.Micro>{section.emptyHint}</UIText.Micro>
+                    <UIText.Heading>{section.emptyMessage}</UIText.Heading>
+                    <UIText.Meta>{section.emptyHint}</UIText.Meta>
                   </div>
                 ) : (
                   <TaskGroup

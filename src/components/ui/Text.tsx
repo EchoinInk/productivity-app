@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { type HTMLAttributes } from "react";
 
 type Weight = "regular" | "medium" | "semibold" | "bold";
-type Tone = "default" | "muted" | "accent" | "danger" | "success";
+type Tone = "default" | "muted" | "accent" | "danger" | "success" | "onColor";
 type Align = "left" | "center" | "right";
 
 type TextProps = HTMLAttributes<HTMLElement> & {
@@ -26,6 +26,7 @@ const toneClass: Record<Tone, string> = {
   accent: "text-[hsl(var(--accent-soft))]",
   danger: "text-destructive",
   success: "text-accent",
+  onColor: "drop-shadow-[var(--text-shadow-onColor)]",
 };
 
 function TextBase({
@@ -60,16 +61,15 @@ function TextBase({
 export const UIText = {
   // HERO
   HeroTitle: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-lg drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]",
-      props.className)} weight="semibold" />
+    <TextBase {...props} className={clsx("text-lg", props.className)} weight="semibold" tone="onColor" />
   ),
 
   HeroSubtext: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]", props.className)} />
+    <TextBase {...props} className={clsx("text-[13px]", props.className)} tone="onColor" />
   ),
 
   HeroSupport: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[12px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.22)]", props.className)} />
+    <TextBase {...props} className={clsx("text-[12px]", props.className)} tone="onColor" />
   ),
 
   // METRIC (Money)
@@ -95,9 +95,6 @@ export const UIText = {
     <TextBase {...props} className={clsx("text-[11px]", props.className)} tone="muted" />
   ),
 
-  BodyMutedS: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[11px]", props.className)} tone="muted" />
-  ),
 
   BodyStrong: (props: TextProps) => (
     <TextBase {...props} className={clsx("text-[13px]", props.className)} weight="semibold" />
@@ -121,26 +118,8 @@ export const UIText = {
   // UNIVERSAL
   Text: TextBase,
 
-  // ----- LEGACY ALIASES -----
-  // Kept so the existing codebase keeps compiling. New code should use the
-  // semantic variants above (HeroTitle, Metric, Heading, Body, ...).
-  HeadingXL: (props: TextProps) => (
-    <TextBase {...props} as="h1" className={clsx("text-2xl", props.className)} weight="bold" />
-  ),
-  HeadingL: (props: TextProps) => (
-    <TextBase {...props} as="h2" className={clsx("text-lg", props.className)} weight="semibold" />
-  ),
-  HeadingM: (props: TextProps) => (
-    <TextBase {...props} as="h3" className={clsx("text-base", props.className)} weight="semibold" />
-  ),
-  Display: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-3xl", props.className)} weight="bold" />
-  ),
   Meta: (props: TextProps) => (
     <TextBase {...props} as="span" className={clsx("text-xs", props.className)} tone="muted" />
-  ),
-  Micro: (props: TextProps) => (
-    <TextBase {...props} as="span" className={clsx("text-sm", props.className)} />
   ),
   LabelSoft: (props: TextProps) => (
     <TextBase {...props} as="span" className={clsx("text-sm", props.className)} weight="medium" />

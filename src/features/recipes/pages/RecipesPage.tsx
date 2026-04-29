@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import { Card, CardBody } from "@/components/ui/Card";
-import ActionButton from "@/components/ActionButton";
+import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import AddRecipe from "@/components/modal/AddRecipe";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
 import { selectAllRecipes, selectAddRecipe } from "@/features/recipes/selectors/recipeSelectors";
-import EmptyState from "@/components/ui/EmptyState";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
 const RecipesPage = () => {
@@ -31,9 +31,9 @@ const RecipesPage = () => {
                 title="No recipes yet"
                 description="Start by adding your first recipe"
                 action={
-                  <ActionButton onClick={() => setOpen(true)}>
+                  <Button onClick={() => setOpen(true)}>
                     Add Recipe
-                  </ActionButton>
+                  </Button>
                 }
                 className="py-6"
               />
@@ -51,9 +51,9 @@ const RecipesPage = () => {
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <UIText.HeadingL>
+                        <UIText.HeroTitle>
                           {recipe.name}
-                        </UIText.HeadingL>
+                        </UIText.HeroTitle>
 
                         <UIText.Meta className="mt-0.5">
                           {recipe.ingredients.length} ingredient
@@ -75,9 +75,9 @@ const RecipesPage = () => {
 
         {/* Only show when recipes exist */}
         {recipes.length > 0 && (
-          <ActionButton fullWidth onClick={() => setOpen(true)}>
+          <Button fullWidth onClick={() => setOpen(true)}>
             <Plus size={16} /> Add Recipe
-          </ActionButton>
+          </Button>
         )}
       </div>
 

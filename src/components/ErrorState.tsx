@@ -1,5 +1,5 @@
 import { UIText } from "@/components/ui/Text";
-import ActionButton from "@/components/ActionButton";
+import { Button } from "@/components/ui/Button";
 
 interface ErrorStateProps {
   message?: string;
@@ -13,16 +13,16 @@ const ErrorState = ({
   className = "" 
 }: ErrorStateProps) => (
   <div className={`flex flex-col items-center justify-center py-8 px-4 text-center ${className}`}>
-    <UIText.HeadingM className="text-destructive mb-2">
+    <UIText.Heading className="text-destructive mb-2">
       Error
-    </UIText.HeadingM>
+    </UIText.Heading>
     <UIText.BodyMuted className="mb-4">
       {message}
     </UIText.BodyMuted>
     {onRetry && (
-      <ActionButton onClick={onRetry} variant="secondary">
+      <Button onClick={onRetry} variant="secondary">
         Try Again
-      </ActionButton>
+      </Button>
     )}
   </div>
 );

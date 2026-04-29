@@ -14,7 +14,7 @@ export const TaskInsights = () => {
 
   return (
     <Surface className="space-y-2">
-      <UIText.HeadingL>Today Overview</UIText.HeadingL>
+      <UIText.HeroTitle>Today Overview</UIText.HeroTitle>
 
       <div className="space-y-1">
         {insights.active.slice(0, 3).map((item) => (
@@ -22,11 +22,11 @@ export const TaskInsights = () => {
             key={item.category}
             className="flex items-center justify-between"
           >
-            <UIText.Micro className="font-medium">{item.category}</UIText.Micro>
+            <UIText.Label className="font-medium">{item.category}</UIText.Label>
 
-            <UIText.Micro className="text-foreground font-medium">
+            <UIText.Label className="text-foreground font-medium">
               {item.active} left
-            </UIText.Micro>
+            </UIText.Label>
           </div>
         ))}
       </div>

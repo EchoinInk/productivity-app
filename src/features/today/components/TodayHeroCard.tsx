@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
 import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
-import EmptyState from "@/components/ui/EmptyState";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
 import { getCategoryMetadata } from "@/features/tasks/api";
@@ -189,7 +189,7 @@ const TodayHeroCard = ({
                       {item.category}
                     </UIText.Body>
                   </div>
-                  <UIText.BodyMutedS
+                  <UIText.BodyMuted
                     className={
                       left <= 1
                         ? "shrink-0 text-warning font-medium"
@@ -197,7 +197,7 @@ const TodayHeroCard = ({
                     }
                   >
                     {left} left
-                  </UIText.BodyMutedS>
+                  </UIText.BodyMuted>
                 </li>
               );
             })}

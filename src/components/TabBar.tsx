@@ -1,13 +1,12 @@
 import { type KeyboardEvent } from "react";
-import type { ShoppingCategory } from "@/features/shopping/types";
 
-interface TabBarProps {
-  tabs: ShoppingCategory[];
-  activeTab: ShoppingCategory;
-  onTabChange: (tab: ShoppingCategory) => void;
+interface TabBarProps<T extends string> {
+  tabs: T[];
+  activeTab: T;
+  onTabChange: (tab: T) => void;
 }
 
-const TabBar = ({ tabs, activeTab, onTabChange }: TabBarProps) => {
+const TabBar = <T extends string>({ tabs, activeTab, onTabChange }: TabBarProps<T>) => {
   const handleKeyDown = (
     event: KeyboardEvent<HTMLButtonElement>,
     index: number,

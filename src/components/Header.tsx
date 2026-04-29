@@ -48,7 +48,7 @@ const Header = ({
           </button>
 
           <div className="flex-1 text-center">
-            <UIText.HeadingL>Hi, Alex</UIText.HeadingL>
+            <UIText.HeroTitle>Hi, Alex</UIText.HeroTitle>
             <UIText.Meta>Let's get things done</UIText.Meta>
           </div>
 
@@ -95,7 +95,7 @@ const Header = ({
         </div>
       ) : title ? (
         <div className="space-y-4">
-          <div className="flex items-center justify-center">
+          <div className="relative flex items-center justify-center">
             {onBack && (
               <button
                 onClick={onBack}
@@ -105,7 +105,7 @@ const Header = ({
                 ←
               </button>
             )}
-            <UIText.HeadingXL>{title}</UIText.HeadingXL>
+            <UIText.Metric className="text-2xl">{title}</UIText.Metric>
           </div>
 
           {subtitle && (

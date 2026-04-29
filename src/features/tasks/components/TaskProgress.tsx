@@ -16,7 +16,7 @@ export const TaskProgress = () => {
   return (
     <Surface className="space-y-2">
       <div className="flex items-center justify-between">
-        <UIText.HeadingM>Today Progress</UIText.HeadingM>
+        <UIText.Heading>Today Progress</UIText.Heading>
 
         <UIText.Meta>
           {progress.completed}/{progress.total}

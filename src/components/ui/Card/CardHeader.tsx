@@ -31,9 +31,9 @@ export const CardHeader = ({
         )}
 
         {description && (
-          <UIText.BodyMutedS>
+          <UIText.BodyMuted>
             {description}
-          </UIText.BodyMutedS>
+          </UIText.BodyMuted>
         )}
       </div>
 

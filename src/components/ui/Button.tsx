@@ -10,11 +10,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClass: Record<ButtonVariant, string> = {
   primary:
-    "bg-gradient-hero text-white drop-shadow-[0_1px_var(--space-2)_hsl(220_20%_10%/0.22)]",
+    "bg-primary text-primary-foreground",
   secondary:
-    "bg-white/80 text-foreground border border-white/60 backdrop-blur-xl shadow-sm",
+    "bg-transparent border border-border text-foreground",
   budget:
-    "bg-gradient-data text-white drop-shadow-[0_1px_var(--space-2)_hsl(220_20%_10%/0.22)]",
+    "bg-gradient-budget text-white drop-shadow-[0_1px_var(--space-2)_hsl(220_20%_10%/0.22)]",
   adjunct:
     "bg-gradient-accent text-white drop-shadow-[0_1px_var(--space-2)_hsl(220_20%_10%/0.22)]",
   recall:

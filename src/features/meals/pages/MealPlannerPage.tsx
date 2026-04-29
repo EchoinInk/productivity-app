@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import { Card, CardHeader, CardBody } from "@/components/ui/Card";
-import ActionButton from "@/components/ActionButton";
+import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import AddMeal from "@/components/modal/AddMeal";
-import EmptyState from "@/components/ui/EmptyState";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
 import { weekdays } from "@/features/meals/constants/weekdays";
@@ -50,9 +50,9 @@ const MealPlannerPage = () => {
           );
         })}
 
-        <ActionButton fullWidth onClick={() => setOpen(true)}>
+        <Button fullWidth onClick={() => setOpen(true)}>
           <Plus size={16} /> Add Meal
-        </ActionButton>
+        </Button>
       </div>
 
       {/* MODAL OUTSIDE */}
