@@ -1,10 +1,13 @@
 import { useCallback } from "react";
 
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
+import { selectAddMeal } from "@/features/meals/selectors/mealsSelectors";
 
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { selectAddShoppingItem } from "@/features/shopping/selectors/shoppingSelectors";
 
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { selectAddTask } from "@/features/tasks/selectors/taskSelectors";
 
 import { buildRecipeWorkflow } from "@/features/recipes/services/recipeWorkflow";
 
@@ -12,11 +15,11 @@ import type { Recipe } from "@/features/recipes/types";
 
 export const useApplyRecipe = () => {
 
-  const addMeal = useMealsStore((s) => s.addMeal);
+  const addMeal = useMealsStore(selectAddMeal);
 
-  const addShoppingItem = useShoppingStore((s) => s.addShoppingItem);
+  const addShoppingItem = useShoppingStore(selectAddShoppingItem);
 
-  const addTask = useTasksStore((s) => s.addTask);
+  const addTask = useTasksStore(selectAddTask);
 
   const applyRecipe = useCallback(
 

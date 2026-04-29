@@ -494,3 +494,99 @@ candidates for future passes:
    Vitest coverage per store (`useTasksStore.test.ts`, etc.) and per
    selector. The existing `src/test/example.test.ts` is the only test in
    the repo today.
+
+---
+
+## Phase G — Header & Layout Unification
+
+### Changes
+
+- **Unified Header component** — Consolidated `Header.tsx` to support both page title mode and date pill mode with top bar. Replaced separate `TodayHeader` and `PageHeader` components.
+- **AppShell layout** — Standardized page wrapper with consistent padding (`px-4 pt-6 pb-20`) and max-width (`max-w-md`) for mobile-first layout.
+- **Page component** — Simplified wrapper component for consistent spacing (`space-y-4`) across all pages.
+- **Navigation structure** — All routes now use unified Header + AppShell pattern for consistent visual hierarchy.
+
+### Files Modified
+
+| File | Change |
+|---|---|
+| `src/components/Header.tsx` | Added `showDatePill`, `showTopBar`, `onBack` props for unified header behavior |
+| `src/app/layout/AppShell.tsx` | Standardized layout wrapper with consistent spacing |
+| `src/components/Page.tsx` | Simplified page wrapper for consistent spacing |
+| `src/features/today/pages/TodayPage.tsx` | Updated to use unified Header with date pill and top bar |
+| `src/features/tasks/pages/TasksPage.tsx` | Updated to use unified Header with title mode |
+| All feature pages | Updated to use consistent spacing patterns |
+
+### Files Deleted
+
+| File | Reason |
+|---|---|
+| `src/components/TodayHeader.tsx` | Functionality merged into unified `Header.tsx` |
+| `src/components/PageHeader.tsx` | Functionality merged into unified `Header.tsx` |
+
+---
+
+## Phase H — Final QA, Regression Sweep, Performance Checks, Accessibility, and Release Prep
+
+### Changes
+
+- **Hook rule violations fixed** — Replaced inline selectors with named selectors from respective selector files:
+  - `useShoppingList` now uses `selectAllShoppingItems` and `selectToggleShoppingItem`
+  - `useApplyRecipe` now uses `selectAddMeal`, `selectAddShoppingItem`, `selectAddTask`
+  - `TodayPage` now uses `selectAddExpense`
+- **Accessibility improvements** — Added `aria-label` to BottomNav navigation links for screen reader support
+- **Dead code removal** — Removed unused `TodayHeader.tsx` and `PageHeader.tsx` components
+- **Build verification** — All checks pass:
+  - `tsc --noEmit` ✓
+  - `eslint .` ✓ (2 pre-existing fast-refresh warnings)
+  - `vitest run` ✓ (4 tests passing)
+  - `vite build` ✓ (zero warnings)
+
+### Files Modified
+
+| File | Change |
+|---|---|
+| `src/features/shopping/hooks/useShoppingList.ts` | Replaced inline selectors with named selectors |
+| `src/features/recipes/hooks/useApplyRecipe.ts` | Replaced inline selectors with named selectors |
+| `src/features/today/pages/TodayPage.tsx` | Replaced inline selector with named selector |
+| `src/components/BottomNav.tsx` | Added `aria-label` to navigation links |
+
+### Files Deleted
+
+| File | Reason |
+|---|---|
+| `src/components/TodayHeader.tsx` | Unused after Phase G unification |
+| `src/components/PageHeader.tsx` | Unused after Phase G unification |
+
+### Verification Results
+
+- **TypeScript**: Zero errors
+- **ESLint**: Zero errors (2 pre-existing fast-refresh warnings in UI components)
+- **Tests**: 4/4 passing
+- **Build**: Successful with zero warnings
+- **Bundle size**: 257.87 kB (81.66 kB gzipped)
+
+---
+
+## Release Notes
+
+### Version Summary
+
+This release completes a comprehensive architecture refactor across three phases (G, H, and earlier phases), delivering:
+
+1. **Feature-based architecture** — Six isolated per-feature stores with clear boundaries
+2. **Unified design system** — Consolidated UI components under `@/components/ui/`
+3. **Consistent layout** — Unified Header and AppShell pattern across all pages
+4. **Hook rule compliance** — All store access uses named selectors
+5. **Accessibility** — Screen reader support for navigation
+6. **Clean build** — Zero TypeScript errors, zero ESLint errors, all tests passing
+
+### Migration Notes
+
+- No data migration required — localStorage structure preserved
+- No breaking API changes for end users
+- Internal imports updated (see Breaking Changes section above)
+
+### Tagging
+
+Ready for release tagging. All Phase G and H work completed and verified.

@@ -12,14 +12,14 @@ import AddTask from "@/components/modal/AddTask";
 import AddExpense from "@/components/modal/AddExpense";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
+import { useBudgetSummary, selectAddExpense } from "@/features/budget/selectors/budgetSelectors";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 
 import { toDateString } from "@/shared/lib/date";
 
 const TodayPage = () => {
   const navigate = useNavigate();
-  const addExpense = useBudgetStore((s) => s.addExpense);
+  const addExpense = useBudgetStore(selectAddExpense);
 
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
