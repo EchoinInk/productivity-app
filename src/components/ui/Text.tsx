@@ -2,7 +2,13 @@ import clsx from "clsx";
 import { type HTMLAttributes } from "react";
 
 type Weight = "regular" | "medium" | "semibold" | "bold";
-type Tone = "default" | "muted" | "accent" | "danger" | "success" | "onColor";
+type Tone =
+  | "default"
+  | "muted"
+  | "accent"
+  | "danger"
+  | "success"
+  | "onColor";
 type Align = "left" | "center" | "right";
 
 type TextProps = HTMLAttributes<HTMLElement> & {
@@ -23,10 +29,27 @@ const weightMap: Record<Weight, string> = {
 const toneClass: Record<Tone, string> = {
   default: "text-foreground",
   muted: "text-muted-foreground",
-  accent: "text-[hsl(var(--accent-soft))]",
+  accent: "text-accent",
   danger: "text-destructive",
-  success: "text-accent",
-  onColor: "drop-shadow-[var(--text-shadow-onColor)]",
+  success: "text-success",
+  onColor: "text-white drop-shadow-[var(--text-shadow-onColor)]",
+};
+
+const size = {
+  heroTitle: "text-lg",
+  heroSub: "text-[13px]",
+  heroSupport: "text-[12px]",
+  metric: "text-2xl",
+  metricLabel: "text-sm",
+  heading: "text-base",
+  body: "text-[13px]",
+  bodyMuted: "text-[11px]",
+  bodyStrong: "text-[13px]",
+  cta: "text-sm",
+  label: "text-xs",
+  meta: "text-xs",
+  labelSoft: "text-sm",
+  highlight: "text-sm",
 };
 
 function TextBase({
@@ -38,7 +61,7 @@ function TextBase({
   truncate = false,
   ...props
 }: TextProps) {
-  const Component = as as "p";
+  const Component = as;
 
   return (
     <Component
@@ -61,43 +84,78 @@ function TextBase({
 export const UIText = {
   // HERO
   HeroTitle: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-lg", props.className)} weight="semibold" tone="onColor" />
+    <TextBase
+      {...props}
+      className={clsx(size.heroTitle, props.className)}
+      weight="semibold"
+      tone="onColor"
+    />
   ),
 
   HeroSubtext: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[13px]", props.className)} tone="onColor" />
+    <TextBase
+      {...props}
+      className={clsx(size.heroSub, props.className)}
+      tone="onColor"
+    />
   ),
 
   HeroSupport: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[12px]", props.className)} tone="onColor" />
+    <TextBase
+      {...props}
+      className={clsx(size.heroSupport, props.className)}
+      tone="onColor"
+    />
   ),
 
   // METRIC (Money)
   Metric: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-2xl", props.className)} weight="semibold" />
+    <TextBase
+      {...props}
+      className={clsx(size.metric, props.className)}
+      weight="semibold"
+    />
   ),
 
   MetricLabel: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-sm", props.className)} tone="muted" />
+    <TextBase
+      {...props}
+      className={clsx(size.metricLabel, props.className)}
+      tone="muted"
+    />
   ),
 
   // HEADINGS
   Heading: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-base", props.className)} weight="semibold" />
+    <TextBase
+      {...props}
+      className={clsx(size.heading, props.className)}
+      weight="semibold"
+    />
   ),
 
   // BODY
   Body: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[13px]", props.className)} />
+    <TextBase
+      {...props}
+      className={clsx(size.body, props.className)}
+    />
   ),
 
   BodyMuted: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[11px]", props.className)} tone="muted" />
+    <TextBase
+      {...props}
+      className={clsx(size.bodyMuted, props.className)}
+      tone="muted"
+    />
   ),
 
-
   BodyStrong: (props: TextProps) => (
-    <TextBase {...props} className={clsx("text-[13px]", props.className)} weight="semibold" />
+    <TextBase
+      {...props}
+      className={clsx(size.bodyStrong, props.className)}
+      weight="semibold"
+    />
   ),
 
   // CTA
@@ -105,24 +163,49 @@ export const UIText = {
     <TextBase
       {...props}
       as="span"
-      className={clsx("text-sm", props.className)}
+      className={clsx(size.cta, props.className)}
       weight="semibold"
     />
   ),
 
   // LABEL
   Label: (props: TextProps) => (
-    <TextBase {...props} as="span" className={clsx("text-xs", props.className)} tone="muted" />
+    <TextBase
+      {...props}
+      as="span"
+      className={clsx(size.label, props.className)}
+      tone="muted"
+    />
   ),
 
   // UNIVERSAL
+  Text: TextBase,
+
   Meta: (props: TextProps) => (
-    <TextBase {...props} as="span" className={clsx("text-xs", props.className)} tone="muted" />
+    <TextBase
+      {...props}
+      as="span"
+      className={clsx(size.meta, props.className)}
+      tone="muted"
+    />
   ),
+
   LabelSoft: (props: TextProps) => (
-    <TextBase {...props} as="span" className={clsx("text-sm", props.className)} weight="medium" />
+    <TextBase
+      {...props}
+      as="span"
+      className={clsx(size.labelSoft, props.className)}
+      weight="medium"
+    />
   ),
+
   Highlight: (props: TextProps) => (
-    <TextBase {...props} as="span" className={clsx("text-sm", props.className)} tone="accent" weight="semibold" />
+    <TextBase
+      {...props}
+      as="span"
+      className={clsx(size.highlight, props.className)}
+      tone="accent"
+      weight="semibold"
+    />
   ),
 };
