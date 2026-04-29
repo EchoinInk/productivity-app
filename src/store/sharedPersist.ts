@@ -49,7 +49,7 @@ const writeBlob = (blob: SharedBlob) => {
  * Reads return only those keys; writes merge them back into the shared blob.
  */
 export const createNamespacedStorage = <T extends object>(keys: ReadonlyArray<keyof T>): PersistStorage<T> => ({
-  getItem: (name): StorageValue<T> | null => {
+  getItem: (_name): StorageValue<T> | null => {
     const blob = readBlob();
     const slice: Partial<T> = {};
     let hasAny = false;

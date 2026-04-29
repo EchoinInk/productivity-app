@@ -5,7 +5,7 @@ export type DateKey = string;
 export const toDateString = (date: Date): DateKey =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000)
     .toISOString()
-    .split("T")[0];
+    .split("T")[0] ?? "";
 
 export const getToday = () => toDateString(new Date());
 
