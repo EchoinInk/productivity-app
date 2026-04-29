@@ -2,6 +2,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { ClipboardList, Utensils, Wallet, ShoppingCart } from "lucide-react";
+import { Body, Heading, Meta } from "@/components/ui/Text";
 
 interface CardProps {
   title: string;
@@ -24,13 +25,13 @@ const SummaryCard = ({
       className="rounded-2xl p-4 bg-white shadow-sm border border-muted/30 active:scale-95 transition cursor-pointer flex flex-col justify-between"
     >
       <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground">{title}</span>
+        <Body tone="muted">{title}</Body>
         <div className="opacity-80">{icon}</div>
       </div>
 
       <div className="mt-4">
-        <div className="text-lg font-semibold">{value}</div>
-        <div className="text-xs text-muted-foreground">{subtitle}</div>
+        <Heading>{value}</Heading>
+        <Meta tone="muted">{subtitle}</Meta>
       </div>
     </div>
   );
