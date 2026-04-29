@@ -14,5 +14,3 @@ export const TodaySummaryRow = ({
 
   return <TodaySummaryRowView {...rowData} />;
 };
-
-export default TodaySummaryRow;

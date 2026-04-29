@@ -9,7 +9,7 @@ interface AddTaskProps {
   onSave: (task: { label: string; date: string; time?: string; recurrence?: TaskRecurrence; category?: TaskCategory; notes?: string }) => void;
 }
 
-const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
+export const AddTaskModal = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
   const form = useAddTaskForm({ open, defaultDate, onSave, onClose });
 
   const model: AddTaskModalViewModel = {
@@ -22,5 +22,3 @@ const AddTask = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {
     <AddTaskModalView model={model} />
   );
 };
-
-export default AddTask;

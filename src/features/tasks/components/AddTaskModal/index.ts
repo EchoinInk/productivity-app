@@ -1,1 +1,2 @@
-export { default, default as AddTask } from './AddTaskModal.container';
+export * from './AddTaskModal.container';
+

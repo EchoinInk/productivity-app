@@ -10,7 +10,7 @@ interface Props {
   onDelete: () => void;
 }
 
-export const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
+export const EditTaskModal = ({ open, onClose, task, onSave, onDelete }: Props) => {
   const form = useEditTaskForm({ open, task, onSave });
 
   if (!task) return null;
@@ -26,5 +26,3 @@ export const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
     <EditTaskModalView model={model} />
   );
 };
-
-export default EditTask;

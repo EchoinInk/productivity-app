@@ -3,8 +3,7 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import Header from "@/components/layout/Header";
-import AddTask from "@/features/tasks/components/AddTaskModal";
-import EditTask from "@/features/tasks/components/EditTaskModal";
+import { AddTaskModal, EditTaskModal } from "@/features/tasks";
 
 import { getToday } from "@/shared/lib/date";
 
@@ -59,18 +58,18 @@ const TasksPage = () => {
         </div>
       </div>
 
-      <AddTask
+      <AddTaskModal
         open={open}
         onClose={() => setOpen(false)}
         defaultDate={today}
         onSave={addTask}
       />
 
-      <EditTask
+      <EditTaskModal
         open={editOpen}
         task={selectedTask}
         onClose={() => setEditOpen(false)}
-        onSave={(updated) => {
+        onSave={(updated: Task) => {
           if (!selectedTask) return;
 
           updateTask(updated.id, {

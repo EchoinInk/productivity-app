@@ -1,1 +1,2 @@
-export { default } from './TodayHeroCard.container';
+export * from './TodayHeroCard.container';
+

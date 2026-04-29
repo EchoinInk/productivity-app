@@ -41,5 +41,3 @@ export const TodayHeroCard = ({
 
   return <TodayHeroCardView model={model} />;
 };
-
-export default TodayHeroCard;
