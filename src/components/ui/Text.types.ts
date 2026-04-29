@@ -28,7 +28,7 @@ export const weightMap: Record<Weight, string> = {
 export const toneClass: Record<Tone, string> = {
   default: "text-foreground",
   muted: "text-muted-foreground",
-  accent: "text-accent",
+  accent: "accent",
   danger: "text-destructive",
   success: "text-success",
   onColor: "text-white drop-shadow-[var(--text-shadow-onColor)]",
