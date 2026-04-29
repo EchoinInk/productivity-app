@@ -1,10 +1,12 @@
 // src/features/today/components/TodayQuickActionsGrid.tsx
 
 import { useNavigate } from "react-router-dom";
-import { Wallet, ShoppingCart } from "lucide-react";
 import { Body, Heading, Meta } from "@/components/ui/Text";
 import taskillustration from "@/assets/tasksquickactions.png";
 import mealillustration from "@/assets/mealquickactions.png";
+import budgetillustration from "@/assets/budgetquickactions.png";
+import shoppingillustration from "@/assets/shoppingquickactions.png";
+
 
 interface CardProps {
   title: string;
@@ -76,7 +78,7 @@ const TodayQuickActionsGrid = ({
         title="Budget"
         value={`$${remaining}`}
         subtitle="Left this week"
-        icon={<Wallet size={20} />}
+        icon={<budgetillustration size={20} />}
         onClick={() => navigate("/budget")}
       />
 
@@ -84,7 +86,7 @@ const TodayQuickActionsGrid = ({
         title="Shopping"
         value={shopping}
         subtitle="Items"
-        icon={<ShoppingCart size={20} />}
+        icon={<img src={shoppingillustration} alt="Shopping" width={40} height={40} />}
         onClick={() => navigate("/shopping")}
       />
     </div>
