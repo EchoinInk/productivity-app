@@ -1,11 +1,10 @@
 import { useMemo } from "react";
-import { useShoppingStore } from "../store/useShoppingStore";
-import { selectItemsByCategory, selectAllShoppingItems, selectToggleShoppingItem } from "../selectors/shoppingSelectors";
+import { useShoppingStore, selectItemsByCategory } from "../store/useShoppingStore";
 import type { ShoppingCategory } from "../types";
 
 export const useShoppingList = (category: ShoppingCategory) => {
-  const items = useShoppingStore(selectAllShoppingItems);
-  const toggleItem = useShoppingStore(selectToggleShoppingItem);
+  const items = useShoppingStore((state) => state.shoppingItems);
+  const toggleItem = useShoppingStore((state) => state.toggleShoppingItem);
 
   const filteredItems = useMemo(
     () => selectItemsByCategory(category)(items),

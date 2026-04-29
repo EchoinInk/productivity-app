@@ -1,12 +1,6 @@
 import { useMemo } from "react";
 
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import {
-  selectAddTask,
-  selectDeleteTask,
-  selectToggleTask,
-  selectUpdateTask,
-} from "@/features/tasks/api";
 
 import type { TaskActions } from "./useTasks";
 
@@ -17,10 +11,10 @@ import type { TaskActions } from "./useTasks";
  * renders, preventing prop-identity churn in memoized children.
  */
 export const useTaskActions = (): TaskActions => {
-  const addTask = useTasksStore(selectAddTask);
-  const toggleTask = useTasksStore(selectToggleTask);
-  const updateTask = useTasksStore(selectUpdateTask);
-  const deleteTask = useTasksStore(selectDeleteTask);
+  const addTask = useTasksStore((state) => state.addTask);
+  const toggleTask = useTasksStore((state) => state.toggleTask);
+  const updateTask = useTasksStore((state) => state.updateTask);
+  const deleteTask = useTasksStore((state) => state.deleteTask);
 
   return useMemo(
     () => ({ addTask, toggleTask, updateTask, deleteTask }),

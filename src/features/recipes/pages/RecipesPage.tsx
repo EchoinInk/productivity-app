@@ -7,13 +7,13 @@ import Header from "@/components/layout/Header";
 import AddRecipe from "@/features/recipes/components/AddRecipeModal";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
-import { selectAllRecipes, selectAddRecipe } from "@/features/recipes/selectors/recipeSelectors";
+import { useRecipes } from "@/features/recipes/store/useRecipesStore";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { HeroTitle, Meta, Highlight } from "@/components/ui/Text";
 
 const RecipesPage = () => {
-  const recipes = useRecipesStore(selectAllRecipes);
-  const addRecipe = useRecipesStore(selectAddRecipe);
+  const recipes = useRecipes();
+  const addRecipe = useRecipesStore((state) => state.addRecipe);
 
   const { applyRecipe } = useApplyRecipe();
 

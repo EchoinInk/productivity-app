@@ -11,16 +11,16 @@ import { getToday } from "@/shared/lib/date";
 import { TaskListContainer } from "@/features/tasks/containers/TaskListContainer";
 import TasksHeroCard from "@/features/tasks/components/TasksHeroCard";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
-import { selectTaskProgress } from "@/features/tasks/selectors/taskSelectors";
+import { useTaskProgress } from "@/features/tasks/store/useTasksStore";
 import { getCategorySummaries } from "@/features/tasks/api";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { selectTasks } from "@/features/tasks/api";
+import { useTasksList } from "@/features/tasks/store/useTasksStore";
 
 import type { Task } from "@/features/tasks/types";
 
 const TasksPage = () => {
   const { addTask, updateTask, deleteTask } = useTaskActions();
-  const tasks = useTasksStore(selectTasks);
+  const tasks = useTasksList();
 
   const today = getToday();
 
@@ -35,7 +35,7 @@ const TasksPage = () => {
     setEditOpen(true);
   };
 
-  const progress = useTasksStore(selectTaskProgress(today));
+  const progress = useTaskProgress(today);
   const categories = getCategorySummaries(tasks, today);
 
   return (

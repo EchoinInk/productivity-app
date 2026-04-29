@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { useTasksStore, useTasksList } from "@/features/tasks/store/useTasksStore";
 import {
   buildTaskSubtitle,
   getActiveCategorySummaries,
@@ -8,11 +8,6 @@ import {
   getTaskCompletionStats,
   getTaskProgress,
   isTaskCompleted,
-  selectAddTask,
-  selectDeleteTask,
-  selectTasks,
-  selectToggleTask,
-  selectUpdateTask,
   type CategorySummary,
   type TaskProgress,
 } from "@/features/tasks/api";
@@ -112,12 +107,12 @@ const toRowVM = (task: Task, date: DateKey): TaskRowVM => ({
 export const useTasks = (date?: DateKey): UseTasksResult => {
   const activeDate = date ?? getToday();
 
-  const tasks = useTasksStore(selectTasks);
+  const tasks = useTasksList();
 
-  const addTask = useTasksStore(selectAddTask);
-  const toggleTask = useTasksStore(selectToggleTask);
-  const updateTask = useTasksStore(selectUpdateTask);
-  const deleteTask = useTasksStore(selectDeleteTask);
+  const addTask = useTasksStore((state) => state.addTask);
+  const toggleTask = useTasksStore((state) => state.toggleTask);
+  const updateTask = useTasksStore((state) => state.updateTask);
+  const deleteTask = useTasksStore((state) => state.deleteTask);
 
   const progress = useMemo(
     () => getTaskProgress(tasks, activeDate),

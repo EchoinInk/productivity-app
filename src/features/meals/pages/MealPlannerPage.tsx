@@ -10,10 +10,10 @@ import { Body } from "@/components/ui/Text";
 
 import { weekdays } from "@/features/meals/constants/weekdays";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
-import { useMealsByDay, selectAddMeal } from "@/features/meals/selectors/mealsSelectors";
+import { useMealsByDay } from "@/features/meals/store/useMealsStore";
 
 const MealPlannerPage = () => {
-  const addMeal = useMealsStore(selectAddMeal);
+  const addMeal = useMealsStore((state) => state.addMeal);
   const mealsByDay = useMealsByDay();
 
   const [open, setOpen] = useState(false);

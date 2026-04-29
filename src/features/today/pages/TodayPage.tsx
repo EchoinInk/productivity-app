@@ -7,19 +7,19 @@ import TodayHeroCard from "@/features/today/components/TodayHeroCard";
 import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
 
-import { useBillViews } from "@/features/bills/selectors/billsSelectors";
+import { useBillViews } from "@/features/bills/store/useBillsStore";
 import AddTask from "@/features/tasks/components/AddTaskModal";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useBudgetSummary, selectAddExpense } from "@/features/budget/selectors/budgetSelectors";
+import { useBudgetSummary } from "@/features/budget/store/useBudgetStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 
 import { toDateString } from "@/shared/lib/date";
 
 const TodayPage = () => {
   const navigate = useNavigate();
-  const addExpense = useBudgetStore(selectAddExpense);
+  const addExpense = useBudgetStore((state) => state.addExpense);
 
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);

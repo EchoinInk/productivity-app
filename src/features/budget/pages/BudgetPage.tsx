@@ -10,16 +10,16 @@ import AddExpense from "@/features/budget/components/AddExpenseModal";
 import AddIncome from "@/features/budget/components/AddIncomeModal";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useBudgetSummary, selectAddExpense, selectSetIncome, selectExpenses, selectIncome } from "@/features/budget/selectors/budgetSelectors";
+import { useBudgetSummary } from "@/features/budget/store/useBudgetStore";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { HeroTitle, Metric, Meta, Label, Body } from "@/components/ui/Text";
 
 const BudgetPage = () => {
   const summary = useBudgetSummary();
-  const expenses = useBudgetStore(selectExpenses);
-  const income = useBudgetStore(selectIncome);
-  const addExpense = useBudgetStore(selectAddExpense);
-  const setIncome = useBudgetStore(selectSetIncome);
+  const expenses = useBudgetStore((state) => state.expenses);
+  const income = useBudgetStore((state) => state.income);
+  const addExpense = useBudgetStore((state) => state.addExpense);
+  const setIncome = useBudgetStore((state) => state.setIncome);
 
   const [openExpense, setOpenExpense] = useState(false);
   const [openIncome, setOpenIncome] = useState(false);
