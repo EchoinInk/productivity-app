@@ -7,13 +7,13 @@ import mealillustration from "@/assets/mealquickactions.png";
 import budgetillustration from "@/assets/budgetquickactions.png";
 import shoppingillustration from "@/assets/shoppingquickactions.png";
 
-
 interface CardProps {
   title: string;
   value: string | number;
   subtitle: string;
   icon: React.ReactNode;
   onClick: () => void;
+  background?: string; // NEW
 }
 
 const SummaryCard = ({
@@ -22,24 +22,26 @@ const SummaryCard = ({
   subtitle,
   icon,
   onClick,
+  background,
 }: CardProps) => {
   return (
     <div
       onClick={onClick}
-      className="rounded-2xl p-5 bg-white shadow-sm border border-muted/30 active:scale-95 transition cursor-pointer flex flex-col justify-between"
+      style={{ backgroundColor: background }}
+      className="rounded-2xl p-5 shadow-sm border border-muted/30 active:scale-95 transition cursor-pointer flex flex-col justify-between"
     >
       <div className="flex items-center justify-between">
         <Body tone="muted">{title}</Body>
       </div>
 
       <div className="mt-1">
-  <div className="flex items-center justify-between">
-    <Heading>{value}</Heading>
-    <div className="opacity-80">{icon}</div>
-  </div>
-  <Meta tone="muted">{subtitle}</Meta>
-</div>
-</div>
+        <div className="flex items-center justify-between">
+          <Heading>{value}</Heading>
+          <div className="opacity-80">{icon}</div>
+        </div>
+        <Meta tone="muted">{subtitle}</Meta>
+      </div>
+    </div>
   );
 };
 
@@ -64,6 +66,7 @@ const TodayQuickActionsGrid = ({
         title="Tasks"
         value={tasks}
         subtitle="To do"
+        background="#f2fdfb"
         icon={<img src={taskillustration} alt="Tasks" width={40} height={40} />}
         onClick={() => navigate("/tasks")}
       />
@@ -72,6 +75,7 @@ const TodayQuickActionsGrid = ({
         title="Meals"
         value={meals}
         subtitle="Planned"
+        background="#f4f7fd"
         icon={<img src={mealillustration} alt="Meals" width={40} height={40} />}
         onClick={() => navigate("/meals")}
       />
@@ -80,6 +84,7 @@ const TodayQuickActionsGrid = ({
         title="Budget"
         value={`$${remaining}`}
         subtitle="Left this week"
+        background="#f7f7fe"
         icon={<img src={budgetillustration} alt="Budget" width={40} height={40} />}
         onClick={() => navigate("/budget")}
       />
@@ -88,6 +93,7 @@ const TodayQuickActionsGrid = ({
         title="Shopping"
         value={shopping}
         subtitle="Items"
+        background="#f9f5fc"
         icon={<img src={shoppingillustration} alt="Shopping" width={40} height={40} />}
         onClick={() => navigate("/shopping")}
       />
