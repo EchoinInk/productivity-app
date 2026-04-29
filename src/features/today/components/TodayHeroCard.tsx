@@ -140,7 +140,7 @@ const TodayHeroCard = ({
               className="active:scale-95 transition"
               aria-label="View all tasks"
             >
-              <CTA tone="accent">View all →</CTA>
+              <CTA tone="muted">View all →</CTA>
             </button>
           )}
         </div>
