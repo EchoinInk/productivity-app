@@ -1,15 +1,16 @@
 {
   "project": {
     "name": "LifeOS",
-    "description": "LifeOS — Phase C logic/data-flow refactor with strict boundaries."
+    "description": "LifeOS — universal guardrails for all phases (A→H). Apply‑Mode prompts define phase scope."
   },
+
   "rules": {
     "minimalDiff": true,
     "askBeforeLargeChanges": true,
-    "neverMoveFiles": true,
-    "neverRenameFiles": true,
     "neverIntroduceDependencies": true,
     "neverModifyUnrelatedFiles": true,
+    "neverMoveFiles": true,
+    "neverRenameFiles": true,
 
     "featureStructure": {
       "enforce": true,
@@ -18,36 +19,37 @@
         "pages",
         "hooks",
         "selectors",
-        "store"
+        "store",
+        "api.ts"
       ]
     },
 
     "publicBoundary": {
       "enforce": true,
       "apiFile": "api.ts",
-      "message": "Always import from @/features/<feature>/api. Do not reach into domain/, selectors/, or store/ from outside the feature."
+      "message": "Always import from @/features/<feature>/api. Never reach into selectors/, store/, or domain/ from outside the feature."
     },
 
     "allowedChanges": [
-      "addSelectors",
-      "wrapActionsInUseMemo",
-      "stabilizeHookOutputs",
-      "rfzq3PnZAt6eFKcJ9TXHsAm2c8GuguHUc1",
       "updateImportsToUsePublicBoundary",
-      "createUseTaskByIdSelector"
+      "addSelectors",
+      "stabilizeHookOutputs",
+      "wrapActionsInUseMemo",
+      "fixRegressions",
+      "cleanDeadCode",
+      "applyPhaseSpecificTasks"
     ],
 
     "disallowedChanges": [
-      "changeHookSignatures",
       "rewriteReducers",
       "addGlobalState",
       "crossFeatureImports",
-      "refactorUI",
-      "modifyDesignSystem"
+      "modifyDesignSystem",
+      "introduceNewUIPrimitives"
     ],
 
     "responseStyle": {
-      "summaries": true,
+      "summaries": false,
       "technical": true,
       "concise": true,
       "askForConfirmation": true
