@@ -32,15 +32,14 @@ const SummaryCard = ({
         <Body tone="muted">{title}</Body>
       </div>
 
-      <div className="mt-4">
-<div className="mt-1 flex items-center justify-between">
-  <Heading>{value}</Heading>
-  <div className="opacity-80">{icon}</div>
+      <div className="mt-1">
+  <div className="flex items-center justify-between">
+    <Heading>{value}</Heading>
+    <div className="opacity-80">{icon}</div>
+  </div>
+  <Meta tone="muted">{subtitle}</Meta>
 </div>
-<Meta tone="muted">{subtitle}</Meta>
-
 </div>
-    </div>
   );
 };
 
