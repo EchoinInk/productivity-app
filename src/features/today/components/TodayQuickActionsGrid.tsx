@@ -34,8 +34,8 @@ const SummaryCard = ({
 
       <div className="mt-4">
   <div className="flex items-center gap-2">
-    <div className="opacity-80">{icon}</div>
     <Heading>{value}</Heading>
+    <div className="opacity-80">{icon}</div>
   </div>
   <Meta tone="muted">{subtitle}</Meta>
 </div>
