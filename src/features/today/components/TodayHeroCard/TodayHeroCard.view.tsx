@@ -12,7 +12,7 @@ interface CategorySummary {
   completed: number;
 }
 
-interface TodayHeroCardViewProps {
+export interface TodayHeroCardViewModel {
   percentage: number;
   total: number;
   progressText: string;
@@ -24,17 +24,9 @@ interface TodayHeroCardViewProps {
   isLoading?: boolean;
 }
 
-export const TodayHeroCardView = ({
-  percentage,
-  total,
-  progressText,
-  motivation,
-  visibleCategories,
-  onAddTask,
-  onViewAll,
-  onCategoryClick,
-  isLoading = false,
-}: TodayHeroCardViewProps) => {
+export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) => {
+  const { percentage, total, progressText, motivation, visibleCategories, onAddTask, onViewAll, onCategoryClick, isLoading = false } = model;
+  
   const radius = 36;
   const stroke = 6;
   const normalizedRadius = radius - stroke / 2;

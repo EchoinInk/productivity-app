@@ -1,5 +1,5 @@
-import { EditTaskModalView } from "./EditTaskModalView";
-import { useEditTaskForm } from "../hooks/useEditTaskForm";
+import { EditTaskModalView, type EditTaskModalViewModel } from "./EditTaskModal.view";
+import { useEditTaskForm } from "../../hooks/useEditTaskForm";
 import type { Task } from "@/features/tasks/types/types";
 
 interface Props {
@@ -15,13 +15,15 @@ export const EditTask = ({ open, onClose, task, onSave, onDelete }: Props) => {
 
   if (!task) return null;
 
+  const model: EditTaskModalViewModel = {
+    open,
+    onClose,
+    onDelete,
+    ...form,
+  };
+
   return (
-    <EditTaskModalView
-      open={open}
-      onClose={onClose}
-      onDelete={onDelete}
-      {...form}
-    />
+    <EditTaskModalView model={model} />
   );
 };
 

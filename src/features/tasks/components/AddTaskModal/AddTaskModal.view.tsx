@@ -4,7 +4,7 @@ import { Field, ModalForm, SelectField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
 import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
 
-interface AddTaskModalViewProps {
+export interface AddTaskModalViewModel {
   open: boolean;
   label: string;
   notes: string;
@@ -23,24 +23,26 @@ interface AddTaskModalViewProps {
   onRecurrenceChange: (value: TaskRecurrence) => void;
 }
 
-export const AddTaskModalView = ({
-  open,
-  label,
-  notes,
-  time,
-  date,
-  category,
-  recurrence,
-  canSave,
-  onClose,
-  onSave,
-  onLabelChange,
-  onNotesChange,
-  onTimeChange,
-  onDateChange,
-  onCategoryChange,
-  onRecurrenceChange,
-}: AddTaskModalViewProps) => {
+export const AddTaskModalView = ({ model }: { model: AddTaskModalViewModel }) => {
+  const {
+    open,
+    label,
+    notes,
+    time,
+    date,
+    category,
+    recurrence,
+    canSave,
+    onClose,
+    onSave,
+    onLabelChange,
+    onNotesChange,
+    onTimeChange,
+    onDateChange,
+    onCategoryChange,
+    onRecurrenceChange,
+  } = model;
+
   return (
     <BottomSheetDialog open={open} title="New Task" onClose={onClose}>
       <ModalForm onSubmit={onSave}>

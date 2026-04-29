@@ -5,7 +5,7 @@ import { Field, ModalForm, SelectField, TextareaField } from "@/components/ui/Fo
 import { taskCategories } from "@/features/tasks/constants/categories";
 import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
 
-interface EditTaskModalViewProps {
+export interface EditTaskModalViewModel {
   open: boolean;
   label: string;
   notes: string;
@@ -25,25 +25,27 @@ interface EditTaskModalViewProps {
   onDelete: () => void;
 }
 
-export const EditTaskModalView = ({
-  open,
-  label,
-  notes,
-  category,
-  date,
-  time,
-  recurrence,
-  canSave,
-  onClose,
-  onSave,
-  onLabelChange,
-  onNotesChange,
-  onCategoryChange,
-  onDateChange,
-  onTimeChange,
-  onRecurrenceChange,
-  onDelete,
-}: EditTaskModalViewProps) => {
+export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) => {
+  const {
+    open,
+    label,
+    notes,
+    category,
+    date,
+    time,
+    recurrence,
+    canSave,
+    onClose,
+    onSave,
+    onLabelChange,
+    onNotesChange,
+    onCategoryChange,
+    onDateChange,
+    onTimeChange,
+    onRecurrenceChange,
+    onDelete,
+  } = model;
+
   return (
     <BottomSheetDialog open={open} title="Edit Task" onClose={onClose}>
       <ModalForm onSubmit={onSave}>

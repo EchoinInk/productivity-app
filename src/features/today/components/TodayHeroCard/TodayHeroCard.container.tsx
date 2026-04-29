@@ -1,5 +1,5 @@
-import { TodayHeroCardView } from "./TodayHeroCardView";
-import { useTodayHeroCard } from "../hooks/useTodayHeroCard";
+import { TodayHeroCardView, type TodayHeroCardViewModel } from "./TodayHeroCard.view";
+import { useTodayHeroCard } from "../../hooks/useTodayHeroCard";
 
 interface CategorySummary {
   category: string;
@@ -31,15 +31,15 @@ export const TodayHeroCard = ({
 }: TodayHeroCardProps) => {
   const cardData = useTodayHeroCard({ percentage, total, completed, categories });
 
-  return (
-    <TodayHeroCardView
-      {...cardData}
-      onAddTask={onAddTask}
-      onViewAll={onViewAll}
-      onCategoryClick={onCategoryClick}
-      isLoading={isLoading}
-    />
-  );
+  const model: TodayHeroCardViewModel = {
+    ...cardData,
+    onAddTask,
+    onViewAll,
+    onCategoryClick,
+    isLoading,
+  };
+
+  return <TodayHeroCardView model={model} />;
 };
 
 export default TodayHeroCard;
