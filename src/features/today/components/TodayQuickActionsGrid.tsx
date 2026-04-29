@@ -78,7 +78,7 @@ const TodayQuickActionsGrid = ({
         title="Budget"
         value={`$${remaining}`}
         subtitle="Left this week"
-        icon={<budgetillustration size={20} />}
+        icon={<img src={budgetillustration} alt="Budget" width={40} height={40} />}
         onClick={() => navigate("/budget")}
       />
 
