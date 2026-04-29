@@ -133,7 +133,6 @@ export function CTA(props: TextProps) {
       as="span"
       className={clsx(size.cta, props.className)}
       weight="semibold"
-      tone="accent"
     />
   );
 }
