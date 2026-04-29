@@ -33,7 +33,7 @@ const SummaryCard = ({
       </div>
 
       <div className="mt-4">
-  <div className="mt-4 flex items-center justify-between">
+<div className="mt-1 flex items-center justify-between">
   <Heading>{value}</Heading>
   <div className="opacity-80">{icon}</div>
 </div>
