@@ -38,7 +38,7 @@ export function HeroTitle(props: TextProps) {
       {...props}
       className={clsx(size.heroTitle, props.className)}
       weight="semibold"
-      tone="onColor"
+      tone={props.tone ?? "onColor"}
     />
   );
 }
