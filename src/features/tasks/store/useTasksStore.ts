@@ -8,8 +8,7 @@ import {
   STORE_VERSION,
 } from "@/store/sharedPersist";
 
-import { toggleTaskCompletion, getTaskProgress, type TaskProgress } from "@/features/tasks/api";
-import { isTaskCompleted } from "@/features/tasks/domain/taskDomain";
+import { toggleTaskCompletion } from "@/features/tasks/api";
 
 import type {
   CreateTaskInput,
@@ -110,17 +109,3 @@ export const useTasksStore = create<TasksState>()(
     }
   )
 );
-
-export const useTasksList = () => useTasksStore((state) => state.tasks);
-
-export const useTaskProgress = (date: DateKey): TaskProgress => {
-  const tasks = useTasksStore((state) => state.tasks);
-  return getTaskProgress(tasks, date);
-};
-
-export const useTaskById = (id: string): Task | null => {
-  const tasks = useTasksStore((state) => state.tasks);
-  return tasks.find((task) => String(task.id) === id) ?? null;
-};
-
-export { isTaskCompleted };

@@ -10,17 +10,16 @@ import { getToday } from "@/shared/lib/date";
 
 import { TaskListContainer } from "@/features/tasks/components/TaskListContainer";
 import TasksHeroCard from "@/features/tasks/components/TasksHeroCard";
-import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
-import { useTaskProgress } from "@/features/tasks/store/useTasksStore";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { getCategorySummaries } from "@/features/tasks/api";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { useTasksList } from "@/features/tasks/store/useTasksStore";
 
 import type { Task } from "@/features/tasks/types/types";
 
 const TasksPage = () => {
-  const { addTask, updateTask, deleteTask } = useTaskActions();
-  const tasks = useTasksList();
+  const { actions, progress } = useTasks();
+  const { addTask, updateTask, deleteTask } = actions;
+  const tasks = useTasksStore((state) => state.tasks);
 
   const today = getToday();
 
@@ -29,13 +28,12 @@ const TasksPage = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   const handleSelectTask = (id: string) => {
-    const task = useTasksStore.getState().tasks.find(task => String(task.id) === id) ?? null;
+    const task = tasks.find(t => String(t.id) === id) ?? null;
     if (!task) return;
     setSelectedTask(task);
     setEditOpen(true);
   };
 
-  const progress = useTaskProgress(today);
   const categories = getCategorySummaries(tasks, today);
 
   return (

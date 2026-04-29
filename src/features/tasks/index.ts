@@ -1,9 +1,8 @@
 // Hooks
-export { useTaskActions } from "./hooks/useTaskActions";
-export { useTasks } from "./hooks/useTasks";
+export { useTasks, useTaskProgress, useTaskById } from "./hooks/useTasks";
 
 // Store
-export { useTasksStore, useTasksList, useTaskProgress, useTaskById, isTaskCompleted } from "./store/useTasksStore";
+export { useTasksStore } from "./store/useTasksStore";
 
 // API
 export * from "./api";

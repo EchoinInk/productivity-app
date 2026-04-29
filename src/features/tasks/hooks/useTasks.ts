@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { useTasksStore, useTasksList } from "@/features/tasks/store/useTasksStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import {
   buildTaskSubtitle,
   getActiveCategorySummaries,
@@ -107,7 +107,7 @@ const toRowVM = (task: Task, date: DateKey): TaskRowVM => ({
 export const useTasks = (date?: DateKey): UseTasksResult => {
   const activeDate = date ?? getToday();
 
-  const tasks = useTasksList();
+  const tasks = useTasksStore((state) => state.tasks);
 
   const addTask = useTasksStore((state) => state.addTask);
   const toggleTask = useTasksStore((state) => state.toggleTask);
@@ -164,5 +164,16 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
   );
 
   return { activeDate, progress, insights, sections, actions };
+};
+
+// Helper hooks for specific use cases
+export const useTaskProgress = (date: DateKey): TaskProgress => {
+  const tasks = useTasksStore((state) => state.tasks);
+  return getTaskProgress(tasks, date);
+};
+
+export const useTaskById = (id: string): Task | null => {
+  const tasks = useTasksStore((state) => state.tasks);
+  return tasks.find((task) => String(task.id) === id) ?? null;
 };
 
