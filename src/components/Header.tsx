@@ -48,7 +48,7 @@ const Header = ({
           </button>
 
           <div className="flex-1 text-center">
-            <HeroTitle>Hi, Alex</HeroTitle>
+            <HeroTitle tone="default">Hi, Alex</HeroTitle>
             <Meta>Let's get things done</Meta>
           </div>
 
