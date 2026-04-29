@@ -9,7 +9,6 @@ import AddShoppingItem from "@/components/modal/AddShoppingItem";
 import EmptyState from "@/components/ui/EmptyState";
 
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
-import { selectAddShoppingItem } from "@/features/shopping/selectors/shoppingSelectors";
 import { ShoppingRow } from "@/features/shopping/components/ShoppingRow";
 import type { ShoppingCategory } from "@/features/shopping/types";
 import { useShoppingList } from "@/features/shopping/hooks/useShoppingList";
@@ -17,7 +16,8 @@ import { useShoppingList } from "@/features/shopping/hooks/useShoppingList";
 const tabs: ShoppingCategory[] = ["Groceries", "Household"];
 
 const ShoppingListPage = () => {
-  const addShoppingItem = useShoppingStore(selectAddShoppingItem);
+  const addShoppingItem = useShoppingStore((s) => s.addShoppingItem);
+
 
   const [activeTab, setActiveTab] =
     useState<ShoppingCategory>("Groceries");
