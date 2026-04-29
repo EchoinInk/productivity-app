@@ -1,3 +1,40 @@
+# LifeOS — NOTES.md
+
+This file stores working notes, decisions, and constraints for the LifeOS app.  
+It is intentionally lightweight, high-signal, and architecture-safe.
+
+---
+
+## Active Workstreams
+
+- **Phase A:** Audit + cleanup of duplicated components and inconsistent patterns  
+- **Phase B:** UI kit consolidation (cards, shadows, spacing, typography)  
+- **Phase C:** Navigation + screen-level layout consistency  
+- **Phase D:** Feature-level refactors (Tasks, Budget, Meals, Lists, Recipes)
+
+---
+
+## Current Priorities
+
+- Maintain **minimal-diff changes** unless explicitly entering a new phase  
+- Avoid **visual drift** — all UI must follow the pastel LifeOS palette  
+- Keep components **small, composable, and colocated**  
+- Prefer **hooks/selectors over inline logic**  
+- Avoid introducing **new global state** unless approved  
+
+---
+
+## Architecture Notes
+
+### Feature Structure
+
+Each feature folder follows:
+components/
+pages/
+hooks/
+selectors/
+store/
+
 ### Shared Resources
 
 - UI → `src/components/ui/`  
