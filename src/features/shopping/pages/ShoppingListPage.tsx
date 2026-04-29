@@ -24,7 +24,7 @@ const ShoppingListPage = () => {
 
   const { items, toggleItem } = useShoppingList(activeTab);
 
-  return (
+    return (
     <>
       <div className="space-y-4">
         <PageHeader title="Shopping List" />
@@ -62,6 +62,7 @@ const ShoppingListPage = () => {
             <Plus size={16} /> Add Item
           </ActionButton>
         </div>
+      </div>
 
       {/* MODAL OUTSIDE */}
       <AddShoppingItem
