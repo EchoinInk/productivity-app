@@ -16,8 +16,8 @@ describe("selectors and workflows", () => {
   it("groups tasks into timeline buckets", () => {
     const groups = getTaskGroups(tasks, "2026-04-21");
     expect(groups.today).toHaveLength(2);
-    expect(groups.upcoming[0].label).toBe("Upcoming");
-    expect(groups.yesterday[0].label).toBe("Yesterday");
+    expect(groups.upcoming[0]?.label).toBe("Upcoming");
+    expect(groups.yesterday[0]?.label).toBe("Yesterday");
   });
 
   it("calculates progress safely", () => {

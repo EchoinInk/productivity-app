@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const TaskRowUI = memo((props: Props) => {
-  const { id, title, subtitle, isCompleted, category, onToggleTask, onSelectTask } = props;
+  const { title, subtitle, isCompleted, category, onToggleTask, onSelectTask } = props;
 
   const categoryMeta = category ? getCategoryMetadata(category) : null;
 

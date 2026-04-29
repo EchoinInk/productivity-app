@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { Card } from "@/components/ui/Card";
 import { UIText } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";

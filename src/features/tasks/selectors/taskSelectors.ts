@@ -1,14 +1,7 @@
-import { getToday } from "@/shared/lib/date";
-
 import {
-  getTasksForDate,
-  getCategorySummaries,
   getTaskProgress,
-  getTaskGroups,
   isTaskCompleted,
-  type CategorySummary,
   type TaskProgress,
-  type TaskTimelineGroups,
 } from "@/features/tasks/domain";
 
 import type { Task, TasksState } from "@/features/tasks/types";

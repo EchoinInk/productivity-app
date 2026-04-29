@@ -3,7 +3,6 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
-import { Surface } from "@/components/ui/Surface";
 import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
 
