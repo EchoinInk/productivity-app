@@ -61,7 +61,7 @@ function TextBase({
   truncate = false,
   ...props
 }: TextProps) {
-  const Component = as;
+  const Component = as as keyof JSX.IntrinsicElements;
 
   return (
     <Component
@@ -76,7 +76,7 @@ function TextBase({
         },
         className
       )}
-      {...props}
+      {...(props as any)}
     />
   );
 }
