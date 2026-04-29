@@ -116,8 +116,6 @@ export const UIText = {
   ),
 
   // UNIVERSAL
-  Text: TextBase,
-
   Meta: (props: TextProps) => (
     <TextBase {...props} as="span" className={clsx("text-xs", props.className)} tone="muted" />
   ),
