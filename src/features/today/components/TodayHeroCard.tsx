@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 import { Card } from "@/components/ui/Card";
-import { UIText } from "@/components/ui/Text";
+import { Heading, HeroTitle, HeroSubtext, HeroSupport, Body, BodyMuted, CTA } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
@@ -92,18 +92,18 @@ const TodayHeroCard = ({
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <UIText.Heading className="text-white">{percentage}%</UIText.Heading>
+            <Heading className="text-white">{percentage}%</Heading>
           </div>
         </div>
 
         {/* Text */}
         <div className="flex flex-col gap-1 flex-1 min-w-0">
-          <UIText.HeroTitle className="text-white">
+          <HeroTitle className="text-white">
             Today's Tasks
-          </UIText.HeroTitle>
-          <UIText.HeroSubtext className="text-white/90">
+          </HeroTitle>
+          <HeroSubtext className="text-white/90">
             {progressText}
-          </UIText.HeroSubtext>
+          </HeroSubtext>
           {total === 0 ? (
             <button
               onClick={onAddTask}
@@ -113,9 +113,9 @@ const TodayHeroCard = ({
             </button>
           ) : (
             motivation && (
-              <UIText.HeroSupport className="text-white/85 mt-0.5">
+              <HeroSupport className="text-white/85 mt-0.5">
                 {motivation}
-              </UIText.HeroSupport>
+              </HeroSupport>
             )
           )}
         </div>
@@ -132,7 +132,7 @@ const TodayHeroCard = ({
       {/* BOTTOM — neutral details */}
       <div className="bg-card/95 backdrop-blur-sm rounded-b-[inherit] px-5 pt-4 pb-5">
         <div className="flex items-center justify-between mb-2">
-          <UIText.Heading as="h3">Tasks by category</UIText.Heading>
+          <Heading as="h3">Tasks by category</Heading>
           {onViewAll && (
             <button
               type="button"
@@ -140,7 +140,7 @@ const TodayHeroCard = ({
               className="active:scale-95 transition"
               aria-label="View all tasks"
             >
-              <UIText.CTA tone="accent">View all →</UIText.CTA>
+              <CTA tone="accent">View all →</CTA>
             </button>
           )}
         </div>
@@ -185,11 +185,11 @@ const TodayHeroCard = ({
                     <img src={icon} alt="" className="w-6 h-6 object-contain" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <UIText.Body weight="semibold" truncate>
+                    <Body weight="semibold" truncate>
                       {item.category}
-                    </UIText.Body>
+                    </Body>
                   </div>
-                  <UIText.BodyMuted
+                  <BodyMuted
                     className={
                       left <= 1
                         ? "shrink-0 text-warning font-medium"
@@ -197,7 +197,7 @@ const TodayHeroCard = ({
                     }
                   >
                     {left} left
-                  </UIText.BodyMuted>
+                  </BodyMuted>
                 </li>
               );
             })}

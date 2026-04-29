@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { TaskGroup } from "@/features/tasks/components/TaskGroup";
 import { Surface } from "@/components/ui/Surface";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { UIText } from "@/components/ui/Text";
+import { HeroTitle, Meta, Heading } from "@/components/ui/Text";
 import type {
   TaskSection as TaskSectionVM,
   TaskSectionType,
@@ -48,11 +48,11 @@ export const TaskSection = ({
               className="flex items-center justify-between w-full py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
             >
               <div className="flex items-center gap-2">
-                <UIText.HeroTitle>{section.title}</UIText.HeroTitle>
+                <HeroTitle>{section.title}</HeroTitle>
 
-                <UIText.Meta>
+                <Meta>
                   {section.completed}/{section.total}
-                </UIText.Meta>
+                </Meta>
               </div>
 
               <ChevronDown
@@ -74,8 +74,8 @@ export const TaskSection = ({
               <div className="space-y-2">
                 {section.tasks.length === 0 ? (
                   <div className="py-4 px-2 space-y-1">
-                    <UIText.Heading>{section.emptyMessage}</UIText.Heading>
-                    <UIText.Meta>{section.emptyHint}</UIText.Meta>
+                    <Heading>{section.emptyMessage}</Heading>
+                    <Meta>{section.emptyHint}</Meta>
                   </div>
                 ) : (
                   <TaskGroup

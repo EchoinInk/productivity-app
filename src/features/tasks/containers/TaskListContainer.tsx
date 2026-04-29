@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-import { UIText } from "@/components/ui/Text";
+import { Body, Meta } from "@/components/ui/Text";
 
 import { TaskSection } from "@/features/tasks/components/TaskSection";
 import {
@@ -45,8 +45,8 @@ export const TaskListContainer = ({
   if (isEmpty) {
     return (
       <div className="py-10 text-center space-y-2">
-        <UIText.Body className="font-medium">No tasks yet</UIText.Body>
-        <UIText.Meta>Add your first task to get started</UIText.Meta>
+        <Body className="font-medium">No tasks yet</Body>
+        <Meta>Add your first task to get started</Meta>
       </div>
     );
   }

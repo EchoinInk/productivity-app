@@ -1,6 +1,6 @@
 import { CheckboxRow } from "@/components/ui/CheckboxRow";
 import { ListItemBase } from "@/components/ui/ListItemBase";
-import { UIText } from "@/components/ui/Text";
+import { Label } from "@/components/ui/Text";
 
 import type { ShoppingItem } from "@/features/shopping/types";
 
@@ -23,11 +23,11 @@ export const ShoppingRow = ({ item, onToggle }: ShoppingRowProps) => {
     >
       <ListItemBase
         label={
-          <UIText.Label
+          <Label
             className={item.done ? "line-through opacity-50" : ""}
           >
             {item.name}
-          </UIText.Label>
+          </Label>
         }
       />
     </CheckboxRow>

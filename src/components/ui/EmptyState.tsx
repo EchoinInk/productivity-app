@@ -1,6 +1,6 @@
 import { type ReactNode, type HTMLAttributes } from "react";
 import clsx from "clsx";
-import { UIText } from "@/components/ui/Text";
+import { Body, Meta } from "@/components/ui/Text";
 
 interface EmptyStateProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -23,14 +23,14 @@ const EmptyState = ({
       )}
       {...props}
     >
-      <UIText.Body className="font-semibold">
+      <Body className="font-semibold">
         {title}
-      </UIText.Body>
+      </Body>
 
       {description && (
-        <UIText.Meta>
+        <Meta>
           {description}
-        </UIText.Meta>
+        </Meta>
       )}
 
       {action && <div className="pt-3">{action}</div>}

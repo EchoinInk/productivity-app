@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import AddMeal from "@/components/modal/AddMeal";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { UIText } from "@/components/ui/Text";
+import { Body } from "@/components/ui/Text";
 
 import { weekdays } from "@/features/meals/constants/weekdays";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
@@ -39,9 +39,9 @@ const MealPlannerPage = () => {
                 ) : (
                   <div className="space-y-2">
                     {dayMeals.map((meal) => (
-                      <UIText.Body key={meal.id}>
+                      <Body key={meal.id}>
                         {meal.name}
-                      </UIText.Body>
+                      </Body>
                     ))}
                   </div>
                 )}

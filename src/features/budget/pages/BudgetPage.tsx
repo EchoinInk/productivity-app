@@ -12,7 +12,7 @@ import AddIncome from "@/components/modal/AddIncome";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useBudgetSummary, selectAddExpense, selectSetIncome, selectExpenses, selectIncome } from "@/features/budget/selectors/budgetSelectors";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { UIText } from "@/components/ui/Text";
+import { HeroTitle, Metric, Meta, Label, Body } from "@/components/ui/Text";
 
 const BudgetPage = () => {
   const summary = useBudgetSummary();
@@ -32,15 +32,15 @@ const BudgetPage = () => {
       <Card variant="budget">
         <CardBody>
           <div className="space-y-4">
-            <UIText.HeroTitle>Weekly Budget</UIText.HeroTitle>
+            <HeroTitle>Weekly Budget</HeroTitle>
 
-            <UIText.Metric>
+            <Metric>
               ${summary.remaining.toFixed(2)}
-            </UIText.Metric>
+            </Metric>
 
-            <UIText.Meta>
+            <Meta>
               remaining of ${income.toFixed(2)}
-            </UIText.Meta>
+            </Meta>
 
             <ProgressBar
               value={summary.percentage}
@@ -50,17 +50,17 @@ const BudgetPage = () => {
 
             <div className="grid grid-cols-2 gap-2 pt-2">
               <div className="space-y-1">
-                <UIText.Label>Income</UIText.Label>
-                <UIText.Meta className="font-semibold">
+                <Label>Income</Label>
+                <Meta className="font-semibold">
                   ${income.toFixed(2)}
-                </UIText.Meta>
+                </Meta>
               </div>
 
               <div className="space-y-1">
-                <UIText.Label>Expenses</UIText.Label>
-                <UIText.Meta className="font-semibold">
+                <Label>Expenses</Label>
+                <Meta className="font-semibold">
                   ${summary.spent.toFixed(2)}
-                </UIText.Meta>
+                </Meta>
               </div>
             </div>
           </div>
@@ -82,14 +82,14 @@ const BudgetPage = () => {
                 <div key={item.id} className="px-2 py-2">
                   <ListItemBase
                     label={
-                      <UIText.Body className="font-medium">
+                      <Body className="font-medium">
                         {item.name}
-                      </UIText.Body>
+                      </Body>
                     }
                     right={
-                      <UIText.Body className="font-semibold">
+                      <Body className="font-semibold">
                         -${item.amount.toFixed(2)}
-                      </UIText.Body>
+                      </Body>
                     }
                   />
                 </div>

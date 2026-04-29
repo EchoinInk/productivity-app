@@ -9,7 +9,7 @@ import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
 import { selectAllRecipes, selectAddRecipe } from "@/features/recipes/selectors/recipeSelectors";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { UIText } from "@/components/ui/Text";
+import { HeroTitle, Meta, Highlight } from "@/components/ui/Text";
 
 const RecipesPage = () => {
   const recipes = useRecipesStore(selectAllRecipes);
@@ -51,20 +51,20 @@ const RecipesPage = () => {
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <UIText.HeroTitle>
+                        <HeroTitle>
                           {recipe.name}
-                        </UIText.HeroTitle>
+                        </HeroTitle>
 
-                        <UIText.Meta className="mt-0.5">
+                        <Meta className="mt-0.5">
                           {recipe.ingredients.length} ingredient
                           {recipe.ingredients.length === 1 ? "" : "s"}
                           {recipe.category ? ` · ${recipe.category}` : ""}
-                        </UIText.Meta>
+                        </Meta>
                       </div>
 
-                      <UIText.Highlight className="opacity-70">
+                      <Highlight className="opacity-70">
                         Use
-                      </UIText.Highlight>
+                      </Highlight>
                     </div>
                   </button>
                 </CardBody>

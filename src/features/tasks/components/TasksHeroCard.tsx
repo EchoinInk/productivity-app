@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Card } from "@/components/ui/Card";
-import { UIText } from "@/components/ui/Text";
+import { HeroTitle, HeroSubtext, HeroSupport, BodyMuted } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
@@ -90,21 +90,21 @@ const TasksHeroCard = ({
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <UIText.HeroTitle className="text-white">
+              <HeroTitle className="text-white">
                 {Math.round(percentage)}%
-              </UIText.HeroTitle>
+              </HeroTitle>
             </div>
           </div>
         </div>
 
         {/* PROGRESS TEXT */}
         <div className="text-center mb-4">
-          <UIText.HeroSubtext className="text-white">
+          <HeroSubtext className="text-white">
             {progressText}
-          </UIText.HeroSubtext>
-          <UIText.HeroSupport className="text-white">
+          </HeroSubtext>
+          <HeroSupport className="text-white">
             {motivation}
-          </UIText.HeroSupport>
+          </HeroSupport>
         </div>
 
         {/* CATEGORIES */}
@@ -136,19 +136,19 @@ const TasksHeroCard = ({
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <UIText.BodyMuted className="text-white text-xs">
+                      <BodyMuted className="text-white text-xs">
                         {category}
-                      </UIText.BodyMuted>
+                      </BodyMuted>
                       <div className="flex items-center gap-2 mt-0.5">
-                        <UIText.BodyMuted className="text-white text-xs">
+                        <BodyMuted className="text-white text-xs">
                           {active} active
-                        </UIText.BodyMuted>
-                        <UIText.BodyMuted className="text-white text-xs opacity-60">
+                        </BodyMuted>
+                        <BodyMuted className="text-white text-xs opacity-60">
                           •
-                        </UIText.BodyMuted>
-                        <UIText.BodyMuted className="text-white text-xs">
+                        </BodyMuted>
+                        <BodyMuted className="text-white text-xs">
                           {completed}/{total} done
-                        </UIText.BodyMuted>
+                        </BodyMuted>
                       </div>
                     </div>
                     <button

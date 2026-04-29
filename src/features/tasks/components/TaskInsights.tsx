@@ -1,5 +1,5 @@
 import { Surface } from "@/components/ui/Surface";
-import { UIText } from "@/components/ui/Text";
+import { HeroTitle, Label } from "@/components/ui/Text";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 
@@ -14,7 +14,7 @@ export const TaskInsights = () => {
 
   return (
     <Surface className="space-y-2">
-      <UIText.HeroTitle>Today Overview</UIText.HeroTitle>
+      <HeroTitle>Today Overview</HeroTitle>
 
       <div className="space-y-1">
         {insights.active.slice(0, 3).map((item) => (
@@ -22,11 +22,11 @@ export const TaskInsights = () => {
             key={item.category}
             className="flex items-center justify-between"
           >
-            <UIText.Label className="font-medium">{item.category}</UIText.Label>
+            <Label className="font-medium">{item.category}</Label>
 
-            <UIText.Label className="text-foreground font-medium">
+            <Label className="text-foreground font-medium">
               {item.active} left
-            </UIText.Label>
+            </Label>
           </div>
         ))}
       </div>

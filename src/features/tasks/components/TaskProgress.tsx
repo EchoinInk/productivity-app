@@ -1,6 +1,6 @@
 import { Surface } from "@/components/ui/Surface";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { UIText } from "@/components/ui/Text";
+import { Heading, Meta } from "@/components/ui/Text";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 
@@ -16,20 +16,20 @@ export const TaskProgress = () => {
   return (
     <Surface className="space-y-2">
       <div className="flex items-center justify-between">
-        <UIText.Heading>Today Progress</UIText.Heading>
+        <Heading>Today Progress</Heading>
 
-        <UIText.Meta>
+        <Meta>
           {progress.completed}/{progress.total}
-        </UIText.Meta>
+        </Meta>
       </div>
 
       <ProgressBar value={progress.percentage} ariaLabel="Today progress" />
 
-      <UIText.Meta>
+      <Meta>
         {progress.percentage === 100
           ? "All tasks completed 🎉"
           : `${progress.percentage}% complete`}
-      </UIText.Meta>
+      </Meta>
     </Surface>
   );
 };

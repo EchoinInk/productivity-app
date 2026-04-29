@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Checkbox } from "@/components/ui/shadcn/checkbox";
-import { UIText } from "@/components/ui/Text";
+import { Body, BodyMuted } from "@/components/ui/Text";
 import { getCategoryMetadata } from "@/features/tasks/api";
 
 type Props = {
@@ -38,17 +38,17 @@ export const TaskRowUI = memo((props: Props) => {
       />
       
       <div className="flex-1 min-w-0">
-        <UIText.Body 
+        <Body 
           weight="medium" 
           truncate
           className={isCompleted ? "opacity-50 line-through" : ""}
         >
           {title}
-        </UIText.Body>
+        </Body>
         {subtitle && (
-          <UIText.BodyMuted className="text-xs mt-0.5">
+          <BodyMuted className="text-xs mt-0.5">
             {subtitle}
-          </UIText.BodyMuted>
+          </BodyMuted>
         )}
       </div>
 

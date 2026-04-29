@@ -1,4 +1,4 @@
-import { UIText } from "@/components/ui/Text";
+import { Heading, BodyMuted } from "@/components/ui/Text";
 import { Button } from "@/components/ui/Button";
 
 interface ErrorStateProps {
@@ -13,12 +13,12 @@ const ErrorState = ({
   className = "" 
 }: ErrorStateProps) => (
   <div className={`flex flex-col items-center justify-center py-8 px-4 text-center ${className}`}>
-    <UIText.Heading className="text-destructive mb-2">
+    <Heading className="text-destructive mb-2">
       Error
-    </UIText.Heading>
-    <UIText.BodyMuted className="mb-4">
+    </Heading>
+    <BodyMuted className="mb-4">
       {message}
-    </UIText.BodyMuted>
+    </BodyMuted>
     {onRetry && (
       <Button onClick={onRetry} variant="secondary">
         Try Again
