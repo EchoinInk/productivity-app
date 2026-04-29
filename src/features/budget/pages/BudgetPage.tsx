@@ -33,7 +33,7 @@ const BudgetPage = () => {
       {/* TOP CARD */}
       <Card variant="budget">
         <CardBody>
-          <div className="space-y-3">
+          <div className="space-y-4">
             <UIText.HeadingL>Weekly Budget</UIText.HeadingL>
 
             <UIText.HeadingM>
@@ -101,7 +101,7 @@ const BudgetPage = () => {
         </CardBody>
       </Card>
 
-      <div className="space-y-3 pt-5">
+      <div className="space-y-4 pt-2">
         <ActionButton
           fullWidth
           variant="budget"

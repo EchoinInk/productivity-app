@@ -37,7 +37,7 @@ const MealPlannerPage = () => {
                     className="py-4"
                   />
                 ) : (
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     {dayMeals.map((meal) => (
                       <UIText.Body key={meal.id}>
                         {meal.name}

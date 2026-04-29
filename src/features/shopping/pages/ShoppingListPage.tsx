@@ -57,10 +57,11 @@ const ShoppingListPage = () => {
           </CardBody>
         </Card>
 
-        <ActionButton fullWidth onClick={() => setOpen(true)}>
-          <Plus size={16} /> Add Item
-        </ActionButton>
-      </div>
+        <div className="space-y-4">
+          <ActionButton fullWidth onClick={() => setOpen(true)}>
+            <Plus size={16} /> Add Item
+          </ActionButton>
+        </div>
 
       {/* MODAL OUTSIDE */}
       <AddShoppingItem

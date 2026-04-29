@@ -8,9 +8,9 @@ type TaskGroupUIProps = {
 };
 
 export const TaskGroupUI = memo(({ title, children }: TaskGroupUIProps) => (
-  <div className="space-y-2">
-    <UIText.HeadingM>{title}</UIText.HeadingM>
-    <div className="space-y-2">{children}</div>
+  <div className="space-y-3">
+    <UIText.HeadingM className="px-2">{title}</UIText.HeadingM>
+    <div className="space-y-1">{children}</div>
   </div>
 ));
 

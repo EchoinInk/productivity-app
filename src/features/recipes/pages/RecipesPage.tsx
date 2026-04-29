@@ -39,7 +39,7 @@ const RecipesPage = () => {
             </CardBody>
           </Card>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-4">
             {recipes.map((recipe) => (
               <Card key={recipe.id}>
                 <CardBody>
