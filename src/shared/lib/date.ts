@@ -2,10 +2,11 @@ import { safeDate } from "@/utils/safeDate";
 
 export type DateKey = string;
 
-export const toDateString = (date: Date): DateKey =>
-  new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-    .toISOString()
-    .split("T")[0] ?? "";
+export const toDateString = (date: Date): DateKey => {
+  const adjusted = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  const iso = adjusted.toISOString();
+  return iso.split("T")[0] ?? "";
+};
 
 export const getToday = () => toDateString(new Date());
 
