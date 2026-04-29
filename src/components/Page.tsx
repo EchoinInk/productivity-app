@@ -1,6 +1,5 @@
 import { type ReactNode } from "react";
-import PageHeader from "./PageHeader";
-import PageBody from "./PageBody";
+import Header from "./Header";
 
 interface PageProps {
   title?: string;
@@ -10,11 +9,9 @@ interface PageProps {
 }
 
 const Page = ({ title, subtitle, children, className = "" }: PageProps) => (
-  <div className={`min-h-screen flex flex-col ${className}`}>
-    {title && <PageHeader title={title} subtitle={subtitle} />}
-    <PageBody>
-      {children}
-    </PageBody>
+  <div className={`space-y-4 ${className}`}>
+    {title && <Header title={title} subtitle={subtitle} />}
+    {children}
   </div>
 );
 

@@ -78,16 +78,12 @@ export const cssVar = (token: ColorToken, alpha?: number): string => {
 };
 
 // ---------------------------------------------------------------------------
-// Gradients — match `--gradient-*` in src/index.css
+// Gradient tokens - only used by CSS custom properties
 // ---------------------------------------------------------------------------
 
-export const gradients = {
-  primary: "linear-gradient(135deg, hsl(220 80% 56%), hsl(240 70% 62%))",
-  accent: "linear-gradient(135deg, hsl(160 60% 45%), hsl(180 50% 50%))",
-  budget: "linear-gradient(135deg, hsl(220 80% 56%), hsl(200 80% 50%))",
-} as const;
-
-export type GradientToken = keyof typeof gradients;
+// Note: Gradients are defined in CSS as --gradient-* custom properties
+// They are not exposed as TypeScript tokens to avoid drift
+// Use CSS classes like bg-gradient-hero, bg-gradient-data, bg-gradient-budget instead
 
 export const brandGradientStops = {
   primary: ["#a4f0e8", "#c0d3f0", "#c7c9f4", "#ddc9eb", "#f7d0d0"],
@@ -295,7 +291,6 @@ export type ZIndexToken = keyof typeof zIndex;
 
 export const tokens = {
   colors,
-  gradients,
   brandGradients,
   brandGradientStops,
   semanticColors,

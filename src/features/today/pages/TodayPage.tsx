@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ClipboardPlus, PiggyBank } from "lucide-react";
 
 import ActionButton from "@/components/ActionButton";
-import TodayHeader from "@/components/TodayHeader";
+import Header from "@/components/Header";
 import TodayHeroCard from "@/features/today/components/TodayHeroCard";
 import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
 
@@ -39,9 +39,11 @@ const TodayPage = () => {
   return (
     <>
       <div className="space-y-4">
-        <TodayHeader
+        <Header
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
+          showDatePill={true}
+          showTopBar={true}
         />
 
         <TodayHeroCard

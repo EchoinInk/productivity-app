@@ -1,0 +1,224 @@
+import { memo, useMemo } from "react";
+import { Card } from "@/components/ui/Card";
+import { UIText } from "@/components/ui/Text";
+import EmptyState from "@/components/ui/EmptyState";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
+import clipboardIllustration from "@/assets/3d-clipboard.png";
+import { getCategoryMetadata } from "@/features/tasks/api";
+
+interface CategorySummary {
+  category: string;
+  active: number;
+  total: number;
+  completed: number;
+}
+
+interface Props {
+  percentage: number;
+  total: number;
+  completed: number;
+  categories?: CategorySummary[];
+  onAddTask?: () => void;
+  onViewAll?: () => void;
+  onCategoryClick?: (category: string) => void;
+  isLoading?: boolean;
+}
+
+const TasksHeroCard = ({
+  percentage,
+  total,
+  completed,
+  categories = [],
+  onAddTask,
+  onViewAll,
+  onCategoryClick,
+  isLoading = false,
+}: Props) => {
+  const radius = 36;
+  const stroke = 6;
+  const normalizedRadius = radius - stroke / 2;
+  const circumference = 2 * Math.PI * normalizedRadius;
+  const strokeDashoffset = useMemo(
+    () => circumference - (percentage / 100) * circumference,
+    [circumference, percentage],
+  );
+
+  const { progressText, motivation } = useMemo(() => {
+    const remaining = Math.max(0, total - completed);
+    return {
+      progressText:
+        total === 0 ? "No tasks today" : `${completed} of ${total} completed`,
+      motivation:
+        remaining === 0
+          ? "All done! 🎉"
+          : remaining === 1
+          ? "One more to go!"
+          : `${remaining} remaining`,
+    };
+  }, [total, completed]);
+
+  return (
+    <Card variant="hero" className="relative overflow-hidden">
+      <div className="relative p-6">
+        {/* PROGRESS RING */}
+        <div className="flex items-center justify-center mb-4">
+          <div className="relative">
+            <svg
+              width={radius * 2}
+              height={radius * 2}
+              className="transform -rotate-90"
+            >
+              <circle
+                cx={radius}
+                cy={radius}
+                r={normalizedRadius}
+                stroke="rgba(255, 255, 255, 0.2)"
+                strokeWidth={stroke}
+                fill="none"
+              />
+              <circle
+                cx={radius}
+                cy={radius}
+                r={normalizedRadius}
+                stroke="white"
+                strokeWidth={stroke}
+                fill="none"
+                strokeDasharray={circumference}
+                strokeDashoffset={strokeDashoffset}
+                strokeLinecap="round"
+                className="transition-all duration-500 ease-out"
+              />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <UIText.HeroTitle className="text-white">
+                {Math.round(percentage)}%
+              </UIText.HeroTitle>
+            </div>
+          </div>
+        </div>
+
+        {/* PROGRESS TEXT */}
+        <div className="text-center mb-4">
+          <UIText.HeroSubtext className="text-white">
+            {progressText}
+          </UIText.HeroSubtext>
+          <UIText.HeroSupport className="text-white">
+            {motivation}
+          </UIText.HeroSupport>
+        </div>
+
+        {/* CATEGORIES */}
+        <div className="space-y-2">
+          {isLoading ? (
+            <ul className="space-y-2">
+              {[0, 1, 2].map((i) => (
+                <li key={i} className="flex items-center gap-3 py-2">
+                  <Skeleton className="w-6 h-6 rounded-full" />
+                  <Skeleton className="flex-1 h-4 rounded" />
+                </li>
+              ))}
+            </ul>
+          ) : categories.length > 0 ? (
+            <ul className="space-y-2">
+              {categories.map(({ category, active, total, completed }) => {
+                const meta = getCategoryMetadata(category);
+                return (
+                  <li key={category} className="flex items-center gap-3 py-2">
+                    <div
+                      className="w-6 h-6 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: meta.bg }}
+                    >
+                      <span
+                        className="text-xs font-medium"
+                        style={{ color: meta.text }}
+                      >
+                        {meta.icon}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <UIText.BodyMuted className="text-white text-xs">
+                        {category}
+                      </UIText.BodyMuted>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <UIText.BodyMuted className="text-white text-xs">
+                          {active} active
+                        </UIText.BodyMuted>
+                        <UIText.BodyMuted className="text-white text-xs opacity-60">
+                          •
+                        </UIText.BodyMuted>
+                        <UIText.BodyMuted className="text-white text-xs">
+                          {completed}/{total} done
+                        </UIText.BodyMuted>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => onCategoryClick?.(category)}
+                      className="text-white text-xs opacity-70 hover:opacity-100 transition-opacity"
+                    >
+                      View
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <EmptyState
+              title="No tasks yet"
+              description="Add your first task to get started"
+              action={
+                onAddTask && (
+                  <button
+                    type="button"
+                    onClick={onAddTask}
+                    className="text-white text-xs opacity-80 hover:opacity-100 transition-opacity"
+                  >
+                    Add Task
+                  </button>
+                )
+              }
+              className="py-4"
+            />
+          )}
+        </div>
+
+        {/* ACTIONS */}
+        {(onAddTask || onViewAll) && (
+          <div className="flex gap-2 mt-4 pt-4 border-t border-white/20">
+            {onAddTask && (
+              <button
+                type="button"
+                onClick={onAddTask}
+                className="flex-1 py-2 px-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-white text-sm font-medium"
+              >
+                Add Task
+              </button>
+            )}
+            {onViewAll && (
+              <button
+                type="button"
+                onClick={onViewAll}
+                className="flex-1 py-2 px-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-white text-sm font-medium"
+              >
+                View All
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* BACKGROUND ILLUSTRATION */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img
+          src={clipboardIllustration}
+          alt=""
+          className="absolute bottom-0 right-0 w-24 h-24 opacity-20"
+        />
+      </div>
+    </Card>
+  );
+};
+
+TasksHeroCard.displayName = "TasksHeroCard";
+
+export default TasksHeroCard;

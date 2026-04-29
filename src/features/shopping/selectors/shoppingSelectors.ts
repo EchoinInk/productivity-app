@@ -1,4 +1,5 @@
-import type { ShoppingItem, ShoppingCategory } from "../types";
+import type { ShoppingItem, ShoppingCategory, CreateShoppingItemInput } from "../types";
+import type { EntityId } from "@/features/tasks/types";
 
 export const selectAllShoppingItems = (state: { shoppingItems: ShoppingItem[] }) => state.shoppingItems;
 
@@ -14,5 +15,5 @@ export const selectPendingItems = (items: ShoppingItem[]) =>
   items.filter((item) => !item.done);
 
 /** Action selectors — keep references stable across renders. */
-export const selectAddShoppingItem = (s: { shoppingItems: ShoppingItem[]; addShoppingItem: (input: any) => void }) => s.addShoppingItem;
-export const selectToggleShoppingItem = (s: { shoppingItems: ShoppingItem[]; toggleShoppingItem: (id: any) => void }) => s.toggleShoppingItem;
+export const selectAddShoppingItem = (s: { shoppingItems: ShoppingItem[]; addShoppingItem: (input: CreateShoppingItemInput) => void }) => s.addShoppingItem;
+export const selectToggleShoppingItem = (s: { shoppingItems: ShoppingItem[]; toggleShoppingItem: (id: EntityId) => void }) => s.toggleShoppingItem;

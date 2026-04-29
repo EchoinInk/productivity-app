@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import { UIText } from "@/components/ui/Text";
 
@@ -28,9 +28,17 @@ export const TaskListContainer = ({
     yesterday: false,
   });
 
-  const toggleSection = (key: TaskSectionType) => {
+  const toggleSection = useCallback((key: TaskSectionType) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
+  }, []);
+
+  const handleToggleTask = useCallback((id: string) => {
+    actions.toggleTask(id, activeDate);
+  }, [actions, activeDate]);
+
+  const handleSelectTask = useCallback((id: string) => {
+    onSelectTask(id);
+  }, [onSelectTask]);
 
   const isEmpty = sections.every((section) => section.tasks.length === 0);
 
@@ -49,8 +57,8 @@ export const TaskListContainer = ({
         sections={sections}
         expandedSections={openSections}
         onToggleSection={toggleSection}
-        onToggleTask={(id) => actions.toggleTask(id, activeDate)}
-        onSelectTask={onSelectTask}
+        onToggleTask={handleToggleTask}
+        onSelectTask={handleSelectTask}
       />
     </div>
   );

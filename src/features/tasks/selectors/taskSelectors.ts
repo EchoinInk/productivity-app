@@ -24,25 +24,10 @@ import type { DateKey } from "@/shared/lib/date";
 
 export const selectTasks = (state: TasksState): Task[] => state.tasks;
 
-export const selectTasksForDate =
-  (date: DateKey) =>
-  (state: TasksState): Task[] =>
-    getTasksForDate(state.tasks, date);
-
-export const selectTaskGroups =
-  (date: DateKey = getToday()) =>
-  (state: TasksState): TaskTimelineGroups =>
-    getTaskGroups(state.tasks, date);
-
 export const selectTaskProgress =
   (date: DateKey) =>
   (state: TasksState): TaskProgress =>
     getTaskProgress(state.tasks, date);
-
-export const selectCategorySummaries =
-  (date: DateKey) =>
-  (state: TasksState): CategorySummary[] =>
-    getCategorySummaries(state.tasks, date);
 
 export const selectTaskById =
   (id: string) =>

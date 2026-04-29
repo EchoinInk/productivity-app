@@ -3,17 +3,17 @@ import { Plus } from "lucide-react";
 
 import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import AddMeal from "@/components/modal/AddMeal";
 import EmptyState from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
 import { weekdays } from "@/features/meals/constants/weekdays";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
-import { useMealsByDay } from "@/features/meals/selectors/mealsSelectors";
+import { useMealsByDay, selectAddMeal } from "@/features/meals/selectors/mealsSelectors";
 
 const MealPlannerPage = () => {
-  const addMeal = useMealsStore((s) => s.addMeal);
+  const addMeal = useMealsStore(selectAddMeal);
   const mealsByDay = useMealsByDay();
 
   const [open, setOpen] = useState(false);
@@ -21,7 +21,7 @@ const MealPlannerPage = () => {
   return (
     <>
       <div className="space-y-4">
-        <PageHeader title="Meal Planner" />
+        <Header title="Meal Planner" />
 
         {weekdays.map((day) => {
           const dayMeals = mealsByDay[day] ?? [];

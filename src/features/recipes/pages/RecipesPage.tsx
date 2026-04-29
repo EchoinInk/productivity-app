@@ -3,16 +3,17 @@ import { Plus } from "lucide-react";
 
 import { Card, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import AddRecipe from "@/components/modal/AddRecipe";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
+import { selectAllRecipes, selectAddRecipe } from "@/features/recipes/selectors/recipeSelectors";
 import EmptyState from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
 const RecipesPage = () => {
-  const recipes = useRecipesStore((s) => s.recipes);
-  const addRecipe = useRecipesStore((s) => s.addRecipe);
+  const recipes = useRecipesStore(selectAllRecipes);
+  const addRecipe = useRecipesStore(selectAddRecipe);
 
   const { applyRecipe } = useApplyRecipe();
 
@@ -21,7 +22,7 @@ const RecipesPage = () => {
   return (
     <>
       <div className="space-y-4">
-        <PageHeader title="Recipes" />
+        <Header title="Recipes" />
 
         {recipes.length === 0 ? (
           <Card>

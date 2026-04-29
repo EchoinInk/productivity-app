@@ -4,11 +4,12 @@ import { Plus } from "lucide-react";
 import { Card, CardBody } from "@/components/ui/Card";
 import ActionButton from "@/components/ActionButton";
 import TabBar from "@/components/TabBar";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import AddShoppingItem from "@/components/modal/AddShoppingItem";
 import EmptyState from "@/components/ui/EmptyState";
 
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { selectAddShoppingItem } from "@/features/shopping/selectors/shoppingSelectors";
 import { ShoppingRow } from "@/features/shopping/components/ShoppingRow";
 import type { ShoppingCategory } from "@/features/shopping/types";
 import { useShoppingList } from "@/features/shopping/hooks/useShoppingList";
@@ -16,7 +17,7 @@ import { useShoppingList } from "@/features/shopping/hooks/useShoppingList";
 const tabs: ShoppingCategory[] = ["Groceries", "Household"];
 
 const ShoppingListPage = () => {
-  const addShoppingItem = useShoppingStore((s) => s.addShoppingItem);
+  const addShoppingItem = useShoppingStore(selectAddShoppingItem);
 
   const [activeTab, setActiveTab] =
     useState<ShoppingCategory>("Groceries");
@@ -27,7 +28,7 @@ const ShoppingListPage = () => {
     return (
     <>
       <div className="space-y-4">
-        <PageHeader title="Shopping List" />
+        <Header title="Shopping List" />
 
         <TabBar
           tabs={tabs}

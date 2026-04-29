@@ -3,13 +3,9 @@ import { useMemo } from "react";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import {
   buildTaskSubtitle,
-  filterTodayTasks,
-  filterUpcomingTasks,
-  filterYesterdayTasks,
   getActiveCategorySummaries,
   getCategorySummaries,
   getTaskCompletionStats,
-  getTaskGroups,
   getTaskProgress,
   isTaskCompleted,
   selectAddTask,
@@ -19,7 +15,6 @@ import {
   selectUpdateTask,
   type CategorySummary,
   type TaskProgress,
-  type TaskTimelineGroups,
 } from "@/features/tasks/api";
 
 import { getToday, type DateKey } from "@/shared/lib/date";
@@ -74,7 +69,6 @@ export interface TaskSection {
 
 export interface UseTasksResult {
   activeDate: DateKey;
-  groups: TaskTimelineGroups;
   progress: TaskProgress;
   insights: TaskInsights;
   sections: TaskSection[];
@@ -86,28 +80,24 @@ const SECTION_CONFIG: ReadonlyArray<{
   title: string;
   emptyMessage: string;
   emptyHint: string;
-  pick: (groups: TaskTimelineGroups) => Task[];
 }> = [
   {
     type: "today",
     title: "Today",
     emptyMessage: "No tasks for today",
     emptyHint: "Add a task to get started",
-    pick: (g) => g.today,
   },
   {
     type: "upcoming",
     title: "Upcoming",
     emptyMessage: "Nothing coming up",
     emptyHint: "Nothing scheduled here",
-    pick: (g) => g.upcoming,
   },
   {
     type: "yesterday",
     title: "Yesterday",
     emptyMessage: "No tasks from yesterday",
     emptyHint: "Nothing scheduled here",
-    pick: (g) => g.yesterday,
   },
 ];
 
@@ -128,11 +118,6 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
   const toggleTask = useTasksStore(selectToggleTask);
   const updateTask = useTasksStore(selectUpdateTask);
   const deleteTask = useTasksStore(selectDeleteTask);
-
-  const groups = useMemo(
-    () => getTaskGroups(tasks, activeDate),
-    [tasks, activeDate],
-  );
 
   const progress = useMemo(
     () => getTaskProgress(tasks, activeDate),
@@ -156,7 +141,14 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
 
   const sections = useMemo<TaskSection[]>(() => {
     return SECTION_CONFIG.map((cfg) => {
-      const sectionTasks = cfg.pick(groups);
+      const sectionTasks = tasks.filter((task) => {
+        // Simple filtering based on task date and section type
+        const taskDate = task.date || activeDate;
+        if (cfg.type === "today") return taskDate === activeDate;
+        if (cfg.type === "upcoming") return taskDate > activeDate;
+        if (cfg.type === "yesterday") return taskDate < activeDate;
+        return false;
+      });
       const stats = getTaskCompletionStats(sectionTasks, activeDate);
       return {
         type: cfg.type,
@@ -169,15 +161,13 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
         percentage: stats.percentage,
       };
     });
-  }, [groups, activeDate]);
+  }, [tasks, activeDate]);
 
   const actions = useMemo<TaskActions>(
     () => ({ addTask, toggleTask, updateTask, deleteTask }),
     [addTask, toggleTask, updateTask, deleteTask],
   );
 
-  return { activeDate, groups, progress, insights, sections, actions };
+  return { activeDate, progress, insights, sections, actions };
 };
 
-// Re-export filters so legacy call sites still resolve until they migrate.
-export { filterTodayTasks, filterUpcomingTasks, filterYesterdayTasks };

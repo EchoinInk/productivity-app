@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import ActionButton from "@/components/ActionButton";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import { Surface } from "@/components/ui/Surface";
 import AddTask from "@/components/modal/AddTask";
 import EditTask from "@/components/modal/EditTask";
@@ -10,11 +10,12 @@ import EditTask from "@/components/modal/EditTask";
 import { getToday } from "@/shared/lib/date";
 
 import { TaskListContainer } from "@/features/tasks/containers/TaskListContainer";
-import { TaskInsights } from "@/features/tasks/components/TaskInsights";
-import { TaskProgress } from "@/features/tasks/components/TaskProgress";
+import TasksHeroCard from "@/features/tasks/components/TasksHeroCard";
 import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
+import { selectTaskProgress } from "@/features/tasks/selectors/taskSelectors";
+import { getCategorySummaries } from "@/features/tasks/api";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { selectTasks, selectTaskById } from "@/features/tasks/api";
+import { selectTasks } from "@/features/tasks/api";
 
 import type { Task } from "@/features/tasks/types";
 
@@ -29,24 +30,30 @@ const TasksPage = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   const handleSelectTask = (id: string) => {
-    const task = useTasksStore(selectTaskById(id));
+    const task = useTasksStore.getState().tasks.find(task => String(task.id) === id) ?? null;
     if (!task) return;
     setSelectedTask(task);
     setEditOpen(true);
   };
 
+  const progress = useTasksStore(selectTaskProgress(today));
+  const categories = getCategorySummaries(tasks, today);
+
   return (
     <>
       <div className="space-y-4">
-        <PageHeader title="Tasks" />
+        <Header title="Tasks" />
 
-        <TaskProgress />
+        <TasksHeroCard
+          percentage={progress.percentage}
+          total={progress.total}
+          completed={progress.completed}
+          categories={categories}
+          onAddTask={() => setOpen(true)}
+          onCategoryClick={() => {}}
+        />
 
-        <TaskInsights />
-
-        <Surface>
-          <TaskListContainer onSelectTask={handleSelectTask} />
-        </Surface>
+        <TaskListContainer onSelectTask={handleSelectTask} />
 
         <div className="pt-2">
           <ActionButton fullWidth onClick={() => setOpen(true)}>

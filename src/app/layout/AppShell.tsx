@@ -7,9 +7,9 @@ interface AppShellProps {
 
 const AppShell = ({ children }: AppShellProps) => (
   <div className="min-h-screen flex justify-center bg-gradient-page">
-    <div className="w-full max-w-md min-h-screen flex flex-col relative">
-      <main className="flex-1 pb-28 px-4 pt-6">{children}</main>
-      <div className="absolute bottom-0 left-0 right-0">
+    <div className="w-full max-w-md min-h-screen flex flex-col">
+      <main className="flex-1 px-4 pt-6 pb-20">{children}</main>
+      <div className="shrink-0">
         <BottomNav />
       </div>
     </div>

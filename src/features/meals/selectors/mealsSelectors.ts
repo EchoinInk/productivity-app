@@ -5,7 +5,7 @@ import { useMealsStore } from "@/features/meals/store/useMealsStore";
 export const selectAllMeals = (state: { meals: Meal[] }) => state.meals;
 
 /** Action selectors — keep references stable across renders. */
-export const selectAddMeal = (s: { meals: Meal[]; addMeal: (input: any) => void }) => s.addMeal;
+export const selectAddMeal = (s: { meals: Meal[]; addMeal: (input: Omit<Meal, 'id'>) => void }) => s.addMeal;
 
 export const groupMealsByDay = (
   meals: Meal[],

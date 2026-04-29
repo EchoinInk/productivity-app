@@ -5,30 +5,28 @@ import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { ListItemBase } from "@/components/ui/ListItemBase";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import ActionButton from "@/components/ActionButton";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import AddExpense from "@/components/modal/AddExpense";
 import AddIncome from "@/components/modal/AddIncome";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
+import { useBudgetSummary, selectAddExpense, selectSetIncome, selectExpenses, selectIncome } from "@/features/budget/selectors/budgetSelectors";
 import EmptyState from "@/components/ui/EmptyState";
 import { UIText } from "@/components/ui/Text";
 
 const BudgetPage = () => {
-  const expenses = useBudgetStore((s) => s.expenses);
-  const addExpense = useBudgetStore((s) => s.addExpense);
-
-  const income = useBudgetStore((s) => s.income);
-  const setIncome = useBudgetStore((s) => s.setIncome);
+  const summary = useBudgetSummary();
+  const expenses = useBudgetStore(selectExpenses);
+  const income = useBudgetStore(selectIncome);
+  const addExpense = useBudgetStore(selectAddExpense);
+  const setIncome = useBudgetStore(selectSetIncome);
 
   const [openExpense, setOpenExpense] = useState(false);
   const [openIncome, setOpenIncome] = useState(false);
 
-  const summary = useBudgetSummary();
-
   return (
     <div className="space-y-4">
-      <PageHeader title="Budget" />
+      <Header title="Budget" />
 
       {/* TOP CARD */}
       <Card variant="budget">
