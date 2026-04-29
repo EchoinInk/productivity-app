@@ -3,8 +3,8 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import Header from "@/components/layout/Header";
-import AddTask from "@/components/modal/AddTask";
-import EditTask from "@/components/modal/EditTask";
+import AddTask from "@/features/tasks/components/AddTaskModal";
+import EditTask from "@/features/tasks/components/EditTaskModal";
 
 import { getToday } from "@/shared/lib/date";
 

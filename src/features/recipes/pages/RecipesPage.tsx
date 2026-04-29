@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import Header from "@/components/layout/Header";
-import AddRecipe from "@/components/modal/AddRecipe";
+import AddRecipe from "@/features/recipes/components/AddRecipeModal";
 import { useApplyRecipe } from "@/features/recipes/hooks/useApplyRecipe";
 import { useRecipesStore } from "@/features/recipes/store/useRecipesStore";
 import { selectAllRecipes, selectAddRecipe } from "@/features/recipes/selectors/recipeSelectors";

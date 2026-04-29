@@ -6,8 +6,8 @@ import { ListItemBase } from "@/components/ui/ListItemBase";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Button } from "@/components/ui/Button";
 import Header from "@/components/layout/Header";
-import AddExpense from "@/components/modal/AddExpense";
-import AddIncome from "@/components/modal/AddIncome";
+import AddExpense from "@/features/budget/components/AddExpenseModal";
+import AddIncome from "@/features/budget/components/AddIncomeModal";
 
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useBudgetSummary, selectAddExpense, selectSetIncome, selectExpenses, selectIncome } from "@/features/budget/selectors/budgetSelectors";

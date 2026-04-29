@@ -8,8 +8,8 @@ import TodaySummaryRow from "@/features/today/components/TodaySummaryRow";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
 
 import { useBillViews } from "@/features/bills/selectors/billsSelectors";
-import AddTask from "@/components/modal/AddTask";
-import AddExpense from "@/components/modal/AddExpense";
+import AddTask from "@/features/tasks/components/AddTaskModal";
+import AddExpense from "@/features/budget/components/AddExpenseModal";
 
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { useBudgetSummary, selectAddExpense } from "@/features/budget/selectors/budgetSelectors";

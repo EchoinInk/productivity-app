@@ -5,7 +5,7 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import TabBar from "@/components/ui/TabBar";
 import Header from "@/components/layout/Header";
-import AddShoppingItem from "@/components/modal/AddShoppingItem";
+import AddShoppingItem from "@/features/shopping/components/AddShoppingItemModal";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
