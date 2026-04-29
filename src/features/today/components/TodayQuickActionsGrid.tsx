@@ -59,7 +59,7 @@ const TodayQuickActionsGrid = ({
         title="Tasks"
         value={tasks}
         subtitle="To do"
-        icon={<img src={taskillustration} alt="Tasks" width={20} height={20} />}
+        icon={<img src={taskillustration} alt="Tasks" width={40} height={40} />}
         onClick={() => navigate("/tasks")}
       />
 
