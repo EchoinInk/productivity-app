@@ -65,6 +65,22 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
               {motivation}
             </HeroSupport>
           )}
+          {/* CTA */}
+          {isLoading ? (
+            <Skeleton className="h-7 w-28 rounded-full mt-2" />
+          ) : total === 0 ? (
+            <button
+              type="button"
+              onClick={onAddTask}
+              className="mt-2 px-4 py-1.5 rounded-full bg-white/20 text-white text-xs font-semibold hover:bg-white/30 active:scale-[0.98] transition"
+            >
+              + Add a task
+            </button>
+          ) : (
+            <span className="mt-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
+              {remaining === 0 ? "All done 🎉" : `${remaining} tasks left`}
+            </span>
+          )}
         </div>
 
         {/* Illustration */}
@@ -74,25 +90,6 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           aria-hidden
           className="shrink-0 h-[104px] w-[104px] object-contain drop-shadow-[0_4px_10px_hsl(220_20%_10%/0.12)]"
         />
-      </div>
-
-      {/* BOTTOM — neutral CTA strip */}
-      <div className="bg-card/95 backdrop-blur-sm rounded-b-[inherit] px-5 py-4 flex items-center justify-center">
-        {isLoading ? (
-          <Skeleton className="h-9 w-32 rounded-full" />
-        ) : total === 0 ? (
-          <button
-            type="button"
-            onClick={onAddTask}
-            className="px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm hover:opacity-90 active:scale-[0.98] transition"
-          >
-            + Add a task
-          </button>
-        ) : (
-          <span className="px-4 py-1.5 rounded-full bg-card text-primary text-sm font-semibold border border-border/40 shadow-sm">
-            {remaining === 0 ? "All done 🎉" : `${remaining} tasks left`}
-          </span>
-        )}
       </div>
     </Card>
   );
