@@ -43,7 +43,14 @@ const TodayPage = () => {
 
   return (
     <>
-      <div className="space-y-6 pb-24">
+      <div className="space-y-6 pb-24 relative">
+        {/* Faint radial glow behind hero card */}
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full opacity-30 pointer-events-none"
+          style={{
+            background: "radial-gradient(circle at center, rgba(164, 240, 232, 0.4) 0%, rgba(192, 211, 240, 0.2) 40%, transparent 70%)",
+          }}
+        />
+
         <Header showTopBar />
 
         <TodayHeroCard

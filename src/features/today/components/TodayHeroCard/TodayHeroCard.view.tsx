@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Heading, HeroTitle, HeroSubtext, HeroSupport } from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
@@ -69,7 +70,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           )}
           {/* CTA */}
           {isLoading ? (
-            <Skeleton className="h-7 w-28 rounded-full mt-2" />
+            <Skeleton className="h-8 w-32 rounded-full mt-2" />
           ) : total === 0 ? (
             <button
               type="button"
@@ -80,9 +81,10 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
                   navigate("/tasks");
                 }
               }}
-              className="mt-2 px-4 py-1.5 rounded-full bg-white/60 text-white text-xs font-semibold hover:bg-white/30 active:scale-[0.98] transition"
+              className="mt-2 px-4 py-2 rounded-full bg-white/90 text-primary text-sm font-bold shadow-md hover:bg-white hover:shadow-lg active:scale-[0.98] transition flex items-center gap-1.5"
             >
-              + Add a task
+              Add a task
+              <ArrowRight size={14} />
             </button>
           ) : (
             <span className="mt-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
