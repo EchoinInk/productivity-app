@@ -43,22 +43,22 @@ const TodayPage = () => {
 
   return (
     <>
-      {/* 🔥 PAGE WRAPPER (proper depth + background) */}
+      {/* PAGE WRAPPER */}
       <div className="relative min-h-screen bg-[#f7f8fb] overflow-hidden">
 
-        {/* 🌈 Radial glow (background layer) */}
+        {/* Radial glow (subtle background layer) */}
         <div className="pointer-events-none absolute inset-0">
           <div
-            className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[520px] h-[520px] blur-3xl opacity-40"
+            className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[420px] h-[420px] blur-2xl opacity-25"
             style={{
               background:
-                "radial-gradient(circle, rgba(164,240,232,0.35) 0%, rgba(192,211,240,0.25) 40%, transparent 70%)",
+                "radial-gradient(circle, rgba(164,240,232,0.25) 0%, rgba(192,211,240,0.15) 40%, transparent 70%)",
             }}
           />
         </div>
 
-        {/* 📱 CONTENT */}
-        <div className="relative z-10 px-4 pt-4 pb-24 space-y-8">
+        {/* CONTENT */}
+        <div className="relative z-10 w-full max-w-[430px] mx-auto px-4 pt-4 pb-24 space-y-8">
 
           <Header showTopBar />
 
@@ -83,7 +83,7 @@ const TodayPage = () => {
           </div>
 
           {/* UP NEXT */}
-          <div className="mt-2 animate-[fadeIn_0.9s_ease-out]">
+          <div className="animate-[fadeIn_0.9s_ease-out]">
             <UpNextList
               tasks={todayTasks}
               today={selectedDateString}

@@ -17,15 +17,13 @@ const navItems = [
 ];
 
 const BottomNav = () => (
-  <div className="px-3 pb-3">
-    <nav aria-label="Primary" className="h-16 flex items-center justify-around rounded-lg bg-card/85 backdrop-blur-2xl border border-border shadow-elevated">
-      {navItems.map(({ path, label, icon }) => (
-        <NavLink key={path} to={path} className={({ isActive }) => clsx("flex flex-col items-center justify-center flex-1 gap-[var(--space-1)] text-[11px] font-medium transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md", isActive ? "text-primary" : "text-muted-foreground opacity-70")} aria-label={label}>
-          {({ isActive }) => <><img src={icon} alt="" className={clsx("w-8 h-8 transition-all duration-200", isActive ? "opacity-100 scale-110" : "opacity-60")} /><span className="leading-none">{label}</span></>}
-        </NavLink>
-      ))}
-    </nav>
-  </div>
+  <nav aria-label="Primary" className="h-16 flex items-center justify-around px-3 pb-3">
+    {navItems.map(({ path, label, icon }) => (
+      <NavLink key={path} to={path} className={({ isActive }) => clsx("flex flex-col items-center justify-center flex-1 gap-[var(--space-1)] text-[11px] font-medium transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md", isActive ? "text-primary" : "text-muted-foreground opacity-70")} aria-label={label}>
+        {({ isActive }) => <><img src={icon} alt="" className={clsx("w-8 h-8 transition-all duration-200", isActive ? "opacity-100 scale-110" : "opacity-60")} /><span className="leading-none">{label}</span></>}
+      </NavLink>
+    ))}
+  </nav>
 );
 
 export default BottomNav;

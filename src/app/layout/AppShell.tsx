@@ -6,14 +6,12 @@ interface AppShellProps {
 }
 
 const AppShell = ({ children }: AppShellProps) => (
-  <div className="min-h-screen flex justify-center bg-gradient-page">
-    <div className="w-full max-w-md min-h-screen flex flex-col">
-      <main className="flex-1 px-4 pt-6 pb-20">{children}</main>
-      <div className="shrink-0">
-        <BottomNav />
-      </div>
+  <>
+    {children}
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white/80 backdrop-blur-xl border-t border-white/40 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+      <BottomNav />
     </div>
-  </div>
+  </>
 );
 
 export default AppShell;
