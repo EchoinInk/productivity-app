@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Heading, HeroTitle, HeroSubtext, HeroSupport } from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
@@ -15,6 +16,7 @@ export interface TodayHeroCardViewModel {
 
 export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) => {
   const { percentage, total, remaining, progressText, motivation, onAddTask, isLoading = false } = model;
+  const navigate = useNavigate();
 
   const radius = 36;
   const stroke = 6;
@@ -71,7 +73,13 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           ) : total === 0 ? (
             <button
               type="button"
-              onClick={onAddTask}
+              onClick={() => {
+                if (onAddTask) {
+                  onAddTask();
+                } else {
+                  navigate("/tasks");
+                }
+              }}
               className="mt-2 px-4 py-1.5 rounded-full bg-white/60 text-white text-xs font-semibold hover:bg-white/30 active:scale-[0.98] transition"
             >
               + Add a task
