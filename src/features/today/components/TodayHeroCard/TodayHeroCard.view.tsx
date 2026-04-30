@@ -1,32 +1,21 @@
 import { Card } from "@/components/ui/Card";
-import { Heading, HeroTitle, HeroSubtext, HeroSupport, Body, BodyMuted, CTA } from "@/components/ui/Text";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { Heading, HeroTitle, HeroSubtext, HeroSupport } from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
-import { getCategoryMetadata } from "@/features/tasks/api";
-
-interface CategorySummary {
-  category: string;
-  active: number;
-  total: number;
-  completed: number;
-}
 
 export interface TodayHeroCardViewModel {
   percentage: number;
   total: number;
+  remaining: number;
   progressText: string;
   motivation: string | null;
-  visibleCategories: CategorySummary[];
   onAddTask?: () => void;
-  onViewAll?: () => void;
-  onCategoryClick?: (category: string) => void;
   isLoading?: boolean;
 }
 
 export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) => {
-  const { percentage, total, progressText, motivation, visibleCategories, onAddTask, onViewAll, onCategoryClick, isLoading = false } = model;
-  
+  const { percentage, total, remaining, progressText, motivation, onAddTask, isLoading = false } = model;
+
   const radius = 36;
   const stroke = 6;
   const normalizedRadius = radius - stroke / 2;
@@ -69,25 +58,12 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
 
         {/* Text */}
         <div className="flex flex-col gap-1 flex-1 min-w-0">
-          <HeroTitle className="text-white">
-            Today's Tasks
-          </HeroTitle>
-          <HeroSubtext className="text-white/90">
-            {progressText}
-          </HeroSubtext>
-          {total === 0 ? (
-            <button
-              onClick={onAddTask}
-              className="self-start mt-2 px-4 py-1.5 rounded-full bg-white text-primary text-xs font-semibold shadow-sm hover:bg-white/90 active:scale-[0.98] transition"
-            >
-              Add a task →
-            </button>
-          ) : (
-            motivation && (
-              <HeroSupport className="text-white/85 mt-0.5">
-                {motivation}
-              </HeroSupport>
-            )
+          <HeroTitle className="text-white">Today's Tasks</HeroTitle>
+          <HeroSubtext className="text-white/90">{progressText}</HeroSubtext>
+          {motivation && (
+            <HeroSupport className="text-white/85 mt-0.5">
+              {motivation}
+            </HeroSupport>
           )}
         </div>
 
@@ -100,79 +76,22 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
         />
       </div>
 
-      {/* BOTTOM — neutral details */}
-      <div className="bg-card/95 backdrop-blur-sm rounded-b-[inherit] px-5 pt-4 pb-5">
-        <div className="flex items-center justify-between mb-2">
-          <Heading as="h3">Tasks by category</Heading>
-          {onViewAll && (
-            <button
-              type="button"
-              onClick={onViewAll}
-              className="active:scale-95 transition"
-              aria-label="View all tasks"
-            >
-              <CTA tone="muted">View all →</CTA>
-            </button>
-          )}
-        </div>
-
+      {/* BOTTOM — neutral CTA strip */}
+      <div className="bg-card/95 backdrop-blur-sm rounded-b-[inherit] px-5 py-4 flex items-center justify-center">
         {isLoading ? (
-          <ul className="space-y-2">
-            {[0, 1, 2].map((i) => (
-              <li key={i} className="flex items-center gap-3 py-2">
-                <Skeleton className="w-9 h-9 rounded-lg" />
-                <Skeleton className="h-4 flex-1 max-w-[60%]" />
-                <Skeleton className="h-3 w-12" />
-              </li>
-            ))}
-          </ul>
-        ) : visibleCategories.length === 0 ? (
-          <EmptyState
-            title="You're all caught up today"
-            description="No tasks remaining"
-            className="py-4"
-          />
+          <Skeleton className="h-9 w-32 rounded-full" />
+        ) : total === 0 ? (
+          <button
+            type="button"
+            onClick={onAddTask}
+            className="px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm hover:opacity-90 active:scale-[0.98] transition"
+          >
+            + Add a task
+          </button>
         ) : (
-          <ul className="divide-y divide-border/40">
-            {visibleCategories.map((item) => {
-              const left = item.total - item.completed;
-              const { icon } = getCategoryMetadata(item.category);
-              return (
-                <li
-                  key={item.category}
-                  onClick={() => onCategoryClick?.(item.category)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      onCategoryClick?.(item.category);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`View ${item.category} tasks`}
-                  className="flex items-center gap-3 py-2.5 rounded-lg hover:bg-muted/40 active:scale-[0.99] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-muted/60 flex items-center justify-center shrink-0">
-                    <img src={icon} alt="" className="w-6 h-6 object-contain" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <Body weight="semibold" truncate>
-                      {item.category}
-                    </Body>
-                  </div>
-                  <BodyMuted
-                    className={
-                      left <= 1
-                        ? "shrink-0 text-warning font-medium"
-                        : "shrink-0"
-                    }
-                  >
-                    {left} left
-                  </BodyMuted>
-                </li>
-              );
-            })}
-          </ul>
+          <span className="px-4 py-1.5 rounded-full bg-card text-primary text-sm font-semibold border border-border/40 shadow-sm">
+            {remaining === 0 ? "All done 🎉" : `${remaining} tasks left`}
+          </span>
         )}
       </div>
     </Card>

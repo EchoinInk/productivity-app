@@ -38,24 +38,24 @@ const Header = ({
     <header className="pt-6 space-y-4">
       {/* TOP BAR — menu · greeting · notifications */}
       {showTopBar && (
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-start justify-between gap-3">
           <button
             type="button"
             aria-label="Open menu"
-            className="p-2 -ml-2 text-foreground active:scale-95 transition"
+            className="p-2 -ml-2 text-foreground active:scale-95 transition mt-0.5"
           >
             <Menu size={22} />
           </button>
 
-          <div className="flex-1 text-center">
-            <HeroTitle tone="default">Hi, Alex</HeroTitle>
-            <Meta>Let's get things done</Meta>
+          <div className="flex-1 min-w-0">
+            <HeroTitle tone="default">Hi, Alex 👋</HeroTitle>
+            <Meta>Let's make today amazing</Meta>
           </div>
 
           <button
             type="button"
             aria-label="Notifications"
-            className="p-2 -mr-2 text-foreground active:scale-95 transition relative"
+            className="p-2 -mr-2 text-foreground active:scale-95 transition relative mt-0.5"
           >
             <Bell size={22} />
             <span

@@ -1,27 +1,19 @@
 import { useMemo } from "react";
 
-interface CategorySummary {
-  category: string;
-  active: number;
-  total: number;
-  completed: number;
-}
-
 interface UseTodayHeroCardProps {
   percentage: number;
   total: number;
   completed: number;
-  categories?: CategorySummary[];
 }
 
 export const useTodayHeroCard = ({
   percentage,
   total,
   completed,
-  categories = [],
 }: UseTodayHeroCardProps) => {
+  const remaining = Math.max(0, total - completed);
+
   const { progressText, motivation } = useMemo(() => {
-    const remaining = Math.max(0, total - completed);
     return {
       progressText:
         total === 0 ? "No tasks today" : `${completed} of ${total} completed`,
@@ -32,18 +24,13 @@ export const useTodayHeroCard = ({
           ? "Nothing left on your list 🩶"
           : "You're making progress ✨",
     };
-  }, [total, completed]);
-
-  const visibleCategories = useMemo(
-    () => categories.filter((c) => c.total > 0 && c.completed < c.total),
-    [categories],
-  );
+  }, [total, completed, remaining]);
 
   return {
     percentage,
     total,
+    remaining,
     progressText,
     motivation,
-    visibleCategories,
   };
 };
