@@ -81,11 +81,15 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
       navigate("/tasks");
     }
   }}
-  className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 shadow-sm hover:bg-white active:scale-[0.98] transition flex items-center gap-1"
+  className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-white/40 shadow-sm hover:bg-white active:scale-[0.98] transition flex items-center gap-1 w-fit"
+
 >
+
   <CTA className="text-slate-700 flex items-center gap-1">
+
     Add a task
-    <ArrowRight size={12} className="opacity-70" />
+
+    <ArrowRight size={12} className="opacity-60" />
   </CTA>
 </button>
           ) : (
