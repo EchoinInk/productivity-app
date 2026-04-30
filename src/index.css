@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------- BASE TOKENS ---------------- */
+
 @layer base {
   :root {
     --background: 220 20% 97%;
@@ -60,8 +62,12 @@
     --space-7: 24px;
     --space-8: 32px;
 
-    --shadow-card: 0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px var(--space-1) -1px hsl(220 20% 10% / 0.04);
-    --shadow-elevated: 0 var(--space-2) var(--space-5) calc(-1 * var(--space-1)) hsl(220 20% 10% / 0.08);
+    --shadow-card: 0 1px 3px 0 hsl(220 20% 10% / 0.04),
+      0 1px var(--space-1) -1px hsl(220 20% 10% / 0.04);
+
+    --shadow-elevated: 0 var(--space-2) var(--space-5)
+      calc(-1 * var(--space-1)) hsl(220 20% 10% / 0.08);
+
     --shadow-glass: 0 3px 14px hsl(220 80% 70% / 0.22);
     --shadow-surface: 0 var(--space-3) 18px hsl(240 40% 60% / 0.18);
 
@@ -74,17 +80,32 @@
   }
 }
 
+/* ---------------- BASE STYLES ---------------- */
+
 @layer base {
   * {
     @apply border-border;
   }
 
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
     @apply text-foreground antialiased;
     font-family: "Montserrat", sans-serif;
-    background: linear-gradient(135deg, #f8fbfd 0%, #f5f8fc 50%, #fcf7f5 100%);
+    -webkit-font-smoothing: antialiased;
+
+    background: linear-gradient(
+      135deg,
+      #f8fbfd 0%,
+      #f5f8fc 50%,
+      #fcf7f5 100%
+    );
   }
 }
+
+/* ---------------- COMPONENTS ---------------- */
 
 @layer components {
   .card-base {
@@ -109,8 +130,36 @@
     @apply fixed inset-0 z-50 flex items-end justify-center bg-black/20 backdrop-blur-md p-4;
   }
 
-  /* Single source of truth for glass cards */
+  /* Glass surface system */
   .surface-glass {
     @apply rounded-lg bg-white/60 backdrop-blur-xl border border-white/40 shadow-sm;
+  }
+}
+
+/* ---------------- INTERACTION + MOTION ---------------- */
+
+/* Controlled transitions (avoid "all") */
+button {
+  transition: transform 0.15s ease, background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Subtle entrance animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import Header from "@/components/layout/Header";
 import { TodayHeroCard } from "@/features/today/components/TodayHeroCard";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
-import { UpNextList } from "@/features/today/components/UpNextList";
+import { UpNextList } from "@/features/today/components/TodayUpNextList";
 
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
@@ -37,43 +37,64 @@ const TodayPage = () => {
   const tasksCount = todaySection?.total ?? 0;
   const todayTasks = todaySection?.tasks ?? [];
 
-  // 🔧 TEMP placeholders (replace when you wire features)
+  // TEMP placeholders
   const mealsCount = 2;
   const shoppingCount = 6;
 
   return (
     <>
-      <div className="space-y-6 pb-24 relative">
-        {/* Faint radial glow behind hero card */}
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full opacity-30 pointer-events-none"
-          style={{
-            background: "radial-gradient(circle at center, rgba(164, 240, 232, 0.4) 0%, rgba(192, 211, 240, 0.2) 40%, transparent 70%)",
-          }}
-        />
+      {/* 🔥 PAGE WRAPPER (proper depth + background) */}
+      <div className="relative min-h-screen bg-[#f7f8fb] overflow-hidden">
 
-        <Header showTopBar />
+        {/* 🌈 Radial glow (background layer) */}
+        <div className="pointer-events-none absolute inset-0">
+          <div
+            className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[520px] h-[520px] blur-3xl opacity-40"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(164,240,232,0.35) 0%, rgba(192,211,240,0.25) 40%, transparent 70%)",
+            }}
+          />
+        </div>
 
-        <TodayHeroCard
-          percentage={progress.percentage}
-          total={progress.total}
-          completed={progress.completed}
-          onAddTask={() => setTaskOpen(true)}
-        />
+        {/* 📱 CONTENT */}
+        <div className="relative z-10 px-4 pt-4 pb-24 space-y-8">
 
-        <TodayQuickActionsGrid
-          tasks={tasksCount}
-          meals={mealsCount}
-          shopping={shoppingCount}
-          remaining={Math.round(Math.max(0, budget.remaining))}
-        />
+          <Header showTopBar />
 
-        <UpNextList
-          tasks={todayTasks}
-          today={selectedDateString}
-          onToggle={actions.toggleTask}
-        />
+          {/* HERO */}
+          <div className="animate-[fadeIn_0.5s_ease-out]">
+            <TodayHeroCard
+              percentage={progress.percentage}
+              total={progress.total}
+              completed={progress.completed}
+              onAddTask={() => setTaskOpen(true)}
+            />
+          </div>
+
+          {/* QUICK ACTIONS */}
+          <div className="animate-[fadeIn_0.7s_ease-out]">
+            <TodayQuickActionsGrid
+              tasks={tasksCount}
+              meals={mealsCount}
+              shopping={shoppingCount}
+              remaining={Math.round(Math.max(0, budget.remaining))}
+            />
+          </div>
+
+          {/* UP NEXT */}
+          <div className="mt-2 animate-[fadeIn_0.9s_ease-out]">
+            <UpNextList
+              tasks={todayTasks}
+              today={selectedDateString}
+              onToggle={actions.toggleTask}
+            />
+          </div>
+
+        </div>
       </div>
 
+      {/* MODALS */}
       <AddTaskModal
         open={taskOpen}
         onClose={() => setTaskOpen(false)}

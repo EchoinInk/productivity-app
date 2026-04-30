@@ -13,21 +13,27 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 const variantClass: Record<CardVariant, string> = {
   default:
-    "bg-white/80 backdrop-blur-xl border border-white/60 shadow-glass",
+    "bg-white/70 backdrop-blur-md border border-white/50 shadow-[0_6px_20px_rgba(0,0,0,0.06)]",
+
   hero:
-    "bg-gradient-hero text-white shadow-[0_20px_40px_hsl(220_20%_10%/0.15)] saturate-[1.1] contrast-[1.05]",
+    "bg-gradient-hero text-white shadow-[0_10px_30px_rgba(0,0,0,0.12)]",
+
   data:
-    "bg-gradient-data text-foreground backdrop-blur-lg border border-white/50 shadow-glass saturate-[1.1] contrast-[1.05]",
+    "bg-white/60 backdrop-blur-md border border-white/40 shadow-[0_6px_20px_rgba(0,0,0,0.06)]",
+
   budget:
-    "bg-gradient-budget text-primary-foreground shadow-glass",
+    "bg-gradient-budget text-primary-foreground shadow-[0_8px_24px_rgba(0,0,0,0.08)]",
+
   alert:
-    "bg-card border border-destructive/30 text-destructive shadow-card",
-  subtle: "bg-transparent",
+    "bg-card border border-destructive/30 text-destructive shadow-[0_6px_18px_rgba(0,0,0,0.08)]",
+
+  subtle:
+    "bg-transparent",
 };
 
 const sizeClass: Record<CardSize, string> = {
-  sm: "rounded-lg",
-  md: "rounded-xl",
+  sm: "rounded-xl",
+  md: "rounded-2xl",
   lg: "rounded-2xl",
 };
 
@@ -40,7 +46,12 @@ const CardBase = ({
   return (
     <div
       className={clsx(
-        "transition-all duration-200 hover:shadow-md active:scale-[0.99]",
+        // 🔥 refined interaction (feels native)
+        "transition-transform duration-150 ease-out active:scale-[0.98]",
+
+        // optional hover only on non-touch devices
+        "hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]",
+
         variantClass[variant],
         sizeClass[size],
         className,

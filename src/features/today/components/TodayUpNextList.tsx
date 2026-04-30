@@ -12,7 +12,6 @@ interface UpNextListProps {
   onToggle: (id: string, date: DateKey) => void;
 }
 
-// Pull a "HH:MM" prefix from a row subtitle if present.
 const extractTime = (subtitle: string): string | null => {
   const match = subtitle.match(/\b(\d{1,2}:\d{2})\b/);
   return match && match[1] ? match[1] : null;
@@ -45,53 +44,93 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
   }, [tasks]);
 
   return (
-    <section className="space-y-3">
+    <section className="space-y-4 mt-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <Heading as="h3">Up Next</Heading>
+
         <button
           type="button"
           onClick={() => navigate("/tasks")}
           className="active:scale-95 transition"
           aria-label="View all tasks"
         >
-          <CTA tone="muted">View all</CTA>
+          <CTA className="text-slate-500">View all</CTA>
         </button>
       </div>
 
+      {/* Content */}
       {upNext.length === 0 ? (
-        <EmptyState
-          title="Nothing scheduled"
-          description="Enjoy your day 🎉"
-          className="py-6"
-        />
+        <div className="animate-[fadeIn_0.8s_ease-out]">
+          <EmptyState
+            title="Nothing scheduled"
+            description="Enjoy your day 🎉"
+            className="py-8"
+          />
+        </div>
       ) : (
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {upNext.map((task) => {
             const meta = getCategoryMetadata(task.category ?? undefined);
             const time = task._time ? formatTime(task._time) : null;
+
             return (
               <li
                 key={task.id}
-                className="flex items-center gap-3 rounded-2xl bg-card border border-muted/30 px-4 py-3 shadow-sm"
+                className="
+                  flex items-center gap-3
+                  rounded-2xl 
+                  px-4 py-3
+                  bg-white/70 backdrop-blur-md
+                  border border-white/40
+                  shadow-[0_6px_18px_rgba(0,0,0,0.06)]
+                  transition-all duration-150 ease-out
+                  active:scale-[0.98]
+                "
               >
+                {/* Checkbox */}
                 <button
                   type="button"
                   onClick={() => onToggle(task.id, today)}
                   aria-label={`Mark ${task.title} as completed`}
-                  className="shrink-0 w-6 h-6 rounded-full border-2 border-muted-foreground/40 hover:border-primary active:scale-90 transition"
+                  className="
+                    shrink-0 
+                    w-6 h-6 
+                    rounded-full 
+                    border-2 border-muted-foreground/40 
+                    hover:border-primary 
+                    active:scale-90 
+                    transition
+                  "
                 />
 
+                {/* Text */}
                 <div className="flex-1 min-w-0">
                   <Body weight="semibold" truncate>
                     {task.title}
                   </Body>
-                  {time && <BodyMuted className="text-xs">{time}</BodyMuted>}
+
+                  {time && (
+                    <BodyMuted className="text-xs mt-0.5">
+                      {time}
+                    </BodyMuted>
+                  )}
                 </div>
 
+                {/* Category pill */}
                 {task.category && (
                   <span
-                    className="shrink-0 px-3 py-1 rounded-full text-xs font-medium"
-                    style={{ backgroundColor: meta.bg, color: meta.text }}
+                    className="
+                      shrink-0 
+                      px-2.5 py-1 
+                      rounded-full 
+                      text-[11px] font-medium
+                      opacity-90
+                    "
+                    style={{
+                      backgroundColor: meta.bg,
+                      color: meta.text,
+                    }}
                   >
                     {task.category}
                   </span>

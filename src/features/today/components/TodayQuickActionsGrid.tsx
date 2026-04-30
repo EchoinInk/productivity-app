@@ -3,6 +3,7 @@
 import { useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Body, Heading, Meta } from "@/components/ui/Text";
+
 import taskillustration from "@/assets/tasksquickactions.png";
 import mealillustration from "@/assets/mealquickactions.png";
 import budgetillustration from "@/assets/budgetquickactions.png";
@@ -29,26 +30,43 @@ const SummaryCard = ({
     <div
       onClick={onClick}
       style={{ backgroundColor: background }}
-      className="relative rounded-2xl p-4 shadow-sm border border-muted/30 active:scale-95 transition cursor-pointer"
+      className="
+        relative 
+        rounded-2xl 
+        p-4 
+        border border-white/40
+        bg-white/70 backdrop-blur-md
+        shadow-[0_6px_20px_rgba(0,0,0,0.06)]
+        transition-all duration-150 ease-out
+        active:scale-[0.97]
+        hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]
+        cursor-pointer
+      "
     >
       <div className="flex items-center gap-3">
-        {/* Left: text column */}
+        {/* Left: text */}
         <div className="flex-1 min-w-0 flex flex-col">
           <Body tone="muted">{title}</Body>
-          <Heading className="mt-1">{value}</Heading>
-          <Meta tone="muted" className="mt-1">{subtitle}</Meta>
+
+          <Heading className="mt-1 tracking-tight">
+            {value}
+          </Heading>
+
+          <Meta tone="muted" className="mt-1">
+            {subtitle}
+          </Meta>
         </div>
 
-        {/* Right: icon, vertically centered */}
-        <div className="shrink-0 opacity-90">
+        {/* Right: icon */}
+        <div className="shrink-0 opacity-75">
           {icon}
         </div>
       </div>
 
-      {/* Subtle chevron in bottom-right */}
+      {/* Chevron */}
       <ChevronRight
-        size={16}
-        className="absolute bottom-3 right-3 text-muted-foreground/60"
+        size={14}
+        className="absolute bottom-3 right-3 text-muted-foreground/40"
       />
     </div>
   );
@@ -70,13 +88,21 @@ const TodayQuickActionsGrid = ({
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-2 gap-4 mt-2">
       <SummaryCard
         title="Tasks"
         value={tasks}
         subtitle="To do"
         background="#f2fdfb"
-        icon={<img src={taskillustration} alt="Tasks" width={46} height={46} />}
+        icon={
+          <img
+            src={taskillustration}
+            alt="Tasks"
+            width={42}
+            height={42}
+            className="object-contain"
+          />
+        }
         onClick={() => navigate("/tasks")}
       />
 
@@ -85,7 +111,15 @@ const TodayQuickActionsGrid = ({
         value={meals}
         subtitle="Planned"
         background="#f4f7fd"
-        icon={<img src={mealillustration} alt="Meals" width={46} height={46} />}
+        icon={
+          <img
+            src={mealillustration}
+            alt="Meals"
+            width={42}
+            height={42}
+            className="object-contain"
+          />
+        }
         onClick={() => navigate("/meals")}
       />
 
@@ -94,7 +128,15 @@ const TodayQuickActionsGrid = ({
         value={`$${remaining}`}
         subtitle="Left this week"
         background="#f7f7fe"
-        icon={<img src={budgetillustration} alt="Budget" width={46} height={46} />}
+        icon={
+          <img
+            src={budgetillustration}
+            alt="Budget"
+            width={42}
+            height={42}
+            className="object-contain"
+          />
+        }
         onClick={() => navigate("/budget")}
       />
 
@@ -103,7 +145,15 @@ const TodayQuickActionsGrid = ({
         value={shopping}
         subtitle="Items"
         background="#f9f5fc"
-        icon={<img src={shoppingillustration} alt="Shopping" width={46} height={46} />}
+        icon={
+          <img
+            src={shoppingillustration}
+            alt="Shopping"
+            width={42}
+            height={42}
+            className="object-contain"
+          />
+        }
         onClick={() => navigate("/shopping")}
       />
     </div>
