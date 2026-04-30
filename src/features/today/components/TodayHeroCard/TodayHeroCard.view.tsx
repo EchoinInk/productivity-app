@@ -98,7 +98,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="shrink-0 h-[72px] w-[72px] object-contain opacity-80 
+          className="shrink-0 h-[88px] w-[88px] object-contain opacity-90 
 drop-shadow-[0_6px_16px_hsl(220_20%_10%/0.10)] 
 translate-y-[2px]"
         />
