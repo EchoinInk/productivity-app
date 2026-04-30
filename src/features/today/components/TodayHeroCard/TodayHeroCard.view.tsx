@@ -27,8 +27,8 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
 
   return (
     <Card variant="hero" className="overflow-hidden p-0">
-      {/* TOP — gradient hero */}
-      <div className="flex items-center gap-4 p-6">
+      <div className="flex items-center gap-4 px-6 py-6">
+
         {/* Progress ring */}
         <div className="relative shrink-0 h-[84px] w-[84px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
@@ -56,24 +56,25 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           </svg>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <Heading className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">
+            <Heading className="text-white/95">
               {percentage}%
             </Heading>
           </div>
         </div>
 
-        {/* Text */}
-        <div className="flex flex-col gap-1 flex-1 min-w-0">
-          <HeroTitle className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">
+        {/* Content */}
+        <div className="flex flex-col gap-1.5 flex-1 min-w-0">
+
+          <HeroTitle className="text-white/95">
             Today's Tasks
           </HeroTitle>
 
-          <HeroSubtext className="text-white/90">
+          <HeroSubtext className="text-white/80">
             {progressText}
           </HeroSubtext>
 
           {motivation && (
-            <HeroSupport className="text-white/85 mt-0.5">
+            <HeroSupport className="text-white/75">
               {motivation}
             </HeroSupport>
           )}
@@ -91,7 +92,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
                   navigate("/tasks");
                 }
               }}
-              className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-white/40 shadow-sm hover:bg-white active:scale-[0.98] transition flex items-center gap-1 w-fit"
+              className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-white/30 shadow-sm active:scale-[0.97] transition flex items-center gap-1 w-fit"
             >
               <CTA className="text-slate-700 flex items-center gap-1">
                 Add a task
@@ -110,10 +111,11 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="shrink-0 h-[72px] w-[72px] object-contain opacity-75 
-          drop-shadow-[0_6px_16px_hsl(220_20%_10%/0.10)] 
+          className="shrink-0 h-[68px] w-[68px] object-contain opacity-70 
+          drop-shadow-[0_4px_12px_hsl(220_20%_10%/0.08)] 
           translate-y-[2px]"
         />
+
       </div>
     </Card>
   );
