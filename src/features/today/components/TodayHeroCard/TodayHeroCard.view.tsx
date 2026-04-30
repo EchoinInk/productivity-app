@@ -34,7 +34,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
               stroke="currentColor"
-              className="text-white/35"
+              className="text-white/40"   // 👈 slightly stronger for visibility
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -56,7 +56,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           </svg>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <Heading className="text-white/95">
+            <Heading className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]">
               {percentage}%
             </Heading>
           </div>
@@ -65,7 +65,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
         {/* Content */}
         <div className="flex flex-col gap-1.5 flex-1 min-w-0">
 
-          <HeroTitle className="text-white/95">
+          <HeroTitle className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]">
             Today's Tasks
           </HeroTitle>
 
@@ -92,11 +92,22 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
                   navigate("/tasks");
                 }
               }}
-              className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-white/30 shadow-sm active:scale-[0.97] transition flex items-center gap-1 w-fit"
+              className="
+                mt-2 
+                px-3.5 py-1.5 
+                rounded-full 
+                bg-white/95 
+                border border-white/30 
+                shadow-[0_2px_6px_rgba(0,0,0,0.08)]
+                active:scale-[0.97] 
+                transition 
+                flex items-center gap-1 
+                w-fit
+              "
             >
-              <CTA className="text-slate-700 flex items-center gap-1">
+              <CTA className="text-slate-700 flex items-center gap-1 tracking-tight">
                 Add a task
-                <ArrowRight size={12} className="opacity-60" />
+                <ArrowRight size={11} className="opacity-50" />
               </CTA>
             </button>
           ) : (
@@ -111,9 +122,14 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="shrink-0 h-[68px] w-[68px] object-contain opacity-70 
-          drop-shadow-[0_4px_12px_hsl(220_20%_10%/0.08)] 
-          translate-y-[2px]"
+          className="
+            shrink-0 
+            h-[64px] w-[64px] 
+            object-contain 
+            opacity-65 
+            drop-shadow-[0_3px_10px_rgba(0,0,0,0.08)] 
+            translate-y-[2px]
+          "
         />
 
       </div>
