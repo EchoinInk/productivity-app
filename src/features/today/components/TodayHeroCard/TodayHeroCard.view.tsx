@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { Heading, HeroTitle, HeroSubtext, HeroSupport } from "@/components/ui/Text";
+import { Heading, HeroTitle, HeroSubtext, HeroSupport, CTA } from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
 
@@ -72,20 +72,22 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           {isLoading ? (
             <Skeleton className="h-8 w-32 rounded-full mt-2" />
           ) : total === 0 ? (
-            <button
-              type="button"
-              onClick={() => {
-                if (onAddTask) {
-                  onAddTask();
-                } else {
-                  navigate("/tasks");
-                }
-              }}
-              className="mt-2 px-4 py-2 rounded-full bg-white/90 text-primary text-sm font-bold shadow-md hover:bg-white hover:shadow-lg active:scale-[0.98] transition flex items-center gap-1.5"
-            >
-              Add a task
-              <ArrowRight size={14} />
-            </button>
+           <button
+  type="button"
+  onClick={() => {
+    if (onAddTask) {
+      onAddTask();
+    } else {
+      navigate("/tasks");
+    }
+  }}
+  className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 shadow-sm hover:bg-white active:scale-[0.98] transition flex items-center gap-1"
+>
+  <CTA className="text-slate-700 flex items-center gap-1">
+    Add a task
+    <ArrowRight size={12} className="opacity-70" />
+  </CTA>
+</button>
           ) : (
             <span className="mt-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
               {remaining === 0 ? "All done 🎉" : `${remaining} tasks left`}
