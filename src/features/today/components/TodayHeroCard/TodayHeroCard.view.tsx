@@ -28,13 +28,13 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
   return (
     <Card variant="hero" className="overflow-hidden p-0">
       {/* TOP — gradient hero */}
-      <div className="flex items-center gap-4 p-5">
+      <div className="flex items-center gap-4 p-6">
         {/* Progress ring */}
         <div className="relative shrink-0 h-[84px] w-[84px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
               stroke="currentColor"
-              className="text-white/25"
+              className="text-white/35"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -54,46 +54,52 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
               cy={radius}
             />
           </svg>
+
           <div className="absolute inset-0 flex items-center justify-center">
-            <Heading className="text-white">{percentage}%</Heading>
+            <Heading className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">
+              {percentage}%
+            </Heading>
           </div>
         </div>
 
         {/* Text */}
         <div className="flex flex-col gap-1 flex-1 min-w-0">
-          <HeroTitle className="text-white">Today's Tasks</HeroTitle>
-          <HeroSubtext className="text-white/90">{progressText}</HeroSubtext>
+          <HeroTitle className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">
+            Today's Tasks
+          </HeroTitle>
+
+          <HeroSubtext className="text-white/90">
+            {progressText}
+          </HeroSubtext>
+
           {motivation && (
             <HeroSupport className="text-white/85 mt-0.5">
               {motivation}
             </HeroSupport>
           )}
+
           {/* CTA */}
           {isLoading ? (
-            <Skeleton className="h-8 w-32 rounded-full mt-2" />
+            <Skeleton className="h-7 w-28 rounded-full mt-2" />
           ) : total === 0 ? (
-           <button
-  type="button"
-  onClick={() => {
-    if (onAddTask) {
-      onAddTask();
-    } else {
-      navigate("/tasks");
-    }
-  }}
-  className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-white/40 shadow-sm hover:bg-white active:scale-[0.98] transition flex items-center gap-1 w-fit"
-
->
-
-  <CTA className="text-slate-700 flex items-center gap-1">
-
-    Add a task
-
-    <ArrowRight size={12} className="opacity-60" />
-  </CTA>
-</button>
+            <button
+              type="button"
+              onClick={() => {
+                if (onAddTask) {
+                  onAddTask();
+                } else {
+                  navigate("/tasks");
+                }
+              }}
+              className="mt-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-white/40 shadow-sm hover:bg-white active:scale-[0.98] transition flex items-center gap-1 w-fit"
+            >
+              <CTA className="text-slate-700 flex items-center gap-1">
+                Add a task
+                <ArrowRight size={12} className="opacity-60" />
+              </CTA>
+            </button>
           ) : (
-            <span className="mt-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
+            <span className="mt-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium">
               {remaining === 0 ? "All done 🎉" : `${remaining} tasks left`}
             </span>
           )}
@@ -104,9 +110,9 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="shrink-0 h-[80px] w-[80px] object-contain opacity-85 
-drop-shadow-[0_6px_16px_hsl(220_20%_10%/0.10)] 
-translate-y-[2px]"
+          className="shrink-0 h-[72px] w-[72px] object-contain opacity-75 
+          drop-shadow-[0_6px_16px_hsl(220_20%_10%/0.10)] 
+          translate-y-[2px]"
         />
       </div>
     </Card>
