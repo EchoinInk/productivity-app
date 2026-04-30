@@ -72,7 +72,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
             <button
               type="button"
               onClick={onAddTask}
-              className="mt-2 px-4 py-1.5 rounded-full bg-white/20 text-white text-xs font-semibold hover:bg-white/30 active:scale-[0.98] transition"
+              className="mt-2 px-4 py-1.5 rounded-full bg-white/60 text-white text-xs font-semibold hover:bg-white/30 active:scale-[0.98] transition"
             >
               + Add a task
             </button>
