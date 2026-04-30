@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Plus } from "lucide-react";
 
 import Header from "@/components/layout/Header";
 import { TodayHeroCard } from "@/features/today/components/TodayHeroCard";
@@ -67,17 +66,6 @@ const TodayPage = () => {
           onToggle={actions.toggleTask}
         />
       </div>
-
-      <button
-        onClick={() => setTaskOpen(true)}
-        className="fixed bottom-20 right-5 h-14 w-14 rounded-full shadow-lg flex items-center justify-center"
-        style={{
-          background:
-            "linear-gradient(90deg, #a4f0e8, #c0d3f0, #c7c9f4, #ddc9eb, #f7d0d0)",
-        }}
-      >
-        <Plus className="text-white" />
-      </button>
 
       <AddTaskModal
         open={taskOpen}
