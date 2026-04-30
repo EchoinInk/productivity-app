@@ -44,26 +44,33 @@ const TodayPage = () => {
   return (
     <>
       {/* PAGE WRAPPER */}
-      <div className="relative min-h-screen bg-[#f7f8fb] overflow-hidden">
+      <div className="relative min-h-screen bg-white overflow-hidden">
 
-        {/* Radial glow (subtle background layer) */}
+        {/* 🔥 SUBTLE BACKGROUND GLOW (refined) */}
         <div className="pointer-events-none absolute inset-0">
           <div
-            className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[420px] h-[420px] blur-2xl opacity-25"
+            className="
+              absolute 
+              top-[-40px] 
+              left-1/2 -translate-x-1/2 
+              w-[320px] h-[320px] 
+              blur-2xl 
+              opacity-15
+            "
             style={{
               background:
-                "radial-gradient(circle, rgba(164,240,232,0.25) 0%, rgba(192,211,240,0.15) 40%, transparent 70%)",
+                "radial-gradient(circle, rgba(164,240,232,0.18) 0%, transparent 70%)",
             }}
           />
         </div>
 
-        {/* CONTENT */}
-        <div className="relative z-10 w-full max-w-[430px] mx-auto px-4 pt-4 pb-24 space-y-8">
+        {/* 📱 CONTENT */}
+        <div className="relative z-10 w-full max-w-[430px] mx-auto px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] space-y-8">
 
           <Header showTopBar />
 
           {/* HERO */}
-          <div className="animate-[fadeIn_0.5s_ease-out]">
+          <div className="animate-[fadeIn_0.45s_ease-out]">
             <TodayHeroCard
               percentage={progress.percentage}
               total={progress.total}
@@ -73,7 +80,7 @@ const TodayPage = () => {
           </div>
 
           {/* QUICK ACTIONS */}
-          <div className="animate-[fadeIn_0.7s_ease-out]">
+          <div className="animate-[fadeIn_0.65s_ease-out]">
             <TodayQuickActionsGrid
               tasks={tasksCount}
               meals={mealsCount}
@@ -83,7 +90,7 @@ const TodayPage = () => {
           </div>
 
           {/* UP NEXT */}
-          <div className="animate-[fadeIn_0.9s_ease-out]">
+          <div className="animate-[fadeIn_0.85s_ease-out]">
             <UpNextList
               tasks={todayTasks}
               today={selectedDateString}
