@@ -15,7 +15,7 @@ interface UpNextListProps {
 // Pull a "HH:MM" prefix from a row subtitle if present.
 const extractTime = (subtitle: string): string | null => {
   const match = subtitle.match(/\b(\d{1,2}:\d{2})\b/);
-  return match ? match[1] : null;
+  return match && match[1] ? match[1] : null;
 };
 
 const formatTime = (raw: string): string => {
