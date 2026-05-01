@@ -171,6 +171,7 @@ export const TodayHeroCardView = ({
           aria-hidden
           loading="eager"
           fetchPriority="high"
+          decoding="async"
           width={84}
           height={84}
           className="

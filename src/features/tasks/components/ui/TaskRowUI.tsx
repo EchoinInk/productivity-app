@@ -89,6 +89,7 @@ export const TaskRowUI = memo((props: Props) => {
         width={16}
         height={16}
         loading="lazy"
+        decoding="async"
         className="w-4 h-4 object-contain"
       />
     </button>

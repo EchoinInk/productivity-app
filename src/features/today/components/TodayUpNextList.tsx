@@ -140,6 +140,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                       width={12}
                       height={12}
                       loading="lazy"
+                      decoding="async"
                       className="w-3 h-3 object-contain"
                     />
                     {task.category}

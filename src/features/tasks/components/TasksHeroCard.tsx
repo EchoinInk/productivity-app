@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { HeroTitle, HeroSubtext, HeroSupport } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import clipboardIllustration from "@/assets/3d-clipboard.png";
+import clipboardIllustration from "@/assets/3d-clipboard.webp";
 import { CategoryList } from "./CategoryList";
 
 interface CategorySummary {
@@ -179,6 +179,10 @@ const TasksHeroCard = ({
         <img
           src={clipboardIllustration}
           alt=""
+          loading="lazy"
+          decoding="async"
+          width={96}
+          height={96}
           className="absolute bottom-0 right-0 w-24 h-24 opacity-20"
         />
       </div>

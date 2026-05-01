@@ -99,6 +99,7 @@ const TodayQuickActionsGrid = ({
             width={42}
             height={42}
             loading="lazy"
+            decoding="async"
             className="object-contain"
           />
         }
@@ -119,6 +120,7 @@ const TodayQuickActionsGrid = ({
             width={42}
             height={42}
             loading="lazy"
+            decoding="async"
             className="object-contain"
           />
         }
@@ -139,6 +141,7 @@ const TodayQuickActionsGrid = ({
             width={42}
             height={42}
             loading="lazy"
+            decoding="async"
             className="object-contain"
           />
         }
@@ -159,6 +162,7 @@ const TodayQuickActionsGrid = ({
             width={42}
             height={42}
             loading="lazy"
+            decoding="async"
             className="object-contain"
           />
         }
