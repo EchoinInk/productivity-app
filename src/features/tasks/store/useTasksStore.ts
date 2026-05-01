@@ -60,12 +60,12 @@ export const useTasksStore = create<TasksState>()(
             ...input,
           };
 
-          console.log("ADDING TASK", newTask);
 
           // Track activity
           useActivityStore.getState().addEvent(
             createActivityEvent("task_created", `Created task: ${input.label}`)
           );
+          console.log("ADDING TASK", newTask);
 
           return {
             tasks: [...state.tasks, newTask],
