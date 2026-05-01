@@ -142,7 +142,7 @@ const TasksPage = () => {
         <AddTaskModal
           open={open}
           onClose={() => setOpen(false)}
-          defaultDate={tab === "Today" ? today : ""}
+          defaultDate={tab === "Today" ? (today || new Date().toISOString().split("T")[0]!) : ""}
           onSave={(taskInput) => {
             addTask(taskInput);
             setOpen(false);

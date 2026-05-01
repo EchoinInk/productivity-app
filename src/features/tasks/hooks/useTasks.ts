@@ -38,9 +38,10 @@ export const useTasks = (): UseTasksResult => {
   const deleteTask = useTasksStore((state) => state.deleteTask);
 
   const sections = useMemo<TaskSections>(() => {
+    const todayDate = today || new Date().toISOString().split("T")[0]!;
     return {
-      today: tasks.filter(t => t.date === today && !t.completed),
-      upcoming: tasks.filter(t => t.date > today),
+      today: tasks.filter(t => t.date === todayDate && !t.completed),
+      upcoming: tasks.filter(t => t.date > todayDate),
       completed: tasks.filter(t => t.completed),
     };
   }, [tasks, today]);

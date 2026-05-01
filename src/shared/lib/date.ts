@@ -8,8 +8,9 @@ export const toDateString = (date: Date): DateKey => {
   return iso.split("T")[0] ?? "";
 };
 
-export const getToday = () => toDateString(new Date());
-
+export const getToday = () => {
+  return new Date().toISOString().split("T")[0];
+};
 export const getYesterday = (date: Date = new Date()) => {
   const previous = new Date(date);
   previous.setDate(previous.getDate() - 1);

@@ -105,7 +105,7 @@ const TodayPage = () => {
       <AddTaskModal
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
-        defaultDate={selectedDateString}
+        defaultDate={selectedDateString || new Date().toISOString().split("T")[0]!}
         onSave={addTask}
       />
 

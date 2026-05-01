@@ -30,7 +30,7 @@ export const shouldUpdateStreak = (completed: boolean, lastUpdated: number): boo
   
   const today = getToday();
   const lastUpdateDate = new Date(lastUpdated).toDateString();
-  const todayDate = new Date(today).toDateString();
+  const todayDate = new Date(today || new Date()).toDateString();
   
   // Only update if it's a new day
   return lastUpdateDate !== todayDate;
