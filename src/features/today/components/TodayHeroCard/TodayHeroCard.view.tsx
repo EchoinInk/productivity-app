@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { Heading, HeroTitle, HeroSubtext, HeroSupport, CTA } from "@/components/ui/Text";
+import {
+  Heading,
+  HeroTitle,
+  HeroSubtext,
+  HeroSupport,
+  CTA,
+} from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.webp";
 
@@ -15,26 +21,39 @@ export interface TodayHeroCardViewModel {
   isLoading?: boolean;
 }
 
-export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) => {
-  const { percentage, total, remaining, progressText, motivation, onAddTask, isLoading = false } = model;
+export const TodayHeroCardView = ({
+  model,
+}: {
+  model: TodayHeroCardViewModel;
+}) => {
+  const {
+    percentage,
+    total,
+    remaining,
+    progressText,
+    motivation,
+    onAddTask,
+    isLoading = false,
+  } = model;
+
   const navigate = useNavigate();
 
   const radius = 36;
   const stroke = 6;
   const normalizedRadius = radius - stroke / 2;
   const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+  const strokeDashoffset =
+    circumference - (percentage / 100) * circumference;
 
   return (
     <Card variant="hero" className="overflow-hidden p-0 shadow-pop">
-      <div className="flex items-center gap-4 px-6 py-10">
-
+      <div className="flex items-center gap-5 px-6 py-10">
         {/* Progress ring */}
         <div className="relative shrink-0 h-[104px] w-[104px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
               stroke="currentColor"
-              className="text-primary-foreground/40"
+              className="text-primary-foreground/30"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -55,7 +74,11 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
             />
           </svg>
 
-          <div className="absolute inset-0 flex items-center justify-center">
+          {/* Center label */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-[10px] text-primary-foreground/70 tracking-wide">
+              Progress
+            </span>
             <Heading className="text-primary-foreground text-shadow-soft text-lg">
               {percentage}%
             </Heading>
@@ -64,24 +87,30 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
 
         {/* Content */}
         <div className="flex flex-col gap-2 flex-1 min-w-0">
-
+          {/* Title */}
           <HeroTitle className="text-primary-foreground text-shadow-soft">
-            Today's Tasks
+            Today’s Tasks
           </HeroTitle>
 
-          <HeroSubtext className="text-primary-foreground/80">
-            {progressText}
+          {/* Primary info (stronger clarity) */}
+          <HeroSubtext className="text-primary-foreground/90">
+            {total === 0
+              ? "No tasks yet today"
+              : remaining === 0
+              ? "All tasks completed 🎉"
+              : progressText}
           </HeroSubtext>
 
+          {/* Secondary support */}
           {motivation && (
             <HeroSupport className="text-primary-foreground/75">
               {motivation}
             </HeroSupport>
           )}
 
-          {/* CTA */}
+          {/* CTA / Status */}
           {isLoading ? (
-            <Skeleton className="h-7 w-28 rounded-full mt-2" />
+            <Skeleton className="h-8 w-32 rounded-full mt-2" />
           ) : total === 0 ? (
             <button
               type="button"
@@ -93,26 +122,38 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
                 }
               }}
               className="
-                mt-2
+                mt-3
                 px-4 py-2
                 rounded-full
-                bg-card/95
-                border border-border/30
+                bg-primary-foreground
+                text-foreground
                 shadow-cta
                 active:scale-[0.97]
                 transition
                 flex items-center gap-1
                 w-fit
+                font-medium
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/80
               "
             >
-              <CTA className="text-foreground flex items-center gap-1 tracking-tight">
-                Add a task
-                <ArrowRight size={12} className="opacity-50" />
+              <CTA className="flex items-center gap-1 tracking-tight">
+                Add your first task
+                <ArrowRight size={14} className="opacity-60" />
               </CTA>
             </button>
           ) : (
-            <span className="mt-2 px-3 py-1 rounded-full bg-primary-foreground/20 text-primary-foreground text-xs font-medium w-fit">
+            <span
+              className="
+                mt-3
+                px-3 py-1
+                rounded-full
+                bg-primary-foreground/20
+                text-primary-foreground
+                text-xs
+                font-medium
+                w-fit
+              "
+            >
               {remaining === 0
                 ? "All done 🎉"
                 : remaining === 1
@@ -124,19 +165,18 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
 
         {/* Illustration */}
         <img
-  src={clipboardIllustration}
-  alt=""
-  aria-hidden
-  loading="lazy"
-  className="
-    hidden sm:block
-    w-[80px] h-[80px]
-    object-contain
-    shrink-0
-    opacity-90
-  "
-/>
-
+          src={clipboardIllustration}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="
+            hidden sm:block
+            w-[84px] h-[84px]
+            object-contain
+            shrink-0
+            opacity-90
+          "
+        />
       </div>
     </Card>
   );
