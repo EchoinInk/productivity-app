@@ -105,12 +105,18 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                       rounded-full
                       text-xs font-medium
                       opacity-70
+                      flex items-center gap-1.5
                     "
                     style={{
                       backgroundColor: meta.bg,
                       color: meta.text,
                     }}
                   >
+                    <img
+                      src={meta.icon}
+                      alt=""
+                      className="w-3 h-3 object-contain"
+                    />
                     {task.category}
                   </span>
                 )}

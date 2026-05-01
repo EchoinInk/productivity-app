@@ -77,6 +77,7 @@ export const TaskRowUI = memo((props: Props) => {
         border border-white/40
       "
       style={{ backgroundColor: categoryMeta.bg }}
+      title={categoryMeta.bg ? "" : "Other"}
     >
       <img
         src={categoryMeta.icon}
