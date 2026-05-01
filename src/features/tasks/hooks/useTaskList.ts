@@ -11,7 +11,7 @@ export const useTaskList = ({ onSelectTask }: UseTaskListProps) => {
   const [openSections, setOpenSections] = useState<Record<TaskSectionType, boolean>>({
     today: true,
     upcoming: false,
-    yesterday: false,
+    completed: false,
   });
 
   const toggleSection = useCallback((key: TaskSectionType) => {

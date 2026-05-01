@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -8,11 +8,9 @@ import { Card } from "@/components/ui/Card";
 import { AddTaskModal, EditTaskModal } from "@/features/tasks";
 import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getToday } from "@/shared/lib/date";
 
 import type { Task } from "@/features/tasks/types/types";
-import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
 
 const spring = {
   type: "spring" as const,
@@ -21,11 +19,8 @@ const spring = {
 };
 
 const TasksPage = () => {
-  const { actions } = useTasks();
+  const { sections, actions } = useTasks();
   const { addTask, updateTask, deleteTask, toggleTask } = actions;
-  const tasks = useTasksStore((state) => state.tasks);
-
-  const today = getToday();
 
   const [tab, setTab] = useState<"Today" | "Upcoming" | "Completed">("Today");
   const [open, setOpen] = useState(false);
@@ -33,36 +28,26 @@ const TasksPage = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   const handleSelectTask = (id: string) => {
-    const task = tasks.find((t) => String(t.id) === id) ?? null;
+    const section = sections.find((s) => s.type === tab.toLowerCase() as any);
+    const task = section?.tasks.find((t) => t.id === id);
     if (!task) return;
-    setSelectedTask(task);
+    const originalTask = sections.flatMap(s => s.tasks).find(t => t.id === id);
+    if (!originalTask) return;
+    setSelectedTask({
+      id: originalTask.id,
+      label: originalTask.title,
+      date: originalTask.subtitle,
+      category: originalTask.category,
+    } as Task);
     setEditOpen(true);
   };
 
-  const filteredTasks = useMemo(() => {
-    return tasks.filter((task) => {
-      const isCompleted = task.completedDates.includes(today);
-      const isToday = task.date === today;
+  const activeSection = sections.find((s) => s.type === tab.toLowerCase() as any);
+  const tasks = activeSection?.tasks ?? [];
+  const highPriorityTasks = tasks.slice(0, 3);
+  const otherTasks = tasks.slice(3);
 
-      if (tab === "Completed") return isCompleted;
-      if (tab === "Today") return !isCompleted && isToday;
-      if (tab === "Upcoming") return !isCompleted && !isToday;
-      return false;
-    });
-  }, [tasks, tab, today]);
-
-  const taskRowVMs: TaskRowVM[] = useMemo(() => {
-    return filteredTasks.map((task) => ({
-      id: String(task.id),
-      title: task.label,
-      subtitle: task.time ? `${task.time}` : task.date,
-      isCompleted: task.completedDates.includes(today),
-      category: task.category ?? null,
-    }));
-  }, [filteredTasks, today]);
-
-  const highPriorityTasks = taskRowVMs.slice(0, 3);
-  const otherTasks = taskRowVMs.slice(3);
+  const today = getToday();
 
   return (
     <>
@@ -99,7 +84,7 @@ const TasksPage = () => {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
           >
-            {taskRowVMs.length === 0 ? (
+            {tasks.length === 0 ? (
               <div className="py-10 text-center space-y-2">
                 <Body className="font-medium">No tasks yet</Body>
                 <Body className="text-sm text-muted-foreground">

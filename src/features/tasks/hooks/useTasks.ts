@@ -41,7 +41,7 @@ export interface TaskActions {
   deleteTask: (id: EntityId) => void;
 }
 
-export type TaskSectionType = "today" | "upcoming" | "yesterday";
+export type TaskSectionType = "today" | "upcoming" | "completed";
 
 export interface TaskRowVM {
   id: string;
@@ -89,10 +89,10 @@ const SECTION_CONFIG: ReadonlyArray<{
     emptyHint: "Nothing scheduled here",
   },
   {
-    type: "yesterday",
-    title: "Yesterday",
-    emptyMessage: "No tasks from yesterday",
-    emptyHint: "Nothing scheduled here",
+    type: "completed",
+    title: "Completed",
+    emptyMessage: "No completed tasks",
+    emptyHint: "Complete a task to see it here",
   },
 ];
 
@@ -137,11 +137,12 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
   const sections = useMemo<TaskSection[]>(() => {
     return SECTION_CONFIG.map((cfg) => {
       const sectionTasks = tasks.filter((task) => {
-        // Simple filtering based on task date and section type
-        const taskDate = task.date || activeDate;
-        if (cfg.type === "today") return taskDate === activeDate;
-        if (cfg.type === "upcoming") return taskDate > activeDate;
-        if (cfg.type === "yesterday") return taskDate < activeDate;
+        const isCompleted = isTaskCompleted(task, activeDate);
+        const isToday = (task.date || activeDate) === activeDate;
+
+        if (cfg.type === "today") return !isCompleted && isToday;
+        if (cfg.type === "upcoming") return !isCompleted && !isToday;
+        if (cfg.type === "completed") return isCompleted;
         return false;
       });
       const stats = getTaskCompletionStats(sectionTasks, activeDate);
