@@ -10,7 +10,8 @@ import { selectTodayTasks, selectIncompleteTodayTasks } from '@/features/tasks/s
  */
 export const useNotifications = () => {
   const hasRequestedPermission = useRef(false);
-  const tasks = useTasksStore((state) => state.tasks);
+  const todayTasks = useTasksStore((state) => selectTodayTasks(state.tasks));
+  const incompleteTasks = useTasksStore((state) => selectIncompleteTodayTasks(state.tasks));
   const meals = useMealsStore((state) => state.meals);
   const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
   const expenses = useBudgetStore((state) => state.expenses);
@@ -26,9 +27,6 @@ export const useNotifications = () => {
   // Trigger notifications on app open
   useEffect(() => {
     if (!canSendNotifications()) return;
-
-    const todayTasks = selectTodayTasks(tasks);
-    const incompleteTasks = selectIncompleteTodayTasks(tasks);
 
     // Notify about incomplete tasks
     if (todayTasks.length > 0 && incompleteTasks.length > 0) {
@@ -63,7 +61,7 @@ export const useNotifications = () => {
         true
       );
     }
-  }, [tasks, meals, weeklyBudget, expenses]);
+  }, [todayTasks, incompleteTasks, meals, weeklyBudget, expenses]);
 
   // Time-based notification triggers
   useEffect(() => {
@@ -71,8 +69,6 @@ export const useNotifications = () => {
 
     // Set up a 4-hour reminder
     const reminderTimer = setTimeout(() => {
-      const incompleteTasks = selectIncompleteTodayTasks(tasks);
-
       if (incompleteTasks.length > 0) {
         sendRelevantNotification(
           'Lumo',
@@ -83,7 +79,7 @@ export const useNotifications = () => {
     }, 1000 * 60 * 60 * 4); // 4 hours
 
     return () => clearTimeout(reminderTimer);
-  }, [tasks]);
+  }, [incompleteTasks]);
 
   return {
     canSendNotifications: canSendNotifications(),

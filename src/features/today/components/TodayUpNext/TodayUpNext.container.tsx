@@ -4,15 +4,15 @@ import { useMemo } from "react";
 import { selectIncompleteTodayTasks } from "@/features/tasks/selectors/taskSelectors";
 
 export const TodayUpNextContainer = () => {
-  const tasks = useTasksStore((state) => state.tasks);
+  const incompleteTasks = useTasksStore((state) => selectIncompleteTodayTasks(state.tasks));
   const toggleTask = useTasksStore((state) => state.toggleTask);
 
   // Get first incomplete task sorted by date
   const items = useMemo(() => {
-    const incompleteTasks = selectIncompleteTodayTasks(tasks)
+    const sortedTasks = incompleteTasks
       .sort((a, b) => a.date.localeCompare(b.date));
     
-    const firstTask = incompleteTasks[0];
+    const firstTask = sortedTasks[0];
     
     if (!firstTask) {
       return [];
@@ -26,7 +26,7 @@ export const TodayUpNextContainer = () => {
       completed: false,
       onToggle: () => toggleTask(firstTask.id)
     }];
-  }, [tasks, toggleTask]);
+  }, [incompleteTasks, toggleTask]);
 
   const viewModel = useMemo(() => ({
     items,

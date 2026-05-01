@@ -2,14 +2,15 @@ import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { ActivityListView } from "./ActivityList.view";
 import { useMemo } from "react";
+import { selectCompletedTasks } from "@/features/tasks/selectors/taskSelectors";
 
 export const ActivityListContainer = ({ onAddTask }: { onAddTask?: () => void } = {}) => {
-  const tasks = useTasksStore((state) => state.tasks);
+  const completedTasks = useTasksStore((state) => selectCompletedTasks(state.tasks));
   const shoppingItems = useShoppingStore((state) => state.shoppingItems);
 
-  // Show latest 5 tasks sorted by ID (as proxy for createdAt)
+  // Show latest 5 completed tasks sorted by ID (as proxy for createdAt)
   const taskActivities = useMemo(() => {
-    return tasks
+    return completedTasks
       .sort((a, b) => b.id.localeCompare(a.id)) // Sort by ID descending as proxy for creation time
       .slice(0, 5)
       .map((task) => ({
@@ -19,7 +20,7 @@ export const ActivityListContainer = ({ onAddTask }: { onAddTask?: () => void } 
         subtitle: task.category || "Task",
         timestamp: "Today",
       }));
-  }, [tasks]);
+  }, [completedTasks]);
 
   // Add completed shopping items
   const shoppingActivities = useMemo(() => {

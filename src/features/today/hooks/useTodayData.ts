@@ -35,26 +35,15 @@ export type TodayData = {
 };
 
 export const useTodayData = (): TodayData => {
-  const tasks = useTasksStore((state) => state.tasks);
+  const todayTasks = useTasksStore((state) => selectTodayTasks(state.tasks));
+  const completedTasks = useTasksStore((state) => selectCompletedTodayTasks(state.tasks));
+  const incompleteTasks = useTasksStore((state) => selectIncompleteTodayTasks(state.tasks));
   const meals = useMealsStore((state) => state.meals);
   const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
   const expenses = useBudgetStore((state) => state.expenses);
   const shoppingItems = useShoppingStore((state) => state.shoppingItems);
   const events = useActivityStore((state) => state.events);
   const updateStreak = useStreaksStore((state) => state.updateStreak);
-
-  console.log("TODAY DATA DEBUG", { tasks: tasks.length, meals: meals.length, events: events.length });
-
-  // Lightweight computations for initial render
-  const todayTasks = useMemo(() => 
-    selectTodayTasks(tasks), 
-    [tasks]
-  );
-  
-  const completedTasks = useMemo(() => 
-    selectCompletedTodayTasks(tasks), 
-    [tasks]
-  );
   
   const todayWeekday = useMemo(() => {
     const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -170,7 +159,6 @@ export const useTodayData = (): TodayData => {
       mealsLogged: todayMeals.length 
     });
 
-    const incompleteTasks = selectIncompleteTodayTasks(tasks);
     const upNext: TodayData["upNext"] = [
       // Today's tasks, sorted by time if available
       ...incompleteTasks
@@ -225,5 +213,5 @@ export const useTodayData = (): TodayData => {
       upNext,
       activity,
     };
-  }, [todayTasks, completedTasks, todayMeals, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, weeklyBudget, events, tasks]);
+  }, [todayTasks, completedTasks, incompleteTasks, todayMeals, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, weeklyBudget, events]);
 };

@@ -10,9 +10,8 @@ import { selectTodayTasks, selectCompletedTodayTasks } from "@/features/tasks/se
  * comes from the selectTodayTasks selector.
  */
 export const TaskProgress = () => {
-  const tasks = useTasksStore((state) => state.tasks);
-  const todayTasks = selectTodayTasks(tasks);
-  const completedTodayTasks = selectCompletedTodayTasks(tasks);
+  const todayTasks = useTasksStore((state) => selectTodayTasks(state.tasks));
+  const completedTodayTasks = useTasksStore((state) => selectCompletedTodayTasks(state.tasks));
   
   const total = todayTasks.length;
   const completed = completedTodayTasks.length;

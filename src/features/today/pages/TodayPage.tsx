@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 
 import Header from "@/components/layout/Header";
 import { Heading } from "@/components/ui/Text";
@@ -27,7 +27,7 @@ const TodayPage = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
   const addTask = useTasksStore((state) => state.addTask);
   const toggleTask = useTasksStore((state) => state.toggleTask);
-  const tasks = useTasksStore((state) => state.tasks);
+  const nextTask = useTasksStore((state) => selectNextTask(state.tasks));
   
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
@@ -37,11 +37,6 @@ const TodayPage = () => {
   const today = useTodayData();
   const selectedDateString = getToday();
   const greeting = greetingFor(selectedDate);
-
-  // Derive next task
-  const nextTask = useMemo(() => {
-    return selectNextTask(tasks);
-  }, [tasks]);
 
   return (
     <>

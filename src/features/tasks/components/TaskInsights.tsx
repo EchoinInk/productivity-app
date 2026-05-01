@@ -9,8 +9,7 @@ import { selectTodayTasks } from "@/features/tasks/selectors/taskSelectors";
  * from the selectTodayTasks selector.
  */
 export const TaskInsights = () => {
-  const tasks = useTasksStore((state) => state.tasks);
-  const todayTasks = selectTodayTasks(tasks);
+  const todayTasks = useTasksStore((state) => selectTodayTasks(state.tasks));
   const hasInsights = todayTasks.length > 0;
 
   if (!hasInsights) {

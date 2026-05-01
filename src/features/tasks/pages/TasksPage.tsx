@@ -15,7 +15,7 @@ import type { Task } from "@/features/tasks/types/types";
 const TasksPage = () => {
   const { sections, actions } = useTasks();
   const { addTask, updateTask, deleteTask, toggleTask } = actions;
-  const rawTasks = useTasksStore((state) => state.tasks);
+  const allTasks = useTasksStore((state) => state.tasks);
 
   const [tab, setTab] = useState<"Today" | "Upcoming" | "Completed">("Today");
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ const TasksPage = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   const handleSelectTask = (id: string) => {
-    const originalTask = rawTasks.find(t => t.id === id);
+    const originalTask = allTasks.find(t => t.id === id);
     if (!originalTask) return;
     setSelectedTask(originalTask);
     setEditOpen(true);
