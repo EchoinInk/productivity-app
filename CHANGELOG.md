@@ -6,6 +6,17 @@ React + TypeScript + Zustand + Tailwind app. No user-facing behaviour changed;
 this is a pure architecture pass.
 
 ---
+## Latest Session Summary
+
+- Task model simplified to boolean completion
+- Zustand architecture normalized
+- Today dashboard rewired to real data
+- Modal system redesigned (in progress)
+- UI consistency improved (cards, icons)
+- Documentation system created
+- TypeScript errors resolved
+
+This session marks the transition from architecture refactor → product build phase.
 
 ## Summary
 
@@ -590,3 +601,215 @@ This release completes a comprehensive architecture refactor across three phases
 ### Tagging
 
 Ready for release tagging. All Phase G and H work completed and verified.
+
+This is already very solid — but it’s missing everything you did after the architecture refactor tonight.
+
+Right now your changelog only reflects:
+
+* Store split
+* UI consolidation
+* Theme tokens
+* Header/layout unification
+
+👉 It does NOT include:
+
+* Task model rewrite (completedDates → completed)
+* Zustand architecture simplification
+* useTasks contract change
+* Today dashboard rewiring
+* Modal + UX direction
+* Docs system you just created
+
+⸻
+
+💥 HERE’S YOUR UPDATED CHANGELOG ADDITION
+
+Append this below Phase H:
+
+⸻
+
+Phase I — Task Model Simplification & Hook Architecture Rewrite
+
+Changes
+
+* Canonical Task model simplified
+    * Replaced completedDates: string[] with completed: boolean
+    * Removed legacy fields (title, subtitle)
+    * Standardized Task shape across entire app
+* Zustand architecture simplified
+    * Removed derived state from stores
+    * Stores now contain raw data only
+    * All derived logic moved to selectors/hooks
+* useTasks hook rewritten
+    * Old complex return shape removed (progress, insights, etc.)
+    * New contract:
+
+const { tasks, sections, actions } = useTasks();
+
+* sections now provides:
+    * today
+    * upcoming
+    * completed
+* Removed view models
+    * Deleted TaskRowVM, TaskSectionVM, TaskInsights
+    * Components now consume raw Task
+* Selectors normalized
+    * All store access uses selectors
+    * Removed inline state access patterns
+
+⸻
+
+Files Modified
+
+File	Change
+src/features/tasks/types.ts	Updated Task model
+src/features/tasks/store/useTasksStore.ts	Removed derived state
+src/features/tasks/hooks/useTasks.ts	Rewritten contract
+src/features/tasks/components/*	Updated to use raw Task
+src/features/today/*	Rewired to new task model
+
+⸻
+
+Files Deleted
+
+File	Reason
+TaskInsights.tsx	Derived UI logic removed
+TaskProgress.tsx	Replaced by selector-based logic
+VM types	No longer needed
+
+⸻
+
+⸻
+
+Phase J — Today Dashboard Rewiring & UX Corrections
+
+Changes
+
+* Today page fully reconnected to real state
+    * Tasks, meals, budget now reflect live Zustand data
+    * Removed static placeholders
+* Quick Actions fixed
+    * Replaced static UI with real modal triggers
+    * Removed navigation-based actions
+* Recent Activity rebuilt
+    * Now derives from real store updates
+    * No placeholder state
+* Up Next logic simplified
+    * Removed artificial grouping
+    * Driven by real upcoming data
+
+⸻
+
+UX Decisions
+
+* “Up Next” and “Recent Activity” identified as weak patterns
+* Future direction: merge into Next Actions system
+
+⸻
+
+⸻
+
+Phase K — Modal System Refactor (In Progress)
+
+Changes
+
+* Standardized modal structure:
+
+Task name
+date | recurrence
+category | priority
+notes
+CTA
+
+* Removed:
+    * time field
+    * quick date shortcuts
+* Added:
+    * priority field (low / medium / high)
+* BottomSheet updated:
+    * focus management
+    * escape handling
+    * click outside to close
+
+⸻
+
+Known Issues (tracked)
+
+* CTA hidden behind bottom nav (z-index / safe-area)
+* scrolling behavior needs refinement
+
+⸻
+
+⸻
+
+Phase L — UI Consistency & Card System Cleanup
+
+Changes
+
+* Summary cards redesigned:
+    * icon moved right
+    * removed background containers
+    * improved spacing + alignment
+    * fixed wrapping issues
+* Icon system standardized:
+    * larger sizes (32–40px)
+    * consistent placement
+    * no background wrappers
+* Chevron alignment fixed using absolute positioning
+
+⸻
+
+⸻
+
+Phase M — Documentation System Introduced
+
+Changes
+
+Added /docs system:
+
+architecture.md
+rules.md
+todo.md
+roadmap.md
+features.md
+design-system.md
+state-management.md
+folder-structure.md
+playbook.md
+performance.md
+accessibility.md
+conventions.md
+
+Purpose
+
+* Define system architecture
+* Enforce engineering rules
+* Provide step-by-step development workflow
+* Prevent regression into poor patterns
+
+⸻
+
+⸻
+
+Phase N — TypeScript Cleanup (Final Sweep)
+
+Changes
+
+* Removed all completedDates references
+* Removed legacy types and interfaces
+* Fixed:
+    * missing mock data in tests
+    * incorrect hook signatures
+    * outdated imports
+* Standardized:
+    * selector usage
+    * hook contracts
+    * test structure
+
+⸻
+
+Verification
+
+* TypeScript: ✅ zero errors
+* Build: ✅ successful
+* Tests: ✅ passing
