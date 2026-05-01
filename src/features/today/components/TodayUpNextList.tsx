@@ -47,7 +47,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
     <section className="space-y-4 mt-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <Heading as="h3">Up Next</Heading>
+        <Heading as="h3" className="text-base">Up Next</Heading>
 
         <button
           type="button"

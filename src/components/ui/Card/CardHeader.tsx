@@ -25,7 +25,7 @@ export const CardHeader = ({
       {/* LEFT */}
       <div className="min-w-0">
         {title && (
-          <Heading as="h3">
+          <Heading as="h3" className="text-base">
             {title}
           </Heading>
         )}

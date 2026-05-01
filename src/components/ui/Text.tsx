@@ -11,24 +11,43 @@ function TextBase({
   truncate = false,
   ...props
 }: TextProps) {
-  const Component = as as keyof JSX.IntrinsicElements;
+  const commonProps = {
+    className: clsx(
+      weightMap[weight],
+      toneClass[tone],
+      {
+        truncate,
+        "text-left": align === "left",
+        "text-center": align === "center",
+        "text-right": align === "right",
+      },
+      className
+    ),
+    ...props
+  };
 
-  return (
-    <Component
-      className={clsx(
-        weightMap[weight],
-        toneClass[tone],
-        {
-          truncate,
-          "text-left": align === "left",
-          "text-center": align === "center",
-          "text-right": align === "right",
-        },
-        className
-      )}
-      {...(props as any)}
-    />
-  );
+  switch (as) {
+    case "p":
+      return <p {...commonProps} />;
+    case "span":
+      return <span {...commonProps} />;
+    case "div":
+      return <div {...commonProps} />;
+    case "h1":
+      return <h1 {...commonProps} />;
+    case "h2":
+      return <h2 {...commonProps} />;
+    case "h3":
+      return <h3 {...commonProps} />;
+    case "h4":
+      return <h4 {...commonProps} />;
+    case "h5":
+      return <h5 {...commonProps} />;
+    case "h6":
+      return <h6 {...commonProps} />;
+    default:
+      return <p {...commonProps} />;
+  }
 }
 
 // HERO

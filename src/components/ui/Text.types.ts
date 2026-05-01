@@ -1,5 +1,3 @@
-import { type HTMLAttributes } from "react";
-
 export type Weight = "regular" | "medium" | "semibold" | "bold";
 export type Tone =
   | "default"
@@ -10,13 +8,15 @@ export type Tone =
   | "onColor";
 export type Align = "left" | "center" | "right";
 
-export type TextProps = HTMLAttributes<HTMLElement> & {
-  as?: keyof JSX.IntrinsicElements;
+type TextOwnProps = {
+  as?: "p" | "span" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   weight?: Weight;
   tone?: Tone;
   align?: Align;
   truncate?: boolean;
 };
+
+export type TextProps = TextOwnProps & React.HTMLAttributes<HTMLElement>;
 
 export const weightMap: Record<Weight, string> = {
   regular: "font-normal",
