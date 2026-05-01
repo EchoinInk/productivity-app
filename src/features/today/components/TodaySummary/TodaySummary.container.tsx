@@ -1,7 +1,7 @@
 import taskillustration from "@/assets/tasksquickactions.webp";
 import mealillustration from "@/assets/mealquickactions.webp";
 import budgetillustration from "@/assets/budgetquickactions.webp";
-import shoppingillustration from "@/assets/shoppingquickactions.webp";import { QuickActionsBarView, type QuickActionsBarViewModel } from "./QuickActionsBar.view";
+import shoppingillustration from "@/assets/shoppingquickactions.webp";
 import { TodaySummaryView } from "./TodaySummary.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useMemo } from "react";

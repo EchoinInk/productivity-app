@@ -29,27 +29,6 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
     <Card variant="hero" className="overflow-hidden p-0 shadow-pop">
       <div className="flex items-center gap-4 px-6 py-10">
 
-        {/* LCP Image - Render first for instant loading */}
-        <img
-          src={clipboardIllustration}
-          srcSet={`${clipboardIllustration} 1x`}
-          sizes="(max-width: 640px) 0px, 80px"
-          alt=""
-          aria-hidden
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-          width={80}
-          height={80}
-          className="
-            hidden sm:block
-            w-[80px] h-[80px]
-            object-contain
-            shrink-0
-            opacity-90
-          "
-        />
-
         {/* Progress ring */}
         <div className="relative shrink-0 h-[104px] w-[104px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
@@ -135,7 +114,27 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
                 : `${remaining} tasks left`}
             </span>
           )}
-        </div>
+        </div>{/* LCP Image - Render first for instant loading */}
+        <img
+          src={clipboardIllustration}
+          srcSet={`${clipboardIllustration} 1x`}
+          sizes="(max-width: 640px) 0px, 85px"
+          alt=""
+          aria-hidden
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          width={80}
+          height={80}
+          className="
+            hidden sm:block
+            w-[80px] h-[80px]
+            object-contain
+            shrink-0
+            opacity-90
+          "
+        />
+
 
       </div>
     </Card>
