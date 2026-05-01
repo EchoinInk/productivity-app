@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, type ReactNode } from "react";
-import { Card, CardHeader, CardBody } from "@/components/ui/Card";
+import { Card, CardHeader } from "@/components/ui/Card";
 
 interface BottomSheetDialogProps {
   open: boolean;
@@ -8,7 +8,12 @@ interface BottomSheetDialogProps {
   children: ReactNode;
 }
 
-export const BottomSheetDialog = ({ open, title, onClose, children }: BottomSheetDialogProps) => {
+export const BottomSheetDialog = ({
+  open,
+  title,
+  onClose,
+  children,
+}: BottomSheetDialogProps) => {
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
@@ -34,21 +39,49 @@ export const BottomSheetDialog = ({ open, title, onClose, children }: BottomShee
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/30 p-4 backdrop-blur-sm animate-in fade-in" onClick={onClose}>
+    <div
+      className="
+        fixed inset-0 z-50
+        flex items-end justify-center
+        bg-foreground/30 backdrop-blur-sm
+        animate-in fade-in
+      "
+      onClick={onClose}
+    >
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="w-full max-w-md animate-in slide-in-from-bottom duration-200 focus:outline-none"
+        className="
+          w-full max-w-md
+          animate-in slide-in-from-bottom duration-200
+          focus:outline-none
+        "
         onClick={(event) => event.stopPropagation()}
       >
-        <Card>
+        <Card className="overflow-hidden rounded-2xl">
+
+          {/* HEADER */}
           <CardHeader title={title} />
-          <CardBody className="pt-2">
-            {children}
-          </CardBody>
+
+          {/* CONTENT SYSTEM (KEY FIX) */}
+          <div className="flex flex-col max-h-[85vh]">
+
+            {/* SCROLLABLE AREA */}
+            <div
+              className="
+                flex-1
+                overflow-y-auto
+                px-4 pt-2
+                pb-[calc(96px+env(safe-area-inset-bottom))]
+              "
+            >
+              {children}
+            </div>
+
+          </div>
         </Card>
       </div>
     </div>
