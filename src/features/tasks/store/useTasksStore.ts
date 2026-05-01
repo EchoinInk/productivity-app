@@ -53,15 +53,14 @@ export const useTasksStore = create<TasksState>()(
        */
       addTask: (input: CreateTaskInput) =>
         set((state) => {
-          console.log("ADD TASK", input);
-          console.log("STORE STATE", state.tasks);
-          
           const newTask: Task = {
             id: crypto.randomUUID(),
             completed: false,
             date: input.date ?? getToday(),
             ...input,
           };
+
+          console.log("ADDING TASK", newTask);
 
           // Track activity
           useActivityStore.getState().addEvent(
