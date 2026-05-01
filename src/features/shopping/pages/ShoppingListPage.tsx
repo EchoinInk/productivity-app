@@ -40,7 +40,12 @@ const ShoppingListPage = () => {
             {items.length === 0 ? (
               <EmptyState
                 title={`No ${activeTab.toLowerCase()} items`}
-                description={`Add your first ${activeTab.toLowerCase()} item`}
+                description={`Start by adding your first ${activeTab.toLowerCase()} item to build your shopping list`}
+                action={
+                  <Button onClick={() => setOpen(true)} aria-label={`Add ${activeTab.toLowerCase()} item`}>
+                    <Plus size={16} /> Add Item
+                  </Button>
+                }
                 className="py-6"
               />
             ) : (

@@ -28,7 +28,7 @@ const RecipesPage = () => {
             <CardBody>
               <EmptyState
                 title="No recipes yet"
-                description="Start by adding your first recipe"
+                description="Start by adding your first recipe to begin building your collection"
                 action={
                   <Button onClick={() => setOpen(true)} aria-label="Add recipe">
                     Add Recipe

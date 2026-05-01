@@ -128,7 +128,7 @@ const TasksHeroCard = ({
           )}
           {categories.length === 0 && (
             <EmptyState
-              title="No tasks yet"
+              title="No tasks yet 🎉"
               description="Add your first task to get started"
               action={
                 onAddTask && (

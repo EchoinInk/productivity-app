@@ -16,7 +16,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
   if (categories.length === 0) {
     return (
       <div className="text-center py-4 text-muted-foreground text-sm">
-        No categories yet
+        No categories yet 🎉
       </div>
     );
   }

@@ -55,17 +55,15 @@ export const getSmartMotivation = (data: SmartMessagingData): string | null => {
 
   // Priority 7: First task motivation
   if (tasksCompleted === 0 && tasksTotal > 0) {
-    return "One small win can change your whole day.";
+    return "You've got this! Take the first step towards a productive day.";
   }
-
   // Priority 8: No tasks scenario
   if (tasksTotal === 0) {
     if (streakMeals.current >= 3) {
-      return "Great meal habits today!";
+      return "You're crushing your meal goals!";
     }
-    return "Enjoy your productive day!";
+    return "Take a breather, you've earned it!";
   }
-
   // Default fallback
   return null;
 };

@@ -22,7 +22,7 @@ export const TaskProgress = () => {
       <Surface className="space-y-2">
         <div className="flex items-center justify-between">
           <Heading>Today Progress</Heading>
-          <Meta>No tasks</Meta>
+          <Meta>No tasks today</Meta>
         </div>
         <ProgressBar value={0} ariaLabel="No tasks progress" />
         <Meta>Enjoy your free day! 🎉</Meta>

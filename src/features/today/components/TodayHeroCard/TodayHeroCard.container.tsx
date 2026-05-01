@@ -19,7 +19,7 @@ export const TodayHeroCard = ({
   const model = useMemo(() => {
     const remaining = total - completed;
     const progressText = total === 0 
-      ? "No tasks yet today"
+      ? "No tasks today 🎉"
       : remaining === 0 
       ? "All tasks completed 🎉"
       : `${completed} of ${total} completed`;

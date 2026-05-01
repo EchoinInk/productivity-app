@@ -101,7 +101,7 @@ const TasksPage = () => {
           >
             {tasks.length === 0 ? (
               <div className="py-10 text-center space-y-2">
-                <Body className="font-medium">No tasks yet</Body>
+                <Body className="font-medium">No tasks yet 🎉</Body>
                 <Body className="text-sm text-muted-foreground">
                   Add your first task to get started
                 </Body>

@@ -23,17 +23,23 @@ const EmptyState = ({
       )}
       {...props}
     >
-      <Body className="font-semibold">
+      <Body className="font-semibold text-lg">
         {title}
       </Body>
 
       {description && (
-        <Meta>
+        <Meta className="text-sm text-gray-500">
           {description}
         </Meta>
       )}
 
-      {action && <div className="pt-3">{action}</div>}
+      {action && (
+        <div className="pt-4">
+          <div className="border rounded-md p-4 bg-gray-100">
+            {action}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

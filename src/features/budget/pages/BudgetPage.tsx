@@ -74,7 +74,7 @@ const BudgetPage = () => {
           {expenses.length === 0 ? (
             <EmptyState
               title="No transactions yet"
-              description="Add a transaction"
+              description="Start by adding your first transaction to track your spending"
             />
           ) : (
             <div className="space-y-1">

@@ -56,7 +56,7 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
           <Plus size={32} className="mx-auto text-muted-foreground/70 mb-3" />
           <Text className="text-muted-foreground/90">No activity yet</Text>
           <Text className="text-sm text-muted-foreground/90 mt-1">
-            Start by adding a task
+            Start by completing your first task to see activity here
           </Text>
           <button
             onClick={model.onAddTask}

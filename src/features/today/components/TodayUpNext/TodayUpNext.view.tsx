@@ -55,7 +55,7 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
           <Clock size={32} className="mx-auto text-muted-foreground/70 mb-3" />
           <Text className="text-muted-foreground/90">Nothing scheduled yet</Text>
           <Text className="text-sm text-muted-foreground/90 mt-1">
-            Add task
+            Add your first task to get started
           </Text>
         </Card>
       </div>
