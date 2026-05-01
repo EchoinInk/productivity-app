@@ -6,13 +6,18 @@ interface AppShellProps {
 }
 
 const AppShell = ({ children }: AppShellProps) => (
-  <>
-    {children}
+  <div className="min-h-screen bg-white">
+    
+    {/* CONTENT */}
+    <div className="w-full lg:max-w-[430px] lg:mx-auto">
+      {children}
+    </div>
 
+    {/* NAV */}
     <div
       className="
-        fixed bottom-0 left-1/2 -translate-x-1/2
-        w-full max-w-[430px]
+        fixed bottom-0 left-0 w-full
+        lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[430px]
 
         bg-white/95 backdrop-blur-xl
         border-t border-black/5
@@ -23,7 +28,7 @@ const AppShell = ({ children }: AppShellProps) => (
     >
       <BottomNav />
     </div>
-  </>
+  </div>
 );
 
 export default AppShell;
