@@ -47,7 +47,6 @@ const Header = ({
     if (!selectedDate || !onDateChange) return;
     const next = new Date(selectedDate);
     next.setDate(next.getDate() + days);
-    next.setDate(next.getDate() + days);
     onDateChange(next);
   };
 
