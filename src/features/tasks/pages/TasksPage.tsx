@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Plus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "@/components/layout/Header";
 import { Body } from "@/components/ui/Text";
@@ -11,6 +12,12 @@ import { getToday } from "@/shared/lib/date";
 
 import type { Task } from "@/features/tasks/types/types";
 import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
+
+const spring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
+};
 
 const TasksPage = () => {
   const { actions } = useTasks();
@@ -31,7 +38,6 @@ const TasksPage = () => {
     setEditOpen(true);
   };
 
-  // Filter tasks based on tab
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
       const isCompleted = task.completedDates.includes(today);
@@ -44,7 +50,6 @@ const TasksPage = () => {
     });
   }, [tasks, tab, today]);
 
-  // Convert to TaskRowVM format
   const taskRowVMs: TaskRowVM[] = useMemo(() => {
     return filteredTasks.map((task) => ({
       id: String(task.id),
@@ -66,10 +71,10 @@ const TasksPage = () => {
         {/* Tabs */}
         <div className="flex gap-2">
           {(["Today", "Upcoming", "Completed"] as const).map((tabName) => (
-            <button
+            <motion.button
               key={tabName}
-              type="button"
               onClick={() => setTab(tabName)}
+              whileTap={{ scale: 0.95 }}
               className={`
                 px-4 py-2 rounded-full text-sm font-medium transition-all
                 ${
@@ -80,86 +85,96 @@ const TasksPage = () => {
               `}
             >
               {tabName}
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        {/* Empty State */}
-        {taskRowVMs.length === 0 ? (
-          <div className="py-10 text-center space-y-2">
-            <Body className="font-medium">No tasks yet</Body>
-            <Body className="text-sm text-muted-foreground">
-              Add your first task to get started
-            </Body>
-          </div>
-        ) : (
-          <>
-            {/* High Priority */}
-            {highPriorityTasks.length > 0 && (
-              <div className="space-y-2">
-                <Body className="text-sm font-semibold text-slate-700">
-                  High Priority
+        {/* Task List */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={tab}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+          >
+            {taskRowVMs.length === 0 ? (
+              <div className="py-10 text-center space-y-2">
+                <Body className="font-medium">No tasks yet</Body>
+                <Body className="text-sm text-muted-foreground">
+                  Add your first task to get started
                 </Body>
-
-                {highPriorityTasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="
-                      rounded-2xl
-                      px-4 py-3
-                      bg-white
-                      border border-black/5
-                      shadow-[0_8px_24px_rgba(0,0,0,0.06)]
-                      active:scale-[0.98]
-                      transition
-                    "
-                  >
-                    <TaskRow
-                      task={task}
-                      onToggleTask={(id) => toggleTask(id, today)}
-                      onSelectTask={handleSelectTask}
-                    />
-                  </div>
-                ))}
               </div>
-            )}
+            ) : (
+              <>
+                {highPriorityTasks.length > 0 && (
+                  <div className="space-y-2">
+                    <Body className="text-sm font-semibold text-slate-700">
+                      High Priority
+                    </Body>
 
-            {/* Other Tasks */}
-            {otherTasks.length > 0 && (
-              <div className="space-y-2">
-                <Body className="text-sm font-semibold text-slate-700">
-                  Other Tasks
-                </Body>
-
-                {otherTasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="
-                      rounded-2xl
-                      px-4 py-3
-                      bg-white
-                      border border-black/5
-                      shadow-[0_8px_24px_rgba(0,0,0,0.06)]
-                      active:scale-[0.98]
-                      transition
-                    "
-                  >
-                    <TaskRow
-                      task={task}
-                      onToggleTask={(id) => toggleTask(id, today)}
-                      onSelectTask={handleSelectTask}
-                    />
+                    {highPriorityTasks.map((task) => (
+                      <motion.div
+                        key={task.id}
+                        layout
+                        whileTap={{ scale: 0.98 }}
+                        transition={spring}
+                        className="
+                          rounded-2xl
+                          px-4 py-3
+                          bg-white
+                          border border-black/5
+                          shadow-[0_8px_24px_rgba(0,0,0,0.06)]
+                        "
+                      >
+                        <TaskRow
+                          task={task}
+                          onToggleTask={(id) => toggleTask(id, today)}
+                          onSelectTask={handleSelectTask}
+                        />
+                      </motion.div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                )}
+
+                {otherTasks.length > 0 && (
+                  <div className="space-y-2 mt-2">
+                    <Body className="text-sm font-semibold text-slate-700">
+                      Other Tasks
+                    </Body>
+
+                    {otherTasks.map((task) => (
+                      <motion.div
+                        key={task.id}
+                        layout
+                        whileTap={{ scale: 0.98 }}
+                        transition={spring}
+                        className="
+                          rounded-2xl
+                          px-4 py-3
+                          bg-white
+                          border border-black/5
+                          shadow-[0_8px_24px_rgba(0,0,0,0.06)]
+                        "
+                      >
+                        <TaskRow
+                          task={task}
+                          onToggleTask={(id) => toggleTask(id, today)}
+                          onSelectTask={handleSelectTask}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
-          </>
-        )}
+          </motion.div>
+        </AnimatePresence>
 
         {/* FAB */}
-        <button
-          type="button"
+        <motion.button
           onClick={() => setOpen(true)}
+          whileTap={{ scale: 0.9 }}
           className="
             fixed bottom-24 right-4
             w-14 h-14
@@ -168,15 +183,12 @@ const TasksPage = () => {
             text-white
             flex items-center justify-center
             shadow-[0_10px_30px_rgba(0,0,0,0.15)]
-            active:scale-95
-            transition
           "
         >
           <Plus size={22} />
-        </button>
+        </motion.button>
       </div>
 
-      {/* Modals */}
       <AddTaskModal
         open={open}
         onClose={() => setOpen(false)}
