@@ -1,0 +1,56 @@
+import { getCategoryMetadata } from "@/features/tasks/api";
+
+interface CategorySummary {
+  category: string;
+  active: number;
+  total: number;
+  completed: number;
+}
+
+interface CategoryListProps {
+  categories: CategorySummary[];
+  onCategoryClick?: (category: string) => void;
+}
+
+export const CategoryList = ({ categories }: CategoryListProps) => {
+  if (categories.length === 0) return null;
+
+  return (
+    <ul className="space-y-2">
+      {categories.map(({ category, active, total, completed }) => {
+        const meta = getCategoryMetadata(category);
+        return (
+          <li key={category} className="flex items-center gap-3 py-2">
+            <div
+              className={`
+                w-10 h-10 rounded-lg flex items-center justify-center text-lg
+                ${meta.bg}
+              `}
+            >
+              {meta.icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="font-medium text-sm">{category}</span>
+                <span className="text-xs text-muted-foreground">
+                  {active}/{total}
+                </span>
+              </div>
+              <div className="w-full bg-muted rounded-full h-1.5 mt-1">
+                <div
+                  className={`
+                    h-full rounded-full transition-all duration-300 ease-out
+                    ${meta.bg}
+                  `}
+                  style={{
+                    width: `${total > 0 ? (completed / total) * 100 : 0}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};

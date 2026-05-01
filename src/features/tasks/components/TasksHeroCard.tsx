@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { Card } from "@/components/ui/Card";
-import { HeroTitle, HeroSubtext, HeroSupport, BodyMuted } from "@/components/ui/Text";
+import { HeroTitle, HeroSubtext, HeroSupport } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import clipboardIllustration from "@/assets/3d-clipboard.png";
-import { getCategoryMetadata } from "@/features/tasks/api";
+import { CategoryList } from "./CategoryList";
 
 interface CategorySummary {
   category: string;
@@ -120,51 +120,13 @@ const TasksHeroCard = ({
                 </li>
               ))}
             </ul>
-          ) : categories.length > 0 ? (
-            <ul className="space-y-2">
-              {categories.map(({ category, active, total, completed }) => {
-                const meta = getCategoryMetadata(category);
-                return (
-                  <li key={category} className="flex items-center gap-3 py-2">
-                    <div
-                      className="w-6 h-6 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: meta.bg }}
-                    >
-                      <span
-                        className="text-xs font-medium"
-                        style={{ color: meta.text }}
-                      >
-                        {meta.icon}
-                      </span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <BodyMuted className="text-white text-xs">
-                        {category}
-                      </BodyMuted>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <BodyMuted className="text-white text-xs">
-                          {active} active
-                        </BodyMuted>
-                        <BodyMuted className="text-white text-xs opacity-60">
-                          •
-                        </BodyMuted>
-                        <BodyMuted className="text-white text-xs">
-                          {completed}/{total} done
-                        </BodyMuted>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => onCategoryClick?.(category)}
-                      className="text-white text-xs opacity-70 hover:opacity-100 transition-opacity"
-                    >
-                      View
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
           ) : (
+            <CategoryList 
+              categories={categories}
+              onCategoryClick={onCategoryClick}
+            />
+          )}
+          {categories.length === 0 && (
             <EmptyState
               title="No tasks yet"
               description="Add your first task to get started"
