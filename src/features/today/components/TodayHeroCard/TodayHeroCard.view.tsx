@@ -26,11 +26,11 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <Card variant="hero" className="overflow-hidden p-0">
-      <div className="flex items-center gap-4 px-6 py-6">
+    <Card variant="hero" className="overflow-hidden p-0 shadow-pop">
+      <div className="flex items-center gap-4 px-6 py-8">
 
         {/* Progress ring */}
-        <div className="relative shrink-0 h-[84px] w-[84px]">
+        <div className="relative shrink-0 h-[96px] w-[96px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
               stroke="currentColor"
@@ -56,7 +56,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           </svg>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <Heading className="text-primary-foreground text-shadow-soft">
+            <Heading className="text-primary-foreground text-shadow-soft text-lg">
               {percentage}%
             </Heading>
           </div>

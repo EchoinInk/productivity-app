@@ -36,7 +36,7 @@ const SummaryCard = ({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className="relative w-full text-left active:scale-[0.97] hover:shadow-pop focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out"
+      className="relative w-full text-left active:scale-[0.97] hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out"
     >
       <Card
         variant="glass"
@@ -59,7 +59,7 @@ const SummaryCard = ({
           </div>
 
           {/* Right: icon */}
-          <div className="shrink-0 opacity-75">
+          <div className="shrink-0 opacity-60">
             {icon}
           </div>
         </div>

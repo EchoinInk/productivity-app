@@ -32,7 +32,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
     <section className="space-y-4 mt-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <Heading as="h3" className="text-base">Up Next</Heading>
+        <Heading as="h3" className="text-base text-muted-foreground">Up Next</Heading>
 
         <button
           type="button"
@@ -40,7 +40,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
           className="active:scale-95 transition rounded-md px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="View all tasks"
         >
-          <CTA className="text-muted-foreground">View all</CTA>
+          <CTA className="text-muted-foreground/70 text-sm">View all</CTA>
         </button>
       </div>
 
@@ -85,12 +85,12 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
-                  <Body weight="semibold" truncate>
+                  <Body weight="semibold" truncate className="text-muted-foreground">
                     {task.title}
                   </Body>
 
                   {task.time && (
-                    <BodyMuted className="text-xs mt-1">
+                    <BodyMuted className="text-xs mt-1 text-muted-foreground/70">
                       {task.time}
                     </BodyMuted>
                   )}
@@ -104,7 +104,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                       px-3 py-1
                       rounded-full
                       text-xs font-medium
-                      opacity-90
+                      opacity-70
                     "
                     style={{
                       backgroundColor: meta.bg,
