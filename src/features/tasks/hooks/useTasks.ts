@@ -49,6 +49,7 @@ export interface TaskRowVM {
   subtitle: string;
   isCompleted: boolean;
   category: string | null;
+  time: string | null;
 }
 
 export interface TaskSection {
@@ -102,7 +103,19 @@ const toRowVM = (task: Task, date: DateKey): TaskRowVM => ({
   subtitle: buildTaskSubtitle(task),
   isCompleted: isTaskCompleted(task, date),
   category: task.category ?? null,
+  time: formatTaskTime(task.time),
 });
+
+const formatTaskTime = (time: string | undefined): string | null => {
+  if (!time) return null;
+  const [hStr, mStr] = time.split(":");
+  const h = Number(hStr);
+  const m = Number(mStr);
+  if (Number.isNaN(h) || Number.isNaN(m)) return null;
+  const period = h >= 12 ? "PM" : "AM";
+  const hour12 = ((h + 11) % 12) + 1;
+  return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
+};
 
 export const useTasks = (date?: DateKey): UseTasksResult => {
   const activeDate = date ?? getToday();
