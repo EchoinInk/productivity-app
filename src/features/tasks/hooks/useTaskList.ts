@@ -1,28 +1,30 @@
 import { useState, useCallback } from "react";
-import { useTasks, type TaskSectionType } from "./useTasks";
+import { useTasks } from "./useTasks";
+
+type SectionType = "today" | "upcoming" | "completed";
 
 interface UseTaskListProps {
   onSelectTask: (id: string) => void;
 }
 
 export const useTaskList = ({ onSelectTask }: UseTaskListProps) => {
-  const { activeDate, sections, actions } = useTasks();
+  const { sections, actions } = useTasks();
 
-  const [openSections, setOpenSections] = useState<Record<TaskSectionType, boolean>>({
+  const [openSections, setOpenSections] = useState<Record<SectionType, boolean>>({
     today: true,
     upcoming: false,
     completed: false,
   });
 
-  const toggleSection = useCallback((key: TaskSectionType) => {
+  const toggleSection = useCallback((key: SectionType) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   }, []);
 
   const handleToggleTask = useCallback(
     (id: string) => {
-      actions.toggleTask(id, activeDate);
+      actions.toggleTask(id);
     },
-    [actions, activeDate],
+    [actions],
   );
 
   const handleSelectTask = useCallback(
@@ -32,7 +34,7 @@ export const useTaskList = ({ onSelectTask }: UseTaskListProps) => {
     [onSelectTask],
   );
 
-  const isEmpty = sections.every((section) => section.tasks.length === 0);
+  const isEmpty = sections.today.length === 0 && sections.upcoming.length === 0 && sections.completed.length === 0;
 
   return {
     sections,

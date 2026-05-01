@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { getToday, type DateKey, isDateAfter, isDateSame } from "@/shared/lib/date";
+import { getToday } from "@/shared/lib/date";
 
 import type {
   CreateTaskInput,
@@ -23,6 +23,7 @@ export interface TaskSections {
 }
 
 export interface UseTasksResult {
+  tasks: Task[];
   sections: TaskSections;
   actions: TaskActions;
 }
@@ -49,14 +50,9 @@ export const useTasks = (): UseTasksResult => {
     [addTask, toggleTask, updateTask, deleteTask],
   );
 
-  return { sections, actions };
+  return { tasks, sections, actions };
 };
 
-// Helper hooks for specific use cases
-export const useTaskProgress = (date: DateKey): TaskProgress => {
-  const tasks = useTasksStore((state) => state.tasks);
-  return getTaskProgress(tasks, date);
-};
 
 export const useTaskById = (id: string): Task | null => {
   const tasks = useTasksStore((state) => state.tasks);

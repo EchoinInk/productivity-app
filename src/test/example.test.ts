@@ -1,27 +1,24 @@
 import { describe, expect, it, vi } from "vitest";
 import { getBudgetSummary } from "@/features/budget/hooks/useBudget";
 import { buildRecipeWorkflow } from "@/features/recipes/services/recipeWorkflow";
-import { getTaskGroups, getTaskProgress } from "@/features/tasks/api";
+import { isTaskCompleted } from "@/features/tasks/api";
 import { formatDisplayDate } from "@/shared/lib/date";
 import type { Task } from "@/features/tasks/types/types";
 
 const tasks: Task[] = [
-  { id: "1", label: "Today", date: "2026-04-21", completedDates: [], time: "09:00", createdAt: "2026-04-21T00:00:00.000Z" },
-  { id: "2", label: "Done", date: "2026-04-21", completedDates: ["2026-04-21"], time: "08:00", createdAt: "2026-04-21T00:00:00.000Z" },
-  { id: "3", label: "Upcoming", date: "2026-04-22", completedDates: [], createdAt: "2026-04-21T00:00:00.000Z" },
-  { id: "4", label: "Yesterday", date: "2026-04-20", completedDates: [], createdAt: "2026-04-20T00:00:00.000Z" },
+  { id: "1", label: "Today", date: "2026-04-21", completed: false, time: "09:00" },
+  { id: "2", label: "Done", date: "2026-04-21", completed: true, time: "08:00" },
+  { id: "3", label: "Upcoming", date: "2026-04-22", completed: false },
+  { id: "4", label: "Yesterday", date: "2026-04-20", completed: false },
 ];
 
 describe("selectors and workflows", () => {
-  it("groups tasks into timeline buckets", () => {
-    const groups = getTaskGroups(tasks, "2026-04-21");
-    expect(groups.today).toHaveLength(2);
-    expect(groups.upcoming[0]!.label).toBe("Upcoming");
-    expect(groups.yesterday[0]!.label).toBe("Yesterday");
+  it("checks task completion", () => {
+    expect(isTaskCompleted(tasks[0]!)).toBe(false);
+    expect(isTaskCompleted(tasks[1]!)).toBe(true);
   });
 
-  it("calculates progress safely", () => {
-    expect(getTaskProgress(tasks, "2026-04-21")).toEqual({ total: 2, completed: 1, percentage: 50 });
+  it("calculates budget summary", () => {
     expect(getBudgetSummary([{ id: "e1", name: "Coffee", amount: 5 }], 0).percentage).toBe(0);
   });
 

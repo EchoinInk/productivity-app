@@ -45,22 +45,24 @@ describe("useTasks", () => {
     });
   });
 
-  it("should return task progress", () => {
+  it("should return tasks array", () => {
     const { result } = renderHook(() => useTasks());
     
-    expect(result.current.progress).toBeDefined();
-    expect(typeof result.current.progress.total).toBe("number");
-    expect(typeof result.current.progress.completed).toBe("number");
-    expect(typeof result.current.progress.percentage).toBe("number");
+    expect(result.current.tasks).toBeDefined();
+    expect(Array.isArray(result.current.tasks)).toBe(true);
+    expect(result.current.tasks).toHaveLength(4);
   });
 
-  it("should return task insights", () => {
+  it("should return task sections", () => {
     const { result } = renderHook(() => useTasks());
     
-    expect(result.current.insights).toBeDefined();
-    expect(result.current.insights.summaries).toEqual([]);
-    expect(result.current.insights.active).toEqual([]);
-    expect(result.current.insights.hasInsights).toBe(false);
+    expect(result.current.sections).toBeDefined();
+    expect(result.current.sections.today).toBeDefined();
+    expect(result.current.sections.upcoming).toBeDefined();
+    expect(result.current.sections.completed).toBeDefined();
+    expect(Array.isArray(result.current.sections.today)).toBe(true);
+    expect(Array.isArray(result.current.sections.upcoming)).toBe(true);
+    expect(Array.isArray(result.current.sections.completed)).toBe(true);
   });
 
   it("should provide task actions", () => {
@@ -84,9 +86,9 @@ describe("useTasks", () => {
     const { result } = renderHook(() => useTasks());
     
     expect(result.current.sections).toBeDefined();
-    expect(result.current.progress.total).toBe(0);
-    expect(result.current.progress.completed).toBe(0);
-    expect(result.current.progress.percentage).toBe(0);
+    expect(result.current.sections.today).toHaveLength(0);
+    expect(result.current.sections.upcoming).toHaveLength(0);
+    expect(result.current.sections.completed).toHaveLength(0);
   });
 
   it("should handle large task lists efficiently", () => {
@@ -108,9 +110,9 @@ describe("useTasks", () => {
     const { result } = renderHook(() => useTasks());
     
     expect(result.current.sections).toBeDefined();
-    expect(result.current.progress.total).toBeGreaterThanOrEqual(0);
-    expect(result.current.progress.completed).toBeGreaterThanOrEqual(0);
-    expect(result.current.progress.percentage).toBeGreaterThanOrEqual(0);
+    expect(result.current.sections.today.length).toBeGreaterThanOrEqual(0);
+    expect(result.current.sections.upcoming.length).toBeGreaterThanOrEqual(0);
+    expect(result.current.sections.completed.length).toBeGreaterThanOrEqual(0);
   });
 
   it("should call addTask when adding a task", () => {
@@ -151,9 +153,9 @@ describe("useTasks", () => {
 
     const { result } = renderHook(() => useTasks());
     
-    result.current.actions.toggleTask("1", "2026-04-21");
+    result.current.actions.toggleTask("1");
     
-    expect(mockToggleTask).toHaveBeenCalledWith("1", "2026-04-21");
+    expect(mockToggleTask).toHaveBeenCalledWith("1");
   });
 
   it("should call updateTask when updating a task", () => {

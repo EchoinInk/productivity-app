@@ -4,11 +4,10 @@
  * `useTasks` is the primary API. `useTaskActions` is a thin
  * memoized accessor for stores wiring (modals, edit flows).
  */
-export { useTasks } from "./useTasks";
+export { useTasks, useTaskById } from "./useTasks";
 export type {
   TaskActions,
-  TaskInsights,
-  TaskSection,
+  TaskSections,
   UseTasksResult,
 } from "./useTasks";
 

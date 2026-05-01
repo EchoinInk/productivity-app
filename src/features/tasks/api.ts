@@ -9,5 +9,5 @@ export type {
 } from "@/features/tasks/types/types";
 
 // Hook exports - stable accessors
-export { useTasks, useTaskProgress, useTaskById } from "@/features/tasks/hooks/useTasks";
+export { useTasks, useTaskById } from "@/features/tasks/hooks/useTasks";
 export { isTaskCompleted } from "@/features/tasks/domain/taskDomain";

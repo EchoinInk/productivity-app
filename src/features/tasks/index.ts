@@ -9,7 +9,7 @@ export { TaskSection } from "./components/TaskSection";
 export { TaskRow } from "./components/TaskRow";
 
 // Hooks
-export { useTasks, useTaskProgress, useTaskById } from "./hooks/useTasks";
+export { useTasks, useTaskById } from "./hooks/useTasks";
 
 // Types
 export type { Task, TaskCategory, TaskRecurrence, CreateTaskInput, EntityId } from "./types/types";

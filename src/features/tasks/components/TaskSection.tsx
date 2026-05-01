@@ -5,15 +5,14 @@ import { TaskGroup } from "@/features/tasks/components/TaskGroup";
 import { Surface } from "@/components/ui/Surface";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { HeroTitle, Meta, Heading } from "@/components/ui/Text";
-import type {
-  TaskSection as TaskSectionVM,
-  TaskSectionType,
-} from "@/features/tasks/hooks/useTasks";
+import type { TaskSections } from "@/features/tasks/hooks/useTasks";
+
+type SectionType = "today" | "upcoming" | "completed";
 
 interface TaskSectionProps {
-  sections: TaskSectionVM[];
-  expandedSections: Record<TaskSectionType, boolean>;
-  onToggleSection: (type: TaskSectionType) => void;
+  sections: TaskSections;
+  expandedSections: Record<SectionType, boolean>;
+  onToggleSection: (type: SectionType) => void;
   onToggleTask: (id: string) => void;
   onSelectTask: (id: string) => void;
 }
@@ -29,9 +28,42 @@ export const TaskSection = ({
   onToggleTask,
   onSelectTask,
 }: TaskSectionProps) => {
+  const sectionData = [
+    {
+      type: 'today' as SectionType,
+      title: 'Today',
+      tasks: sections.today,
+      total: sections.today.length,
+      completed: sections.today.filter(t => t.completed).length,
+      percentage: sections.today.length > 0 ? (sections.today.filter(t => t.completed).length / sections.today.length) * 100 : 0,
+      emptyMessage: 'No tasks for today',
+      emptyHint: 'Add a task to get started'
+    },
+    {
+      type: 'upcoming' as SectionType,
+      title: 'Upcoming',
+      tasks: sections.upcoming,
+      total: sections.upcoming.length,
+      completed: 0,
+      percentage: 0,
+      emptyMessage: 'No upcoming tasks',
+      emptyHint: 'Future tasks will appear here'
+    },
+    {
+      type: 'completed' as SectionType,
+      title: 'Completed',
+      tasks: sections.completed,
+      total: sections.completed.length,
+      completed: sections.completed.length,
+      percentage: 100,
+      emptyMessage: 'No completed tasks',
+      emptyHint: 'Completed tasks will appear here'
+    }
+  ];
+
   return (
     <>
-      {sections.map((section) => {
+      {sectionData.map((section) => {
         const isOpen = expandedSections[section.type];
 
         return (

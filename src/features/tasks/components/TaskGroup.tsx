@@ -17,11 +17,7 @@ export const TaskGroup = memo(
       {tasks.map((task) => (
         <TaskRow
           key={task.id}
-          title={task.label}
-          subtitle={task.date}
-          isCompleted={task.completed}
-          category={task.category}
-          time={task.time}
+          task={task}
           onToggleTask={() => onToggleTask(task.id)}
           onSelectTask={() => onSelectTask(task.id)}
         />

@@ -8,9 +8,12 @@ import { useTasks } from "@/features/tasks/hooks/useTasks";
  * from the unified `useTasks` hook.
  */
 export const TaskInsights = () => {
-  const { insights } = useTasks();
+  const { sections } = useTasks();
 
-  if (!insights.hasInsights) {
+  const todayTasks = sections.today;
+  const hasInsights = todayTasks.length > 0;
+
+  if (!hasInsights) {
     return (
       <Surface className="space-y-2">
         <HeroTitle>Today Overview</HeroTitle>
@@ -21,12 +24,29 @@ export const TaskInsights = () => {
     );
   }
 
+  // Group tasks by category
+  const categoryStats = todayTasks.reduce((acc, task) => {
+    const category = task.category || 'Other';
+    if (!acc[category]) {
+      acc[category] = { category, count: 0, completed: 0 };
+    }
+    acc[category].count++;
+    if (task.completed) {
+      acc[category].completed++;
+    }
+    return acc;
+  }, {} as Record<string, { category: string; count: number; completed: number }>);
+
+  const activeCategories = Object.values(categoryStats)
+    .filter(stat => stat.count > stat.completed)
+    .slice(0, 3);
+
   return (
     <Surface className="space-y-2">
       <HeroTitle>Today Overview</HeroTitle>
 
       <div className="space-y-1">
-        {insights.active.slice(0, 3).map((item) => (
+        {activeCategories.map((item) => (
           <div
             key={item.category}
             className="flex items-center justify-between"
@@ -34,7 +54,7 @@ export const TaskInsights = () => {
             <Label className="font-medium">{item.category}</Label>
 
             <Label className="text-foreground font-medium">
-              {item.active} left
+              {item.count - item.completed} left
             </Label>
           </div>
         ))}

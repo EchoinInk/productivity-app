@@ -9,9 +9,14 @@ import { useTasks } from "@/features/tasks/hooks/useTasks";
  * comes from the unified `useTasks` hook.
  */
 export const TaskProgress = () => {
-  const { progress } = useTasks();
+  const { sections } = useTasks();
+  const todayTasks = sections.today;
+  
+  const total = todayTasks.length;
+  const completed = todayTasks.filter(t => t.completed).length;
+  const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
 
-  if (progress.total === 0) {
+  if (total === 0) {
     return (
       <Surface className="space-y-2">
         <div className="flex items-center justify-between">
@@ -30,16 +35,16 @@ export const TaskProgress = () => {
         <Heading>Today Progress</Heading>
 
         <Meta>
-          {progress.completed}/{progress.total}
+          {completed}/{total}
         </Meta>
       </div>
 
-      <ProgressBar value={progress.percentage} ariaLabel="Today progress" />
+      <ProgressBar value={percentage} ariaLabel="Today progress" />
 
       <Meta>
-        {progress.percentage === 100
+        {percentage === 100
           ? "All tasks completed 🎉"
-          : `${progress.percentage}% complete`}
+          : `${percentage}% complete`}
       </Meta>
     </Surface>
   );

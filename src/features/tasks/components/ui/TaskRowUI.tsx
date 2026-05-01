@@ -4,27 +4,24 @@ import { Checkbox } from "@/components/ui/shadcn/checkbox";
 import { Body, BodyMuted } from "@/components/ui/Text";
 import { getCategoryMetadata } from "@/features/tasks/api";
 import { cn } from "@/lib/utils";
+import type { Task } from "@/features/tasks/types/types";
 
 type Props = {
-  id: string;
-  title: string;
-  subtitle: string;
-  isCompleted: boolean;
-  category: string | null;
+  task: Task;
   onToggleTask: () => void;
   onSelectTask: () => void;
 };
 
 export const TaskRowUI = memo((props: Props) => {
-  const { title, subtitle, isCompleted, category, onToggleTask, onSelectTask } = props;
+  const { task, onToggleTask, onSelectTask } = props;
 
-  const categoryMeta = category ? getCategoryMetadata(category) : null;
+  const categoryMeta = task.category ? getCategoryMetadata(task.category) : null;
 
   return (
     <motion.div 
       className={cn(
         "flex items-center gap-3 py-2.5 rounded-lg hover:bg-muted/40 active:scale-[0.99] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        isCompleted && "task-complete"
+        task.completed && "task-complete"
       )}
       onClick={onSelectTask}
       role="button"
@@ -37,13 +34,13 @@ export const TaskRowUI = memo((props: Props) => {
       }}
       initial={{ opacity: 1, scale: 1 }}
       animate={{ 
-        opacity: isCompleted ? 0.7 : 1, 
-        scale: isCompleted ? 0.98 : 1 
+        opacity: task.completed ? 0.7 : 1, 
+        scale: task.completed ? 0.98 : 1 
       }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
       <Checkbox
-        checked={isCompleted}
+        checked={task.completed}
         onCheckedChange={onToggleTask}
         onClick={(e) => e.stopPropagation()}
       />
@@ -54,14 +51,14 @@ export const TaskRowUI = memo((props: Props) => {
           truncate
           className={cn(
             "transition-all duration-200",
-            isCompleted && "opacity-70 line-through"
+            task.completed && "opacity-70 line-through"
           )}
         >
-          {title}
+          {task.label}
         </Body>
-        {subtitle && (
+        {task.time && (
           <BodyMuted className="text-xs mt-1">
-            {subtitle}
+            {task.time}
           </BodyMuted>
         )}
       </div>
@@ -79,7 +76,7 @@ export const TaskRowUI = memo((props: Props) => {
       "
       style={{ backgroundColor: categoryMeta.bg }}
       title={categoryMeta.bg ? "" : "Other"}
-      aria-label={`Category: ${category}`}
+      aria-label={`Category: ${task.category}`}
     >
       <img
         src={categoryMeta.icon}

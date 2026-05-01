@@ -1,4 +1,3 @@
-import type { DateKey } from "@/shared/lib/date";
 
 /**
  * ---------------------------------------
@@ -61,7 +60,7 @@ export interface TasksState {
 
   addTask: (input: CreateTaskInput) => void;
 
-  toggleTask: (id: EntityId, date: DateKey) => void;
+  toggleTask: (id: EntityId) => void;
 
 updateTask: (id: EntityId, updates: Partial<Task>) => void;
 
