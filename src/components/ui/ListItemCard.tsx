@@ -27,7 +27,17 @@ export const ListItemCard = ({
   const cardContent = (
     <Card
       variant={variant}
-      className={`px-4 py-3 ${onClick ? "cursor-pointer active:scale-[0.98] transition-transform duration-150" : ""} ${className}`}
+      className={`px-4 py-3 ${onClick ? "cursor-pointer active:scale-[0.98] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" : ""} ${className}`}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={(event) => {
+        if (!onClick) return;
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick();
+        }
+      }}
     >
       {children}
     </Card>

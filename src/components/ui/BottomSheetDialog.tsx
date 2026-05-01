@@ -64,7 +64,7 @@ export const BottomSheetDialog = ({
         <Card className="overflow-hidden rounded-t-3xl shadow-none">
 
           {/* HEADER */}
-          <CardHeader title={title} />
+          <CardHeader title={title} id={titleId} />
 
           {/* CONTENT SYSTEM */}
           <div className="flex flex-col max-h-[85vh]">

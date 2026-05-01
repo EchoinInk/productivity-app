@@ -41,35 +41,53 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
         <div className="flex-1 overflow-y-auto space-y-4 pb-32">
 
           {/* MEAL NAME */}
-          <input
-            placeholder="Meal name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
-          />
+          <div>
+            <label htmlFor="meal-name" className="sr-only">
+              Meal name
+            </label>
+            <input
+              id="meal-name"
+              placeholder="Meal name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
 
           {/* MEAL TYPE */}
-          <select
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          >
-            <option value="">Meal type</option>
-            {mealTypes.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
+          <div>
+            <label htmlFor="meal-type" className="sr-only">
+              Meal type
+            </label>
+            <select
+              id="meal-type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="">Meal type</option>
+              {mealTypes.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </select>
+          </div>
 
           {/* DAY */}
-          <select
-            value={day}
-            onChange={(e) => setDay(e.target.value as Weekday)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          >
-            {days.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
+          <div>
+            <label htmlFor="meal-day" className="sr-only">
+              Day
+            </label>
+            <select
+              id="meal-day"
+              value={day}
+              onChange={(e) => setDay(e.target.value as Weekday)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {days.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </select>
+          </div>
 
         </div>
 
@@ -86,7 +104,9 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
               font-medium
               bg-primary
               disabled:opacity-50
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
             "
+            aria-label={loading ? "Adding meal" : "Add meal"}
           >
             {loading ? "Adding..." : "Add Meal"}
           </button>

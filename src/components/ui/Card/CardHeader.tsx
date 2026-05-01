@@ -5,12 +5,14 @@ import { Heading, BodyMuted } from "@/components/ui/Text";
 interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   description?: string;
+  id?: string;
 }
 
 export const CardHeader = ({
   className,
   title,
   description,
+  id,
   children,
   ...props
 }: CardHeaderProps) => {
@@ -25,7 +27,7 @@ export const CardHeader = ({
       {/* LEFT */}
       <div className="min-w-0">
         {title && (
-          <Heading as="h3" className="text-base">
+          <Heading as="h3" className="text-base" id={id}>
             {title}
           </Heading>
         )}

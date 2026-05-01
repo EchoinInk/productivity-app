@@ -35,22 +35,34 @@ const AddExpense = ({ open, onClose, onSave }: AddExpenseProps) => {
         <div className="flex-1 overflow-y-auto space-y-4 pb-32">
 
           {/* EXPENSE NAME */}
-          <input
-            placeholder="Expense name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
-          />
+          <div>
+            <label htmlFor="expense-name" className="sr-only">
+              Expense name
+            </label>
+            <input
+              id="expense-name"
+              placeholder="Expense name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
 
           {/* AMOUNT */}
-          <input
-            type="number"
-            inputMode="decimal"
-            placeholder="Amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          />
+          <div>
+            <label htmlFor="expense-amount" className="sr-only">
+              Amount
+            </label>
+            <input
+              id="expense-amount"
+              type="number"
+              inputMode="decimal"
+              placeholder="Amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
 
         </div>
 
@@ -67,7 +79,9 @@ const AddExpense = ({ open, onClose, onSave }: AddExpenseProps) => {
               font-medium
               bg-primary
               disabled:opacity-50
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
             "
+            aria-label={loading ? "Adding expense" : "Add expense"}
           >
             {loading ? "Adding..." : "Add Expense"}
           </button>

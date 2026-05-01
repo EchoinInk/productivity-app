@@ -51,39 +51,57 @@ const AddShoppingItem = ({
         <div className="flex-1 overflow-y-auto space-y-4 pb-32">
 
           {/* ITEM NAME */}
-          <input
-            placeholder="Item name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
-          />
+          <div>
+            <label htmlFor="item-name" className="sr-only">
+              Item name
+            </label>
+            <input
+              id="item-name"
+              placeholder="Item name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
 
           {/* CATEGORY + TYPE (same row) */}
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-xl bg-muted/50 px-4 py-3 text-sm">
               {category}
             </div>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-            >
-              <option value="">Type</option>
-              {itemTypes.map((item) => (
-                <option key={item}>{item}</option>
-              ))}
-            </select>
+            <div>
+              <label htmlFor="item-type" className="sr-only">
+                Type
+              </label>
+              <select
+                id="item-type"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <option value="">Type</option>
+                {itemTypes.map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* QUANTITY */}
-          <input
-            type="number"
-            inputMode="numeric"
-            placeholder="Quantity"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          />
+          <div>
+            <label htmlFor="item-quantity" className="sr-only">
+              Quantity
+            </label>
+            <input
+              id="item-quantity"
+              type="number"
+              inputMode="numeric"
+              placeholder="Quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
 
         </div>
 
@@ -100,7 +118,9 @@ const AddShoppingItem = ({
               font-medium
               bg-primary
               disabled:opacity-50
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
             "
+            aria-label={loading ? "Adding item" : "Add shopping item"}
           >
             {loading ? "Adding..." : "Add Item"}
           </button>

@@ -42,7 +42,7 @@ const BottomNav = () => (
               src={icon}
               srcSet={`${icon} 1x`}
               sizes="28px"
-              alt=""
+              alt={`${label} icon`}
               width={28}
               height={28}
               loading="lazy"
