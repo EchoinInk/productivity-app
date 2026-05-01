@@ -124,14 +124,18 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
 
         {/* Illustration */}
         <img
-          src={clipboardIllustration}
-          alt=""
-          aria-hidden
-          width={500}
-          height={500}
-          loading="lazy"
-          className="w-full h-auto object-contain"
-        />
+  src={clipboardIllustration}
+  alt=""
+  aria-hidden
+  loading="lazy"
+  className="
+    hidden sm:block
+    w-[80px] h-[80px]
+    object-contain
+    shrink-0
+    opacity-90
+  "
+/>
 
       </div>
     </Card>
