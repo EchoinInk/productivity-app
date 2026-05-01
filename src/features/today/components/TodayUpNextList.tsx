@@ -52,10 +52,10 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
         <button
           type="button"
           onClick={() => navigate("/tasks")}
-          className="active:scale-95 transition"
+          className="active:scale-95 transition rounded-md px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="View all tasks"
         >
-          <CTA className="text-slate-500">View all</CTA>
+          <CTA className="text-muted-foreground">View all</CTA>
         </button>
       </div>
 
@@ -79,11 +79,11 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                 key={task.id}
                 className="
                   flex items-center gap-3
-                  rounded-2xl 
+                  rounded-2xl
                   px-4 py-3
                   bg-white/70 backdrop-blur-md
-                  border border-white/40
-                  shadow-[0_6px_18px_rgba(0,0,0,0.06)]
+                  border border-border/40
+                  shadow-soft
                   transition-all duration-150 ease-out
                   active:scale-[0.98]
                 "
@@ -94,13 +94,14 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                   onClick={() => onToggle(task.id, today)}
                   aria-label={`Mark ${task.title} as completed`}
                   className="
-                    shrink-0 
-                    w-6 h-6 
-                    rounded-full 
-                    border-2 border-muted-foreground/40 
-                    hover:border-primary 
-                    active:scale-90 
+                    shrink-0
+                    w-6 h-6
+                    rounded-full
+                    border-2 border-muted-foreground/40
+                    hover:border-primary
+                    active:scale-90
                     transition
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                   "
                 />
 
@@ -121,9 +122,9 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                 {task.category && (
                   <span
                     className="
-                      shrink-0 
-                      px-2.5 py-1 
-                      rounded-full 
+                      shrink-0
+                      px-2.5 py-1
+                      rounded-full
                       text-[11px] font-medium
                       opacity-90
                     "

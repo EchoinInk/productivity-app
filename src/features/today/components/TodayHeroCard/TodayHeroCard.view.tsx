@@ -34,7 +34,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
               stroke="currentColor"
-              className="text-white/40"   // 👈 slightly stronger for visibility
+              className="text-primary-foreground/40"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -43,7 +43,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
             />
             <circle
               stroke="currentColor"
-              className="text-white origin-center -rotate-90 transition-[stroke-dashoffset] duration-500 ease-out"
+              className="text-primary-foreground origin-center -rotate-90 transition-[stroke-dashoffset] duration-500 ease-out"
               fill="transparent"
               strokeWidth={stroke}
               strokeLinecap="round"
@@ -56,7 +56,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           </svg>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <Heading className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]">
+            <Heading className="text-primary-foreground text-shadow-soft">
               {percentage}%
             </Heading>
           </div>
@@ -65,16 +65,16 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
         {/* Content */}
         <div className="flex flex-col gap-1.5 flex-1 min-w-0">
 
-          <HeroTitle className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]">
+          <HeroTitle className="text-primary-foreground text-shadow-soft">
             Today's Tasks
           </HeroTitle>
 
-          <HeroSubtext className="text-white/80">
+          <HeroSubtext className="text-primary-foreground/80">
             {progressText}
           </HeroSubtext>
 
           {motivation && (
-            <HeroSupport className="text-white/75">
+            <HeroSupport className="text-primary-foreground/75">
               {motivation}
             </HeroSupport>
           )}
@@ -93,31 +93,32 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
                 }
               }}
               className="
-                mt-2 
-                px-3.5 py-1.5 
-                rounded-full 
-                bg-white/95 
-                border border-white/30 
-                shadow-[0_2px_6px_rgba(0,0,0,0.08)]
-                active:scale-[0.97] 
-                transition 
-                flex items-center gap-1 
+                mt-2
+                px-3.5 py-1.5
+                rounded-full
+                bg-card/95
+                border border-border/30
+                shadow-cta
+                active:scale-[0.97]
+                transition
+                flex items-center gap-1
                 w-fit
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/80
               "
             >
-              <CTA className="text-slate-700 flex items-center gap-1 tracking-tight">
+              <CTA className="text-foreground flex items-center gap-1 tracking-tight">
                 Add a task
                 <ArrowRight size={11} className="opacity-50" />
               </CTA>
             </button>
           ) : (
-            <span className="mt-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium">
-  {remaining === 0
-    ? "All done 🎉"
-    : remaining === 1
-    ? "1 task left"
-    : `${remaining} tasks left`}
-</span>
+            <span className="mt-2 px-3 py-1 rounded-full bg-primary-foreground/20 text-primary-foreground text-xs font-medium w-fit">
+              {remaining === 0
+                ? "All done 🎉"
+                : remaining === 1
+                ? "1 task left"
+                : `${remaining} tasks left`}
+            </span>
           )}
         </div>
 
@@ -127,11 +128,10 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           alt=""
           aria-hidden
           className="
-            shrink-0 
-            h-[64px] w-[64px] 
-            object-contain 
-            opacity-65 
-            drop-shadow-[0_3px_10px_rgba(0,0,0,0.08)] 
+            shrink-0
+            h-[64px] w-[64px]
+            object-contain
+            opacity-65
             translate-y-[2px]
           "
         />

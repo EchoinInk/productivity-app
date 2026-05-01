@@ -11,11 +11,32 @@ import AddExpense from "@/features/budget/components/AddExpenseModal";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { useBudgetSummary } from "@/features/budget/hooks/useBudget";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
+import { useMealsStore } from "@/features/meals/store/useMealsStore";
+import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 
 import { toDateString } from "@/shared/lib/date";
 
+const WEEKDAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+] as const;
+
+const greetingFor = (d: Date): string => {
+  const h = d.getHours();
+  if (h < 12) return "Good morning 👋";
+  if (h < 18) return "Good afternoon 👋";
+  return "Good evening 👋";
+};
+
 const TodayPage = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
+  const meals = useMealsStore((state) => state.meals);
+  const shoppingItems = useShoppingStore((state) => state.shoppingItems);
 
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
@@ -37,37 +58,47 @@ const TodayPage = () => {
   const tasksCount = todaySection?.total ?? 0;
   const todayTasks = todaySection?.tasks ?? [];
 
-  // TEMP placeholders
-  const mealsCount = 2;
-  const shoppingCount = 6;
+  const todayWeekday = WEEKDAYS[selectedDate.getDay()];
+  const mealsCount = useMemo(
+    () => meals.filter((m) => m.day === todayWeekday).length,
+    [meals, todayWeekday],
+  );
+  const shoppingCount = useMemo(
+    () => shoppingItems.filter((item) => !item.done).length,
+    [shoppingItems],
+  );
+
+  const greeting = greetingFor(selectedDate);
 
   return (
     <>
       {/* PAGE WRAPPER */}
-      <div className="relative min-h-screen bg-white overflow-hidden">
+      <div className="relative min-h-screen bg-background overflow-hidden">
 
-        {/* 🔥 SUBTLE BACKGROUND GLOW (refined) */}
+        {/* Subtle background glow */}
         <div className="pointer-events-none absolute inset-0">
           <div
             className="
-              absolute 
-              top-[-40px] 
-              left-1/2 -translate-x-1/2 
-              w-[320px] h-[320px] 
-              blur-2xl 
+              absolute
+              top-[-40px]
+              left-1/2 -translate-x-1/2
+              w-[320px] h-[320px]
+              blur-2xl
               opacity-15
+              bg-gradient-hero
             "
-            style={{
-              background:
-                "radial-gradient(circle, rgba(164,240,232,0.18) 0%, transparent 70%)",
-            }}
           />
         </div>
 
-        {/* 📱 CONTENT */}
+        {/* Content */}
         <div className="relative z-10 w-full max-w-[430px] mx-auto px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] space-y-8">
 
-          <Header showTopBar />
+          <Header
+            showTopBar
+            greeting={greeting}
+            topBarSubtitle="Let's make today amazing"
+            hasNotifications={false}
+          />
 
           {/* HERO */}
           <div className="animate-[fadeIn_0.45s_ease-out]">

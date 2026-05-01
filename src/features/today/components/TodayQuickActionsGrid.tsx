@@ -9,13 +9,23 @@ import mealillustration from "@/assets/mealquickactions.png";
 import budgetillustration from "@/assets/budgetquickactions.png";
 import shoppingillustration from "@/assets/shoppingquickactions.png";
 
+type TileSurface = "tasks" | "meals" | "budget" | "shopping";
+
+const surfaceClass: Record<TileSurface, string> = {
+  tasks: "bg-[hsl(var(--surface-tile-tasks))]",
+  meals: "bg-[hsl(var(--surface-tile-meals))]",
+  budget: "bg-[hsl(var(--surface-tile-budget))]",
+  shopping: "bg-[hsl(var(--surface-tile-shopping))]",
+};
+
 interface CardProps {
   title: string;
   value: string | number;
   subtitle: string;
   icon: React.ReactNode;
   onClick: () => void;
-  background?: string;
+  surface: TileSurface;
+  ariaLabel: string;
 }
 
 const SummaryCard = ({
@@ -24,24 +34,27 @@ const SummaryCard = ({
   subtitle,
   icon,
   onClick,
-  background,
+  surface,
+  ariaLabel,
 }: CardProps) => {
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
-      style={{ backgroundColor: background }}
-      className="
-        relative 
-        rounded-2xl 
-        p-4 
-        border border-white/40
-        bg-white/70 backdrop-blur-md
-        shadow-[0_6px_20px_rgba(0,0,0,0.06)]
+      aria-label={ariaLabel}
+      className={`
+        relative w-full text-left
+        rounded-2xl
+        p-4
+        border border-border/40
+        ${surfaceClass[surface]}
+        backdrop-blur-md
+        shadow-soft
         transition-all duration-150 ease-out
         active:scale-[0.97]
-        hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]
-        cursor-pointer
-      "
+        hover:shadow-pop
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+      `}
     >
       <div className="flex items-center gap-3">
         {/* Left: text */}
@@ -68,7 +81,7 @@ const SummaryCard = ({
         size={14}
         className="absolute bottom-3 right-3 text-muted-foreground/40"
       />
-    </div>
+    </button>
   );
 };
 
@@ -93,11 +106,12 @@ const TodayQuickActionsGrid = ({
         title="Tasks"
         value={tasks}
         subtitle="To do"
-        background="#f2fdfb"
+        surface="tasks"
+        ariaLabel={`Tasks: ${tasks} to do`}
         icon={
           <img
             src={taskillustration}
-            alt="Tasks"
+            alt=""
             width={42}
             height={42}
             className="object-contain"
@@ -110,11 +124,12 @@ const TodayQuickActionsGrid = ({
         title="Meals"
         value={meals}
         subtitle="Planned"
-        background="#f4f7fd"
+        surface="meals"
+        ariaLabel={`Meals: ${meals} planned`}
         icon={
           <img
             src={mealillustration}
-            alt="Meals"
+            alt=""
             width={42}
             height={42}
             className="object-contain"
@@ -127,11 +142,12 @@ const TodayQuickActionsGrid = ({
         title="Budget"
         value={`$${remaining}`}
         subtitle="Left this week"
-        background="#f7f7fe"
+        surface="budget"
+        ariaLabel={`Budget: $${remaining} left this week`}
         icon={
           <img
             src={budgetillustration}
-            alt="Budget"
+            alt=""
             width={42}
             height={42}
             className="object-contain"
@@ -144,11 +160,12 @@ const TodayQuickActionsGrid = ({
         title="Shopping"
         value={shopping}
         subtitle="Items"
-        background="#f9f5fc"
+        surface="shopping"
+        ariaLabel={`Shopping: ${shopping} items`}
         icon={
           <img
             src={shoppingillustration}
-            alt="Shopping"
+            alt=""
             width={42}
             height={42}
             className="object-contain"
