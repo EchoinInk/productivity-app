@@ -5,6 +5,7 @@ import { TodaySummaryContainer } from "@/features/today/components/TodaySummary/
 import { TodayUpNextContainer } from "@/features/today/components/TodayUpNext/TodayUpNext.container";
 import { ActivityListContainer } from "@/features/today/components/ActivityList/ActivityList.container";
 import { QuickActionsBarContainer } from "@/features/today/components/QuickActionsBar/QuickActionsBar.container";
+import { InsightsCardContainer } from "@/features/insights/components/InsightsCard.container";
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
@@ -75,6 +76,11 @@ const HomeScreen = () => {
           {/* RECENT ACTIVITY */}
           <div className="animate-[fadeIn_0.75s_ease-out]">
             <ActivityListContainer />
+          </div>
+
+          {/* INSIGHTS */}
+          <div className="animate-[fadeIn_0.80s_ease-out]">
+            <InsightsCardContainer />
           </div>
 
           {/* QUICK ACTIONS */}

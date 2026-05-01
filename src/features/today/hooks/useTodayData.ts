@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 import { useActivityStore } from "@/features/activity/useActivityStore";
+import { useStreaksStore } from "@/features/insights/useStreaksStore";
 import { getToday } from "@/shared/lib/date";
 
 export type TodayData = {
@@ -40,8 +41,35 @@ export const useTodayData = (): TodayData => {
   const expenses = useBudgetStore((state) => state.expenses);
   const shoppingItems = useShoppingStore((state) => state.shoppingItems);
   const events = useActivityStore((state) => state.events);
+  const updateStreak = useStreaksStore((state) => state.updateStreak);
 
   const todayDate = getToday();
+
+  // Update streaks based on today's completion
+  useEffect(() => {
+    const todayTasks = tasks.filter((task) => task.date === todayDate);
+    const completedTasks = todayTasks.filter((task) => 
+      task.completedDates.includes(todayDate)
+    );
+    
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const todayWeekday = weekdays[new Date().getDay()];
+    const todayMeals = meals.filter((meal) => meal.day === todayWeekday);
+    
+    // Update task streak if all tasks completed
+    if (todayTasks.length > 0 && completedTasks.length === todayTasks.length) {
+      updateStreak("tasks", true);
+    } else if (todayTasks.length > 0 && completedTasks.length === 0) {
+      updateStreak("tasks", false);
+    }
+    
+    // Update meal streak if all meals logged (target is 3)
+    if (todayMeals.length >= 3) {
+      updateStreak("meals", true);
+    } else if (todayMeals.length === 0) {
+      updateStreak("meals", false);
+    }
+  }, [tasks, meals, todayDate, updateStreak]);
 
   return useMemo((): TodayData => {
     // === TODAY'S DATA ===
@@ -74,9 +102,7 @@ export const useTodayData = (): TodayData => {
         percentage: taskPercentage,
         label: `${remainingTasks} task${remainingTasks !== 1 ? 's' : ''} remaining`,
         subtext: `${completedTasks.length} of ${todayTasks.length} completed`,
-        motivation: taskPercentage >= 75 ? "You're doing great!" : 
-                   taskPercentage >= 50 ? "Keep going!" : 
-                   "Let's get started!",
+        // motivation will be handled by smart messaging in TodayHero
       };
     }
     // Priority 2: Budget
@@ -87,7 +113,7 @@ export const useTodayData = (): TodayData => {
         percentage: budgetPercentage,
         label: `$${Math.round(remainingBudget)} remaining`,
         subtext: `of $${weeklyBudget} weekly budget`,
-        motivation: budgetPercentage >= 50 ? "Budget on track!" : "Watch your spending",
+        // motivation will be handled by smart messaging in TodayHero
       };
     }
     // Priority 3: Meals
@@ -100,8 +126,7 @@ export const useTodayData = (): TodayData => {
         percentage: mealsPercentage,
         label: `${remainingMeals} meal${remainingMeals !== 1 ? 's' : ''} to log`,
         subtext: `${todayMeals.length} of ${targetMeals} logged`,
-        motivation: todayMeals.length === 0 ? "Time to plan your meals!" :
-                   todayMeals.length < targetMeals ? "Don't forget your meals!" : "All meals logged!",
+        // motivation will be handled by smart messaging in TodayHero
       };
     }
 
