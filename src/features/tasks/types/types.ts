@@ -17,6 +17,8 @@ export type TaskCategory =
 
 export type TaskRecurrence = "none" | "weekly" | "monthly";
 
+export type TaskPriority = "low" | "medium" | "high";
+
 /**
  * ---------------------------------------
  * TASK ENTITY
@@ -32,6 +34,7 @@ export interface Task {
   category?: string;
   notes?: string;
   recurrence?: string;
+  priority?: TaskPriority;
 }
 
 /**
@@ -47,6 +50,7 @@ export interface CreateTaskInput {
   category?: string;
   notes?: string;
   recurrence?: string;
+  priority?: TaskPriority;
 }
 
 /**

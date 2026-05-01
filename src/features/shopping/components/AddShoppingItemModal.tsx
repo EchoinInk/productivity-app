@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
-import { FormActions } from "@/components/ui/FormActions";
-import { Field, ModalForm } from "@/components/ui/FormField";
 import type { ShoppingCategory } from "@/features/shopping/types/types";
 
 interface AddShoppingItemProps {
   open: boolean;
   onClose: () => void;
-  onSave: (item: { name: string; category: ShoppingCategory }) => void;
+  onSave: (item: { name: string; category: ShoppingCategory; type: string; quantity: string }) => void;
   category: ShoppingCategory;
 }
+
+const itemTypes = ["Household", "Groceries"];
 
 const AddShoppingItem = ({
   open,
@@ -18,40 +18,95 @@ const AddShoppingItem = ({
   category,
 }: AddShoppingItemProps) => {
   const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [quantity, setQuantity] = useState("1");
+  const [loading, setLoading] = useState(false);
+  const canSave = name.trim().length > 0 && type.length > 0;
 
-  const canSave = name.trim().length > 0;
-
-  const handleSave = () => {
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     if (!canSave) return;
-
-    onSave({
-      name: name.trim(),
-      category,
-    });
-
-    setName("");
-    onClose();
+    setLoading(true);
+    try {
+      await onSave({
+        name: name.trim(),
+        category,
+        type,
+        quantity,
+      });
+      setName("");
+      setType("");
+      setQuantity("1");
+      onClose();
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <BottomSheetDialog open={open} title="Add Shopping Item" onClose={onClose}>
-      <ModalForm
-        onSubmit={(event) => {
-          event.preventDefault();
-          handleSave();
-        }}
-      >
-        <Field
-          id="add-shopping-item-name"
-          label="Item name"
-          autoFocus
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Item name"
-        />
+      <form onSubmit={handleSubmit} className="flex flex-col h-full">
 
-        <FormActions onCancel={onClose} submitLabel="Add Item" disabled={!canSave} />
-      </ModalForm>
+        {/* SCROLL AREA */}
+        <div className="flex-1 overflow-y-auto space-y-4 pb-32">
+
+          {/* ITEM NAME */}
+          <input
+            placeholder="Item name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
+          />
+
+          {/* CATEGORY + TYPE (same row) */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-xl bg-muted/50 px-4 py-3 text-sm">
+              {category}
+            </div>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            >
+              <option value="">Type</option>
+              {itemTypes.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* QUANTITY */}
+          <input
+            type="number"
+            inputMode="numeric"
+            placeholder="Quantity"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+          />
+
+        </div>
+
+        {/* STICKY CTA */}
+        <div className="sticky bottom-0 px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3 bg-background">
+          <button
+            type="submit"
+            disabled={!canSave || loading}
+            className="
+              w-full
+              py-3
+              rounded-xl
+              text-white
+              font-medium
+              bg-primary
+              disabled:opacity-50
+            "
+          >
+            {loading ? "Adding..." : "Add Item"}
+          </button>
+        </div>
+
+      </form>
     </BottomSheetDialog>
   );
 };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { TaskCategory, TaskRecurrence } from "../types/types";
+import type { TaskCategory, TaskRecurrence, TaskPriority } from "../types/types";
 
 interface UseAddTaskFormProps {
   open: boolean;
@@ -7,10 +7,10 @@ interface UseAddTaskFormProps {
   onSave: (task: {
     label: string;
     date: string;
-    time?: string;
     recurrence?: TaskRecurrence;
     category?: TaskCategory;
     notes?: string;
+    priority?: TaskPriority;
   }) => void;
   onClose: () => void;
 }
@@ -23,10 +23,11 @@ export const useAddTaskForm = ({
 }: UseAddTaskFormProps) => {
   const [label, setLabel] = useState("");
   const [notes, setNotes] = useState("");
-  const [time, setTime] = useState("");
   const [date, setDate] = useState(defaultDate);
   const [category, setCategory] = useState<TaskCategory | "">("");
   const [recurrence, setRecurrence] = useState<TaskRecurrence | "">("");
+  const [priority, setPriority] = useState<TaskPriority | "">("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -38,41 +39,47 @@ export const useAddTaskForm = ({
   const reset = () => {
     setLabel("");
     setNotes("");
-    setTime("");
     setCategory("");
     setRecurrence("");
+    setPriority("");
     setDate(defaultDate);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!canSave) return;
-    onSave({
-      label: label.trim(),
-      date,
-      time: time || undefined,
-      category: category || undefined,
-      recurrence: recurrence || undefined,
-      notes: notes || undefined,
-    });
-    reset();
-    onClose();
+    setLoading(true);
+    try {
+      await onSave({
+        label: label.trim(),
+        date,
+        category: category || undefined,
+        recurrence: recurrence || undefined,
+        notes: notes || undefined,
+        priority: priority || undefined,
+      });
+      reset();
+      onClose();
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
     label,
     notes,
-    time,
     date,
     category,
     recurrence,
+    priority,
     canSave,
+    loading,
     onLabelChange: setLabel,
     onNotesChange: setNotes,
-    onTimeChange: setTime,
     onDateChange: setDate,
     onCategoryChange: setCategory,
     onRecurrenceChange: setRecurrence,
+    onPriorityChange: setPriority,
     onSave: handleSubmit,
   };
 };

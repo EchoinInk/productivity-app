@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Task, TaskCategory, TaskRecurrence } from "../types/types";
+import type { Task, TaskCategory, TaskRecurrence, TaskPriority } from "../types/types";
 
 interface UseEditTaskFormProps {
   open: boolean;
@@ -16,8 +16,9 @@ export const useEditTaskForm = ({
   const [notes, setNotes] = useState("");
   const [category, setCategory] = useState<TaskCategory | "">("");
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
   const [recurrence, setRecurrence] = useState<TaskRecurrence | "">("");
+  const [priority, setPriority] = useState<TaskPriority | "">("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!open || !task) return;
@@ -25,24 +26,29 @@ export const useEditTaskForm = ({
     setNotes(task.notes ?? "");
     setCategory(task.category as TaskCategory | "");
     setDate(task.date);
-    setTime(task.time ?? "");
     setRecurrence(task.recurrence as TaskRecurrence | "");
+    setPriority(task.priority as TaskPriority | "");
   }, [open, task]);
 
   const canSave = label.trim().length > 0;
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!canSave || !task) return;
-    onSave({
-      ...task,
-      label: label.trim(),
-      notes: notes || undefined,
-      date,
-      time: time || undefined,
-      recurrence: recurrence || undefined,
-      category: category || undefined,
-    });
+    setLoading(true);
+    try {
+      await onSave({
+        ...task,
+        label: label.trim(),
+        notes: notes || undefined,
+        date,
+        recurrence: recurrence || undefined,
+        category: category || undefined,
+        priority: priority || undefined,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
@@ -50,15 +56,16 @@ export const useEditTaskForm = ({
     notes,
     category,
     date,
-    time,
     recurrence,
+    priority,
     canSave,
+    loading,
     onLabelChange: setLabel,
     onNotesChange: setNotes,
     onCategoryChange: setCategory,
     onDateChange: setDate,
-    onTimeChange: setTime,
     onRecurrenceChange: setRecurrence,
+    onPriorityChange: setPriority,
     onSave: handleSubmit,
   };
 };

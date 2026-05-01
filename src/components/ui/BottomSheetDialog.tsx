@@ -61,12 +61,12 @@ export const BottomSheetDialog = ({
         "
         onClick={(event) => event.stopPropagation()}
       >
-        <Card className="overflow-hidden rounded-2xl">
+        <Card className="overflow-hidden rounded-t-3xl shadow-none">
 
           {/* HEADER */}
           <CardHeader title={title} />
 
-          {/* CONTENT SYSTEM (KEY FIX) */}
+          {/* CONTENT SYSTEM */}
           <div className="flex flex-col max-h-[85vh]">
 
             {/* SCROLLABLE AREA */}
@@ -74,7 +74,7 @@ export const BottomSheetDialog = ({
               className="
                 flex-1
                 overflow-y-auto
-                px-4 pt-2
+                px-4 py-4
                 pb-[calc(96px+env(safe-area-inset-bottom))]
               "
             >

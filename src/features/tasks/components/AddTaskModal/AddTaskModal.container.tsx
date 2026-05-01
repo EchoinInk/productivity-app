@@ -1,12 +1,12 @@
 import { AddTaskModalView, type AddTaskModalViewModel } from "./AddTaskModal.view";
 import { useAddTaskForm } from "../../hooks/useAddTaskForm";
-import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
+import type { TaskCategory, TaskRecurrence, TaskPriority } from "@/features/tasks/types/types";
 
 interface AddTaskProps {
   open: boolean;
   onClose: () => void;
   defaultDate: string;
-  onSave: (task: { label: string; date: string; time?: string; recurrence?: TaskRecurrence; category?: TaskCategory; notes?: string }) => void;
+  onSave: (task: { label: string; date: string; recurrence?: TaskRecurrence; category?: TaskCategory; notes?: string; priority?: TaskPriority }) => void;
 }
 
 export const AddTaskModal = ({ open, onClose, onSave, defaultDate }: AddTaskProps) => {

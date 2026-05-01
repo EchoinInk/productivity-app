@@ -1,27 +1,25 @@
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
-import { Button } from "@/components/ui/Button";
-import { FormActions } from "@/components/ui/FormActions";
-import { Field, ModalForm, SelectField, TextareaField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
-import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
+import type { TaskCategory, TaskRecurrence, TaskPriority } from "@/features/tasks/types/types";
 
 export interface EditTaskModalViewModel {
   open: boolean;
   label: string;
   notes: string;
-  category: TaskCategory | "";
   date: string;
-  time: string;
+  category: TaskCategory | "";
   recurrence: TaskRecurrence | "";
+  priority: TaskPriority | "";
   canSave: boolean;
+  loading: boolean;
   onClose: () => void;
   onSave: (event: React.FormEvent) => void;
   onLabelChange: (value: string) => void;
   onNotesChange: (value: string) => void;
-  onCategoryChange: (value: TaskCategory) => void;
   onDateChange: (value: string) => void;
-  onTimeChange: (value: string) => void;
+  onCategoryChange: (value: TaskCategory) => void;
   onRecurrenceChange: (value: TaskRecurrence) => void;
+  onPriorityChange: (value: TaskPriority) => void;
   onDelete: () => void;
 }
 
@@ -30,92 +28,128 @@ export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) 
     open,
     label,
     notes,
-    category,
     date,
-    time,
+    category,
     recurrence,
+    priority,
     canSave,
+    loading,
     onClose,
     onSave,
     onLabelChange,
     onNotesChange,
-    onCategoryChange,
     onDateChange,
-    onTimeChange,
+    onCategoryChange,
     onRecurrenceChange,
+    onPriorityChange,
     onDelete,
   } = model;
 
   return (
     <BottomSheetDialog open={open} title="Edit Task" onClose={onClose}>
-      <ModalForm onSubmit={onSave}>
-        <Field
-          id="edit-task-label"
-          label="Task name"
-          autoFocus
-          value={label}
-          onChange={(e) => onLabelChange(e.target.value)}
-          onFocus={(e) => e.target.select()}
-        />
-        <TextareaField
-          id="edit-task-notes"
-          label="Notes"
-          value={notes}
-          onChange={(e) => onNotesChange(e.target.value)}
-        />
-        <div className="flex gap-2">
-          <div className="flex-1">
-            <Field
-              id="edit-task-date"
-              label="Task date"
+      
+      {/* CONTENT */}
+      <form onSubmit={onSave} className="flex flex-col h-full">
+
+        {/* SCROLL AREA */}
+        <div className="flex-1 overflow-y-auto space-y-4 pb-32">
+
+          {/* TASK NAME */}
+          <input
+            placeholder="Task name"
+            value={label}
+            onChange={(e) => onLabelChange(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
+          />
+
+          {/* DATE + RECURRING (same row) */}
+          <div className="grid grid-cols-2 gap-3">
+            <input
               type="date"
               value={date}
               onChange={(e) => onDateChange(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
             />
+            <select
+              value={recurrence}
+              onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            >
+              <option value="">Recurring</option>
+              <option value="none">None</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
           </div>
-          <div className="flex-1">
-            <Field
-              id="edit-task-time"
-              label="Task time"
-              type="time"
-              value={time}
-              onChange={(e) => onTimeChange(e.target.value)}
-            />
+
+          {/* CATEGORY + PRIORITY (same row) */}
+          <div className="grid grid-cols-2 gap-3">
+            <select
+              value={category}
+              onChange={(e) => onCategoryChange(e.target.value as TaskCategory)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            >
+              <option value="">Category</option>
+              {taskCategories.map((c: TaskCategory) => (
+                <option key={c}>{c}</option>
+              ))}
+            </select>
+            <select
+              value={priority}
+              onChange={(e) => onPriorityChange(e.target.value as TaskPriority)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            >
+              <option value="">Priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+
+          {/* NOTES */}
+          <textarea
+            placeholder="Notes"
+            value={notes}
+            onChange={(e) => onNotesChange(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm min-h-[80px]"
+          />
+
+        </div>
+
+        {/* STICKY FOOTER: DELETE + UPDATE */}
+        <div className="sticky bottom-0 px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3 bg-background">
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={onDelete}
+              className="
+                py-3
+                rounded-xl
+                text-destructive
+                font-medium
+                bg-destructive/10
+              "
+            >
+              Delete
+            </button>
+            <button
+              type="submit"
+              disabled={!canSave || loading}
+              className="
+                py-3
+                rounded-xl
+                text-white
+                font-medium
+                bg-primary
+                disabled:opacity-50
+              "
+            >
+              {loading ? "Updating..." : "Update"}
+            </button>
           </div>
         </div>
-        <SelectField
-          id="edit-task-category"
-          label="Category"
-          value={category}
-          onChange={(e) => onCategoryChange(e.target.value as TaskCategory)}
-          placeholder={!category}
-        >
-          <option value="" disabled>
-            Category
-          </option>
-          {taskCategories.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </SelectField>
-        <SelectField
-          id="edit-task-recurrence"
-          label="Recurrence"
-          value={recurrence}
-          onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)}
-          placeholder={!recurrence}
-        >
-          <option value="" disabled>
-            Recurring
-          </option>
-          <option value="none">None</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-        </SelectField>
-        <FormActions onCancel={onClose} disabled={!canSave} />
-        <Button variant="recall" fullWidth onClick={onDelete} aria-label="Delete this task">
-          Delete Task
-        </Button>
-      </ModalForm>
+
+      </form>
     </BottomSheetDialog>
   );
 };

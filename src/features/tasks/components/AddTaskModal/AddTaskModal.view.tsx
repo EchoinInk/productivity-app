@@ -1,24 +1,25 @@
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { taskCategories } from "@/features/tasks/constants/categories";
-import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
+import type { TaskCategory, TaskRecurrence, TaskPriority } from "@/features/tasks/types/types";
 
 export interface AddTaskModalViewModel {
   open: boolean;
   label: string;
   notes: string;
-  time: string;
   date: string;
   category: TaskCategory | "";
   recurrence: TaskRecurrence | "";
+  priority: TaskPriority | "";
   canSave: boolean;
+  loading: boolean;
   onClose: () => void;
   onSave: (event: React.FormEvent) => void;
   onLabelChange: (value: string) => void;
   onNotesChange: (value: string) => void;
-  onTimeChange: (value: string) => void;
   onDateChange: (value: string) => void;
   onCategoryChange: (value: TaskCategory) => void;
   onRecurrenceChange: (value: TaskRecurrence) => void;
+  onPriorityChange: (value: TaskPriority) => void;
 }
 
 export const AddTaskModalView = ({ model }: { model: AddTaskModalViewModel }) => {
@@ -26,19 +27,20 @@ export const AddTaskModalView = ({ model }: { model: AddTaskModalViewModel }) =>
     open,
     label,
     notes,
-    time,
     date,
     category,
     recurrence,
+    priority,
     canSave,
+    loading,
     onClose,
     onSave,
     onLabelChange,
     onNotesChange,
-    onTimeChange,
     onDateChange,
     onCategoryChange,
     onRecurrenceChange,
+    onPriorityChange,
   } = model;
 
   return (
@@ -48,75 +50,66 @@ export const AddTaskModalView = ({ model }: { model: AddTaskModalViewModel }) =>
       <form onSubmit={onSave} className="flex flex-col h-full">
 
         {/* SCROLL AREA */}
-        <div className="flex-1 overflow-y-auto px-4 pt-4 space-y-4 pb-32">
+        <div className="flex-1 overflow-y-auto space-y-4 pb-32">
 
           {/* TASK NAME */}
           <input
-            placeholder="e.g. Buy groceries"
+            placeholder="Task name"
             value={label}
             onChange={(e) => onLabelChange(e.target.value)}
             className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
           />
 
-          {/* QUICK ACTIONS (OPTIONAL — matches screenshot style) */}
-          <div className="flex gap-2">
-            <button type="button" className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs">
-              Today
-            </button>
-            <button type="button" className="px-3 py-1.5 rounded-full bg-muted text-xs">
-              Tomorrow
-            </button>
-            <button type="button" className="px-3 py-1.5 rounded-full bg-muted text-xs">
-              This Weekend
-            </button>
+          {/* DATE + RECURRING (same row) */}
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => onDateChange(e.target.value)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            />
+            <select
+              value={recurrence}
+              onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            >
+              <option value="">Recurring</option>
+              <option value="none">None</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
           </div>
 
-          {/* DATE */}
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => onDateChange(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          />
-
-          {/* TIME */}
-          <input
-            type="time"
-            value={time}
-            onChange={(e) => onTimeChange(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          />
-
-          {/* CATEGORY */}
-          <select
-            value={category}
-            onChange={(e) => onCategoryChange(e.target.value as TaskCategory)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          >
-            <option value="">Category</option>
-            {taskCategories.map((c: TaskCategory) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
-
-          {/* RECURRENCE */}
-          <select
-            value={recurrence}
-            onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
-          >
-            <option value="">Recurring</option>
-            <option value="none">None</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-          </select>
+          {/* CATEGORY + PRIORITY (same row) */}
+          <div className="grid grid-cols-2 gap-3">
+            <select
+              value={category}
+              onChange={(e) => onCategoryChange(e.target.value as TaskCategory)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            >
+              <option value="">Category</option>
+              {taskCategories.map((c: TaskCategory) => (
+                <option key={c}>{c}</option>
+              ))}
+            </select>
+            <select
+              value={priority}
+              onChange={(e) => onPriorityChange(e.target.value as TaskPriority)}
+              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            >
+              <option value="">Priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
 
           {/* NOTES */}
           <textarea
-            placeholder="Notes (optional)"
+            placeholder="Notes"
             value={notes}
             onChange={(e) => onNotesChange(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm min-h-[80px]"
           />
 
         </div>
@@ -125,18 +118,18 @@ export const AddTaskModalView = ({ model }: { model: AddTaskModalViewModel }) =>
         <div className="sticky bottom-0 px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3 bg-background">
           <button
             type="submit"
-            disabled={!canSave}
+            disabled={!canSave || loading}
             className="
               w-full
               py-3
               rounded-xl
               text-white
               font-medium
-              bg-gradient-to-r from-primary to-purple-400
+              bg-primary
               disabled:opacity-50
             "
           >
-            Add Task
+            {loading ? "Adding..." : "Add Task"}
           </button>
         </div>
 

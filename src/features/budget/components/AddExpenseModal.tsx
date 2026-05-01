@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
-import { FormActions } from "@/components/ui/FormActions";
-import { Field, ModalForm } from "@/components/ui/FormField";
 
 interface AddExpenseProps {
   open: boolean;
@@ -12,22 +10,70 @@ interface AddExpenseProps {
 const AddExpense = ({ open, onClose, onSave }: AddExpenseProps) => {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
+  const [loading, setLoading] = useState(false);
   const canSave = name.trim().length > 0 && parseFloat(amount) > 0;
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!canSave) return;
+    setLoading(true);
+    try {
+      await onSave({ name: name.trim(), amount: parseFloat(amount) });
+      setName("");
+      setAmount("");
+      onClose();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <BottomSheetDialog open={open} title="Add Expense" onClose={onClose}>
-      <ModalForm onSubmit={(event) => {
-        event.preventDefault();
-        if (!canSave) return;
-        onSave({ name: name.trim(), amount: parseFloat(amount) });
-        setName("");
-        setAmount("");
-        onClose();
-      }}>
-        <Field id="add-expense-name" label="Expense name" autoFocus placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <Field id="add-expense-amount" label="Expense amount" type="number" inputMode="decimal" placeholder="$ Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-        <FormActions onCancel={onClose} disabled={!canSave} />
-      </ModalForm>
+      <form onSubmit={handleSubmit} className="flex flex-col h-full">
+
+        {/* SCROLL AREA */}
+        <div className="flex-1 overflow-y-auto space-y-4 pb-32">
+
+          {/* EXPENSE NAME */}
+          <input
+            placeholder="Expense name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
+          />
+
+          {/* AMOUNT */}
+          <input
+            type="number"
+            inputMode="decimal"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+          />
+
+        </div>
+
+        {/* STICKY CTA */}
+        <div className="sticky bottom-0 px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3 bg-background">
+          <button
+            type="submit"
+            disabled={!canSave || loading}
+            className="
+              w-full
+              py-3
+              rounded-xl
+              text-white
+              font-medium
+              bg-primary
+              disabled:opacity-50
+            "
+          >
+            {loading ? "Adding..." : "Add Expense"}
+          </button>
+        </div>
+
+      </form>
     </BottomSheetDialog>
   );
 };
