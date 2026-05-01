@@ -1,6 +1,4 @@
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
-import { FormActions } from "@/components/ui/FormActions";
-import { Field, ModalForm, SelectField } from "@/components/ui/FormField";
 import { taskCategories } from "@/features/tasks/constants/categories";
 import type { TaskCategory, TaskRecurrence } from "@/features/tasks/types/types";
 
@@ -44,30 +42,105 @@ export const AddTaskModalView = ({ model }: { model: AddTaskModalViewModel }) =>
   } = model;
 
   return (
-    <BottomSheetDialog open={open} title="New Task" onClose={onClose}>
-      <ModalForm onSubmit={onSave}>
-        <div className="flex flex-col space-y-2">
-          <div>
-            <Field id="add-task-date" label="Task date" type="date" value={date} onChange={(e) => onDateChange(e.target.value)} />
+    <BottomSheetDialog open={open} title="Add Task" onClose={onClose}>
+      
+      {/* CONTENT */}
+      <form onSubmit={onSave} className="flex flex-col h-full">
+
+        {/* SCROLL AREA */}
+        <div className="flex-1 overflow-y-auto px-4 pt-4 space-y-4 pb-32">
+
+          {/* TASK NAME */}
+          <input
+            placeholder="e.g. Buy groceries"
+            value={label}
+            onChange={(e) => onLabelChange(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
+          />
+
+          {/* QUICK ACTIONS (OPTIONAL — matches screenshot style) */}
+          <div className="flex gap-2">
+            <button type="button" className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs">
+              Today
+            </button>
+            <button type="button" className="px-3 py-1.5 rounded-full bg-muted text-xs">
+              Tomorrow
+            </button>
+            <button type="button" className="px-3 py-1.5 rounded-full bg-muted text-xs">
+              This Weekend
+            </button>
           </div>
-          <div>
-            <Field id="add-task-time" label="Task time" type="time" value={time} onChange={(e) => onTimeChange(e.target.value)} />
-          </div>
+
+          {/* DATE */}
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => onDateChange(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+          />
+
+          {/* TIME */}
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => onTimeChange(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+          />
+
+          {/* CATEGORY */}
+          <select
+            value={category}
+            onChange={(e) => onCategoryChange(e.target.value as TaskCategory)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+          >
+            <option value="">Category</option>
+            {taskCategories.map((c: TaskCategory) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+
+          {/* RECURRENCE */}
+          <select
+            value={recurrence}
+            onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+          >
+            <option value="">Recurring</option>
+            <option value="none">None</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+
+          {/* NOTES */}
+          <textarea
+            placeholder="Notes (optional)"
+            value={notes}
+            onChange={(e) => onNotesChange(e.target.value)}
+            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+          />
+
         </div>
-        <Field id="add-task-label" label="Task name" autoFocus placeholder="Task name" value={label} onChange={(e) => onLabelChange(e.target.value)} />
-        <Field id="add-task-notes" label="Notes" placeholder="Notes (optional)" value={notes} onChange={(e) => onNotesChange(e.target.value)} />
-        <SelectField id="add-task-category" label="Category" value={category} onChange={(e) => onCategoryChange(e.target.value as TaskCategory)} placeholder={!category}>
-          <option value="" disabled>Category</option>
-          {taskCategories.map((item) => <option key={item}>{item}</option>)}
-        </SelectField>
-        <SelectField id="add-task-recurrence" label="Recurrence" value={recurrence} onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)} placeholder={!recurrence}>
-          <option value="" disabled>Recurring</option>
-          <option value="none">None</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-        </SelectField>
-        <FormActions onCancel={onClose} disabled={!canSave} />
-      </ModalForm>
+
+        {/* STICKY CTA */}
+        <div className="sticky bottom-0 px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3 bg-background">
+          <button
+            type="submit"
+            disabled={!canSave}
+            className="
+              w-full
+              py-3
+              rounded-xl
+              text-white
+              font-medium
+              bg-gradient-to-r from-primary to-purple-400
+              disabled:opacity-50
+            "
+          >
+            Add Task
+          </button>
+        </div>
+
+      </form>
     </BottomSheetDialog>
   );
 };
