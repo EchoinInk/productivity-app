@@ -1,15 +1,11 @@
 # Conventions
 
-## Naming
-
-- files: kebab-case
-- components: PascalCase
-- hooks: useX
-
----
+## Naming Rules
+- **Files**: kebab-case  
+- **Components**: PascalCase  
+- **Hooks**: `useX`
 
 ## Examples
-
-- useTasks
-- TodayPage
-- add-task-modal.tsx
+- `useTasks`
+- `TodayPage`
+- `add-task-modal.tsx`

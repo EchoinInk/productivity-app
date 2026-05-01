@@ -1,32 +1,24 @@
 # Design System
 
 ## Typography
-- Title: bold, large
-- Subtitle: muted
-- Body: standard
+- **Title** → bold, large
+- **Subtitle** → muted
+- **Body** → standard
 
----
-
-## Spacing
-- 4, 8, 12, 16, 24 scale
-
----
+## Spacing Scale
+4, 8, 12, 16, 24
 
 ## Cards
-- rounded-xl / rounded-2xl
-- subtle shadow
-- no heavy borders
-
----
+- `rounded-xl` / `rounded-2xl`
+- Subtle shadow
+- No heavy borders
 
 ## Icons
-- 32–40px
-- no background
-- aligned right or inline
-
----
+- Size: 32–40px
+- No background
+- Align right or inline
 
 ## Buttons
-- rounded-full
-- active:scale-[0.97]
-- gradient for primary actions
+- `rounded-full`
+- `active:scale-[0.97]`
+- Gradient for primary actions

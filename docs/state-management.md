@@ -1,19 +1,18 @@
 # State Management
 
 ## Rules
+- One store per feature
+- No cross-store mutation
+- No derived state in stores
 
-- one store per feature
-- no cross-store mutation
-- no derived state
-
----
-
-## Access
-
-ts useTasksStore(s => s.tasks) 
-
----
+## Access Pattern
+```ts
+useTasksStore(s => s.tasks)
+```
 
 ## Updates
-
-ts set(state => ({   tasks: [...state.tasks, newTask] })) 
+```ts
+set(state => ({
+  tasks: [...state.tasks, newTask]
+}))
+```

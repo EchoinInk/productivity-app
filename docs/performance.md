@@ -1,22 +1,15 @@
 # Performance
 
 ## Rules
-
-- avoid full store subscriptions
-- memoize derived data
-- lazy load heavy components
-
----
+- Avoid full store subscriptions
+- Memoize derived data
+- Lazy load heavy components
 
 ## Targets
-
-- Mobile ≥ 95
-- Reduce JS bundle
+- Mobile score ≥ 95
+- Minimize JS bundle size
 - Optimize images
 
----
-
-## Fixes
-
-- no unused JS
-- preload key assets
+## Fix Checklist
+- Remove unused JS
+- Preload critical assets

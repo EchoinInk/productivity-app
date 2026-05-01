@@ -1,15 +1,11 @@
 # Accessibility
 
-## Rules
+## Core Rules
+- All buttons must have accessible labels
+- Maintain proper color contrast
+- Use semantic HTML elements
 
-- all buttons have labels
-- proper contrast
-- use semantic HTML
-
----
-
-## Must
-
-- main landmark
-- aria labels for actions
-- keyboard navigation
+## Requirements
+- Include a `<main>` landmark
+- Add `aria-label` for all actions
+- Ensure full keyboard navigation support

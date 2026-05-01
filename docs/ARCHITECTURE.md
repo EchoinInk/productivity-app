@@ -1,6 +1,7 @@
 # Architecture
 
 ## Philosophy
+
 - Clarity over abstraction
 - Single source of truth
 - Mobile-first UX
@@ -10,7 +11,18 @@
 
 ## Core Data Model
 
-ts type Task = {   id: string;   label: string;   date: string;   completed: boolean;   priority?: "low" | "medium" | "high";   category?: string;   notes?: string;   recurrence?: string; }; 
+```ts
+type Task = {
+  id: string;
+  label: string;
+  date: string;
+  completed: boolean;
+  priority?: "low" | "medium" | "high";
+  category?: string;
+  notes?: string;
+  recurrence?: string;
+};
+```
 
 ---
 
@@ -24,18 +36,27 @@ ts type Task = {   id: string;   label: string;   date: string;   completed: boo
 
 ## Data Flow
 
+```
 Store → Selectors → Hooks → UI
+```
 
 ---
 
-## Structure
+## Feature Structure
 
-/features/[feature]   store.ts   types.ts   hooks/   components/   pages/
+```
+/features/[feature]
+  store.ts
+  types.ts
+  hooks/
+  components/
+  pages/
+```
 
 ---
 
 ## UI Principles
 
 - No logic in UI
-- No mapping models
+- No mapping/view models
 - Direct use of domain objects

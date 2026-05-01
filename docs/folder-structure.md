@@ -1,11 +1,20 @@
 # Folder Structure
 
-/src   /components/ui   /features     /tasks     /budget     /meals     /shopping     /recipes   /screens   /shared
-
----
+## Root Layout
+```
+/src
+  /components/ui
+  /features
+    /tasks
+    /budget
+    /meals
+    /shopping
+    /recipes
+  /screens
+  /shared
+```
 
 ## Rules
-
-- UI = presentational
-- Features = logic
-- Screens = composition
+- **UI** → presentational only
+- **Features** → logic + state
+- **Screens** → composition layer
