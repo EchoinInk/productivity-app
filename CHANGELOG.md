@@ -813,3 +813,126 @@ Verification
 * TypeScript: ✅ zero errors
 * Build: ✅ successful
 * Tests: ✅ passing
+
+
+---
+
+## Phase I — Task Model Simplification & Hook Architecture Rewrite
+
+### Changes
+
+- Canonical Task model simplified
+  - Replaced `completedDates: string[]` → `completed: boolean`
+  - Removed legacy fields (`title`, `subtitle`)
+  - Standardized Task shape across entire app
+
+- Zustand architecture simplified
+  - Stores now contain raw data only
+  - Removed derived state
+  - Logic moved to selectors/hooks
+
+- `useTasks` hook rewritten
+
+```ts
+const { tasks, sections, actions } = useTasks();
+```
+
+- sections now provides:
+  - today
+  - upcoming
+  - completed
+
+- Removed view models
+- Selectors normalized
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| src/features/tasks/types.ts | Updated Task model |
+| src/features/tasks/store/useTasksStore.ts | Removed derived state |
+| src/features/tasks/hooks/useTasks.ts | Rewritten contract |
+
+### Files Deleted
+
+| File | Reason |
+|------|--------|
+| TaskInsights.tsx | Removed |
+| TaskProgress.tsx | Removed |
+
+---
+
+## Phase J — Today Dashboard Rewiring & UX Corrections
+
+### Changes
+
+- Connected Today page to real state
+- Fixed Quick Actions (now modal-driven)
+- Rebuilt Recent Activity from real data
+- Simplified Up Next logic
+
+### UX Direction
+
+Moving toward unified “Next Actions” system
+
+---
+
+## Phase K — Modal System Refactor (In Progress)
+
+### Changes
+
+- Standardized modal structure
+- Removed time + quick date shortcuts
+- Added priority field
+- Improved BottomSheet behavior
+
+### Known Issues
+
+- CTA overlap with bottom nav
+- Scroll refinement needed
+
+---
+
+## Phase L — UI Consistency & Card System Cleanup
+
+### Changes
+
+- Redesigned summary cards
+- Standardized icon system
+- Fixed chevron alignment
+
+---
+
+## Phase M — Documentation System Introduced
+
+### Added
+
+architecture.md, rules.md, roadmap.md, features.md, design-system.md, etc.
+
+### Purpose
+
+- Define architecture
+- Enforce standards
+- Prevent regressions
+
+---
+
+## Phase N — TypeScript Cleanup (Final Sweep)
+
+### Changes
+
+- Removed legacy fields
+- Fixed hooks + tests
+- Standardized selectors
+
+### Verification
+
+- TypeScript: zero errors
+- Build: success
+- Tests: passing
+
+---
+
+## Release Status
+
+Ready for release tagging
