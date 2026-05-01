@@ -93,11 +93,12 @@ const TodayQuickActionsGrid = ({
         icon={
           <img
             src={taskillustration}
+            srcSet={`${taskillustration} 1x`}
+            sizes="(max-width: 768px) 42px, 42px"
             alt=""
             width={42}
             height={42}
-            loading="eager"
-            fetchPriority="high"
+            loading="lazy"
             className="object-contain"
           />
         }
@@ -112,11 +113,12 @@ const TodayQuickActionsGrid = ({
         icon={
           <img
             src={mealillustration}
+            srcSet={`${mealillustration} 1x`}
+            sizes="(max-width: 768px) 42px, 42px"
             alt=""
             width={42}
             height={42}
-            loading="eager"
-            fetchPriority="high"
+            loading="lazy"
             className="object-contain"
           />
         }
@@ -131,11 +133,12 @@ const TodayQuickActionsGrid = ({
         icon={
           <img
             src={budgetillustration}
+            srcSet={`${budgetillustration} 1x`}
+            sizes="(max-width: 768px) 42px, 42px"
             alt=""
             width={42}
             height={42}
-            loading="eager"
-            fetchPriority="high"
+            loading="lazy"
             className="object-contain"
           />
         }
@@ -150,11 +153,12 @@ const TodayQuickActionsGrid = ({
         icon={
           <img
             src={shoppingillustration}
+            srcSet={`${shoppingillustration} 1x`}
+            sizes="(max-width: 768px) 42px, 42px"
             alt=""
             width={42}
             height={42}
-            loading="eager"
-            fetchPriority="high"
+            loading="lazy"
             className="object-contain"
           />
         }

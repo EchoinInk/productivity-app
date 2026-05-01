@@ -40,6 +40,8 @@ const BottomNav = () => (
           <>
             <img
               src={icon}
+              srcSet={`${icon} 1x`}
+              sizes="28px"
               alt=""
               width={28}
               height={28}

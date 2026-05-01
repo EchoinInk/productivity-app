@@ -32,6 +32,8 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
         {/* LCP Image - Render first for instant loading */}
         <img
           src={clipboardIllustration}
+          srcSet={`${clipboardIllustration} 1x`}
+          sizes="(max-width: 640px) 0px, 80px"
           alt=""
           aria-hidden
           loading="eager"
