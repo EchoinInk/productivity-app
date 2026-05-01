@@ -10,7 +10,9 @@ const AppShell = ({ children }: AppShellProps) => (
     
     {/* CONTENT */}
     <div className="w-full lg:max-w-[430px] lg:mx-auto">
-      {children}
+      <main>
+        {children}
+      </main>
     </div>
 
     {/* NAV */}
