@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heading, Body, BodyMuted, CTA } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -28,8 +28,12 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
       .slice(0, 3);
   }, [tasks]);
 
+  const handleToggle = useCallback((taskId: string) => {
+    onToggle(taskId, today);
+  }, [onToggle, today]);
+
   return (
-    <section className="space-y-4 mt-6">
+    <section className="space-y-4 mt-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <Heading as="h3" className="text-base text-muted-foreground">Up Next</Heading>
@@ -62,30 +66,48 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
               <ListItemCard
                 key={task.id}
                 variant="glass"
-                className="flex items-center gap-3"
+                className={`flex items-center gap-3 transition-all duration-300 ${task.isCompleted ? 'opacity-60' : ''}`}
               >
                 {/* Checkbox */}
                 <button
                   type="button"
-                  onClick={() => onToggle(task.id, today)}
-                  aria-label={`Mark ${task.title} as completed`}
+                  onClick={() => handleToggle(task.id)}
+                  aria-label={`${task.isCompleted ? 'Mark' : 'Unmark'} ${task.title} as ${task.isCompleted ? 'incomplete' : 'completed'}`}
                   role="checkbox"
-                  aria-checked={false}
-                  className="
+                  aria-checked={task.isCompleted}
+                  className={`
                     shrink-0
                     w-5 h-5
                     rounded-full
-                    border-2 border-muted-foreground/40
-                    hover:border-primary
-                    active:scale-90
+                    border-2
                     transition-all duration-200
+                    active:scale-90
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                  "
-                />
+                    ${
+                      task.isCompleted
+                        ? 'bg-primary border-primary'
+                        : 'border-muted-foreground/40 hover:border-primary'
+                    }
+                  `}
+                >
+                  {task.isCompleted && (
+                    <svg
+                      viewBox="0 0 12 12"
+                      className="w-3 h-3 text-primary-foreground"
+                      fill="currentColor"
+                    >
+                      <path d="M3.5 6L5 7.5L8.5 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                    </svg>
+                  )}
+                </button>
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
-                  <Body weight="semibold" truncate className="text-muted-foreground">
+                  <Body 
+                    weight="semibold" 
+                    truncate 
+                    className={task.isCompleted ? "text-muted-foreground/50 line-through" : "text-muted-foreground"}
+                  >
                     {task.title}
                   </Body>
 
@@ -105,7 +127,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                       rounded-full
                       text-xs font-medium
                       opacity-70
-                      flex items-center gap-1.5
+                      flex items-center gap-1
                     "
                     style={{
                       backgroundColor: meta.bg,

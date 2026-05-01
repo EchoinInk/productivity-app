@@ -19,7 +19,7 @@ const variantClass: Record<CardVariant, string> = {
     "bg-white/70 backdrop-blur-md border border-border/40 shadow-soft",
 
   solid:
-    "bg-white border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.06)]",
+    "bg-white border border-black/5 shadow-elevated",
 
   hero:
     "bg-gradient-hero text-primary-foreground shadow-pop",

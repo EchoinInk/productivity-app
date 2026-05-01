@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import Header from "@/components/layout/Header";
 import { TodayHeroCard } from "@/features/today/components/TodayHeroCard";
@@ -7,68 +7,27 @@ import { UpNextList } from "@/features/today/components/TodayUpNextList";
 
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
-
-import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useBudgetSummary } from "@/features/budget/hooks/useBudget";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useMealsStore } from "@/features/meals/store/useMealsStore";
-import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
-
-import { toDateString } from "@/shared/lib/date";
-
-const WEEKDAYS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-] as const;
-
-const greetingFor = (d: Date): string => {
-  const h = d.getHours();
-  if (h < 12) return "Good morning 👋";
-  if (h < 18) return "Good afternoon 👋";
-  return "Good evening 👋";
-};
+import { useTodayPageData } from "@/features/today/hooks/useTodayPageData";
 
 const TodayPage = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
-  const meals = useMealsStore((state) => state.meals);
-  const shoppingItems = useShoppingStore((state) => state.shoppingItems);
-
+  
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [selectedDate] = useState(new Date());
 
-  const selectedDateString = useMemo(
-    () => toDateString(selectedDate),
-    [selectedDate],
-  );
-
-  const { progress, sections, actions } = useTasks(selectedDateString);
-  const budget = useBudgetSummary();
-
-  const todaySection = useMemo(
-    () => sections.find((s) => s.type === "today"),
-    [sections],
-  );
-
-  const tasksCount = todaySection?.total ?? 0;
-  const todayTasks = todaySection?.tasks ?? [];
-
-  const todayWeekday = WEEKDAYS[selectedDate.getDay()];
-  const mealsCount = useMemo(
-    () => meals.filter((m) => m.day === todayWeekday).length,
-    [meals, todayWeekday],
-  );
-  const shoppingCount = useMemo(
-    () => shoppingItems.filter((item) => !item.done).length,
-    [shoppingItems],
-  );
-
-  const greeting = greetingFor(selectedDate);
+  const {
+    progress,
+    budget,
+    tasksCount,
+    mealsCount,
+    shoppingCount,
+    todayTasks,
+    selectedDateString,
+    greeting,
+    actions,
+  } = useTodayPageData(selectedDate);
 
   return (
     <>

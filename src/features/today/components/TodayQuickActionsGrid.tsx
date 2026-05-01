@@ -10,15 +10,12 @@ import mealillustration from "@/assets/mealquickactions.webp";
 import budgetillustration from "@/assets/budgetquickactions.webp";
 import shoppingillustration from "@/assets/shoppingquickactions.webp";
 
-type TileSurface = "tasks" | "meals" | "budget" | "shopping";
-
 interface CardProps {
   title: string;
   value: string | number;
   subtitle: string;
   icon: React.ReactNode;
   onClick: () => void;
-  surface: TileSurface;
   ariaLabel: string;
 }
 
@@ -28,7 +25,6 @@ const SummaryCard = ({
   subtitle,
   icon,
   onClick,
-  surface,
   ariaLabel,
 }: CardProps) => {
   return (
@@ -36,13 +32,11 @@ const SummaryCard = ({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className="relative w-full text-left active:scale-[0.97] hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out"
+      className="relative w-full text-left active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out"
     >
       <Card
         variant="glass"
-        className={`
-          p-4 !bg-[hsl(var(--surface-tile-${surface}))]
-        `}
+        className="p-4 opacity-75"
       >
         <div className="flex items-center gap-3">
           {/* Left: text */}
@@ -90,12 +84,11 @@ const TodayQuickActionsGrid = ({
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-2 gap-4 mt-2">
+    <div className="grid grid-cols-2 gap-4 mt-4">
       <SummaryCard
         title="Tasks"
         value={tasks}
         subtitle="To do"
-        surface="tasks"
         ariaLabel={`Tasks: ${tasks} to do`}
         icon={
           <img
@@ -114,7 +107,6 @@ const TodayQuickActionsGrid = ({
         title="Meals"
         value={meals}
         subtitle="Planned"
-        surface="meals"
         ariaLabel={`Meals: ${meals} planned`}
         icon={
           <img
@@ -133,7 +125,6 @@ const TodayQuickActionsGrid = ({
         title="Budget"
         value={`$${remaining}`}
         subtitle="Left this week"
-        surface="budget"
         ariaLabel={`Budget: $${remaining} left this week`}
         icon={
           <img
@@ -152,7 +143,6 @@ const TodayQuickActionsGrid = ({
         title="Shopping"
         value={shopping}
         subtitle="Items"
-        surface="shopping"
         ariaLabel={`Shopping: ${shopping} items`}
         icon={
           <img

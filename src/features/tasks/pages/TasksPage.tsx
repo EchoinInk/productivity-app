@@ -59,8 +59,8 @@ const TasksPage = () => {
                 px-4 py-2 rounded-full text-sm font-medium transition-all
                 ${
                   tab === tabName
-                    ? "bg-gradient-hero text-white shadow-md"
-                    : "text-slate-500 hover:text-slate-700"
+                    ? "bg-gradient-hero text-primary-foreground shadow-md"
+                    : "text-muted-foreground hover:text-foreground"
                 }
               `}
             >
@@ -89,7 +89,7 @@ const TasksPage = () => {
               <>
                 {highPriorityTasks.length > 0 && (
                   <div className="space-y-2">
-                    <Body className="text-sm font-semibold text-slate-700">
+                    <Body className="text-sm font-semibold text-foreground">
                       High Priority
                     </Body>
 
@@ -110,7 +110,7 @@ const TasksPage = () => {
 
                 {otherTasks.length > 0 && (
                   <div className="space-y-2 mt-2">
-                    <Body className="text-sm font-semibold text-slate-700">
+                    <Body className="text-sm font-semibold text-foreground">
                       Other Tasks
                     </Body>
 

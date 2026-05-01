@@ -27,10 +27,10 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
 
   return (
     <Card variant="hero" className="overflow-hidden p-0 shadow-pop">
-      <div className="flex items-center gap-4 px-6 py-8">
+      <div className="flex items-center gap-4 px-6 py-10">
 
         {/* Progress ring */}
-        <div className="relative shrink-0 h-[96px] w-[96px]">
+        <div className="relative shrink-0 h-[104px] w-[104px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
               stroke="currentColor"
@@ -108,7 +108,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
             >
               <CTA className="text-foreground flex items-center gap-1 tracking-tight">
                 Add a task
-                <ArrowRight size={11} className="opacity-50" />
+                <ArrowRight size={12} className="opacity-50" />
               </CTA>
             </button>
           ) : (
