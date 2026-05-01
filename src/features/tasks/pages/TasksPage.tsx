@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "@/components/layout/Header";
@@ -9,6 +9,7 @@ import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getToday } from "@/shared/lib/date";
+import { selectCompletedTasks } from "@/features/tasks/selectors/taskSelectors";
 
 import type { Task } from "@/features/tasks/types/types";
 
@@ -17,7 +18,7 @@ const TasksPage = () => {
   const { addTask, updateTask, deleteTask, toggleTask } = actions;
   const allTasks = useTasksStore((state) => state.tasks);
 
-  const [tab, setTab] = useState<"Today" | "Upcoming" | "Completed">("Today");
+  const [tab, setTab] = useState<"Today" | "Yesterday" | "Earlier">("Today");
   const [open, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [editOpen, setEditOpen] = useState(false);
@@ -29,24 +30,38 @@ const TasksPage = () => {
     setEditOpen(true);
   };
 
+  // Group tasks by time periods
+  const taskGroups = useMemo(() => {
+    const today = getToday() || new Date().toISOString().split("T")[0]!;
+    const yesterday = new Date(Date.parse(today));
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString().split("T")[0]!;
+
+    const todayTasks = sections.today;
+    const yesterdayTasks = selectCompletedTasks(allTasks).filter(task => task.date === yesterdayStr);
+    const earlierTasks = selectCompletedTasks(allTasks).filter(task => task.date < yesterdayStr);
+
+    return {
+      today: todayTasks,
+      yesterday: yesterdayTasks,
+      earlier: earlierTasks
+    };
+  }, [sections.today, allTasks]);
+
   const getTasksForTab = () => {
     switch (tab) {
       case "Today":
-        return sections.today;
-      case "Upcoming":
-        return sections.upcoming;
-      case "Completed":
-        return sections.completed;
+        return taskGroups.today;
+      case "Yesterday":
+        return taskGroups.yesterday;
+      case "Earlier":
+        return taskGroups.earlier;
       default:
         return [];
     }
   };
 
   const tasks = getTasksForTab();
-  const highPriorityTasks = tasks.slice(0, 3);
-  const otherTasks = tasks.slice(3);
-
-  const today = getToday();
 
   return (
     <>
@@ -55,7 +70,7 @@ const TasksPage = () => {
 
         {/* Tabs */}
         <div className="flex gap-2">
-          {(["Today", "Upcoming", "Completed"] as const).map((tabName) => (
+          {(["Today", "Yesterday", "Earlier"] as const).map((tabName) => (
             <motion.button
               key={tabName}
               onClick={() => setTab(tabName)}
@@ -92,70 +107,46 @@ const TasksPage = () => {
                 </Body>
               </div>
             ) : (
-              <>
-                {highPriorityTasks.length > 0 && (
-                  <div className="space-y-2">
-                    <Body className="text-sm font-semibold text-foreground">
-                      High Priority
-                    </Body>
-
-                    {highPriorityTasks.map((task) => (
-                      <ListItemCard
-                        key={task.id}
-                        variant="solid"
-                      >
-                        <TaskRow
-                          task={task}
-                          onToggleTask={(id) => toggleTask(id)}
-                          onSelectTask={handleSelectTask}
-                        />
-                      </ListItemCard>
-                    ))}
-                  </div>
-                )}
-
-                {otherTasks.length > 0 && (
-                  <div className="space-y-2 mt-2">
-                    <Body className="text-sm font-semibold text-foreground">
-                      Other Tasks
-                    </Body>
-
-                    {otherTasks.map((task) => (
-                      <ListItemCard
-                        key={task.id}
-                        variant="solid"
-                      >
-                        <TaskRow
-                          task={task}
-                          onToggleTask={(id) => toggleTask(id)}
-                          onSelectTask={handleSelectTask}
-                        />
-                      </ListItemCard>
-                    ))}
-                  </div>
-                )}
-              </>
+              <div className="space-y-2">
+                <Body className="text-sm font-semibold text-foreground mb-4">
+                  {tab} ({tasks.length})
+                </Body>
+                {tasks.map((task) => (
+                  <ListItemCard
+                    key={task.id}
+                    variant="solid"
+                    className={task.completed ? "opacity-70" : ""}
+                  >
+                    <TaskRow
+                      task={task}
+                      onToggleTask={(id) => toggleTask(id)}
+                      onSelectTask={handleSelectTask}
+                    />
+                  </ListItemCard>
+                ))}
+              </div>
             )}
           </motion.div>
         </AnimatePresence>
 
+        {/* Add Task Modal */}
         <AddTaskModal
           open={open}
           onClose={() => setOpen(false)}
-          defaultDate={tab === "Today" ? (today || new Date().toISOString().split("T")[0]!) : ""}
+          defaultDate={tab === "Today" ? (getToday() || new Date().toISOString().split("T")[0]!) : ""}
           onSave={(taskInput) => {
             addTask(taskInput);
             setOpen(false);
           }}
         />
 
+        {/* Edit Task Modal */}
         <EditTaskModal
           open={editOpen}
           task={selectedTask}
           onClose={() => setEditOpen(false)}
           onSave={(updated: Task) => {
             if (!selectedTask) return;
-
             updateTask(updated.id, {
               label: updated.label,
               date: updated.date,
@@ -164,12 +155,10 @@ const TasksPage = () => {
               notes: updated.notes,
               recurrence: updated.recurrence,
             });
-
             setEditOpen(false);
           }}
           onDelete={() => {
             if (!selectedTask) return;
-
             deleteTask(selectedTask.id);
             setSelectedTask(null);
             setEditOpen(false);
