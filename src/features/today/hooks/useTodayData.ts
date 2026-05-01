@@ -218,5 +218,5 @@ export const useTodayData = (): TodayData => {
       upNext,
       activity,
     };
-  }, [todayTasks, completedTasks, todayMeals, totalExpenses, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, todayDate, weeklyBudget, events]);
+  }, [todayTasks, completedTasks, todayMeals, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, todayDate, weeklyBudget, events]);
 };
