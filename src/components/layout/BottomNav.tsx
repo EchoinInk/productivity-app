@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
-import todayIcon from "@/assets/navigation/today.png";
-import tasksIcon from "@/assets/navigation/tasks.png";
-import budgetIcon from "@/assets/navigation/budget.png";
-import mealsIcon from "@/assets/navigation/meals.png";
-import listsIcon from "@/assets/navigation/lists.png";
-import recipesIcon from "@/assets/navigation/recipes.png";
+import todayIcon from "@/assets/navigation/today.webp";
+import tasksIcon from "@/assets/navigation/tasks.webp";
+import budgetIcon from "@/assets/navigation/budget.webp";
+import mealsIcon from "@/assets/navigation/meals.webp";
+import listsIcon from "@/assets/navigation/lists.webp";
+import recipesIcon from "@/assets/navigation/recipes.webp";
 
 const navItems = [
   { path: "/", label: "Today", icon: todayIcon },
@@ -41,6 +41,9 @@ const BottomNav = () => (
             <img
               src={icon}
               alt=""
+              width={28}
+              height={28}
+              loading="lazy"
               className={clsx(
                 "w-7 h-7 transition-all duration-200",
                 isActive ? "opacity-100 scale-110" : "opacity-60"

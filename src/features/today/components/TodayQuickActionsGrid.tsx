@@ -5,10 +5,10 @@ import { ChevronRight } from "lucide-react";
 import { Body, Heading, Meta } from "@/components/ui/Text";
 import { Card } from "@/components/ui/Card";
 
-import taskillustration from "@/assets/tasksquickactions.png";
-import mealillustration from "@/assets/mealquickactions.png";
-import budgetillustration from "@/assets/budgetquickactions.png";
-import shoppingillustration from "@/assets/shoppingquickactions.png";
+import taskillustration from "@/assets/tasksquickactions.webp";
+import mealillustration from "@/assets/mealquickactions.webp";
+import budgetillustration from "@/assets/budgetquickactions.webp";
+import shoppingillustration from "@/assets/shoppingquickactions.webp";
 
 type TileSurface = "tasks" | "meals" | "budget" | "shopping";
 
@@ -103,6 +103,7 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
+            loading="lazy"
             className="object-contain"
           />
         }
@@ -121,6 +122,7 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
+            loading="lazy"
             className="object-contain"
           />
         }
@@ -139,6 +141,7 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
+            loading="lazy"
             className="object-contain"
           />
         }
@@ -157,6 +160,7 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
+            loading="lazy"
             className="object-contain"
           />
         }

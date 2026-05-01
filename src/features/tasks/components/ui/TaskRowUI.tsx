@@ -84,6 +84,9 @@ export const TaskRowUI = memo((props: Props) => {
       <img
         src={categoryMeta.icon}
         alt=""
+        width={16}
+        height={16}
+        loading="lazy"
         className="w-4 h-4 object-contain"
       />
     </button>

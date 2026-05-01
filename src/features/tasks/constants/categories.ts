@@ -1,9 +1,9 @@
-import catHome from "@/assets/categoryIcons/category-home.png";
-import catHealth from "@/assets/categoryIcons/category-health.png";
-import catCareer from "@/assets/categoryIcons/category-career.png";
-import catErrands from "@/assets/categoryIcons/category-errands.png";
-import catFamily from "@/assets/categoryIcons/category-family.png";
-import catFinance from "@/assets/categoryIcons/category-finance.png";
+import catHome from "@/assets/categoryIcons/category-home.webp";
+import catHealth from "@/assets/categoryIcons/category-health.webp";
+import catCareer from "@/assets/categoryIcons/category-career.webp";
+import catErrands from "@/assets/categoryIcons/category-errands.webp";
+import catFamily from "@/assets/categoryIcons/category-family.webp";
+import catFinance from "@/assets/categoryIcons/category-finance.webp";
 import type { TaskCategory } from "@/features/tasks/types/types";
 
 export const taskCategories = [

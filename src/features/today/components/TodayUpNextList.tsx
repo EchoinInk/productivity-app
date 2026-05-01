@@ -115,6 +115,9 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                     <img
                       src={meta.icon}
                       alt=""
+                      width={12}
+                      height={12}
+                      loading="lazy"
                       className="w-3 h-3 object-contain"
                     />
                     {task.category}

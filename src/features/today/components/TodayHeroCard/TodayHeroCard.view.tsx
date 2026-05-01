@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Heading, HeroTitle, HeroSubtext, HeroSupport, CTA } from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import clipboardIllustration from "@/assets/3d-clipboard.png";
+import clipboardIllustration from "@/assets/3d-clipboard.webp";
 
 export interface TodayHeroCardViewModel {
   percentage: number;
@@ -127,13 +127,10 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          className="
-            shrink-0
-            h-[64px] w-[64px]
-            object-contain
-            opacity-65
-            translate-y-[2px]
-          "
+          width={500}
+          height={500}
+          loading="lazy"
+          className="w-full h-auto object-contain"
         />
 
       </div>
