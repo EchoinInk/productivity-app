@@ -70,9 +70,18 @@
 
     --shadow-glass: 0 3px 14px hsl(220 80% 70% / 0.22);
     --shadow-surface: 0 var(--space-3) 18px hsl(240 40% 60% / 0.18);
+    --shadow-soft: 0 6px 20px hsl(220 20% 10% / 0.06);
+    --shadow-pop: 0 10px 30px hsl(220 20% 10% / 0.08);
+    --shadow-cta: 0 2px 6px hsl(220 20% 10% / 0.08);
 
     --surface-glass: hsl(var(--card) / 0.6);
     --surface-elevated: hsl(var(--card) / 0.95);
+
+    /* Quick-action tile surfaces (semantic, tinted) */
+    --surface-tile-tasks: 168 70% 97%;
+    --surface-tile-meals: 220 60% 97%;
+    --surface-tile-budget: 240 60% 98%;
+    --surface-tile-shopping: 290 50% 97%;
 
     --progress-track: hsl(220 10% 50% / 0.15);
 
