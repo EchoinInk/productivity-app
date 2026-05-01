@@ -1,11 +1,17 @@
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
+import { shallow } from "zustand/shallow";
+
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 import { useActivityStore } from "@/features/activity/useActivityStore";
-import { useStreaksStore } from "@/features/insights/useStreaksStore";
-import { selectTodayTasks, selectCompletedTodayTasks, selectIncompleteTodayTasks } from "@/features/tasks/selectors/taskSelectors";
+
+import {
+  selectTodayTasks,
+  selectCompletedTodayTasks,
+  selectIncompleteTodayTasks,
+} from "@/features/tasks/selectors/taskSelectors";
 
 export type TodayData = {
   focus: {
@@ -35,105 +41,99 @@ export type TodayData = {
 };
 
 export const useTodayData = (): TodayData => {
-  const todayTasks = useTasksStore((state) => selectTodayTasks(state.tasks));
-  const completedTasks = useTasksStore((state) => selectCompletedTodayTasks(state.tasks));
-  const incompleteTasks = useTasksStore((state) => selectIncompleteTodayTasks(state.tasks));
-  const meals = useMealsStore((state) => state.meals);
-  const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
-  const expenses = useBudgetStore((state) => state.expenses);
-  const shoppingItems = useShoppingStore((state) => state.shoppingItems);
-  const events = useActivityStore((state) => state.events);
-  const updateStreak = useStreaksStore((state) => state.updateStreak);
-  
+  // ✅ Stable selectors
+  const todayTasks = useTasksStore(
+    (s) => selectTodayTasks(s.tasks),
+    shallow
+  );
+
+  const completedTasks = useTasksStore(
+    (s) => selectCompletedTodayTasks(s.tasks),
+    shallow
+  );
+
+  const incompleteTasks = useTasksStore(
+    (s) => selectIncompleteTodayTasks(s.tasks),
+    shallow
+  );
+
+  const meals = useMealsStore((s) => s.meals);
+  const weeklyBudget = useBudgetStore((s) => s.weeklyBudget);
+  const expenses = useBudgetStore((s) => s.expenses);
+  const shoppingItems = useShoppingStore((s) => s.shoppingItems);
+  const events = useActivityStore((s) => s.events);
+
+  // ===== DATE =====
   const todayWeekday = useMemo(() => {
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const weekdays = [
+      "Sunday","Monday","Tuesday","Wednesday",
+      "Thursday","Friday","Saturday"
+    ];
     return weekdays[new Date().getDay()];
   }, []);
-  
-  const todayMeals = useMemo(() => 
-    meals.filter((meal) => meal.day === todayWeekday), 
+
+  // ===== DERIVED =====
+  const todayMeals = useMemo(
+    () => meals.filter((m) => m.day === todayWeekday),
     [meals, todayWeekday]
   );
-  
-  const totalExpenses = useMemo(() => 
-    expenses.reduce((sum, expense) => sum + expense.amount, 0), 
+
+  const totalExpenses = useMemo(
+    () => expenses.reduce((sum, e) => sum + e.amount, 0),
     [expenses]
   );
-  
-  const remainingBudget = useMemo(() => 
-    weeklyBudget - totalExpenses, 
+
+  const remainingBudget = useMemo(
+    () => weeklyBudget - totalExpenses,
     [weeklyBudget, totalExpenses]
   );
-  
-  const incompleteShoppingItems = useMemo(() => 
-    shoppingItems.filter((item) => !item.done), 
+
+  const incompleteShoppingItems = useMemo(
+    () => shoppingItems.filter((i) => !i.done),
     [shoppingItems]
   );
 
-  // Update streaks based on today's completion
-  useEffect(() => {
-    // Update task streak if all tasks completed
-    if (todayTasks.length > 0 && completedTasks.length === todayTasks.length) {
-      updateStreak("tasks", true);
-    } else if (todayTasks.length > 0 && completedTasks.length === 0) {
-      updateStreak("tasks", false);
-    }
-    
-    // Update meal streak if all meals logged (target is 3)
-    if (todayMeals.length >= 3) {
-      updateStreak("meals", true);
-    } else if (todayMeals.length === 0) {
-      updateStreak("meals", false);
-    }
-  }, [todayTasks, completedTasks, todayMeals, updateStreak]);
-
+  // ===== FINAL DATA =====
   return useMemo((): TodayData => {
-
-    // === FOCUS METRIC ===
+    // ===== FOCUS =====
     let focus: TodayData["focus"] = {
       percentage: 0,
       label: "No focus today",
       subtext: "Enjoy your day!",
     };
 
-    // Priority 1: Tasks
     if (todayTasks.length > 0) {
-      const taskPercentage = Math.round((completedTasks.length / todayTasks.length) * 100);
-      const remainingTasks = todayTasks.length - completedTasks.length;
-      
+      const pct = Math.round(
+        (completedTasks.length / todayTasks.length) * 100
+      );
+      const remaining = todayTasks.length - completedTasks.length;
+
       focus = {
-        percentage: taskPercentage,
-        label: `${remainingTasks} task${remainingTasks !== 1 ? 's' : ''} remaining`,
+        percentage: pct,
+        label: `${remaining} task${remaining !== 1 ? "s" : ""} remaining`,
         subtext: `${completedTasks.length} of ${todayTasks.length} completed`,
-        // motivation will be handled by smart messaging in TodayHero
       };
-    }
-    // Priority 2: Budget
-    else if (remainingBudget > 0) {
-      const budgetPercentage = Math.round((remainingBudget / weeklyBudget) * 100);
-      
+    } else if (remainingBudget > 0) {
+      const pct = Math.round((remainingBudget / weeklyBudget) * 100);
+
       focus = {
-        percentage: budgetPercentage,
+        percentage: pct,
         label: `$${Math.round(remainingBudget)} remaining`,
         subtext: `of $${weeklyBudget} weekly budget`,
-        // motivation will be handled by smart messaging in TodayHero
       };
-    }
-    // Priority 3: Meals
-    else {
-      const targetMeals = 3;
-      const mealsPercentage = Math.round((todayMeals.length / targetMeals) * 100);
-      const remainingMeals = targetMeals - todayMeals.length;
-      
+    } else {
+      const target = 3;
+      const pct = Math.round((todayMeals.length / target) * 100);
+      const remaining = target - todayMeals.length;
+
       focus = {
-        percentage: mealsPercentage,
-        label: `${remainingMeals} meal${remainingMeals !== 1 ? 's' : ''} to log`,
-        subtext: `${todayMeals.length} of ${targetMeals} logged`,
-        // motivation will be handled by smart messaging in TodayHero
+        percentage: pct,
+        label: `${remaining} meal${remaining !== 1 ? "s" : ""} to log`,
+        subtext: `${todayMeals.length} of ${target} logged`,
       };
     }
 
-    // === SUMMARY ===
+    // ===== SUMMARY =====
     const summary: TodayData["summary"] = {
       tasks: {
         completed: completedTasks.length,
@@ -151,16 +151,8 @@ export const useTodayData = (): TodayData => {
       },
     };
 
-    // // === UP NEXT ===
-    console.log("UP NEXT DEBUG", { 
-      todayTasks: todayTasks.length, 
-      completedTasks: completedTasks.length,
-      nextTask: todayTasks.find(t => !t.completed),
-      mealsLogged: todayMeals.length 
-    });
-
+    // ===== UP NEXT =====
     const upNext: TodayData["upNext"] = [
-      // Today's tasks, sorted by time if available
       ...incompleteTasks
         .sort((a, b) => {
           if (a.time && b.time) return a.time.localeCompare(b.time);
@@ -169,42 +161,41 @@ export const useTodayData = (): TodayData => {
           return 0;
         })
         .slice(0, 3)
-        .map(task => ({
+        .map((task) => ({
           id: task.id,
           type: "task" as const,
           title: task.label,
           time: task.time,
         })),
-      
-      // Next meal (simplified - just show today's meals if not All logged)
-      ...(todayMeals.length < 3 ? [{
-        id: `meal-${todayWeekday}`,
-        type: "meal" as const,
-        title: "Log next meal",
-      }] : []),
-      
-      // Recent expense
-      ...expenses.slice(0, 1).map(expense => ({
-        id: `expense-${expense.id}`,
+
+      ...(todayMeals.length < 3
+        ? [{
+            id: `meal-${todayWeekday}`,
+            type: "meal" as const,
+            title: "Log next meal",
+          }]
+        : []),
+
+      ...expenses.slice(0, 1).map((e) => ({
+        id: `expense-${e.id}`,
         type: "expense" as const,
-        title: `Track expense: ${expense.name}`,
+        title: `Track expense: ${e.name}`,
       })),
     ].slice(0, 5);
 
-    // === ACTIVITY ===
-    // Get real activity events from the activity store
+    // ===== ACTIVITY =====
     const activity: TodayData["activity"] = events
-      .filter(event => 
-        event.type === "task_completed" || 
-        event.type === "expense_added" || 
-        event.type === "meal_logged"
+      .filter((e) =>
+        e.type === "task_completed" ||
+        e.type === "expense_added" ||
+        e.type === "meal_logged"
       )
       .slice(0, 5)
-      .map(event => ({
-        id: event.id,
-        type: event.type as "task_completed" | "expense_added" | "meal_logged",
-        label: event.label,
-        timestamp: event.timestamp,
+      .map((e) => ({
+        id: e.id,
+        type: e.type as TodayData["activity"][number]["type"],
+        label: e.label,
+        timestamp: e.timestamp,
       }));
 
     return {
@@ -213,5 +204,16 @@ export const useTodayData = (): TodayData => {
       upNext,
       activity,
     };
-  }, [todayTasks, completedTasks, incompleteTasks, todayMeals, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, weeklyBudget, events]);
+  }, [
+    todayTasks,
+    completedTasks,
+    incompleteTasks,
+    todayMeals,
+    remainingBudget,
+    incompleteShoppingItems,
+    todayWeekday,
+    expenses,
+    weeklyBudget,
+    events,
+  ]);
 };
