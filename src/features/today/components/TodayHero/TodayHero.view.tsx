@@ -103,7 +103,7 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
               className={`
                 mt-2
                 inline-flex items-center gap-1
-                px-4 py-2
+                px-4 py-1
                 rounded-full
                 ${buttonVariants.secondary}
                 border border-border/30
@@ -138,14 +138,14 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
           loading="eager"
           fetchPriority="high"
           decoding="async"
-          width={80}
-          height={80}
+          width={95}
+          height={95}
           className="
             hidden sm:block
             w-[80px] h-[80px]
             object-contain
             shrink-0
-            opacity-90
+            opacity-95 hover:opacity-100 transition
           "
         />
       </div>
