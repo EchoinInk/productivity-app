@@ -53,17 +53,25 @@ export const TaskRowUI = memo((props: Props) => {
       </div>
 
       {categoryMeta && (
-        <div className="shrink-0">
-          <div 
-            className="w-6 h-6 rounded flex items-center justify-center"
-            style={{ backgroundColor: categoryMeta.bg }}
-          >
-            <span className="text-xs" style={{ color: categoryMeta.text }}>
-              {categoryMeta.icon}
-            </span>
-          </div>
-        </div>
-      )}
+  <div className="shrink-0">
+    <div
+      className="
+        w-7 h-7 
+        rounded-lg 
+        flex items-center justify-center 
+        bg-white/60 backdrop-blur-sm
+        border border-white/40
+      "
+      style={{ backgroundColor: categoryMeta.bg }}
+    >
+      <img
+        src={categoryMeta.icon}
+        alt=""
+        className="w-4 h-4 object-contain"
+      />
+    </div>
+  </div>
+)}
     </div>
   );
 });
