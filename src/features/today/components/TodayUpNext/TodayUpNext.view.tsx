@@ -48,13 +48,13 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
 
   if (!hasItems) {
     return (
-      <div className="space-y-4">
+      <div className="flex flex-col gap-6">
         <Text className="text-lg font-semibold text-foreground">Up Next</Text>
         <Card className="p-6 text-center">
           <Clock size={32} className="mx-auto text-muted-foreground/50 mb-3" />
-          <Text className="text-muted-foreground">Nothing scheduled for now</Text>
+          <Text className="text-muted-foreground">Nothing scheduled yet</Text>
           <Text className="text-sm text-muted-foreground mt-1">
-            Add tasks or plan your meals to see them here
+            Add task
           </Text>
         </Card>
       </div>
@@ -62,7 +62,7 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-6">
       <Text className="text-lg font-semibold text-foreground">Up Next</Text>
       <div className="space-y-3">
         {items.map((item) => (

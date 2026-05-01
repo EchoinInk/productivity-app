@@ -1,75 +1,75 @@
-import { useMemo } from "react";
 import { CheckSquare, Utensils, DollarSign, ShoppingCart } from "lucide-react";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useMealsStore } from "@/features/meals/store/useMealsStore";
-import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
-import { getToday } from "@/shared/lib/date";
 import { TodaySummaryView, type TodaySummaryViewModel } from "./TodaySummary.view";
+import { useTodayData } from "@/features/today/hooks/useTodayData";
 import type { SummaryCardViewModel } from "../SummaryCard/SummaryCard.view";
 
 export const TodaySummaryContainer = () => {
-  const tasks = useTasksStore((state) => state.tasks);
-  const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
-  const expenses = useBudgetStore((state) => state.expenses);
-  const meals = useMealsStore((state) => state.meals);
-  const shoppingItems = useShoppingStore((state) => state.shoppingItems);
+  const today = useTodayData();
 
-  const todayDate = getToday();
+  const getTasksValue = () => {
+    const { completed, total } = today.summary.tasks;
+    if (total === 0) return "No tasks today 🎉";
+    return `${completed}/${total}`;
+  };
 
-  const viewModel = useMemo((): TodaySummaryViewModel => {
-    // Calculate tasks summary
-    const todayTasks = tasks.filter((task) => task.date === todayDate);
-    const completedTasks = todayTasks.filter((task) => 
-      task.completedDates.includes(todayDate)
-    );
+  const getTasksSubtitle = () => {
+    const { completed, total } = today.summary.tasks;
+    if (total === 0) return "Enjoy your free day";
+    if (completed === total) return "All completed!";
+    return `${total - completed} remaining`;
+  };
 
-    // Calculate budget summary
-    const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-    const remainingBudget = weeklyBudget - totalExpenses;
+  const getMealsValue = () => {
+    const { logged, target } = today.summary.meals;
+    if (logged === 0) return "No meals logged";
+    if (logged === target) return "All meals logged";
+    return `${logged}/${target}`;
+  };
 
-    // Calculate meals summary
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const todayWeekday = weekdays[new Date().getDay()];
-    const todayMeals = meals.filter((meal) => meal.day === todayWeekday);
-    const targetMeals = 3;
+  const getBudgetValue = () => {
+    const { remaining } = today.summary.budget;
+    if (remaining <= 0) return "Budget used";
+    return `$${remaining}`;
+  };
 
-    // Calculate shopping summary
-    const incompleteShoppingItems = shoppingItems.filter((item) => !item.done);
+  const getBudgetSubtitle = () => {
+    const { remaining } = today.summary.budget;
+    if (remaining <= 0) return "All spent";
+    return "remaining";
+  };
 
-    const cards: SummaryCardViewModel[] = [
-      {
-        title: "Tasks",
-        value: `${completedTasks.length}/${todayTasks.length}`,
-        subtitle: "completed today",
-        icon: <CheckSquare size={20} />,
-        variant: completedTasks.length === todayTasks.length ? "success" : "default"
-      },
-      {
-        title: "Meals",
-        value: `${todayMeals.length}/${targetMeals}`,
-        subtitle: "logged today",
-        icon: <Utensils size={20} />,
-        variant: todayMeals.length >= targetMeals ? "success" : "default"
-      },
-      {
-        title: "Budget",
-        value: `$${Math.round(remainingBudget)}`,
-        subtitle: "remaining today",
-        icon: <DollarSign size={20} />,
-        variant: remainingBudget > 0 ? "success" : "warning"
-      },
-      {
-        title: "Shopping",
-        value: incompleteShoppingItems.length.toString(),
-        subtitle: "items left",
-        icon: <ShoppingCart size={20} />,
-        variant: incompleteShoppingItems.length === 0 ? "success" : "default"
-      }
-    ];
+  const cards: SummaryCardViewModel[] = [
+    {
+      title: "Tasks",
+      value: getTasksValue(),
+      subtitle: getTasksSubtitle(),
+      icon: <CheckSquare size={20} />,
+      variant: today.summary.tasks.completed === today.summary.tasks.total ? "success" : "default"
+    },
+    {
+      title: "Meals",
+      value: getMealsValue(),
+      subtitle: "logged today",
+      icon: <Utensils size={20} />,
+      variant: today.summary.meals.logged >= today.summary.meals.target ? "success" : "default"
+    },
+    {
+      title: "Budget",
+      value: getBudgetValue(),
+      subtitle: getBudgetSubtitle(),
+      icon: <DollarSign size={20} />,
+      variant: today.summary.budget.remaining > 0 ? "success" : "warning"
+    },
+    {
+      title: "Shopping",
+      value: today.summary.shopping.remaining.toString(),
+      subtitle: "items left",
+      icon: <ShoppingCart size={20} />,
+      variant: today.summary.shopping.remaining === 0 ? "success" : "default"
+    }
+  ];
 
-    return { cards };
-  }, [tasks, weeklyBudget, expenses, meals, shoppingItems, todayDate]);
+  const viewModel: TodaySummaryViewModel = { cards };
 
   return <TodaySummaryView model={viewModel} />;
 };

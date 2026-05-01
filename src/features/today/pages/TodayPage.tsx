@@ -8,26 +8,32 @@ import { UpNextList } from "@/features/today/components/TodayUpNextList";
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useTodayPageData } from "@/features/today/hooks/useTodayPageData";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTodayData } from "@/features/today/hooks/useTodayData";
+import { getToday } from "@/shared/lib/date";
+
+const greetingFor = (d: Date): string => {
+  const h = d.getHours();
+  if (h < 12) return "Good morning 👋";
+  if (h < 18) return "Good afternoon 👋";
+  return "Good evening 👋";
+};
 
 const TodayPage = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
+  const addTask = useTasksStore((state) => state.addTask);
+  const toggleTask = useTasksStore((state) => state.toggleTask);
   
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [selectedDate] = useState(new Date());
 
-  const {
-    progress,
-    budget,
-    tasksCount,
-    mealsCount,
-    shoppingCount,
-    todayTasks,
-    selectedDateString,
-    greeting,
-    actions,
-  } = useTodayPageData(selectedDate);
+  const today = useTodayData();
+  const selectedDateString = getToday();
+  const greeting = greetingFor(selectedDate);
+  const { sections } = useTasks(selectedDateString);
+  const todaySection = sections.find((s) => s.type === "today");
 
   return (
     <>
@@ -62,9 +68,9 @@ const TodayPage = () => {
           {/* HERO */}
           <div className="animate-[fadeIn_0.45s_ease-out]">
             <TodayHeroCard
-              percentage={progress.percentage}
-              total={progress.total}
-              completed={progress.completed}
+              percentage={today.focus.percentage}
+              total={today.summary.tasks.total}
+              completed={today.summary.tasks.completed}
               onAddTask={() => setTaskOpen(true)}
             />
           </div>
@@ -72,19 +78,19 @@ const TodayPage = () => {
           {/* QUICK ACTIONS */}
           <div className="animate-[fadeIn_0.65s_ease-out]">
             <TodayQuickActionsGrid
-              tasks={tasksCount}
-              meals={mealsCount}
-              shopping={shoppingCount}
-              remaining={Math.round(Math.max(0, budget.remaining))}
+              tasks={today.summary.tasks.total}
+              meals={today.summary.meals.logged}
+              shopping={today.summary.shopping.remaining}
+              remaining={today.summary.budget.remaining}
             />
           </div>
 
           {/* UP NEXT */}
           <div className="animate-[fadeIn_0.85s_ease-out]">
             <UpNextList
-              tasks={todayTasks}
+              tasks={todaySection?.tasks || []}
               today={selectedDateString}
-              onToggle={actions.toggleTask}
+              onToggle={toggleTask}
             />
           </div>
 
@@ -96,7 +102,7 @@ const TodayPage = () => {
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
         defaultDate={selectedDateString}
-        onSave={actions.addTask}
+        onSave={addTask}
       />
 
       <AddExpense

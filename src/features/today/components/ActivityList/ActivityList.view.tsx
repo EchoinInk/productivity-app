@@ -48,13 +48,13 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
 
   if (!hasActivities) {
     return (
-      <div className="space-y-4">
+      <div className="flex flex-col gap-6">
         <Text className="text-lg font-semibold text-foreground">Recent Activity</Text>
         <Card className="p-6 text-center">
           <Plus size={32} className="mx-auto text-muted-foreground/50 mb-3" />
-          <Text className="text-muted-foreground">No recent activity</Text>
+          <Text className="text-muted-foreground">No activity yet</Text>
           <Text className="text-sm text-muted-foreground mt-1">
-            Start adding tasks, expenses, or meals to see your activity here
+            Start by adding a task
           </Text>
         </Card>
       </div>
@@ -62,7 +62,7 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
   }
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-6">
       <Text className="text-lg font-semibold text-foreground">Recent Activity</Text>
       <div className="space-y-3">
         {activities.map((activity) => (
