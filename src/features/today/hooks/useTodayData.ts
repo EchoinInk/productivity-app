@@ -45,17 +45,44 @@ export const useTodayData = (): TodayData => {
 
   const todayDate = getToday();
 
+  // Memoize expensive filtering operations separately
+  const todayTasks = useMemo(() => 
+    tasks.filter((task) => task.date === todayDate), 
+    [tasks, todayDate]
+  );
+  
+  const completedTasks = useMemo(() => 
+    todayTasks.filter((task) => task.completedDates.includes(todayDate)), 
+    [todayTasks, todayDate]
+  );
+  
+  const todayWeekday = useMemo(() => {
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return weekdays[new Date().getDay()];
+  }, []);
+  
+  const todayMeals = useMemo(() => 
+    meals.filter((meal) => meal.day === todayWeekday), 
+    [meals, todayWeekday]
+  );
+  
+  const totalExpenses = useMemo(() => 
+    expenses.reduce((sum, expense) => sum + expense.amount, 0), 
+    [expenses]
+  );
+  
+  const remainingBudget = useMemo(() => 
+    weeklyBudget - totalExpenses, 
+    [weeklyBudget, totalExpenses]
+  );
+  
+  const incompleteShoppingItems = useMemo(() => 
+    shoppingItems.filter((item) => !item.done), 
+    [shoppingItems]
+  );
+
   // Update streaks based on today's completion
   useEffect(() => {
-    const todayTasks = tasks.filter((task) => task.date === todayDate);
-    const completedTasks = todayTasks.filter((task) => 
-      task.completedDates.includes(todayDate)
-    );
-    
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const todayWeekday = weekdays[new Date().getDay()];
-    const todayMeals = meals.filter((meal) => meal.day === todayWeekday);
-    
     // Update task streak if all tasks completed
     if (todayTasks.length > 0 && completedTasks.length === todayTasks.length) {
       updateStreak("tasks", true);
@@ -69,22 +96,9 @@ export const useTodayData = (): TodayData => {
     } else if (todayMeals.length === 0) {
       updateStreak("meals", false);
     }
-  }, [tasks, meals, todayDate, updateStreak]);
+  }, [todayTasks, completedTasks, todayMeals, updateStreak]);
 
   return useMemo((): TodayData => {
-    // === TODAY'S DATA ===
-    const todayTasks = tasks.filter((task) => task.date === todayDate);
-    const completedTasks = todayTasks.filter((task) => 
-      task.completedDates.includes(todayDate)
-    );
-    
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const todayWeekday = weekdays[new Date().getDay()];
-    const todayMeals = meals.filter((meal) => meal.day === todayWeekday);
-    
-    const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-    const remainingBudget = weeklyBudget - totalExpenses;
-    const incompleteShoppingItems = shoppingItems.filter((item) => !item.done);
 
     // === FOCUS METRIC ===
     let focus: TodayData["focus"] = {
@@ -204,5 +218,5 @@ export const useTodayData = (): TodayData => {
       upNext,
       activity,
     };
-  }, [tasks, meals, weeklyBudget, expenses, shoppingItems, todayDate, events]);
+  }, [todayTasks, completedTasks, todayMeals, totalExpenses, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, todayDate, weeklyBudget, events]);
 };
