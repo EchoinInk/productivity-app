@@ -5,7 +5,7 @@ import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 import { useActivityStore } from "@/features/activity/useActivityStore";
 import { useStreaksStore } from "@/features/insights/useStreaksStore";
-import { getToday } from "@/shared/lib/date";
+import { selectTodayTasks, selectCompletedTodayTasks, selectIncompleteTodayTasks } from "@/features/tasks/selectors/taskSelectors";
 
 export type TodayData = {
   focus: {
@@ -45,17 +45,15 @@ export const useTodayData = (): TodayData => {
 
   console.log("TODAY DATA DEBUG", { tasks: tasks.length, meals: meals.length, events: events.length });
 
-  const todayDate = getToday();
-
   // Lightweight computations for initial render
   const todayTasks = useMemo(() => 
-    tasks.filter((task) => task.date === todayDate), 
-    [tasks, todayDate]
+    selectTodayTasks(tasks), 
+    [tasks]
   );
   
   const completedTasks = useMemo(() => 
-    todayTasks.filter((task) => task.completed), 
-    [todayTasks, todayDate]
+    selectCompletedTodayTasks(tasks), 
+    [tasks]
   );
   
   const todayWeekday = useMemo(() => {
@@ -172,10 +170,10 @@ export const useTodayData = (): TodayData => {
       mealsLogged: todayMeals.length 
     });
 
+    const incompleteTasks = selectIncompleteTodayTasks(tasks);
     const upNext: TodayData["upNext"] = [
       // Today's tasks, sorted by time if available
-      ...todayTasks
-        .filter(task => !task.completed)
+      ...incompleteTasks
         .sort((a, b) => {
           if (a.time && b.time) return a.time.localeCompare(b.time);
           if (a.time) return -1;
@@ -227,5 +225,5 @@ export const useTodayData = (): TodayData => {
       upNext,
       activity,
     };
-  }, [todayTasks, completedTasks, todayMeals, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, todayDate, weeklyBudget, events]);
+  }, [todayTasks, completedTasks, todayMeals, remainingBudget, incompleteShoppingItems, todayWeekday, expenses, weeklyBudget, events, tasks]);
 };

@@ -2,17 +2,20 @@ import { Surface } from "@/components/ui/Surface";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Heading, Meta } from "@/components/ui/Text";
 
-import { useTasksStore, selectTodayTasks } from "@/features/tasks/store/useTasksStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { selectTodayTasks, selectCompletedTodayTasks } from "@/features/tasks/selectors/taskSelectors";
 
 /**
  * Today's progress card. Pure presentation — data
  * comes from the selectTodayTasks selector.
  */
 export const TaskProgress = () => {
-  const todayTasks = useTasksStore(selectTodayTasks);
+  const tasks = useTasksStore((state) => state.tasks);
+  const todayTasks = selectTodayTasks(tasks);
+  const completedTodayTasks = selectCompletedTodayTasks(tasks);
   
   const total = todayTasks.length;
-  const completed = todayTasks.filter(t => t.completed).length;
+  const completed = completedTodayTasks.length;
   const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
 
   if (total === 0) {

@@ -1,14 +1,16 @@
 import { Surface } from "@/components/ui/Surface";
 import { HeroTitle, Label } from "@/components/ui/Text";
 
-import { useTasksStore, selectTodayTasks } from "@/features/tasks/store/useTasksStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { selectTodayTasks } from "@/features/tasks/selectors/taskSelectors";
 
 /**
  * Today insights card. Pure presentation — data comes
  * from the selectTodayTasks selector.
  */
 export const TaskInsights = () => {
-  const todayTasks = useTasksStore(selectTodayTasks);
+  const tasks = useTasksStore((state) => state.tasks);
+  const todayTasks = selectTodayTasks(tasks);
   const hasInsights = todayTasks.length > 0;
 
   if (!hasInsights) {

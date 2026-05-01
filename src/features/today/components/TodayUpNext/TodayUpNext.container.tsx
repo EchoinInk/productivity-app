@@ -1,6 +1,7 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { TodayUpNextView } from "./TodayUpNext.view";
 import { useMemo } from "react";
+import { selectIncompleteTodayTasks } from "@/features/tasks/selectors/taskSelectors";
 
 export const TodayUpNextContainer = () => {
   const tasks = useTasksStore((state) => state.tasks);
@@ -8,8 +9,7 @@ export const TodayUpNextContainer = () => {
 
   // Get first incomplete task sorted by date
   const items = useMemo(() => {
-    const incompleteTasks = tasks
-      .filter(task => !task.completed)
+    const incompleteTasks = selectIncompleteTodayTasks(tasks)
       .sort((a, b) => a.date.localeCompare(b.date));
     
     const firstTask = incompleteTasks[0];

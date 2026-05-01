@@ -4,6 +4,7 @@ import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { getToday, parseDateKey } from "@/shared/lib/date";
 import type { DateKey } from "@/shared/lib/date";
+import { selectTasksByDate } from "@/features/tasks/selectors/taskSelectors";
 
 const subDays = (date: DateKey, days: number): DateKey => {
   const d = parseDateKey(date);
@@ -50,7 +51,7 @@ export const useWeeklySummary = (): WeeklySummary => {
 
     const dailyBreakdown = weekDays.map(date => {
       // Tasks for this day
-      const dayTasks = tasks.filter(task => task.date === date);
+      const dayTasks = selectTasksByDate(tasks, date);
       const dayTasksCompleted = dayTasks.filter(task => 
         task.completed
       ).length;

@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 import { useTasksStore } from '@/features/tasks/store/useTasksStore';
 import { useMealsStore } from '@/features/meals/store/useMealsStore';
 import { useBudgetStore } from '@/features/budget/store/useBudgetStore';
-import { getToday } from '@/shared/lib/date';
 import { requestNotificationPermission, sendRelevantNotification, canSendNotifications } from '@/shared/lib/notifications';
+import { selectTodayTasks, selectIncompleteTodayTasks } from '@/features/tasks/selectors/taskSelectors';
 
 /**
  * Hook to handle browser notifications for daily activity reminders
@@ -27,11 +27,8 @@ export const useNotifications = () => {
   useEffect(() => {
     if (!canSendNotifications()) return;
 
-    const todayDate = getToday();
-    const todayTasks = tasks.filter((task) => task.date === todayDate);
-    const incompleteTasks = todayTasks.filter(
-      (task) => !task.completed
-    );
+    const todayTasks = selectTodayTasks(tasks);
+    const incompleteTasks = selectIncompleteTodayTasks(tasks);
 
     // Notify about incomplete tasks
     if (todayTasks.length > 0 && incompleteTasks.length > 0) {
@@ -74,11 +71,7 @@ export const useNotifications = () => {
 
     // Set up a 4-hour reminder
     const reminderTimer = setTimeout(() => {
-      const todayDate = getToday();
-      const todayTasks = tasks.filter((task) => task.date === todayDate);
-      const incompleteTasks = todayTasks.filter(
-        (task) => !task.completed
-      );
+      const incompleteTasks = selectIncompleteTodayTasks(tasks);
 
       if (incompleteTasks.length > 0) {
         sendRelevantNotification(

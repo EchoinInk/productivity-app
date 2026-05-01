@@ -13,6 +13,7 @@ import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { getToday } from "@/shared/lib/date";
+import { selectNextTask } from "@/features/tasks/selectors/taskSelectors";
 import { AddMealModal } from "@/features/meals";
 
 const greetingFor = (d: Date): string => {
@@ -39,9 +40,7 @@ const TodayPage = () => {
 
   // Derive next task
   const nextTask = useMemo(() => {
-    const todayDate = getToday() || new Date().toISOString().split("T")[0]!;
-    const todayTasks = tasks.filter(t => t.date === todayDate && !t.completed);
-    return todayTasks[0] ?? null;
+    return selectNextTask(tasks);
   }, [tasks]);
 
   return (

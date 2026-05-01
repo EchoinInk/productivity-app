@@ -1,7 +1,11 @@
 import { useMemo } from "react";
 
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { getToday } from "@/shared/lib/date";
+import { 
+  selectCompletedTasks, 
+  selectIncompleteTodayTasks,
+  selectUpcomingTasks
+} from "@/features/tasks/selectors/taskSelectors";
 
 import type {
   CreateTaskInput,
@@ -30,7 +34,6 @@ export interface UseTasksResult {
 
 export const useTasks = (): UseTasksResult => {
   const tasks = useTasksStore((state) => state.tasks);
-  const today = getToday();
 
   const addTask = useTasksStore((state) => state.addTask);
   const toggleTask = useTasksStore((state) => state.toggleTask);
@@ -38,13 +41,12 @@ export const useTasks = (): UseTasksResult => {
   const deleteTask = useTasksStore((state) => state.deleteTask);
 
   const sections = useMemo<TaskSections>(() => {
-    const todayDate = today || new Date().toISOString().split("T")[0]!;
     return {
-      today: tasks.filter(t => t.date === todayDate && !t.completed),
-      upcoming: tasks.filter(t => t.date > todayDate),
-      completed: tasks.filter(t => t.completed),
+      today: selectIncompleteTodayTasks(tasks),
+      upcoming: selectUpcomingTasks(tasks),
+      completed: selectCompletedTasks(tasks),
     };
-  }, [tasks, today]);
+  }, [tasks]);
 
   const actions = useMemo<TaskActions>(
     () => ({ addTask, toggleTask, updateTask, deleteTask }),
