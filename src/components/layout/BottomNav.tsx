@@ -32,7 +32,7 @@ const BottomNav = () => (
         className={({ isActive }) =>
           clsx(
             "flex flex-col items-center justify-center flex-1 gap-[2px] text-xs font-medium transition-all duration-200 active:scale-95",
-            isActive ? "text-primary" : "text-muted-foreground opacity-70"
+            isActive ? "text-primary" : "text-muted-foreground opacity-90"
           )
         }
       >
@@ -46,7 +46,7 @@ const BottomNav = () => (
               loading="lazy"
               className={clsx(
                 "w-7 h-7 transition-all duration-200",
-                isActive ? "opacity-100 scale-110" : "opacity-60"
+                isActive ? "opacity-100 scale-110" : "opacity-80"
               )}
             />
             <span className="leading-none">{label}</span>

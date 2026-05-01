@@ -135,7 +135,7 @@ const TasksHeroCard = ({
                   <button
                     type="button"
                     onClick={onAddTask}
-                    className="text-white text-xs opacity-80 hover:opacity-100 transition-opacity"
+                    className="text-white text-xs opacity-90 hover:opacity-100 transition-opacity"
                   >
                     Add Task
                   </button>

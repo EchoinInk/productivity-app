@@ -24,14 +24,14 @@ export const SummaryCardView = ({ model }: { model: SummaryCardViewModel }) => {
     <Card className={`${cardVariants.base} ${variantStyles[variant]} hover:shadow-md transition-shadow`}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <Text className="text-sm text-muted-foreground mb-1">{title}</Text>
+          <Text className="text-sm text-muted-foreground/90 mb-1">{title}</Text>
           <Heading className="text-xl font-bold text-foreground truncate">{value}</Heading>
           {subtitle && (
-            <Text className="text-sm text-muted-foreground mt-1">{subtitle}</Text>
+            <Text className="text-sm text-muted-foreground/90 mt-1">{subtitle}</Text>
           )}
         </div>
         {icon && (
-          <div className="flex-shrink-0 text-muted-foreground/70">
+          <div className="flex-shrink-0 text-muted-foreground/90">
             {icon}
           </div>
         )}

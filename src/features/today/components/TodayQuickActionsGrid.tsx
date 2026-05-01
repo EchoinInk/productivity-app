@@ -36,7 +36,7 @@ const SummaryCard = ({
     >
       <Card
         variant="glass"
-        className="p-4 opacity-75"
+        className="p-4 opacity-90"
       >
         <div className="flex items-center gap-3">
           {/* Left: text */}
@@ -53,7 +53,7 @@ const SummaryCard = ({
           </div>
 
           {/* Right: icon */}
-          <div className="shrink-0 opacity-60">
+          <div className="shrink-0 opacity-80">
             {icon}
           </div>
         </div>
@@ -61,7 +61,7 @@ const SummaryCard = ({
         {/* Chevron */}
         <ChevronRight
           size={14}
-          className="absolute bottom-3 right-3 text-muted-foreground/40"
+          className="absolute bottom-3 right-3 text-muted-foreground/70"
         />
       </Card>
     </button>

@@ -38,7 +38,7 @@ export const QuickActionsBarView = ({ model }: { model: QuickActionsBarViewModel
                 "p-2 rounded-full",
                 action.variant === "primary"
                   ? "bg-primary/20 text-primary"
-                  : "bg-muted text-muted-foreground"
+                  : "bg-muted text-muted-foreground/90"
               )}>
                 {action.icon}
               </div>

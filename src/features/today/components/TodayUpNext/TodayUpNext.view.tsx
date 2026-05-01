@@ -52,9 +52,9 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
       <div className="flex flex-col gap-6">
         <Text className="text-lg font-semibold text-foreground">Up Next</Text>
         <Card className="p-6 text-center">
-          <Clock size={32} className="mx-auto text-muted-foreground/50 mb-3" />
-          <Text className="text-muted-foreground">Nothing scheduled yet</Text>
-          <Text className="text-sm text-muted-foreground mt-1">
+          <Clock size={32} className="mx-auto text-muted-foreground/70 mb-3" />
+          <Text className="text-muted-foreground/90">Nothing scheduled yet</Text>
+          <Text className="text-sm text-muted-foreground/90 mt-1">
             Add task
           </Text>
         </Card>
@@ -75,7 +75,7 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
                   "flex-shrink-0 w-5 h-5 rounded-full border-2 transition-colors",
                   item.completed
                     ? "bg-primary border-primary"
-                    : "border-muted-foreground hover:border-primary"
+                    : "border-muted-foreground/60 hover:border-primary"
                 )}
               >
                 {item.completed && (
@@ -89,14 +89,14 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
                   <Text 
                     className={cn(
                       "font-medium truncate",
-                      item.completed && "line-through text-muted-foreground"
+                      item.completed && "line-through text-muted-foreground/90"
                     )}
                   >
                     {item.title}
                   </Text>
                 </div>
                 {item.time && (
-                  <Text className="text-sm text-muted-foreground mt-1">
+                  <Text className="text-sm text-muted-foreground/90 mt-1">
                     {item.time}
                   </Text>
                 )}

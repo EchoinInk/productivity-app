@@ -102,7 +102,7 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
             >
               <CTA className="text-foreground flex items-center gap-1 tracking-tight">
                 Add a task
-                <ArrowRight size={12} className="opacity-50" />
+                <ArrowRight size={12} className="opacity-70" />
               </CTA>
             </button>
           ) : (

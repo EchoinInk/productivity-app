@@ -44,7 +44,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
           className="active:scale-95 transition rounded-md px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="View all tasks"
         >
-          <CTA className="text-muted-foreground/70 text-sm">View all</CTA>
+          <CTA className="text-muted-foreground/90 text-sm">View all</CTA>
         </button>
       </div>
 
@@ -106,13 +106,13 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                   <Body 
                     weight="semibold" 
                     truncate 
-                    className={task.isCompleted ? "text-muted-foreground/50 line-through" : "text-muted-foreground"}
+                    className={task.isCompleted ? "text-muted-foreground/70 line-through" : "text-muted-foreground"}
                   >
                     {task.title}
                   </Body>
 
                   {task.time && (
-                    <BodyMuted className="text-xs mt-1 text-muted-foreground/70">
+                    <BodyMuted className="text-xs mt-1 text-muted-foreground/90">
                       {task.time}
                     </BodyMuted>
                   )}
@@ -126,7 +126,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                       px-3 py-1
                       rounded-full
                       text-xs font-medium
-                      opacity-70
+                      opacity-90
                       flex items-center gap-1
                     "
                     style={{

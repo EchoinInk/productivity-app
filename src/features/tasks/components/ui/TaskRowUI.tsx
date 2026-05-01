@@ -54,7 +54,7 @@ export const TaskRowUI = memo((props: Props) => {
           truncate
           className={cn(
             "transition-all duration-200",
-            isCompleted && "opacity-50 line-through"
+            isCompleted && "opacity-70 line-through"
           )}
         >
           {title}

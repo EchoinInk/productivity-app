@@ -30,7 +30,7 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
       case "meal_logged":
         return <Utensils size={16} className="text-blue-600 dark:text-blue-400" />;
       default:
-        return <Plus size={16} className="text-muted-foreground" />;
+        return <Plus size={16} className="text-muted-foreground/90" />;
     }
   };
 
@@ -52,9 +52,9 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
       <div className="flex flex-col gap-6">
         <Text className="text-lg font-semibold text-foreground">Recent Activity</Text>
         <Card className="p-6 text-center">
-          <Plus size={32} className="mx-auto text-muted-foreground/50 mb-3" />
-          <Text className="text-muted-foreground">No activity yet</Text>
-          <Text className="text-sm text-muted-foreground mt-1">
+          <Plus size={32} className="mx-auto text-muted-foreground/70 mb-3" />
+          <Text className="text-muted-foreground/90">No activity yet</Text>
+          <Text className="text-sm text-muted-foreground/90 mt-1">
             Start by adding a task
           </Text>
         </Card>
@@ -84,11 +84,11 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
                   {activity.title}
                 </Text>
                 {activity.subtitle && (
-                  <Text className="text-sm text-muted-foreground mt-1">
+                  <Text className="text-sm text-muted-foreground/90 mt-1">
                     {activity.subtitle}
                   </Text>
                 )}
-                <Text className="text-xs text-muted-foreground mt-2">
+                <Text className="text-xs text-muted-foreground/90 mt-2">
                   {activity.timestamp}
                 </Text>
               </div>
