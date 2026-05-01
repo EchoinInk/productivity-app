@@ -1,15 +1,13 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { TodayUpNextView } from "./TodayUpNext.view";
-import { getToday } from "@/shared/lib/date";
 import { useMemo } from "react";
 
-export const TodayUpNextContainer = ({ onLogMeal }: { onLogMeal?: () => void } = {}) => {
+export const TodayUpNextContainer = () => {
   const tasks = useTasksStore((state) => state.tasks);
   const toggleTask = useTasksStore((state) => state.toggleTask);
 
   // Get first incomplete task sorted by date
   const items = useMemo(() => {
-    const today = getToday() || new Date().toISOString().split("T")[0]!;
     const incompleteTasks = tasks
       .filter(task => !task.completed)
       .sort((a, b) => a.date.localeCompare(b.date));

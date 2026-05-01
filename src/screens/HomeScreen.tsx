@@ -40,9 +40,7 @@ const HomeScreen = () => {
   const greeting = useMemo(() => greetingFor(selectedDate), [selectedDate]);
 
   const handleAddTask = () => setTaskOpen(true);
-  const handleAddExpense = () => setExpenseOpen(true);
   const handleAddMeal = () => setMealOpen(true);
-  const handleAddShopping = () => setShoppingOpen(true);
 
   return (
     <>
@@ -94,7 +92,7 @@ const HomeScreen = () => {
           <Suspense fallback={<div className="h-20 animate-pulse bg-muted/20 rounded-lg" />}>
             {/* UP NEXT */}
             <div className="animate-[fadeIn_0.65s_ease-out]">
-              <TodayUpNextContainer onLogMeal={handleAddMeal} />
+              <TodayUpNextContainer />
             </div>
           </Suspense>
 
