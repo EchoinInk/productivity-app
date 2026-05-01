@@ -1,44 +1,34 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { TodayUpNextView } from "./TodayUpNext.view";
-import { useTodayData } from "@/features/today/hooks/useTodayData";
+import { getToday } from "@/shared/lib/date";
 import { useMemo } from "react";
 
 export const TodayUpNextContainer = ({ onLogMeal }: { onLogMeal?: () => void } = {}) => {
-  const today = useTodayData();
+  const tasks = useTasksStore((state) => state.tasks);
   const toggleTask = useTasksStore((state) => state.toggleTask);
 
-  // Convert upNext data to UpNextItem format
-  const items = useMemo(() => today.upNext.map((item) => {
-    if (item.type === "task") {
-      return {
-        id: item.id,
-        type: "task" as const,
-        title: item.title,
-        time: item.time,
-        completed: false, // This would need to be determined from actual task data
-        onToggle: () => toggleTask(item.id)
-      };
+  // Get first incomplete task sorted by date
+  const items = useMemo(() => {
+    const today = getToday() || new Date().toISOString().split("T")[0]!;
+    const incompleteTasks = tasks
+      .filter(task => !task.completed)
+      .sort((a, b) => a.date.localeCompare(b.date));
+    
+    const firstTask = incompleteTasks[0];
+    
+    if (!firstTask) {
+      return [];
     }
     
-    if (item.type === "meal") {
-      return {
-        id: item.id,
-        type: "meal" as const,
-        title: item.title,
-        time: item.time,
-        completed: false,
-        onToggle: () => onLogMeal?.()
-      };
-    }
-    
-    return {
-      id: item.id,
-      type: item.type,
-      title: item.title,
-      time: item.time,
-      completed: false
-    };
-  }), [today.upNext, toggleTask, onLogMeal]);
+    return [{
+      id: firstTask.id,
+      type: "task" as const,
+      title: firstTask.label,
+      time: firstTask.time,
+      completed: false,
+      onToggle: () => toggleTask(firstTask.id)
+    }];
+  }, [tasks, toggleTask]);
 
   const viewModel = useMemo(() => ({
     items,

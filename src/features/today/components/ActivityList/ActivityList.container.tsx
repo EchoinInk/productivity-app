@@ -1,24 +1,25 @@
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { ActivityListView } from "./ActivityList.view";
-import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useMemo } from "react";
 
 export const ActivityListContainer = ({ onAddTask }: { onAddTask?: () => void } = {}) => {
-  const today = useTodayData();
+  const tasks = useTasksStore((state) => state.tasks);
   const shoppingItems = useShoppingStore((state) => state.shoppingItems);
 
-  // Convert activity data to ActivityItem format
-  const activities = useMemo(() => today.activity.map((item) => {
-    return {
-      id: item.id,
-      type: item.type,
-      title: item.label,
-      subtitle: item.type === "task_completed" ? "Task" : 
-               item.type === "meal_logged" ? "Meal" : 
-               item.type === "expense_added" ? "Expense" : "Activity",
-      timestamp: "Today",
-    };
-  }), [today.activity]);
+  // Show latest 5 tasks sorted by ID (as proxy for createdAt)
+  const taskActivities = useMemo(() => {
+    return tasks
+      .sort((a, b) => b.id.localeCompare(a.id)) // Sort by ID descending as proxy for creation time
+      .slice(0, 5)
+      .map((task) => ({
+        id: task.id,
+        type: "task_completed" as const,
+        title: task.label,
+        subtitle: task.category || "Task",
+        timestamp: "Today",
+      }));
+  }, [tasks]);
 
   // Add completed shopping items
   const shoppingActivities = useMemo(() => {
@@ -33,12 +34,8 @@ export const ActivityListContainer = ({ onAddTask }: { onAddTask?: () => void } 
   }, [shoppingItems]);
 
   // Combine and limit activities
-  const allActivities = useMemo(() => [...activities, ...shoppingActivities]
-    .sort(() => {
-      // For now, all activities are "Today", so we'll keep original order
-      return 0;
-    })
-    .slice(0, 5), [activities, shoppingActivities]);
+  const allActivities = useMemo(() => [...taskActivities, ...shoppingActivities]
+    .slice(0, 5), [taskActivities, shoppingActivities]);
 
   const viewModel = useMemo(() => ({
     activities: allActivities,

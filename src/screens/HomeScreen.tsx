@@ -109,10 +109,8 @@ const HomeScreen = () => {
             {/* QUICK ACTIONS */}
             <div className="animate-[fadeIn_0.85s_ease-out]">
               <QuickActionsBarContainer
-                onAddTask={handleAddTask}
-                onAddExpense={handleAddExpense}
-                onAddMeal={handleAddMeal}
-                onAddShopping={handleAddShopping}
+                openAddTaskModal={handleAddTask}
+                openAddMealModal={handleAddMeal}
               />
             </div>
           </Suspense>
