@@ -1,15 +1,10 @@
 // Components
 export { AddTaskModal } from "./components/AddTaskModal";
 export { EditTaskModal } from "./components/EditTaskModal";
-export { TaskGroup } from "./components/TaskGroup";
 export { TaskProgress } from "./components/TaskProgress";
-export { TaskInsights } from "./components/TaskInsights";
-export { TaskListContainer } from "./components/TaskListContainer";
-export { TaskSection } from "./components/TaskSection";
+export { TaskInsights } from "./components/TaskInsights";export { TaskSection } from "./components/TaskSection";
 export { TaskRow } from "./components/TaskRow";
 
-// Hooks
-export { useTasks, useTaskById } from "./hooks/useTasks";
 
 // Types
 export type { Task, TaskCategory, TaskRecurrence, CreateTaskInput, EntityId } from "./types/types";

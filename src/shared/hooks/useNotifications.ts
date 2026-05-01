@@ -4,14 +4,25 @@ import { useMealsStore } from '@/features/meals/store/useMealsStore';
 import { useBudgetStore } from '@/features/budget/store/useBudgetStore';
 import { requestNotificationPermission, sendRelevantNotification, canSendNotifications } from '@/shared/lib/notifications';
 import { selectTodayTasks, selectIncompleteTodayTasks } from '@/features/tasks/selectors/taskSelectors';
+import { getToday } from "@/shared/lib/date";
 
 /**
  * Hook to handle browser notifications for daily activity reminders
  */
 export const useNotifications = () => {
   const hasRequestedPermission = useRef(false);
-  const todayTasks = useTasksStore((state) => selectTodayTasks(state.tasks));
-  const incompleteTasks = useTasksStore((state) => selectIncompleteTodayTasks(state.tasks));
+  const todayTasks = useTasksStore((state) =>
+
+  selectTodayTasks(state.tasks, today)
+
+);
+const today = getToday();
+
+const incompleteTasks = useTasksStore((state) =>
+
+  selectIncompleteTodayTasks(state.tasks, today)
+
+);
   const meals = useMealsStore((state) => state.meals);
   const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
   const expenses = useBudgetStore((state) => state.expenses);

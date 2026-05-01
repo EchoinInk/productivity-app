@@ -3,19 +3,23 @@ import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Heading, Meta } from "@/components/ui/Text";
 
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { selectTodayTasks, selectCompletedTodayTasks } from "@/features/tasks/selectors/taskSelectors";
+import {
+  selectTodayTasks,
+  selectCompletedTodayTasks,
+} from "@/features/tasks/selectors/taskSelectors";
+import { getToday } from "@/shared/lib/date";
 
-/**
- * Today's progress card. Pure presentation — data
- * comes from the selectTodayTasks selector.
- */
 export const TaskProgress = () => {
-  const todayTasks = useTasksStore((state) => selectTodayTasks(state.tasks));
-  const completedTodayTasks = useTasksStore((state) => selectCompletedTodayTasks(state.tasks));
-  
+  const tasks = useTasksStore((s) => s.tasks);
+  const today = getToday();
+
+  const todayTasks = selectTodayTasks(tasks, today);
+  const completedTasks = selectCompletedTodayTasks(tasks, today);
+
   const total = todayTasks.length;
-  const completed = completedTodayTasks.length;
-  const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+  const completed = completedTasks.length;
+  const percentage =
+    total === 0 ? 0 : Math.round((completed / total) * 100);
 
   if (total === 0) {
     return (
@@ -34,7 +38,6 @@ export const TaskProgress = () => {
     <Surface className="space-y-2">
       <div className="flex items-center justify-between">
         <Heading>Today Progress</Heading>
-
         <Meta>
           {completed}/{total}
         </Meta>

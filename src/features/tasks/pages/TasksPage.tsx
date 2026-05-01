@@ -1,171 +1,64 @@
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
-import Header from "@/components/layout/Header";
-import { Body } from "@/components/ui/Text";
-import { ListItemCard } from "@/components/ui/ListItemCard";
-import { AddTaskModal, EditTaskModal } from "@/features/tasks";
-import { TaskRow } from "@/features/tasks/components/TaskRow";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { useTasksStore } from "../store/useTasksStore";
+import { TaskSection } from "../components/TaskSection";
+import { TaskRow } from "../components/TaskRow";
 import { getToday } from "@/shared/lib/date";
-import { selectCompletedTasks } from "@/features/tasks/selectors/taskSelectors";
-
-import type { Task } from "@/features/tasks/types/types";
 
 const TasksPage = () => {
-  const { sections, actions } = useTasks();
-  const { addTask, updateTask, deleteTask, toggleTask } = actions;
-  const allTasks = useTasksStore((state) => state.tasks);
+  const tasks = useTasksStore((s) => s.tasks);
+  const toggleTask = useTasksStore((s) => s.toggleTask);
 
-  const [tab, setTab] = useState<"Today" | "Yesterday" | "Earlier">("Today");
-  const [open, setOpen] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  const [editOpen, setEditOpen] = useState(false);
+  const today = getToday();
 
-  const handleSelectTask = (id: string) => {
-    const originalTask = allTasks.find(t => t.id === id);
-    if (!originalTask) return;
-    setSelectedTask(originalTask);
-    setEditOpen(true);
-  };
+  const todayTasks = tasks.filter((t) => t.date === today);
 
-  // Group tasks by time periods
-  const taskGroups = useMemo(() => {
-    const today = getToday() || new Date().toISOString().split("T")[0]!;
-    const yesterday = new Date(Date.parse(today));
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().split("T")[0]!;
+  const incomplete = todayTasks.filter((t) => !t.completed);
+  const completed = todayTasks.filter((t) => t.completed);
 
-    const todayTasks = sections.today;
-    const yesterdayTasks = selectCompletedTasks(allTasks).filter(task => task.date === yesterdayStr);
-    const earlierTasks = selectCompletedTasks(allTasks).filter(task => task.date < yesterdayStr);
+  const anytime = incomplete.filter((t) => !t.time);
 
-    return {
-      today: todayTasks,
-      yesterday: yesterdayTasks,
-      earlier: earlierTasks
-    };
-  }, [sections.today, allTasks]);
+  const morning = incomplete.filter((t) => {
+    if (!t.time) return false;
+    const hour = Number(t.time.split(":")[0]);
+    return hour >= 5 && hour < 12;
+  });
 
-  const getTasksForTab = () => {
-    switch (tab) {
-      case "Today":
-        return taskGroups.today;
-      case "Yesterday":
-        return taskGroups.yesterday;
-      case "Earlier":
-        return taskGroups.earlier;
-      default:
-        return [];
-    }
-  };
+  const afternoon = incomplete.filter((t) => {
+    if (!t.time) return false;
+    const hour = Number(t.time.split(":")[0]);
+    return hour >= 12 && hour < 18;
+  });
 
-  const tasks = getTasksForTab();
+  const evening = incomplete.filter((t) => {
+    if (!t.time) return false;
+    const hour = Number(t.time.split(":")[0]);
+    return hour >= 18;
+  });
 
   return (
-    <>
-      <div className="relative min-h-screen bg-white px-4 pt-4 pb-28 space-y-4">
-        <Header title="Tasks" />
+    <div className="px-4 space-y-6 pb-24">
 
-        {/* Tabs */}
-        <div className="flex gap-2">
-          {(["Today", "Yesterday", "Earlier"] as const).map((tabName) => (
-            <motion.button
-              key={tabName}
-              onClick={() => setTab(tabName)}
-              whileTap={{ scale: 0.95 }}
-              aria-label={`Show ${tabName.toLowerCase()} tasks`}
-              className={`
-                px-4 py-2 rounded-full text-sm font-medium transition-all
-                ${
-                  tab === tabName
-                    ? "bg-gradient-hero text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
-                }
-              `}
-            >
-              {tabName}
-            </motion.button>
+      <TaskSection title="Anytime" tasks={anytime} onToggle={toggleTask} />
+
+      <TaskSection title="Morning" tasks={morning} onToggle={toggleTask} />
+
+      <TaskSection title="Afternoon" tasks={afternoon} onToggle={toggleTask} />
+
+      <TaskSection title="Evening" tasks={evening} onToggle={toggleTask} />
+
+      {completed.length > 0 && (
+        <div className="pt-4 space-y-2">
+          <h3 className="text-sm font-semibold text-muted-foreground">
+            Completed
+          </h3>
+
+          {completed.map((task) => (
+            <div key={task.id} className="opacity-60">
+              <TaskRow task={task} onToggle={toggleTask} />
+            </div>
           ))}
         </div>
-
-        {/* Task List */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-          >
-            {tasks.length === 0 ? (
-              <div className="py-10 text-center space-y-2">
-                <Body className="font-medium">No tasks yet 🎉</Body>
-                <Body className="text-sm text-muted-foreground">
-                  Add your first task to get started
-                </Body>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <Body className="text-sm font-semibold text-foreground mb-4">
-                  {tab} ({tasks.length})
-                </Body>
-                {tasks.map((task) => (
-                  <ListItemCard
-                    key={task.id}
-                    variant="solid"
-                    className={task.completed ? "opacity-70" : ""}
-                  >
-                    <TaskRow
-                      task={task}
-                      onToggleTask={(id) => toggleTask(id)}
-                      onSelectTask={handleSelectTask}
-                    />
-                  </ListItemCard>
-                ))}
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Add Task Modal */}
-        <AddTaskModal
-          open={open}
-          onClose={() => setOpen(false)}
-          defaultDate={tab === "Today" ? (getToday() || new Date().toISOString().split("T")[0]!) : ""}
-          onSave={(taskInput) => {
-            addTask(taskInput);
-            setOpen(false);
-          }}
-        />
-
-        {/* Edit Task Modal */}
-        <EditTaskModal
-          open={editOpen}
-          task={selectedTask}
-          onClose={() => setEditOpen(false)}
-          onSave={(updated: Task) => {
-            if (!selectedTask) return;
-            updateTask(updated.id, {
-              label: updated.label,
-              date: updated.date,
-              time: updated.time,
-              category: updated.category,
-              notes: updated.notes,
-              recurrence: updated.recurrence,
-            });
-            setEditOpen(false);
-          }}
-          onDelete={() => {
-            if (!selectedTask) return;
-            deleteTask(selectedTask.id);
-            setSelectedTask(null);
-            setEditOpen(false);
-          }}
-        />
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 

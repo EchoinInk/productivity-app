@@ -12,7 +12,7 @@ export const TodaySummaryContainer = () => {
   const cards = useMemo(() => {
     const getTasksValue = () => {
       const { completed, total } = today.summary.tasks;
-      if (total === 0) return "No tasks today 🎉";
+      if (total === 0) return "No tasks";
       return `${completed}/${total}`;
     };
 

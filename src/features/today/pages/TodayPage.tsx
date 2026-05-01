@@ -22,13 +22,16 @@ const greetingFor = (d: Date): string => {
   if (h < 18) return "Good afternoon 👋";
   return "Good evening 👋";
 };
-
+const todayStr = getToday();
 const TodayPage = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
   const addTask = useTasksStore((state) => state.addTask);
   const toggleTask = useTasksStore((state) => state.toggleTask);
-  const nextTask = useTasksStore((state) => selectNextTask(state.tasks));
-  
+const nextTask = useTasksStore((state) =>
+
+  selectNextTask(state.tasks, todayStr)
+
+);  
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [mealOpen, setMealOpen] = useState(false);
