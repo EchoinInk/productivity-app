@@ -1,14 +1,16 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import Header from "@/components/layout/Header";
 import { TodayHeroContainer } from "@/features/today/components/TodayHero/TodayHero.container";
 import { TodaySummaryContainer } from "@/features/today/components/TodaySummary/TodaySummary.container";
-import { TodayUpNextContainer } from "@/features/today/components/TodayUpNext/TodayUpNext.container";
-import { ActivityListContainer } from "@/features/today/components/ActivityList/ActivityList.container";
-import { QuickActionsBarContainer } from "@/features/today/components/QuickActionsBar/QuickActionsBar.container";
-import { InsightsCardContainer } from "@/features/insights/components/InsightsCard.container";
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
+
+// Lazy load heavy components for mobile performance
+const TodayUpNextContainer = lazy(() => import("@/features/today/components/TodayUpNext/TodayUpNext.container").then(module => ({ default: module.TodayUpNextContainer })));
+const ActivityListContainer = lazy(() => import("@/features/today/components/ActivityList/ActivityList.container").then(module => ({ default: module.ActivityListContainer })));
+const QuickActionsBarContainer = lazy(() => import("@/features/today/components/QuickActionsBar/QuickActionsBar.container").then(module => ({ default: module.QuickActionsBarContainer })));
+const InsightsCardContainer = lazy(() => import("@/features/insights/components/InsightsCard.container").then(module => ({ default: module.InsightsCardContainer })));
 
 const greetingFor = (d: Date): string => {
   const h = d.getHours();
@@ -68,28 +70,37 @@ const HomeScreen = () => {
             <TodaySummaryContainer />
           </div>
 
-          {/* UP NEXT */}
-          <div className="animate-[fadeIn_0.65s_ease-out]">
-            <TodayUpNextContainer />
-          </div>
+          {/* LAZY-LOADED SECTIONS - Below the fold for mobile performance */}
+          <Suspense fallback={<div className="h-20 animate-pulse bg-muted/20 rounded-lg" />}>
+            {/* UP NEXT */}
+            <div className="animate-[fadeIn_0.65s_ease-out]">
+              <TodayUpNextContainer />
+            </div>
+          </Suspense>
 
-          {/* RECENT ACTIVITY */}
-          <div className="animate-[fadeIn_0.75s_ease-out]">
-            <ActivityListContainer />
-          </div>
+          <Suspense fallback={<div className="h-32 animate-pulse bg-muted/20 rounded-lg" />}>
+            {/* RECENT ACTIVITY */}
+            <div className="animate-[fadeIn_0.75s_ease-out]">
+              <ActivityListContainer />
+            </div>
+          </Suspense>
 
-          {/* INSIGHTS */}
-          <div className="animate-[fadeIn_0.80s_ease-out]">
-            <InsightsCardContainer />
-          </div>
+          <Suspense fallback={<div className="h-24 animate-pulse bg-muted/20 rounded-lg" />}>
+            {/* INSIGHTS */}
+            <div className="animate-[fadeIn_0.80s_ease-out]">
+              <InsightsCardContainer />
+            </div>
+          </Suspense>
 
-          {/* QUICK ACTIONS */}
-          <div className="animate-[fadeIn_0.85s_ease-out]">
-            <QuickActionsBarContainer
-              onAddTask={handleAddTask}
-              onAddExpense={handleAddExpense}
-            />
-          </div>
+          <Suspense fallback={<div className="h-16 animate-pulse bg-muted/20 rounded-lg" />}>
+            {/* QUICK ACTIONS */}
+            <div className="animate-[fadeIn_0.85s_ease-out]">
+              <QuickActionsBarContainer
+                onAddTask={handleAddTask}
+                onAddExpense={handleAddExpense}
+              />
+            </div>
+          </Suspense>
 
         </div>
       </div>
