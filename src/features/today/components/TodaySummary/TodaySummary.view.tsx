@@ -32,20 +32,21 @@ export const TodaySummaryView = ({
     gap-3
   "
 >
-  {/* TEXT */}
-  <div className="flex flex-col min-w-0 pr-8">
-    <p className="text-xs text-muted-foreground">
-      {card.title}
-    </p>
+ {/* TEXT */}
+<div className="flex flex-col min-w-0 pr-8">
+  <p className="text-xs text-muted-foreground">
+    {card.title}
+  </p>
 
-    <p className="text-lg font-semibold leading-snug whitespace-nowrap">
-      {card.value}
-    </p>
+  <p className="text-lg font-semibold leading-snug whitespace-nowrap mt-2">
+    {card.value}
+  </p>
 
-    <p className="text-xs text-muted-foreground leading-snug whitespace-nowrap">
-      {card.subtitle}
-    </p>
-  </div>
+  <p className="text-xs text-muted-foreground leading-snug whitespace-nowrap">
+    {card.subtitle}
+  </p>
+</div>
+
 
   {/* ICON (FIXED POSITION) */}
   <div className="w-11 h-11 flex items-center justify-center shrink-0">
