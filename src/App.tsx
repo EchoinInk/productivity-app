@@ -5,6 +5,7 @@ import NotFound from "@/app/pages/NotFound";
 import { StoreProvider } from "@/app/providers/StoreProvider";
 import LoadingState from "@/components/ui/LoadingState";
 import HomeScreen from "@/screens/HomeScreen"; // Eager load for LCP optimization
+import { useNotifications } from "@/shared/hooks/useNotifications";
 
 // Lazy load other screens for code splitting
 const TasksPage = lazy(() => import("@/features/tasks/pages/TasksPage"));
@@ -13,8 +14,11 @@ const MealPlannerPage = lazy(() => import("@/features/meals/pages/MealPlannerPag
 const ShoppingListPage = lazy(() => import("@/features/shopping/pages/ShoppingListPage"));
 const RecipesPage = lazy(() => import("@/features/recipes/pages/RecipesPage"));
 
-const App = () => (
-  <StoreProvider>
+const AppContent = () => {
+  // Initialize notifications hook for daily reminders
+  useNotifications();
+
+  return (
     <BrowserRouter>
       <AppShell>
         <Suspense fallback={<LoadingState message="Loading..." />}>
@@ -30,6 +34,12 @@ const App = () => (
         </Suspense>
       </AppShell>
     </BrowserRouter>
+  );
+};
+
+const App = () => (
+  <StoreProvider>
+    <AppContent />
   </StoreProvider>
 );
 
