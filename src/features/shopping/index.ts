@@ -1,5 +1,12 @@
+// Components
+export { default as AddShoppingItemModal } from "./components/AddShoppingItemModal";
+export { ShoppingRow } from "./components/ShoppingRow";
+
 // Hooks
-export { useShoppingList, useShopping, selectItemsByCategory, selectCompletedItems, selectPendingItems } from "./hooks/useShoppingList";
+export { useShoppingList, useShopping } from "./hooks/useShoppingList";
+
+// Types
+export type { ShoppingItem, ShoppingCategory, CreateShoppingItemInput } from "./types/types";
 
 // Store
 export { useShoppingStore } from "./store/useShoppingStore";
