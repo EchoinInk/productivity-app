@@ -51,7 +51,7 @@ const Header = ({
   };
 
   return (
-    <header className="pt-6 space-y-4">
+    <header className="px-4 py-4 space-y-4">
       {/* TOP BAR — menu · greeting · notifications */}
       {showTopBar && (
         <div className="flex items-start justify-between gap-3">
@@ -59,7 +59,7 @@ const Header = ({
             type="button"
             aria-label="Open menu"
             onClick={onMenuClick}
-            className={`p-3 -ml-2 text-foreground active:scale-95 transition mt-1 ${focusRing}`}
+            className={`p-3 -ml-2 text-foreground active:scale-95 transition ${focusRing}`}
           >
             <Menu size={22} />
           </button>
