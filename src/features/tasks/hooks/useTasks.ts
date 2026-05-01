@@ -12,7 +12,7 @@ import {
   type TaskProgress,
 } from "@/features/tasks/api";
 
-import { getToday, type DateKey } from "@/shared/lib/date";
+import { getToday, type DateKey, isDateAfter, isDateSame } from "@/shared/lib/date";
 
 import type {
   CreateTaskInput,
@@ -138,11 +138,17 @@ export const useTasks = (date?: DateKey): UseTasksResult => {
     return SECTION_CONFIG.map((cfg) => {
       const sectionTasks = tasks.filter((task) => {
         const isCompleted = isTaskCompleted(task, activeDate);
-        const isToday = (task.date || activeDate) === activeDate;
+        const taskDate = task.date || activeDate;
 
-        if (cfg.type === "today") return !isCompleted && isToday;
-        if (cfg.type === "upcoming") return !isCompleted && !isToday;
-        if (cfg.type === "completed") return isCompleted;
+        if (cfg.type === "today") {
+          return !isCompleted && isDateSame(taskDate, activeDate);
+        }
+        if (cfg.type === "upcoming") {
+          return !isCompleted && isDateAfter(taskDate, activeDate);
+        }
+        if (cfg.type === "completed") {
+          return isCompleted;
+        }
         return false;
       });
       const stats = getTaskCompletionStats(sectionTasks, activeDate);

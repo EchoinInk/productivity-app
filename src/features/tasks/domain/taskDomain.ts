@@ -1,5 +1,5 @@
 import type { Task } from "@/features/tasks/types/types";
-import { toDateString, type DateKey } from "@/shared/lib/date";
+import { toDateString, type DateKey, isDateBefore, isDateAfter, isDateSame } from "@/shared/lib/date";
 import { safeDate } from "@/utils/safeDate";
 import { categoryMetadata } from "@/features/tasks/constants/categories";
 
@@ -17,7 +17,7 @@ export const isTaskCompleted = (
 };
 
 export const isTaskOverdue = (task: Task, date: DateKey): boolean => {
-  return task.date < date && !isTaskCompleted(task, date);
+  return isDateBefore(task.date, date) && !isTaskCompleted(task, date);
 };
 
 export type TaskDateKey = DateKey;
@@ -66,8 +66,9 @@ export const toggleTaskCompletion = (
  * ---------------------------------------
  */
 
-const isSameDay = (a: string, b: string) =>
-  safeDate(a).toDateString() === safeDate(b).toDateString();
+const isSameDay = (a: string, b: string): boolean => {
+  return isDateSame(a, b);
+};
 
 export const getTasksForDate = (
   tasks: Task[],
@@ -80,14 +81,14 @@ export const getTasksAfterDate = (
   tasks: Task[],
   date: DateKey
 ): Task[] => {
-  return tasks.filter((task) => task.date > date);
+  return tasks.filter((task) => isDateAfter(task.date, date));
 };
 
 export const getTasksBeforeDate = (
   tasks: Task[],
   date: DateKey
 ): Task[] => {
-  return tasks.filter((task) => task.date < date);
+  return tasks.filter((task) => isDateBefore(task.date, date));
 };
 
 const getYesterdayDateKey = (date: DateKey): DateKey => {

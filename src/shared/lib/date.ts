@@ -16,6 +16,31 @@ export const getYesterday = (date: Date = new Date()) => {
   return toDateString(previous);
 };
 
+export const parseDateKey = (dateKey: DateKey): Date => {
+  // Parse YYYY-MM-DD format to Date object
+  const parts = dateKey.split("-").map(Number);
+  const [year, month, day] = parts;
+  return new Date(year || 0, (month || 1) - 1, day || 1);
+};
+
+export const compareDates = (date1: DateKey, date2: DateKey): number => {
+  const d1 = parseDateKey(date1);
+  const d2 = parseDateKey(date2);
+  return d1.getTime() - d2.getTime();
+};
+
+export const isDateAfter = (date1: DateKey, date2: DateKey): boolean => {
+  return compareDates(date1, date2) > 0;
+};
+
+export const isDateBefore = (date1: DateKey, date2: DateKey): boolean => {
+  return compareDates(date1, date2) < 0;
+};
+
+export const isDateSame = (date1: DateKey, date2: DateKey): boolean => {
+  return compareDates(date1, date2) === 0;
+};
+
 export const formatDisplayDate = (date: string) => {
   const d = safeDate(date);
 
