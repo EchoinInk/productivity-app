@@ -38,9 +38,9 @@ const variantClass: Record<CardVariant, string> = {
 };
 
 const sizeClass: Record<CardSize, string> = {
-  sm: "rounded-xl",
-  md: "rounded-2xl",
-  lg: "rounded-2xl",
+  sm: "rounded-md",
+  md: "rounded-lg",
+  lg: "rounded-lg",
 };
 
 const CardBase = ({
