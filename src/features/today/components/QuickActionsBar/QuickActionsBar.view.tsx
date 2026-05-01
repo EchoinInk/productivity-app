@@ -26,20 +26,17 @@ export const QuickActionsBarView = ({ model }: { model: QuickActionsBarViewModel
             <button
               key={action.id}
               onClick={action.onPress}
+              aria-label={action.title}
               className={cn(
-                "flex flex-col items-center gap-2 p-4 rounded-lg border transition-all",
-                "hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
+                "flex flex-col items-center gap-3 p-4 rounded-xl border transition-all min-h-[88px]",
+                "hover:shadow-md hover:bg-muted/50 hover:scale-[1.02] active:scale-[0.97] cursor-pointer",
                 action.variant === "primary"
                   ? "bg-primary/10 border-primary/20 text-primary"
                   : "bg-card border-border hover:bg-muted/50"
               )}
             >
-              <div className={cn(
-                "p-2 rounded-full",
-                action.variant === "primary"
-                  ? "bg-primary/20 text-primary"
-                  : "bg-muted text-muted-foreground/90"
-              )}>
+              {/* LARGER ICON - NO BACKGROUND */}
+              <div className="w-8 h-8 flex items-center justify-center">
                 {action.icon}
               </div>
               <Text className="text-sm font-medium text-center">

@@ -67,22 +67,35 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
       <Text className="text-lg font-semibold text-foreground">Up Next</Text>
       <div className="flex flex-col gap-3">
         {items.map((item) => (
-          <Card key={item.id} className={`${cardVariants.base} hover:shadow-md transition-shadow`}>
+          <Card key={item.id} className={`${cardVariants.base} hover:shadow-md transition-shadow active:scale-[0.97]`}>
             <div className="flex items-center gap-3">
-              <button
-                onClick={item.onToggle}
-                aria-label={item.completed ? `Mark ${item.title} as incomplete` : `Mark ${item.title} as complete`}
-                className={cn(
-                  "flex-shrink-0 w-5 h-5 rounded-full border-2 transition-colors",
-                  item.completed
-                    ? "bg-primary border-primary"
-                    : "border-muted-foreground/60 hover:border-primary"
-                )}
-              >
-                {item.completed && (
-                  <CheckCircle size={12} className="w-full h-full text-primary-foreground" />
-                )}
-              </button>
+              {item.type === "meal" ? (
+                <button
+                  onClick={item.onToggle}
+                  aria-label={`Log meal: ${item.title}`}
+                  className={cn(
+                    "flex-shrink-0 w-5 h-5 rounded-full border-2 transition-colors",
+                    "border-muted-foreground/60 hover:border-primary"
+                  )}
+                >
+                  <Utensils size={12} className="w-full h-full text-muted-foreground" />
+                </button>
+              ) : (
+                <button
+                  onClick={item.onToggle}
+                  aria-label={item.completed ? `Mark ${item.title} as incomplete` : `Mark ${item.title} as complete`}
+                  className={cn(
+                    "flex-shrink-0 w-5 h-5 rounded-full border-2 transition-colors",
+                    item.completed
+                      ? "bg-primary border-primary"
+                      : "border-muted-foreground/60 hover:border-primary"
+                  )}
+                >
+                  {item.completed && (
+                    <CheckCircle size={12} className="w-full h-full text-primary-foreground" />
+                  )}
+                </button>
+              )}
               
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">

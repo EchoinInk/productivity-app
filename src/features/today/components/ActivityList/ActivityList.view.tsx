@@ -16,6 +16,7 @@ export interface ActivityItem {
 export interface ActivityListViewModel {
   activities: ActivityItem[];
   hasActivities: boolean;
+  onAddTask?: () => void;
 }
 
 export const ActivityListView = ({ model }: { model: ActivityListViewModel }) => {
@@ -57,6 +58,13 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
           <Text className="text-sm text-muted-foreground/90 mt-1">
             Start by adding a task
           </Text>
+          <button
+            onClick={model.onAddTask}
+            aria-label="Add a new task"
+            className="mt-3 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 active:scale-[0.97] transition-transform"
+          >
+            Add Task
+          </button>
         </Card>
       </div>
     );
@@ -70,7 +78,7 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
           <Card 
             key={activity.id} 
             className={cn(
-              `${cardVariants.base} border-l-4 transition-all hover:shadow-md`,
+              `${cardVariants.base} border-l-4 transition-all hover:shadow-md active:scale-[0.97]`,
               getActivityColor(activity.type)
             )}
           >

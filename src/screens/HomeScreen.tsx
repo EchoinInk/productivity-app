@@ -4,7 +4,12 @@ import { TodayHeroContainer } from "@/features/today/components/TodayHero/TodayH
 import { TodaySummaryContainer } from "@/features/today/components/TodaySummary/TodaySummary.container";
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
+import AddMeal from "@/features/meals/components/AddMealModal";
+import AddShoppingItem from "@/features/shopping/components/AddShoppingItemModal";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
+import { useMealsStore } from "@/features/meals/store/useMealsStore";
+import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 
 // Lazy load heavy components for mobile performance
 const TodayUpNextContainer = lazy(() => import("@/features/today/components/TodayUpNext/TodayUpNext.container").then(module => ({ default: module.TodayUpNextContainer })));
@@ -21,9 +26,14 @@ const greetingFor = (d: Date): string => {
 
 const HomeScreen = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
+  const addMeal = useMealsStore((state) => state.addMeal);
+  const addShoppingItem = useShoppingStore((state) => state.addShoppingItem);
+  const addTask = useTasksStore((state) => state.addTask);
   
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
+  const [mealOpen, setMealOpen] = useState(false);
+  const [shoppingOpen, setShoppingOpen] = useState(false);
   const [selectedDate] = useState(new Date());
 
   // Optimize greeting computation - move outside of render path
@@ -31,6 +41,8 @@ const HomeScreen = () => {
 
   const handleAddTask = () => setTaskOpen(true);
   const handleAddExpense = () => setExpenseOpen(true);
+  const handleAddMeal = () => setMealOpen(true);
+  const handleAddShopping = () => setShoppingOpen(true);
 
   return (
     <>
@@ -71,25 +83,25 @@ const HomeScreen = () => {
             <TodaySummaryContainer />
           </div>
 
+          <Suspense fallback={<div className="h-24 animate-pulse bg-muted/20 rounded-lg" />}>
+            {/* INSIGHTS */}
+            <div className="animate-[fadeIn_0.80s_ease-out]">
+              <InsightsCardContainer />
+            </div>
+          </Suspense>
+
           {/* LAZY-LOADED SECTIONS - Below the fold for mobile performance */}
           <Suspense fallback={<div className="h-20 animate-pulse bg-muted/20 rounded-lg" />}>
             {/* UP NEXT */}
             <div className="animate-[fadeIn_0.65s_ease-out]">
-              <TodayUpNextContainer />
+              <TodayUpNextContainer onLogMeal={handleAddMeal} />
             </div>
           </Suspense>
 
           <Suspense fallback={<div className="h-32 animate-pulse bg-muted/20 rounded-lg" />}>
             {/* RECENT ACTIVITY */}
             <div className="animate-[fadeIn_0.75s_ease-out]">
-              <ActivityListContainer />
-            </div>
-          </Suspense>
-
-          <Suspense fallback={<div className="h-24 animate-pulse bg-muted/20 rounded-lg" />}>
-            {/* INSIGHTS */}
-            <div className="animate-[fadeIn_0.80s_ease-out]">
-              <InsightsCardContainer />
+              <ActivityListContainer onAddTask={handleAddTask} />
             </div>
           </Suspense>
 
@@ -99,6 +111,8 @@ const HomeScreen = () => {
               <QuickActionsBarContainer
                 onAddTask={handleAddTask}
                 onAddExpense={handleAddExpense}
+                onAddMeal={handleAddMeal}
+                onAddShopping={handleAddShopping}
               />
             </div>
           </Suspense>
@@ -111,13 +125,36 @@ const HomeScreen = () => {
         open={taskOpen}
         onClose={() => setTaskOpen(false)}
         defaultDate={selectedDate.toISOString().split('T')[0] || ''}
-        onSave={() => {}}
+        onSave={(task) => {
+          console.log("TASK CREATED", task);
+          addTask(task);
+          setTaskOpen(false);
+        }}
       />
 
       <AddExpense
         open={expenseOpen}
         onClose={() => setExpenseOpen(false)}
         onSave={addExpense}
+      />
+
+      <AddMeal
+        open={mealOpen}
+        onClose={() => setMealOpen(false)}
+        onSave={(meal) => {
+          console.log("MEAL LOGGED", meal);
+          addMeal(meal);
+        }}
+      />
+
+      <AddShoppingItem
+        open={shoppingOpen}
+        category="Groceries"
+        onClose={() => setShoppingOpen(false)}
+        onSave={(item) => {
+          console.log("SHOPPING ITEM ADDED", item);
+          addShoppingItem(item);
+        }}
       />
     </>
   );

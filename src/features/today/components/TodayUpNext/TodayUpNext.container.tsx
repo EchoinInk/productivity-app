@@ -4,7 +4,7 @@ import { TodayUpNextView } from "./TodayUpNext.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useMemo } from "react";
 
-export const TodayUpNextContainer = () => {
+export const TodayUpNextContainer = ({ onLogMeal }: { onLogMeal?: () => void } = {}) => {
   const today = useTodayData();
   const toggleTask = useTasksStore((state) => state.toggleTask);
   const todayDate = getToday();
@@ -22,6 +22,17 @@ export const TodayUpNextContainer = () => {
       };
     }
     
+    if (item.type === "meal") {
+      return {
+        id: item.id,
+        type: "meal" as const,
+        title: item.title,
+        time: item.time,
+        completed: false,
+        onToggle: () => onLogMeal?.()
+      };
+    }
+    
     return {
       id: item.id,
       type: item.type,
@@ -29,7 +40,7 @@ export const TodayUpNextContainer = () => {
       time: item.time,
       completed: false
     };
-  }), [today.upNext, toggleTask, todayDate]);
+  }), [today.upNext, toggleTask, onLogMeal, todayDate]);
 
   const viewModel = useMemo(() => ({
     items,

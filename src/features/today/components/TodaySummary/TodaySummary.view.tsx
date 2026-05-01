@@ -30,6 +30,10 @@ export const TodaySummaryView = ({
     justify-between
     items-center
     gap-3
+    transition-transform
+    active:scale-[0.97]
+    cursor-pointer
+    hover:shadow-md
   "
 >
  {/* TEXT */}

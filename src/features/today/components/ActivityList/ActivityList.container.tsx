@@ -4,7 +4,7 @@ import { ActivityListView } from "./ActivityList.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useMemo } from "react";
 
-export const ActivityListContainer = () => {
+export const ActivityListContainer = ({ onAddTask }: { onAddTask?: () => void } = {}) => {
   const today = useTodayData();
   const tasks = useTasksStore((state) => state.tasks);
   const shoppingItems = useShoppingStore((state) => state.shoppingItems);
@@ -75,7 +75,8 @@ export const ActivityListContainer = () => {
   const viewModel = useMemo(() => ({
     activities: allActivities,
     hasActivities: allActivities.length > 0,
-  }), [allActivities]);
+    onAddTask
+  }), [allActivities, onAddTask]);
 
   return <ActivityListView model={viewModel} />;
 };
