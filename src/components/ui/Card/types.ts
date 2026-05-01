@@ -4,6 +4,8 @@
 export type CardVariant =
   | "hero"     // Primary focus (top of screen)
   | "default"  // Standard content
+  | "glass"    // Glass morphism effect
+  | "solid"    // Solid background with subtle shadow
   | "data"     // Metrics / insights
   | "alert"    // Urgent / attention
   | "subtle"   // Minimal / transparent

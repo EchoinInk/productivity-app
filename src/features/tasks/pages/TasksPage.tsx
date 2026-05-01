@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "@/components/layout/Header";
 import { Body } from "@/components/ui/Text";
+import { Card } from "@/components/ui/Card";
 import { AddTaskModal, EditTaskModal } from "@/features/tasks";
 import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
@@ -119,19 +120,14 @@ const TasksPage = () => {
                         layout
                         whileTap={{ scale: 0.98 }}
                         transition={spring}
-                        className="
-                          rounded-2xl
-                          px-4 py-3
-                          bg-white
-                          border border-black/5
-                          shadow-[0_8px_24px_rgba(0,0,0,0.06)]
-                        "
                       >
-                        <TaskRow
-                          task={task}
-                          onToggleTask={(id) => toggleTask(id, today)}
-                          onSelectTask={handleSelectTask}
-                        />
+                        <Card variant="solid" className="px-4 py-3">
+                          <TaskRow
+                            task={task}
+                            onToggleTask={(id) => toggleTask(id, today)}
+                            onSelectTask={handleSelectTask}
+                          />
+                        </Card>
                       </motion.div>
                     ))}
                   </div>
@@ -149,19 +145,14 @@ const TasksPage = () => {
                         layout
                         whileTap={{ scale: 0.98 }}
                         transition={spring}
-                        className="
-                          rounded-2xl
-                          px-4 py-3
-                          bg-white
-                          border border-black/5
-                          shadow-[0_8px_24px_rgba(0,0,0,0.06)]
-                        "
                       >
-                        <TaskRow
-                          task={task}
-                          onToggleTask={(id) => toggleTask(id, today)}
-                          onSelectTask={handleSelectTask}
-                        />
+                        <Card variant="solid" className="px-4 py-3">
+                          <TaskRow
+                            task={task}
+                            onToggleTask={(id) => toggleTask(id, today)}
+                            onSelectTask={handleSelectTask}
+                          />
+                        </Card>
                       </motion.div>
                     ))}
                   </div>

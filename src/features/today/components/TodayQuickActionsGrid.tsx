@@ -3,6 +3,7 @@
 import { useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Body, Heading, Meta } from "@/components/ui/Text";
+import { Card } from "@/components/ui/Card";
 
 import taskillustration from "@/assets/tasksquickactions.png";
 import mealillustration from "@/assets/mealquickactions.png";
@@ -10,13 +11,6 @@ import budgetillustration from "@/assets/budgetquickactions.png";
 import shoppingillustration from "@/assets/shoppingquickactions.png";
 
 type TileSurface = "tasks" | "meals" | "budget" | "shopping";
-
-const surfaceClass: Record<TileSurface, string> = {
-  tasks: "bg-[hsl(var(--surface-tile-tasks))]",
-  meals: "bg-[hsl(var(--surface-tile-meals))]",
-  budget: "bg-[hsl(var(--surface-tile-budget))]",
-  shopping: "bg-[hsl(var(--surface-tile-shopping))]",
-};
 
 interface CardProps {
   title: string;
@@ -42,45 +36,40 @@ const SummaryCard = ({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className={`
-        relative w-full text-left
-        rounded-2xl
-        p-4
-        border border-border/40
-        ${surfaceClass[surface]}
-        backdrop-blur-md
-        shadow-soft
-        transition-all duration-150 ease-out
-        active:scale-[0.97]
-        hover:shadow-pop
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-      `}
+      className="relative w-full text-left active:scale-[0.97] hover:shadow-pop focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out"
     >
-      <div className="flex items-center gap-3">
-        {/* Left: text */}
-        <div className="flex-1 min-w-0 flex flex-col">
-          <Body tone="muted">{title}</Body>
+      <Card
+        variant="glass"
+        className={`
+          p-4 !bg-[hsl(var(--surface-tile-${surface}))]
+        `}
+      >
+        <div className="flex items-center gap-3">
+          {/* Left: text */}
+          <div className="flex-1 min-w-0 flex flex-col">
+            <Body tone="muted">{title}</Body>
 
-          <Heading className="mt-1 tracking-tight">
-            {value}
-          </Heading>
+            <Heading className="mt-1 tracking-tight">
+              {value}
+            </Heading>
 
-          <Meta tone="muted" className="mt-1">
-            {subtitle}
-          </Meta>
+            <Meta tone="muted" className="mt-1">
+              {subtitle}
+            </Meta>
+          </div>
+
+          {/* Right: icon */}
+          <div className="shrink-0 opacity-75">
+            {icon}
+          </div>
         </div>
 
-        {/* Right: icon */}
-        <div className="shrink-0 opacity-75">
-          {icon}
-        </div>
-      </div>
-
-      {/* Chevron */}
-      <ChevronRight
-        size={14}
-        className="absolute bottom-3 right-3 text-muted-foreground/40"
-      />
+        {/* Chevron */}
+        <ChevronRight
+          size={14}
+          className="absolute bottom-3 right-3 text-muted-foreground/40"
+        />
+      </Card>
     </button>
   );
 };
