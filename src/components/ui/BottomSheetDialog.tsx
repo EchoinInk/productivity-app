@@ -17,7 +17,7 @@ export const BottomSheetDialog = ({ open, title, onClose, children }: BottomShee
     if (!open) return;
 
     previousFocus.current = document.activeElement as HTMLElement | null;
-    const timer = window.setTimeout(() => panelRef.current?.focus(), 0);
+    requestAnimationFrame(() => panelRef.current?.focus());
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -26,7 +26,6 @@ export const BottomSheetDialog = ({ open, title, onClose, children }: BottomShee
     document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      window.clearTimeout(timer);
       document.removeEventListener("keydown", onKeyDown);
       previousFocus.current?.focus?.();
     };
