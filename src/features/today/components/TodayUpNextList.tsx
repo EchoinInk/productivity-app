@@ -69,14 +69,16 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                   type="button"
                   onClick={() => onToggle(task.id, today)}
                   aria-label={`Mark ${task.title} as completed`}
+                  role="checkbox"
+                  aria-checked={false}
                   className="
                     shrink-0
-                    w-6 h-6
+                    w-5 h-5
                     rounded-full
                     border-2 border-muted-foreground/40
                     hover:border-primary
                     active:scale-90
-                    transition
+                    transition-all duration-200
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                   "
                 />
