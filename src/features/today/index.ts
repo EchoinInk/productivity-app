@@ -4,4 +4,4 @@ export { default as TodayQuickActionsGrid } from "./components/TodayQuickActions
 export { UpNextList } from "./components/TodayUpNextList";
 
 // Hooks
-export { useTodayHeroCard } from "./hooks/useTodayHeroCard";
+export { useTodayData } from "./hooks/useTodayData";

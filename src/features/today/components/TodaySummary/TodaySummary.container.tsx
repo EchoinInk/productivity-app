@@ -1,7 +1,6 @@
 import { CheckSquare, Utensils, DollarSign, ShoppingCart } from "lucide-react";
-import { TodaySummaryView, type TodaySummaryViewModel } from "./TodaySummary.view";
+import { TodaySummaryView } from "./TodaySummary.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
-import type { SummaryCardViewModel } from "../SummaryCard/SummaryCard.view";
 import { useMemo } from "react";
 
 export const TodaySummaryContainer = () => {
@@ -46,28 +45,28 @@ export const TodaySummaryContainer = () => {
         value: getTasksValue(),
         subtitle: getTasksSubtitle(),
         icon: <CheckSquare size={20} />,
-        variant: today.summary.tasks.completed === today.summary.tasks.total ? "success" : "default" as const
+        variant: (today.summary.tasks.completed === today.summary.tasks.total ? "success" : "default") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Meals",
         value: getMealsValue(),
         subtitle: "logged today",
         icon: <Utensils size={20} />,
-        variant: today.summary.meals.logged >= today.summary.meals.target ? "success" : "default" as const
+        variant: (today.summary.meals.logged >= today.summary.meals.target ? "success" : "default") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Budget",
         value: getBudgetValue(),
         subtitle: getBudgetSubtitle(),
         icon: <DollarSign size={20} />,
-        variant: today.summary.budget.remaining > 0 ? "success" : "warning" as const
+        variant: (today.summary.budget.remaining > 0 ? "success" : "warning") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Shopping",
         value: today.summary.shopping.remaining.toString(),
         subtitle: "items left",
         icon: <ShoppingCart size={20} />,
-        variant: today.summary.shopping.remaining === 0 ? "success" : "default" as const
+        variant: (today.summary.shopping.remaining === 0 ? "success" : "default") as "success" | "default" | "warning" | "primary"
       }
     ];
   }, [today.summary]);

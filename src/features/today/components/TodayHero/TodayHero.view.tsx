@@ -17,7 +17,7 @@ export interface TodayHeroViewModel {
 }
 
 export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
-  const { percentage, total, remaining, progressText, motivation, status, onAddTask, isLoading = false } = model;
+  const { percentage, total, remaining, progressText, motivation, onAddTask, isLoading = false } = model;
 
   const radius = 36;
   const stroke = 6;

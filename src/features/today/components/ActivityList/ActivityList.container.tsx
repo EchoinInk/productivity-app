@@ -1,6 +1,6 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
-import { ActivityListView, type ActivityListViewModel, type ActivityItem } from "./ActivityList.view";
+import { ActivityListView } from "./ActivityList.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useMemo } from "react";
 
@@ -66,7 +66,7 @@ export const ActivityListContainer = () => {
 
   // Combine and limit activities
   const allActivities = useMemo(() => [...activities, ...shoppingActivities]
-    .sort((a, b) => {
+    .sort(() => {
       // For now, all activities are "Today", so we'll keep original order
       return 0;
     })

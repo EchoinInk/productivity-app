@@ -1,5 +1,6 @@
 import { TodaySummaryRowView } from "./TodaySummaryRowView";
-import { useTodaySummaryRow } from "../hooks/useTodaySummaryRow";
+import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface TodaySummaryRowProps {
   remaining: number;
@@ -10,7 +11,21 @@ export const TodaySummaryRow = ({
   remaining,
   billsDueCount,
 }: TodaySummaryRowProps) => {
-  const rowData = useTodaySummaryRow({ remaining, billsDueCount });
+  const navigate = useNavigate();
+  
+  const rowData = useMemo(() => {
+    const billsLabel = billsDueCount === 0 
+      ? "No bills due"
+      : billsDueCount === 1 
+      ? "1 bill due"
+      : `${billsDueCount} bills due`;
+    
+    return {
+      remaining,
+      billsLabel,
+      onClick: () => navigate("/budget"),
+    };
+  }, [remaining, billsDueCount, navigate]);
 
   return <TodaySummaryRowView {...rowData} />;
 };

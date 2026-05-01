@@ -1,6 +1,6 @@
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getToday } from "@/shared/lib/date";
-import { TodayUpNextView, type TodayUpNextViewModel, type UpNextItem } from "./TodayUpNext.view";
+import { TodayUpNextView } from "./TodayUpNext.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useMemo } from "react";
 

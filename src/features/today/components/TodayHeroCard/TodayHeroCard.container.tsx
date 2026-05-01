@@ -1,5 +1,5 @@
 import { TodayHeroCardView, type TodayHeroCardViewModel } from "./TodayHeroCard.view";
-import { useTodayHeroCard } from "../../hooks/useTodayHeroCard";
+import { useMemo } from "react";
 
 interface TodayHeroCardProps {
   percentage: number;
@@ -16,13 +16,32 @@ export const TodayHeroCard = ({
   onAddTask,
   isLoading = false,
 }: TodayHeroCardProps) => {
-  const cardData = useTodayHeroCard({ percentage, total, completed });
+  const model = useMemo(() => {
+    const remaining = total - completed;
+    const progressText = total === 0 
+      ? "No tasks yet today"
+      : remaining === 0 
+      ? "All tasks completed 🎉"
+      : `${completed} of ${total} completed`;
+    
+    const motivation = total === 0 
+      ? null 
+      : percentage >= 75 
+      ? "You're doing great!" 
+      : percentage >= 50 
+      ? "Keep going!" 
+      : "Let's get started!";
 
-  const model: TodayHeroCardViewModel = {
-    ...cardData,
-    onAddTask,
-    isLoading,
-  };
+    return {
+      percentage,
+      total,
+      remaining,
+      progressText,
+      motivation,
+      onAddTask,
+      isLoading,
+    } as TodayHeroCardViewModel;
+  }, [percentage, total, completed, onAddTask, isLoading]);
 
   return <TodayHeroCardView model={model} />;
 };
