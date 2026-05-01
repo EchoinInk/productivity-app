@@ -68,23 +68,25 @@ export const TaskRowUI = memo((props: Props) => {
 
       {categoryMeta && (
   <div className="shrink-0">
-    <div
+    <button
       className="
-        w-7 h-7 
+        w-11 h-11 
         rounded-lg 
         flex items-center justify-center 
         bg-white/60 backdrop-blur-sm
         border border-white/40
+        transition-all hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
       "
       style={{ backgroundColor: categoryMeta.bg }}
       title={categoryMeta.bg ? "" : "Other"}
+      aria-label={`Category: ${category}`}
     >
       <img
         src={categoryMeta.icon}
         alt=""
         className="w-4 h-4 object-contain"
       />
-    </div>
+    </button>
   </div>
 )}
     </motion.div>

@@ -59,7 +59,7 @@ const Header = ({
             type="button"
             aria-label="Open menu"
             onClick={onMenuClick}
-            className={`p-2 -ml-2 text-foreground active:scale-95 transition mt-1 ${focusRing}`}
+            className={`p-3 -ml-2 text-foreground active:scale-95 transition mt-1 ${focusRing}`}
           >
             <Menu size={22} />
           </button>
@@ -75,7 +75,7 @@ const Header = ({
               hasNotifications ? "Notifications (unread)" : "Notifications"
             }
             onClick={onNotificationsClick}
-            className={`p-2 -mr-2 text-foreground active:scale-95 transition relative mt-1 ${focusRing}`}
+            className={`p-3 -mr-2 text-foreground active:scale-95 transition relative mt-1 ${focusRing}`}
           >
             <Bell size={22} />
             {hasNotifications && (
@@ -95,7 +95,7 @@ const Header = ({
             type="button"
             aria-label="Show previous day"
             onClick={() => shift(-1)}
-            className={`p-2 text-muted-foreground active:scale-95 transition ${focusRing}`}
+            className={`p-3 text-muted-foreground active:scale-95 transition ${focusRing}`}
           >
             <ChevronLeft size={20} />
           </button>
@@ -110,7 +110,7 @@ const Header = ({
             type="button"
             aria-label="Show next day"
             onClick={() => shift(1)}
-            className={`p-2 text-muted-foreground active:scale-95 transition ${focusRing}`}
+            className={`p-3 text-muted-foreground active:scale-95 transition ${focusRing}`}
           >
             <ChevronRight size={20} />
           </button>
@@ -121,7 +121,7 @@ const Header = ({
             {onBack && (
               <button
                 onClick={onBack}
-                className={`absolute left-0 p-2 hover:bg-muted/40 active:scale-[0.98] transition-all ${focusRing}`}
+                className={`absolute left-0 p-3 hover:bg-muted/40 active:scale-[0.98] transition-all ${focusRing}`}
                 aria-label="Go back"
               >
                 ←

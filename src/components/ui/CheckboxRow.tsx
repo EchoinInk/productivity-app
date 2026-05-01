@@ -40,7 +40,7 @@ export const CheckboxRow = ({ checked, onToggle, onClick, children, rightContent
           onToggle();
         }}
         className={clsx(
-          "w-5 h-5 rounded-md flex items-center justify-center shrink-0 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          "w-11 h-11 rounded-md flex items-center justify-center shrink-0 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           checked ? "gradient-primary text-primary-foreground shadow-card" : "border border-muted-foreground/30 bg-background",
         )}
       >
