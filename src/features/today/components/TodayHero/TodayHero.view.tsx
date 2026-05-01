@@ -1,6 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { Heading, HeroTitle, HeroSubtext, HeroSupport, CTA } from "@/components/ui/Text";
+import {
+  Heading,
+  HeroTitle,
+  HeroSubtext,
+  HeroSupport,
+} from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { buttonVariants } from "@/components/ui/buttonVariants";
 import clipboardIllustration from "@/assets/3d-clipboard.webp";
@@ -17,19 +22,28 @@ export interface TodayHeroViewModel {
 }
 
 export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
-  const { percentage, total, remaining, progressText, motivation, onAddTask, isLoading = false } = model;
+  const {
+    percentage,
+    total,
+    remaining,
+    progressText,
+    motivation,
+    onAddTask,
+    isLoading = false,
+  } = model;
 
   const radius = 36;
   const stroke = 6;
   const normalizedRadius = radius - stroke / 2;
   const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+  const strokeDashoffset =
+    circumference - (percentage / 100) * circumference;
 
   return (
     <Card variant="hero" className="overflow-hidden p-0 shadow-pop">
       <div className="flex items-center gap-4 px-6 py-10">
 
-        {/* Progress ring */}
+        {/* LEFT: PROGRESS */}
         <div className="relative shrink-0 h-[104px] w-[104px]">
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
@@ -62,11 +76,11 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
           </div>
         </div>
 
-        {/* Content */}
+        {/* CENTER: CONTENT */}
         <div className="flex flex-col gap-2 flex-1 min-w-0">
 
           <HeroTitle className="text-primary-foreground text-shadow-soft">
-            Today's Focus
+            Today’s Focus
           </HeroTitle>
 
           <HeroSubtext className="text-primary-foreground/80">
@@ -88,6 +102,7 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
               onClick={onAddTask}
               className={`
                 mt-2
+                inline-flex items-center gap-1
                 px-4 py-2
                 rounded-full
                 ${buttonVariants.secondary}
@@ -95,15 +110,14 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
                 shadow-cta
                 active:scale-[0.97]
                 transition
-                flex items-center gap-1
                 w-fit
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/80
               `}
             >
-              <CTA className="text-foreground flex items-center gap-1 tracking-tight">
+              <span className="text-foreground text-sm font-medium tracking-tight">
                 Add a task
-                <ArrowRight size={12} className="opacity-70" />
-              </CTA>
+              </span>
+              <ArrowRight size={12} className="opacity-70" />
             </button>
           ) : (
             <span className="mt-2 px-3 py-1 rounded-full bg-primary-foreground/20 text-primary-foreground text-xs font-medium w-fit">
@@ -114,11 +128,11 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
                 : `${remaining} tasks left`}
             </span>
           )}
-        </div>{/* LCP Image - Render first for instant loading */}
+        </div>
+
+        {/* RIGHT: IMAGE (LCP — FIXED POSITION) */}
         <img
           src={clipboardIllustration}
-          srcSet={`${clipboardIllustration} 1x`}
-          sizes="(max-width: 640px) 0px, 85px"
           alt=""
           aria-hidden
           loading="eager"
@@ -134,8 +148,6 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
             opacity-90
           "
         />
-
-
       </div>
     </Card>
   );
