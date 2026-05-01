@@ -2,6 +2,7 @@ import { Clock, CheckCircle, Utensils, DollarSign } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Text } from "@/components/ui/Text";
 import { cn } from "@/lib/utils";
+import { cardVariants } from "@/components/ui/cardVariants";
 
 export interface UpNextItem {
   id: string;
@@ -64,9 +65,9 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
   return (
     <div className="flex flex-col gap-6">
       <Text className="text-lg font-semibold text-foreground">Up Next</Text>
-      <div className="space-y-3">
+      <div className="flex flex-col gap-3">
         {items.map((item) => (
-          <Card key={item.id} className="p-4 hover:shadow-md transition-shadow">
+          <Card key={item.id} className={`${cardVariants.base} hover:shadow-md transition-shadow`}>
             <div className="flex items-center gap-3">
               <button
                 onClick={item.onToggle}

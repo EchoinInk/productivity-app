@@ -1,7 +1,8 @@
-import { CheckCircle, Plus, DollarSign, Utensils } from "lucide-react";
+import { CheckCircle, Plus, Utensils, DollarSign } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Text } from "@/components/ui/Text";
 import { cn } from "@/lib/utils";
+import { cardVariants } from "@/components/ui/cardVariants";
 
 export interface ActivityItem {
   id: string;
@@ -64,12 +65,12 @@ export const ActivityListView = ({ model }: { model: ActivityListViewModel }) =>
   return (
     <div className="flex flex-col gap-6">
       <Text className="text-lg font-semibold text-foreground">Recent Activity</Text>
-      <div className="space-y-3">
+      <div className="flex flex-col gap-3">
         {activities.map((activity) => (
           <Card 
             key={activity.id} 
             className={cn(
-              "p-4 border-l-4 transition-all hover:shadow-md",
+              `${cardVariants.base} border-l-4 transition-all hover:shadow-md`,
               getActivityColor(activity.type)
             )}
           >

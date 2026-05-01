@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Heading, HeroTitle, HeroSubtext, HeroSupport, CTA } from "@/components/ui/Text";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
+import { buttonVariants } from "@/components/ui/buttonVariants";
 import clipboardIllustration from "@/assets/3d-clipboard.webp";
 
 export interface TodayHeroViewModel {
@@ -85,11 +86,11 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
             <button
               type="button"
               onClick={onAddTask}
-              className="
+              className={`
                 mt-2
                 px-4 py-2
                 rounded-full
-                bg-card/95
+                ${buttonVariants.secondary}
                 border border-border/30
                 shadow-cta
                 active:scale-[0.97]
@@ -97,7 +98,7 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
                 flex items-center gap-1
                 w-fit
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/80
-              "
+              `}
             >
               <CTA className="text-foreground flex items-center gap-1 tracking-tight">
                 Add a task

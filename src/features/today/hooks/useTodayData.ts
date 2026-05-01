@@ -3,6 +3,7 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { useActivityStore } from "@/features/activity/useActivityStore";
 import { getToday } from "@/shared/lib/date";
 
 export type TodayData = {
@@ -38,6 +39,7 @@ export const useTodayData = (): TodayData => {
   const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
   const expenses = useBudgetStore((state) => state.expenses);
   const shoppingItems = useShoppingStore((state) => state.shoppingItems);
+  const events = useActivityStore((state) => state.events);
 
   const todayDate = getToday();
 
@@ -156,34 +158,20 @@ export const useTodayData = (): TodayData => {
     ].slice(0, 5);
 
     // === ACTIVITY ===
-    // Since we don't have a real event system, derive from latest store updates
-    const activity: TodayData["activity"] = [
-      // Recent task completions
-      ...completedTasks.slice(0, 2).map(task => ({
-        id: `task-${task.id}`,
-        type: "task_completed" as const,
-        label: `Completed: ${task.label}`,
-        timestamp: new Date(task.completedDates[task.completedDates.length - 1] || task.createdAt).getTime(),
-      })),
-      
-      // Recent expenses
-      ...expenses.slice(0, 2).map(expense => ({
-        id: `expense-${expense.id}`,
-        type: "expense_added" as const,
-        label: `Added expense: ${expense.name}`,
-        timestamp: Date.now() - Math.random() * 86400000, // Mock timestamp
-      })),
-      
-      // Recent meals
-      ...todayMeals.slice(0, 1).map(meal => ({
-        id: `meal-${meal.id}`,
-        type: "meal_logged" as const,
-        label: `Logged meal: ${meal.name}`,
-        timestamp: Date.now() - Math.random() * 86400000, // Mock timestamp
-      })),
-    ]
-    .sort((a, b) => b.timestamp - a.timestamp)
-    .slice(0, 5);
+    // Get real activity events from the activity store
+    const activity: TodayData["activity"] = events
+      .filter(event => 
+        event.type === "task_completed" || 
+        event.type === "expense_added" || 
+        event.type === "meal_logged"
+      )
+      .slice(0, 5)
+      .map(event => ({
+        id: event.id,
+        type: event.type as "task_completed" | "expense_added" | "meal_logged",
+        label: event.label,
+        timestamp: event.timestamp,
+      }));
 
     return {
       focus,
@@ -191,5 +179,5 @@ export const useTodayData = (): TodayData => {
       upNext,
       activity,
     };
-  }, [tasks, meals, weeklyBudget, expenses, shoppingItems, todayDate]);
+  }, [tasks, meals, weeklyBudget, expenses, shoppingItems, todayDate, events]);
 };

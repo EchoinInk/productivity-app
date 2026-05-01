@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/Card";
 import { Heading, Text } from "@/components/ui/Text";
+import { cardVariants } from "@/components/ui/cardVariants";
 
 export interface SummaryCardViewModel {
   title: string;
@@ -20,7 +21,7 @@ export const SummaryCardView = ({ model }: { model: SummaryCardViewModel }) => {
   };
 
   return (
-    <Card className={`p-4 ${variantStyles[variant]} hover:shadow-md transition-shadow`}>
+    <Card className={`${cardVariants.base} ${variantStyles[variant]} hover:shadow-md transition-shadow`}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <Text className="text-sm text-muted-foreground mb-1">{title}</Text>

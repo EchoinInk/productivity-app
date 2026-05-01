@@ -9,6 +9,8 @@ import {
 } from "@/store/sharedPersist";
 
 import { toggleTaskCompletion } from "@/features/tasks/api";
+import { useActivityStore } from "@/features/activity/useActivityStore";
+import { createActivityEvent } from "@/features/activity/activity.utils";
 
 import type {
   CreateTaskInput,
@@ -26,13 +28,27 @@ export const useTasksStore = create<TasksState>()(
        * TOGGLE TASK (per date)
        */
       toggleTask: (id: EntityId, date: DateKey) =>
-        set((state) => ({
-          tasks: state.tasks.map((task) =>
-            task.id === id
-              ? toggleTaskCompletion(task, date)
-              : task
-          ),
-        })),
+        set((state) => {
+          const task = state.tasks.find((t) => t.id === id);
+          const isCompleting = task && !task.completedDates.includes(date);
+          
+          const updatedTasks = state.tasks.map((t) =>
+            t.id === id
+              ? toggleTaskCompletion(t, date)
+              : t
+          );
+
+          // Track activity if completing
+          if (isCompleting && task) {
+            useActivityStore.getState().addEvent(
+              createActivityEvent("task_completed", `Completed task: ${task.label}`)
+            );
+          }
+
+          return {
+            tasks: updatedTasks,
+          };
+        }),
 
       /**
        * ADD TASK
@@ -53,6 +69,11 @@ export const useTasksStore = create<TasksState>()(
             completedDates: [],
             createdAt: new Date().toISOString(),
           };
+
+          // Track activity
+          useActivityStore.getState().addEvent(
+            createActivityEvent("task_created", `Created task: ${input.label}`)
+          );
 
           return {
             tasks: [newTask, ...state.tasks],
