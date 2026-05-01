@@ -55,6 +55,7 @@ const TasksPage = () => {
               key={tabName}
               onClick={() => setTab(tabName)}
               whileTap={{ scale: 0.95 }}
+              aria-label={`Show ${tabName.toLowerCase()} tasks`}
               className={`
                 px-4 py-2 rounded-full text-sm font-medium transition-all
                 ${
@@ -137,6 +138,7 @@ const TasksPage = () => {
         <motion.button
           onClick={() => setOpen(true)}
           whileTap={{ scale: 0.9 }}
+          aria-label="Add new task"
           className="
             fixed bottom-24 right-4
             w-14 h-14

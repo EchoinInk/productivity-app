@@ -49,7 +49,7 @@ const MealPlannerPage = () => {
           );
         })}
 
-        <Button fullWidth onClick={() => setOpen(true)}>
+        <Button fullWidth onClick={() => setOpen(true)} aria-label="Add meal">
           <Plus size={16} /> Add Meal
         </Button>
       </div>

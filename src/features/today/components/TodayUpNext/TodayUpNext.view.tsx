@@ -71,6 +71,7 @@ export const TodayUpNextView = ({ model }: { model: TodayUpNextViewModel }) => {
             <div className="flex items-center gap-3">
               <button
                 onClick={item.onToggle}
+                aria-label={item.completed ? `Mark ${item.title} as incomplete` : `Mark ${item.title} as complete`}
                 className={cn(
                   "flex-shrink-0 w-5 h-5 rounded-full border-2 transition-colors",
                   item.completed

@@ -104,6 +104,7 @@ const BudgetPage = () => {
           fullWidth
           variant="budget"
           onClick={() => setOpenIncome(true)}
+          aria-label="Add income"
         >
           <Plus size={16} /> Add Income
         </Button>
@@ -112,6 +113,7 @@ const BudgetPage = () => {
           fullWidth
           variant="primary"
           onClick={() => setOpenExpense(true)}
+          aria-label="Add expense"
         >
           <Plus size={16} /> Add Expense
         </Button>

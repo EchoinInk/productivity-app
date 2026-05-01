@@ -30,7 +30,7 @@ const RecipesPage = () => {
                 title="No recipes yet"
                 description="Start by adding your first recipe"
                 action={
-                  <Button onClick={() => setOpen(true)}>
+                  <Button onClick={() => setOpen(true)} aria-label="Add recipe">
                     Add Recipe
                   </Button>
                 }
@@ -47,6 +47,7 @@ const RecipesPage = () => {
                     type="button"
                     onClick={() => applyRecipe(recipe)}
                     className="w-full text-left rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:opacity-80 transition"
+                    aria-label={`Use recipe: ${recipe.name}`}
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
@@ -74,7 +75,7 @@ const RecipesPage = () => {
 
         {/* Only show when recipes exist */}
         {recipes.length > 0 && (
-          <Button fullWidth onClick={() => setOpen(true)}>
+          <Button fullWidth onClick={() => setOpen(true)} aria-label="Add new recipe">
             <Plus size={16} /> Add Recipe
           </Button>
         )}

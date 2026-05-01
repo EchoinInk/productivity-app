@@ -136,6 +136,7 @@ const TasksHeroCard = ({
                     type="button"
                     onClick={onAddTask}
                     className="text-white text-xs opacity-90 hover:opacity-100 transition-opacity"
+                    aria-label="Add your first task"
                   >
                     Add Task
                   </button>
@@ -154,6 +155,7 @@ const TasksHeroCard = ({
                 type="button"
                 onClick={onAddTask}
                 className="flex-1 py-2 px-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-white text-sm font-medium"
+                aria-label="Add new task"
               >
                 Add Task
               </button>
@@ -163,6 +165,7 @@ const TasksHeroCard = ({
                 type="button"
                 onClick={onViewAll}
                 className="flex-1 py-2 px-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-white text-sm font-medium"
+                aria-label="View all tasks"
               >
                 View All
               </button>

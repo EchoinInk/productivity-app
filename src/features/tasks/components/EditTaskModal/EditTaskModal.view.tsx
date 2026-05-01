@@ -112,7 +112,7 @@ export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) 
           <option value="monthly">Monthly</option>
         </SelectField>
         <FormActions onCancel={onClose} disabled={!canSave} />
-        <Button variant="recall" fullWidth onClick={onDelete}>
+        <Button variant="recall" fullWidth onClick={onDelete} aria-label="Delete this task">
           Delete Task
         </Button>
       </ModalForm>

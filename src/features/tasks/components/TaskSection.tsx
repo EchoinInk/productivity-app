@@ -44,6 +44,7 @@ export const TaskSection = ({
             <button
               type="button"
               aria-expanded={isOpen}
+              aria-label={`Toggle ${section.title.toLowerCase()} section`}
               onClick={() => onToggleSection(section.type)}
               className="flex items-center justify-between w-full py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
             >

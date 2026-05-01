@@ -58,7 +58,7 @@ const ShoppingListPage = () => {
         </Card>
 
         <div className="space-y-4">
-          <Button fullWidth onClick={() => setOpen(true)}>
+          <Button fullWidth onClick={() => setOpen(true)} aria-label="Add shopping item">
             <Plus size={16} /> Add Item
           </Button>
         </div>

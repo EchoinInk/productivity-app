@@ -121,6 +121,7 @@ export const TodayHeroCardView = ({
                   navigate("/tasks");
                 }
               }}
+              aria-label={total === 0 ? "Add your first task" : "Add a task"}
               className="
                 mt-3
                 px-4 py-2
