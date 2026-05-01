@@ -108,7 +108,7 @@ describe("Task Completion Logic", () => {
     it("should handle all completed tasks", () => {
       const allCompletedTasks = mockTasks.map(task => ({
         ...task,
-        completedDates: ["2026-04-21"],
+        completed: true,
       }));
       
       const stats = getTaskCompletionStats(allCompletedTasks, "2026-04-21");
@@ -121,7 +121,7 @@ describe("Task Completion Logic", () => {
     it("should handle no completed tasks", () => {
       const noCompletedTasks = mockTasks.map(task => ({
         ...task,
-        completedDates: [],
+        completed: false,
       }));
       
       const stats = getTaskCompletionStats(noCompletedTasks, "2026-04-21");
@@ -137,6 +137,7 @@ describe("Task Completion Logic", () => {
         label: `Task ${i}`,
         date: "2026-04-21",
         completed: i % 2 === 0,
+        completedDate: i % 2 === 0 ? "2026-04-21" : undefined,
       }));
       
       const stats = getTaskCompletionStats(largeTaskList, "2026-04-21");

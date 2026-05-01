@@ -109,19 +109,20 @@ export const useTasksStore = create<TasksState>()(
        */
       migrate: (persisted) => {
         const s = (persisted as any) ?? {};
+        const todayDate = getToday();
 
         return {
-          ...s,
-          tasks: (s.tasks ?? []).map((t: any) => ({
-            id: t.id,
-            label: t.label,
-            date: t.date,
-            completed: t.completedDates?.includes(getToday()) ?? t.completed ?? false,
-            time: t.time,
-            category: t.category,
-            notes: t.notes,
-            recurrence: t.recurrence,
-          })),
+          tasks: s.tasks.map((task: Task) => {
+            if ('completedDates' in task) {
+              // Old format: Task had completedDates array
+              return {
+                ...task,
+                completed: (task as any).completedDates.includes(todayDate),
+                completedDates: undefined, // Remove old field
+              };
+            }
+            return task;
+          }),
         } as TasksState;
       },
     }

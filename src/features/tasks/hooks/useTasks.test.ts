@@ -21,40 +21,23 @@ vi.mock("@/features/tasks/api", () => ({
   getCategorySummaries: vi.fn(() => []),
   getTaskCompletionStats: vi.fn(),
   getTaskProgress: vi.fn(),
-  isTaskCompleted: vi.fn((task: Task, date: string) => task.completedDates.includes(date)),
+  isTaskCompleted: vi.fn((task: Task, date: string) => task.completed),
 }));
 
 const mockTasksStore = vi.mocked(useTasksStore);
 
 describe("useTasks", () => {
-  const mockTasks: Task[] = [
-    {
-      id: "1",
-      label: "Task 1",
-      date: "2026-04-21",
-      completedDates: [],
-      createdAt: "2026-04-21T00:00:00.000Z",
-    },
-    {
-      id: "2",
-      label: "Task 2",
-      date: "2026-04-21",
-      completedDates: ["2026-04-21"],
-      createdAt: "2026-04-21T00:00:00.000Z",
-    },
-    {
-      id: "3",
-      label: "Task 3",
-      date: "2026-04-22",
-      completedDates: [],
-      createdAt: "2026-04-21T00:00:00.000Z",
-    },
+  const tasks: Task[] = [
+    { id: "1", label: "Today", date: "2026-04-21", completed: false, time: "09:00" },
+    { id: "2", label: "Done", date: "2026-04-21", completed: true, time: "08:00" },
+    { id: "3", label: "Upcoming", date: "2026-04-22", completed: false },
+    { id: "4", label: "Yesterday", date: "2026-04-20", completed: false },
   ];
 
   beforeEach(() => {
     vi.clearAllMocks();
     mockTasksStore.mockReturnValue({
-      tasks: [...mockTasks],
+      tasks,
       addTask: vi.fn(),
       toggleTask: vi.fn(),
       updateTask: vi.fn(),
@@ -111,8 +94,7 @@ describe("useTasks", () => {
       id: `task-${i}`,
       label: `Task ${i}`,
       date: "2026-04-21",
-      completedDates: i % 2 === 0 ? ["2026-04-21"] : [],
-      createdAt: "2026-04-21T00:00:00.000Z",
+      completed: i % 2 === 0,
     }));
 
     mockTasksStore.mockReturnValue({
@@ -146,6 +128,10 @@ describe("useTasks", () => {
     const newTask: CreateTaskInput = {
       label: "New Task",
       date: "2026-04-21",
+      time: "10:00",
+      category: "Personal",
+      recurrence: "Daily",
+      notes: "Test notes",
     };
     
     result.current.actions.addTask(newTask);
@@ -156,7 +142,7 @@ describe("useTasks", () => {
   it("should call toggleTask when toggling a task", () => {
     const mockToggleTask = vi.fn();
     mockTasksStore.mockReturnValue({
-      tasks: [...mockTasks],
+      tasks,
       addTask: vi.fn(),
       toggleTask: mockToggleTask,
       updateTask: vi.fn(),
