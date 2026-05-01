@@ -13,19 +13,19 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 const variantClass: Record<CardVariant, string> = {
   default:
-    "bg-white/70 backdrop-blur-md border border-white/50 shadow-[0_6px_20px_rgba(0,0,0,0.06)]",
+    "bg-white/70 backdrop-blur-md border border-border/40 shadow-soft",
 
   hero:
-    "bg-gradient-hero text-white shadow-[0_10px_30px_rgba(0,0,0,0.12)]",
+    "bg-gradient-hero text-primary-foreground shadow-pop",
 
   data:
-    "bg-white/60 backdrop-blur-md border border-white/40 shadow-[0_6px_20px_rgba(0,0,0,0.06)]",
+    "bg-white/60 backdrop-blur-md border border-border/40 shadow-soft",
 
   budget:
-    "bg-gradient-budget text-primary-foreground shadow-[0_8px_24px_rgba(0,0,0,0.08)]",
+    "bg-gradient-budget text-primary-foreground shadow-elevated",
 
   alert:
-    "bg-card border border-destructive/30 text-destructive shadow-[0_6px_18px_rgba(0,0,0,0.08)]",
+    "bg-card border border-destructive/30 text-destructive shadow-soft",
 
   subtle:
     "bg-transparent",
@@ -46,12 +46,8 @@ const CardBase = ({
   return (
     <div
       className={clsx(
-        // 🔥 refined interaction (feels native)
         "transition-transform duration-150 ease-out active:scale-[0.98]",
-
-        // optional hover only on non-touch devices
-        "hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]",
-
+        "hover:shadow-pop",
         variantClass[variant],
         sizeClass[size],
         className,
