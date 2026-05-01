@@ -80,6 +80,9 @@ export default {
         elevated: "var(--shadow-elevated)",
         glass: "var(--shadow-glass)",
         surface: "var(--shadow-surface)",
+        soft: "var(--shadow-soft)",
+        pop: "var(--shadow-pop)",
+        cta: "var(--shadow-cta)",
       },
       borderRadius: {
         lg: "var(--radius)",
