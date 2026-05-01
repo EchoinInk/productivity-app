@@ -1,4 +1,7 @@
-import { CheckSquare, Utensils, DollarSign, ShoppingCart } from "lucide-react";
+import taskillustration from "@/assets/tasksquickactions.webp";
+import mealillustration from "@/assets/mealquickactions.webp";
+import budgetillustration from "@/assets/budgetquickactions.webp";
+import shoppingillustration from "@/assets/shoppingquickactions.webp";import { QuickActionsBarView, type QuickActionsBarViewModel } from "./QuickActionsBar.view";
 import { TodaySummaryView } from "./TodaySummary.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useMemo } from "react";
@@ -44,28 +47,28 @@ export const TodaySummaryContainer = () => {
         title: "Tasks",
         value: getTasksValue(),
         subtitle: getTasksSubtitle(),
-        icon: <CheckSquare size={20} />,
+        icon: <img src={taskillustration} alt="" width={20} height={20} className="object-contain" />,
         variant: (today.summary.tasks.completed === today.summary.tasks.total ? "success" : "default") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Meals",
         value: getMealsValue(),
         subtitle: "logged today",
-        icon: <Utensils size={20} />,
+        icon: <img src={mealillustration} alt="" width={20} height={20} className="object-contain" />,
         variant: (today.summary.meals.logged >= today.summary.meals.target ? "success" : "default") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Budget",
         value: getBudgetValue(),
         subtitle: getBudgetSubtitle(),
-        icon: <DollarSign size={20} />,
+        icon: <img src={budgetillustration} alt="" width={20} height={20} className="object-contain" />,
         variant: (today.summary.budget.remaining > 0 ? "success" : "warning") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Shopping",
         value: today.summary.shopping.remaining.toString(),
         subtitle: "items left",
-        icon: <ShoppingCart size={20} />,
+        icon: <img src={shoppingillustration} alt="" width={20} height={20} className="object-contain" />,
         variant: (today.summary.shopping.remaining === 0 ? "success" : "default") as "success" | "default" | "warning" | "primary"
       }
     ];
