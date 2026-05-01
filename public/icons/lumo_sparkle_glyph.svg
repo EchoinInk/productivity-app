@@ -1,0 +1,30 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Large central star -->
+  <path d="M256 80 
+           C270 180, 332 242, 432 256
+           C332 270, 270 332, 256 432
+           C242 332, 180 270, 80 256
+           C180 242, 242 180, 256 80 Z"
+        fill="white" filter="url(#glow)"/>
+
+  <!-- Smaller star (upper right) -->
+  <path d="M360 140
+           C366 190, 402 226, 452 232
+           C402 238, 366 274, 360 324
+           C354 274, 318 238, 268 232
+           C318 226, 354 190, 360 140 Z"
+        fill="white" filter="url(#glow)"/>
+
+  <!-- Tiny sparkle (lower left) -->
+  <circle cx="150" cy="350" r="14" fill="white" filter="url(#glow)"/>
+</svg>
