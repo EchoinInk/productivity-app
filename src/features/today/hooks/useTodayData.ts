@@ -212,8 +212,8 @@ export const useTodayData = (): TodayData => {
     remainingBudget,
     incompleteShoppingItems,
     todayWeekday,
-    expenses,
     weeklyBudget,
+    expenses,
     events,
   ]);
 };

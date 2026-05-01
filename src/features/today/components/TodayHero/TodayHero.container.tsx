@@ -3,7 +3,7 @@ import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useStreaksStore } from "@/features/insights/useStreaksStore";
 import { getSmartMotivation, getSmartSubtext, type SmartMessagingData } from "@/features/insights/smartMessaging.utils";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 
 interface TodayHeroContainerProps {
   onAddTask?: () => void;
@@ -13,6 +13,9 @@ export const TodayHeroContainer = ({ onAddTask }: TodayHeroContainerProps) => {
   const today = useTodayData();
   const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
   const streaks = useStreaksStore((state) => state.streaks);
+
+  // Memoize onAddTask to prevent infinite re-renders
+  const stableOnAddTask = useCallback(() => onAddTask?.(), [onAddTask]);
 
   const viewModel = useMemo(() => {
     const remaining = today.summary.tasks.total - today.summary.tasks.completed;
@@ -39,10 +42,10 @@ export const TodayHeroContainer = ({ onAddTask }: TodayHeroContainerProps) => {
       progressText: smartSubtext,
       motivation: smartMotivation,
       status: today.focus.percentage >= 75 ? "on track" : today.focus.percentage >= 50 ? "behind" : "behind",
-      onAddTask,
+      onAddTask: stableOnAddTask,
       isLoading: false,
     } as TodayHeroViewModel;
-  }, [today, weeklyBudget, streaks, onAddTask]);
+  }, [today, weeklyBudget, streaks, stableOnAddTask]);
 
   return <TodayHeroView model={viewModel} />;
 };
