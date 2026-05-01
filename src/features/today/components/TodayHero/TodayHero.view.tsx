@@ -135,8 +135,7 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          loading="eager"
-          fetchPriority="high"
+          loading="lazy"
           decoding="async"
           width={95}
           height={95}
