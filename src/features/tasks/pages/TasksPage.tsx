@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 
 import Header from "@/components/layout/Header";
 import { Body } from "@/components/ui/Text";
@@ -134,58 +134,45 @@ const TasksPage = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* FAB */}
-        <motion.button
-          onClick={() => setOpen(true)}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Add new task"
-          className="
-            fixed bottom-24 right-4
-            w-14 h-14
-            rounded-full
-            bg-gradient-hero
-            text-white
-            flex items-center justify-center
-            shadow-[0_10px_30px_rgba(0,0,0,0.15)]
-          "
-        >
-          <Plus size={22} />
-        </motion.button>
+        <AddTaskModal
+          open={open}
+          onClose={() => setOpen(false)}
+          defaultDate={tab === "Today" ? today : ""}
+          onSave={(taskInput) => {
+            console.log("ADD TASK", taskInput);
+            console.log("STORE TASKS", useTasksStore.getState().tasks);
+            addTask(taskInput);
+            setOpen(false);
+          }}
+        />
+
+        <EditTaskModal
+          open={editOpen}
+          task={selectedTask}
+          onClose={() => setEditOpen(false)}
+          onSave={(updated: Task) => {
+            if (!selectedTask) return;
+
+            updateTask(updated.id, {
+              label: updated.label,
+              date: updated.date,
+              time: updated.time,
+              category: updated.category,
+              notes: updated.notes,
+              recurrence: updated.recurrence,
+            });
+
+            setEditOpen(false);
+          }}
+          onDelete={() => {
+            if (!selectedTask) return;
+
+            deleteTask(selectedTask.id);
+            setSelectedTask(null);
+            setEditOpen(false);
+          }}
+        />
       </div>
-
-      <AddTaskModal
-        open={open}
-        onClose={() => setOpen(false)}
-        defaultDate={tab === "Today" ? today : ""}
-        onSave={addTask}
-      />
-
-      <EditTaskModal
-        open={editOpen}
-        task={selectedTask}
-        onClose={() => setEditOpen(false)}
-        onSave={(updated: Task) => {
-          if (!selectedTask) return;
-
-          updateTask(updated.id, {
-            label: updated.label,
-            date: updated.date,
-            time: updated.time,
-            category: updated.category,
-            notes: updated.notes,
-            recurrence: updated.recurrence,
-          });
-
-          setEditOpen(false);
-        }}
-        onDelete={() => {
-          if (!selectedTask) return;
-
-          deleteTask(selectedTask.id);
-          setSelectedTask(null);
-          setEditOpen(false);
-        }}
-      />
     </>
   );
 };
