@@ -1,6 +1,5 @@
 // src/features/today/components/TodayQuickActionsGrid.tsx
 
-import { useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Body, Heading, Meta } from "@/components/ui/Text";
 import { Card } from "@/components/ui/Card";

@@ -112,7 +112,7 @@ const TodayPage = () => {
       <AddMealModal
         open={mealOpen}
         onClose={() => setMealOpen(false)}
-        onSave={(meal) => {
+        onSave={() => {
           // Add meal logic would go here
           setMealOpen(false);
         }}

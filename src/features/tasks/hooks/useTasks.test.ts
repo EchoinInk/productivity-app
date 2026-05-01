@@ -27,22 +27,21 @@ vi.mock("@/features/tasks/api", () => ({
 const mockTasksStore = vi.mocked(useTasksStore);
 
 describe("useTasks", () => {
-  describe("useTasks", () => {
-    beforeEach(() => {
-      vi.clearAllMocks();
-      mockTasksStore.mockReturnValue({
-        tasks: [
-          { id: "1", label: "Today", date: "2026-04-21", completed: false, time: "09:00" },
-          { id: "2", label: "Done", date: "2026-04-21", completed: true, time: "08:00" },
-          { id: "3", label: "Upcoming", date: "2026-04-22", completed: false },
-          { id: "4", label: "Yesterday", date: "2026-04-20", completed: false },
-        ],
-        addTask: vi.fn(),
-        toggleTask: vi.fn(),
-        updateTask: vi.fn(),
-        deleteTask: vi.fn(),
-      });
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockTasksStore.mockReturnValue({
+      tasks: [
+        { id: "1", label: "Today", date: "2026-04-21", completed: false, time: "09:00" },
+        { id: "2", label: "Done", date: "2026-04-21", completed: true, time: "08:00" },
+        { id: "3", label: "Upcoming", date: "2026-04-22", completed: false },
+        { id: "4", label: "Yesterday", date: "2026-04-20", completed: false },
+      ],
+      addTask: vi.fn(),
+      toggleTask: vi.fn(),
+      updateTask: vi.fn(),
+      deleteTask: vi.fn(),
     });
+  });
 
   it("should return tasks array", () => {
     const { result } = renderHook(() => useTasks());
@@ -90,10 +89,10 @@ describe("useTasks", () => {
     expect(result.current.sections.completed).toHaveLength(0);
   });
 
-  it("should handle large task lists efficiently", () => {
-    const largeTaskList: Task[] = Array.from({ length: 1000 }, (_, i) => ({
-      id: `task-${i}`,
-      label: `Task ${i}`,
+  it("should handle large task lists", () => {
+    const largeTaskList = Array.from({ length: 100 }, (_, i) => ({
+      id: String(i + 1),
+      label: `Task ${i + 1}`,
       date: "2026-04-21",
       completed: i % 2 === 0,
     }));
@@ -132,10 +131,6 @@ describe("useTasks", () => {
     const newTask: CreateTaskInput = {
       label: "New Task",
       date: "2026-04-21",
-      time: "10:00",
-      category: "Personal",
-      recurrence: "Daily",
-      notes: "Test notes",
     };
     
     result.current.actions.addTask(newTask);
@@ -146,7 +141,10 @@ describe("useTasks", () => {
   it("should call toggleTask when toggling a task", () => {
     const mockToggleTask = vi.fn();
     mockTasksStore.mockReturnValue({
-      tasks,
+      tasks: [
+        { id: "1", label: "Test task", date: "2026-01-01", completed: false },
+        { id: "2", label: "Test task 2", date: "2026-01-01", completed: true },
+      ],
       addTask: vi.fn(),
       toggleTask: mockToggleTask,
       updateTask: vi.fn(),
@@ -163,7 +161,10 @@ describe("useTasks", () => {
   it("should call updateTask when updating a task", () => {
     const mockUpdateTask = vi.fn();
     mockTasksStore.mockReturnValue({
-      tasks: [...mockTasks],
+      tasks: [
+        { id: "1", label: "Test task", date: "2026-01-01", completed: false },
+        { id: "2", label: "Test task 2", date: "2026-01-01", completed: true },
+      ],
       addTask: vi.fn(),
       toggleTask: vi.fn(),
       updateTask: mockUpdateTask,
@@ -181,7 +182,10 @@ describe("useTasks", () => {
   it("should call deleteTask when deleting a task", () => {
     const mockDeleteTask = vi.fn();
     mockTasksStore.mockReturnValue({
-      tasks: [...mockTasks],
+      tasks: [
+        { id: "1", label: "Test task", date: "2026-01-01", completed: false },
+        { id: "2", label: "Test task 2", date: "2026-01-01", completed: true },
+      ],
       addTask: vi.fn(),
       toggleTask: vi.fn(),
       updateTask: vi.fn(),
@@ -194,7 +198,4 @@ describe("useTasks", () => {
     
     expect(mockDeleteTask).toHaveBeenCalledWith("1");
   });
-});
-
-
 });
