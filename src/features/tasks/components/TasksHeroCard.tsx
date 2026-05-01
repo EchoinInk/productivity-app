@@ -44,18 +44,20 @@ const TasksHeroCard = ({
   );
 
   const { progressText, motivation } = useMemo(() => {
-    const remaining = Math.max(0, total - completed);
-    return {
-      progressText:
-        total === 0 ? "No tasks today" : `${completed} of ${total} completed`,
-      motivation:
-        remaining === 0
-          ? "All done! 🎉"
-          : remaining === 1
-          ? "One more to go!"
-          : `${remaining} remaining`,
-    };
-  }, [total, completed]);
+  const remaining = Math.max(0, total - completed);
+
+  return {
+    progressText:
+      total === 0 ? "No tasks today" : `${completed} of ${total} completed`,
+
+    motivation:
+      remaining === 0
+        ? "All done! 🎉"
+        : remaining === 1
+        ? "1 task left"
+        : `${remaining} tasks left`,
+  };
+}, [total, completed]);
 
   return (
     <Card variant="hero" className="relative overflow-hidden">
