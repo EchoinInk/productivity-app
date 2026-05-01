@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { TaskRowUI } from "@/features/tasks/components/ui/TaskRowUI";
-import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
+import type { Task } from "@/features/tasks/types/types";
 
 type Props = {
-  task: TaskRowVM;
+  task: Task;
   onToggleTask: (id: string) => void;
   onSelectTask: (id: string) => void;
 };
@@ -13,10 +13,11 @@ export const TaskRow = memo(
     return (
       <TaskRowUI
         id={task.id}
-        title={task.title}
-        subtitle={task.subtitle}
-        isCompleted={task.isCompleted}
+        title={task.label}
+        subtitle={task.date}
+        isCompleted={task.completed}
         category={task.category}
+        time={task.time}
         onToggleTask={() => onToggleTask(task.id)}
         onSelectTask={() => onSelectTask(task.id)}
       />

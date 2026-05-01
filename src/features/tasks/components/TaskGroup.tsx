@@ -2,11 +2,11 @@ import { memo } from "react";
 
 import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { TaskGroupUI } from "@/features/tasks/components/ui/TaskGroupUI";
-import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
+import type { Task } from "@/features/tasks/types/types";
 
 type TaskGroupProps = {
   title: string;
-  tasks: TaskRowVM[];
+  tasks: Task[];
   onToggleTask: (id: string) => void;
   onSelectTask: (id: string) => void;
 };
@@ -17,9 +17,13 @@ export const TaskGroup = memo(
       {tasks.map((task) => (
         <TaskRow
           key={task.id}
-          task={task}
-          onToggleTask={onToggleTask}
-          onSelectTask={onSelectTask}
+          title={task.label}
+          subtitle={task.date}
+          isCompleted={task.completed}
+          category={task.category}
+          time={task.time}
+          onToggleTask={() => onToggleTask(task.id)}
+          onSelectTask={() => onSelectTask(task.id)}
         />
       ))}
     </TaskGroupUI>

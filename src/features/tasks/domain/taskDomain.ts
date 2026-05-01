@@ -11,13 +11,13 @@ import { categoryMetadata } from "@/features/tasks/constants/categories";
 
 export const isTaskCompleted = (
   task: Task,
-  date: DateKey
+  _date: DateKey
 ): boolean => {
-  return task.completedDates.includes(date);
+  return task.completed;
 };
 
-export const isTaskOverdue = (task: Task, date: DateKey): boolean => {
-  return isDateBefore(task.date, date) && !isTaskCompleted(task, date);
+export const isTaskOverdue = (task: Task, _date: DateKey): boolean => {
+  return isDateBefore(task.date, _date) && !task.completed;
 };
 
 export type TaskDateKey = DateKey;
@@ -50,13 +50,10 @@ export const toggleTaskCompletion = (
   task: Task,
   date: DateKey
 ): Task => {
-  const exists = isTaskCompleted(task, date);
-
+  // Toggle completion status
   return {
     ...task,
-    completedDates: exists
-      ? task.completedDates.filter((d) => d !== date)
-      : [...task.completedDates, date],
+    completed: !task.completed,
   };
 };
 

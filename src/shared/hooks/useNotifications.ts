@@ -30,7 +30,7 @@ export const useNotifications = () => {
     const todayDate = getToday();
     const todayTasks = tasks.filter((task) => task.date === todayDate);
     const incompleteTasks = todayTasks.filter(
-      (task) => !task.completedDates.includes(todayDate)
+      (task) => !task.completed
     );
 
     // Notify about incomplete tasks
@@ -77,7 +77,7 @@ export const useNotifications = () => {
       const todayDate = getToday();
       const todayTasks = tasks.filter((task) => task.date === todayDate);
       const incompleteTasks = todayTasks.filter(
-        (task) => !task.completedDates.includes(todayDate)
+        (task) => !task.completed
       );
 
       if (incompleteTasks.length > 0) {

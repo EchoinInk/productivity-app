@@ -23,10 +23,10 @@ export const useEditTaskForm = ({
     if (!open || !task) return;
     setLabel(task.label);
     setNotes(task.notes ?? "");
-    setCategory(task.category ?? "");
+    setCategory(task.category as TaskCategory | "");
     setDate(task.date);
     setTime(task.time ?? "");
-    setRecurrence(task.recurrence ?? "");
+    setRecurrence(task.recurrence as TaskRecurrence | "");
   }, [open, task]);
 
   const canSave = label.trim().length > 0;

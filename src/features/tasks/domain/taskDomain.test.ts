@@ -14,53 +14,49 @@ describe("Task Completion Logic", () => {
       id: "1",
       label: "Completed Task",
       date: "2026-04-21",
-      completedDates: ["2026-04-21"],
-      createdAt: "2026-04-21T00:00:00.000Z",
+      completed: true,
     },
     {
       id: "2",
       label: "Incomplete Task",
       date: "2026-04-21",
-      completedDates: [],
-      createdAt: "2026-04-21T00:00:00.000Z",
+      completed: false,
     },
     {
       id: "3",
       label: "Future Task",
       date: "2026-04-22",
-      completedDates: [],
-      createdAt: "2026-04-21T00:00:00.000Z",
+      completed: false,
     },
     {
       id: "4",
       label: "Past Task",
       date: "2026-04-20",
-      completedDates: [],
-      createdAt: "2026-04-20T00:00:00.000Z",
+      completed: false,
     },
     {
       id: "5",
       label: "Multi-completion Task",
       date: "2026-04-21",
-      completedDates: ["2026-04-20", "2026-04-21"],
-      createdAt: "2026-04-19T00:00:00.000Z",
+      completed: true,
     },
   ];
 
   describe("isTaskCompleted", () => {
     it("should return true for completed tasks", () => {
-      expect(isTaskCompleted(mockTasks[0]!, "2026-04-21")).toBe(true);
-      expect(isTaskCompleted(mockTasks[4]!, "2026-04-21")).toBe(true);
-      expect(isTaskCompleted(mockTasks[4]!, "2026-04-20")).toBe(true);
+      expect(isTaskCompleted(mockTasks[0]!)).toBe(true);
+      expect(isTaskCompleted(mockTasks[4]!)).toBe(true);
+      expect(isTaskCompleted(mockTasks[4]!)).toBe(true);
     });
 
     it("should return false for incomplete tasks", () => {
-      expect(isTaskCompleted(mockTasks[1]!, "2026-04-21")).toBe(false);
-      expect(isTaskCompleted(mockTasks[2]!, "2026-04-21")).toBe(false);
+      expect(isTaskCompleted(mockTasks[1]!)).toBe(false);
+      expect(isTaskCompleted(mockTasks[2]!)).toBe(false);
     });
 
-    it("should return false for tasks completed on different dates", () => {
-      expect(isTaskCompleted(mockTasks[4]!, "2026-04-19")).toBe(false);
+    it("should return false for completed tasks", () => {
+      expect(isTaskCompleted(mockTasks[0]!)).toBe(false);
+      expect(isTaskCompleted(mockTasks[2]!)).toBe(false);
     });
 
     it("should handle edge cases", () => {
@@ -71,7 +67,7 @@ describe("Task Completion Logic", () => {
 
   describe("isTaskOverdue", () => {
     it("should return true for overdue tasks", () => {
-      expect(isTaskOverdue(mockTasks[3]!, "2026-04-21")).toBe(true);
+      expect(isTaskOverdue(mockTasks[3]!)).toBe(true);
     });
 
     it("should return false for completed tasks", () => {
@@ -140,8 +136,7 @@ describe("Task Completion Logic", () => {
         id: `task-${i}`,
         label: `Task ${i}`,
         date: "2026-04-21",
-        completedDates: i % 2 === 0 ? ["2026-04-21"] : [],
-        createdAt: "2026-04-21T00:00:00.000Z",
+        completed: i % 2 === 0,
       }));
       
       const stats = getTaskCompletionStats(largeTaskList, "2026-04-21");
@@ -175,22 +170,19 @@ describe("Task Completion Logic", () => {
           id: "1",
           label: "Task 1",
           date: "2026-04-21",
-          completedDates: ["2026-04-21"],
-          createdAt: "2026-04-21T00:00:00.000Z",
+          completed: true,
         },
         {
           id: "2",
           label: "Task 2",
           date: "2026-04-21",
-          completedDates: [],
-          createdAt: "2026-04-21T00:00:00.000Z",
+          completed: false,
         },
         {
           id: "3",
           label: "Task 3",
           date: "2026-04-21",
-          completedDates: [],
-          createdAt: "2026-04-21T00:00:00.000Z",
+          completed: false,
         },
       ];
       
@@ -205,9 +197,8 @@ describe("Task Completion Logic", () => {
         id: "1",
         label: "Task with time",
         date: "2026-04-21",
-        completedDates: [],
+        completed: false,
         time: "09:00",
-        createdAt: "2026-04-21T00:00:00.000Z",
       };
       
       const subtitle = buildTaskSubtitle(taskWithTime);
@@ -219,8 +210,7 @@ describe("Task Completion Logic", () => {
         id: "1",
         label: "Task without time",
         date: "2026-04-21",
-        completedDates: [],
-        createdAt: "2026-04-21T00:00:00.000Z",
+        completed: false,
       };
       
       const subtitle = buildTaskSubtitle(taskWithoutTime);
@@ -232,9 +222,8 @@ describe("Task Completion Logic", () => {
         id: "1",
         label: "Task with empty time",
         date: "2026-04-21",
-        completedDates: [],
+        completed: false,
         time: "",
-        createdAt: "2026-04-21T00:00:00.000Z",
       };
       
       const subtitle = buildTaskSubtitle(taskWithEmptyTime);
