@@ -26,31 +26,13 @@ export type TaskRecurrence = "none" | "weekly" | "monthly";
 
 export interface Task {
   id: EntityId;
-
   label: string;
-
-  /**
-   * Primary scheduled date
-   */
-  date: DateKey;
-
-  /**
-   * Optional enhancements
-   */
+  date: string;
   time?: string;
-  category?: TaskCategory;
-  recurrence?: TaskRecurrence;
+  completed: boolean;
+  category?: string;
   notes?: string;
-
-  /**
-   * Completion tracking per day
-   */
-  completedDates: DateKey[];
-
-  /**
-   * ISO string (Date.toISOString())
-   */
-  createdAt: string;
+  recurrence?: string;
 }
 
 /**
@@ -61,12 +43,11 @@ export interface Task {
 
 export interface CreateTaskInput {
   label: string;
-  date: DateKey;
-
+  date?: string;
   time?: string;
-  recurrence?: TaskRecurrence;
-  category?: TaskCategory;
+  category?: string;
   notes?: string;
+  recurrence?: string;
 }
 
 /**

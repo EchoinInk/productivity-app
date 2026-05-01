@@ -1,14 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { createId } from "@/shared/lib/id";
-import { getToday, type DateKey } from "@/shared/lib/date";
+import { getToday } from "@/shared/lib/date";
 import {
   createNamespacedStorage,
   STORE_VERSION,
 } from "@/store/sharedPersist";
 
-import { toggleTaskCompletion } from "@/features/tasks/api";
 import { useActivityStore } from "@/features/activity/useActivityStore";
 import { createActivityEvent } from "@/features/activity/activity.utils";
 
@@ -25,16 +23,16 @@ export const useTasksStore = create<TasksState>()(
       tasks: [],
 
       /**
-       * TOGGLE TASK (per date)
+       * TOGGLE TASK
        */
-      toggleTask: (id: EntityId, date: DateKey) =>
+      toggleTask: (id: EntityId) =>
         set((state) => {
           const task = state.tasks.find((t) => t.id === id);
-          const isCompleting = task && !task.completedDates.includes(date);
+          const isCompleting = task && !task.completed;
           
           const updatedTasks = state.tasks.map((t) =>
             t.id === id
-              ? toggleTaskCompletion(t, date)
+              ? { ...t, completed: !t.completed }
               : t
           );
 
@@ -55,19 +53,14 @@ export const useTasksStore = create<TasksState>()(
        */
       addTask: (input: CreateTaskInput) =>
         set((state) => {
+          console.log("ADD TASK", input);
+          console.log("STORE STATE", state.tasks);
+          
           const newTask: Task = {
-            id: createId(),
-
-            label: input.label,
+            id: crypto.randomUUID(),
+            completed: false,
             date: input.date ?? getToday(),
-
-            time: input.time,
-            recurrence: input.recurrence ?? "none",
-            category: input.category,
-            notes: input.notes,
-
-            completedDates: [],
-            createdAt: new Date().toISOString(),
+            ...input,
           };
 
           // Track activity
@@ -76,7 +69,7 @@ export const useTasksStore = create<TasksState>()(
           );
 
           return {
-            tasks: [newTask, ...state.tasks],
+            tasks: [...state.tasks, newTask],
           };
         }),
 
@@ -115,15 +108,19 @@ export const useTasksStore = create<TasksState>()(
        * MIGRATION (safe)
        */
       migrate: (persisted) => {
-        const s = (persisted as Partial<TasksState>) ?? {};
+        const s = (persisted as any) ?? {};
 
         return {
           ...s,
-          tasks: (s.tasks ?? []).map((t) => ({
-            ...t,
-            completedDates: t.completedDates ?? [],
-            createdAt:
-              t.createdAt ?? new Date().toISOString(),
+          tasks: (s.tasks ?? []).map((t: any) => ({
+            id: t.id,
+            label: t.label,
+            date: t.date,
+            completed: t.completedDates?.includes(getToday()) ?? t.completed ?? false,
+            time: t.time,
+            category: t.category,
+            notes: t.notes,
+            recurrence: t.recurrence,
           })),
         } as TasksState;
       },

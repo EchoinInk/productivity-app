@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 
 import Header from "@/components/layout/Header";
 import { Body } from "@/components/ui/Text";
@@ -8,6 +7,7 @@ import { ListItemCard } from "@/components/ui/ListItemCard";
 import { AddTaskModal, EditTaskModal } from "@/features/tasks";
 import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getToday } from "@/shared/lib/date";
 
 import type { Task } from "@/features/tasks/types/types";
@@ -15,6 +15,7 @@ import type { Task } from "@/features/tasks/types/types";
 const TasksPage = () => {
   const { sections, actions } = useTasks();
   const { addTask, updateTask, deleteTask, toggleTask } = actions;
+  const rawTasks = useTasksStore((state) => state.tasks);
 
   const [tab, setTab] = useState<"Today" | "Upcoming" | "Completed">("Today");
   const [open, setOpen] = useState(false);
@@ -22,22 +23,26 @@ const TasksPage = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   const handleSelectTask = (id: string) => {
-    const section = sections.find((s) => s.type === tab.toLowerCase() as any);
-    const task = section?.tasks.find((t) => t.id === id);
-    if (!task) return;
-    const originalTask = sections.flatMap(s => s.tasks).find(t => t.id === id);
+    const originalTask = rawTasks.find(t => t.id === id);
     if (!originalTask) return;
-    setSelectedTask({
-      id: originalTask.id,
-      label: originalTask.title,
-      date: originalTask.subtitle,
-      category: originalTask.category,
-    } as Task);
+    setSelectedTask(originalTask);
     setEditOpen(true);
   };
 
-  const activeSection = sections.find((s) => s.type === tab.toLowerCase() as any);
-  const tasks = activeSection?.tasks ?? [];
+  const getTasksForTab = () => {
+    switch (tab) {
+      case "Today":
+        return sections.today;
+      case "Upcoming":
+        return sections.upcoming;
+      case "Completed":
+        return sections.completed;
+      default:
+        return [];
+    }
+  };
+
+  const tasks = getTasksForTab();
   const highPriorityTasks = tasks.slice(0, 3);
   const otherTasks = tasks.slice(3);
 
@@ -101,7 +106,7 @@ const TasksPage = () => {
                       >
                         <TaskRow
                           task={task}
-                          onToggleTask={(id) => toggleTask(id, today)}
+                          onToggleTask={(id) => toggleTask(id)}
                           onSelectTask={handleSelectTask}
                         />
                       </ListItemCard>
@@ -122,7 +127,7 @@ const TasksPage = () => {
                       >
                         <TaskRow
                           task={task}
-                          onToggleTask={(id) => toggleTask(id, today)}
+                          onToggleTask={(id) => toggleTask(id)}
                           onSelectTask={handleSelectTask}
                         />
                       </ListItemCard>
@@ -139,8 +144,6 @@ const TasksPage = () => {
           onClose={() => setOpen(false)}
           defaultDate={tab === "Today" ? today : ""}
           onSave={(taskInput) => {
-            console.log("ADD TASK", taskInput);
-            console.log("STORE TASKS", useTasksStore.getState().tasks);
             addTask(taskInput);
             setOpen(false);
           }}

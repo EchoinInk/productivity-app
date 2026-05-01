@@ -1,4 +1,3 @@
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
 import { ActivityListView } from "./ActivityList.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
@@ -6,51 +5,20 @@ import { useMemo } from "react";
 
 export const ActivityListContainer = ({ onAddTask }: { onAddTask?: () => void } = {}) => {
   const today = useTodayData();
-  const tasks = useTasksStore((state) => state.tasks);
   const shoppingItems = useShoppingStore((state) => state.shoppingItems);
 
   // Convert activity data to ActivityItem format
   const activities = useMemo(() => today.activity.map((item) => {
-    // Get additional details for specific activity types
-    if (item.type === "task_completed") {
-      const task = tasks.find(t => item.id.includes(t.id));
-      return {
-        id: item.id,
-        type: item.type,
-        title: item.label,
-        subtitle: task?.category || "Task",
-        timestamp: "Today",
-      };
-    }
-    
-    if (item.type === "meal_logged") {
-      return {
-        id: item.id,
-        type: item.type,
-        title: item.label,
-        subtitle: "Today",
-        timestamp: "Today",
-      };
-    }
-    
-    if (item.type === "expense_added") {
-      return {
-        id: item.id,
-        type: item.type,
-        title: item.label,
-        subtitle: "Expense",
-        timestamp: "Today",
-      };
-    }
-    
     return {
       id: item.id,
       type: item.type,
       title: item.label,
-      subtitle: "Activity",
+      subtitle: item.type === "task_completed" ? "Task" : 
+               item.type === "meal_logged" ? "Meal" : 
+               item.type === "expense_added" ? "Expense" : "Activity",
       timestamp: "Today",
     };
-  }), [today.activity, tasks]);
+  }), [today.activity]);
 
   // Add completed shopping items
   const shoppingActivities = useMemo(() => {

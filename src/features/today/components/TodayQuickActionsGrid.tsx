@@ -19,6 +19,16 @@ interface CardProps {
   ariaLabel: string;
 }
 
+interface Props {
+  tasks: number;
+  meals: number;
+  remaining: number;
+  shopping: number;
+  onAddTask?: () => void;
+  onAddMeal?: () => void;
+  onAddExpense?: () => void;
+}
+
 const SummaryCard = ({
   title,
   value,
@@ -80,9 +90,10 @@ const TodayQuickActionsGrid = ({
   meals,
   remaining,
   shopping,
+  onAddTask,
+  onAddMeal,
+  onAddExpense,
 }: Props) => {
-  const navigate = useNavigate();
-
   return (
     <div className="grid grid-cols-2 gap-4 mt-4">
       <SummaryCard
@@ -96,14 +107,14 @@ const TodayQuickActionsGrid = ({
             srcSet={`${taskillustration} 1x`}
             sizes="(max-width: 768px) 42px, 42px"
             alt=""
-            width={42}
-            height={42}
+            width={40}
+            height={40}
             loading="lazy"
             decoding="async"
             className="object-contain"
           />
         }
-        onClick={() => navigate("/tasks")}
+        onClick={onAddTask || (() => {})}
       />
 
       <SummaryCard
@@ -117,14 +128,14 @@ const TodayQuickActionsGrid = ({
             srcSet={`${mealillustration} 1x`}
             sizes="(max-width: 768px) 42px, 42px"
             alt=""
-            width={42}
-            height={42}
+            width={40}
+            height={40}
             loading="lazy"
             decoding="async"
             className="object-contain"
           />
         }
-        onClick={() => navigate("/meals")}
+        onClick={onAddMeal || (() => {})}
       />
 
       <SummaryCard
@@ -138,14 +149,14 @@ const TodayQuickActionsGrid = ({
             srcSet={`${budgetillustration} 1x`}
             sizes="(max-width: 768px) 42px, 42px"
             alt=""
-            width={42}
-            height={42}
+            width={40}
+            height={40}
             loading="lazy"
             decoding="async"
             className="object-contain"
           />
         }
-        onClick={() => navigate("/budget")}
+        onClick={onAddExpense || (() => {})}
       />
 
       <SummaryCard
@@ -159,14 +170,14 @@ const TodayQuickActionsGrid = ({
             srcSet={`${shoppingillustration} 1x`}
             sizes="(max-width: 768px) 42px, 42px"
             alt=""
-            width={42}
-            height={42}
+            width={40}
+            height={40}
             loading="lazy"
             decoding="async"
             className="object-contain"
           />
         }
-        onClick={() => navigate("/shopping")}
+        onClick={() => {}}
       />
     </div>
   );

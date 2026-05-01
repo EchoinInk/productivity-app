@@ -43,6 +43,8 @@ export const useTodayData = (): TodayData => {
   const events = useActivityStore((state) => state.events);
   const updateStreak = useStreaksStore((state) => state.updateStreak);
 
+  console.log("TODAY DATA DEBUG", { tasks: tasks.length, meals: meals.length, events: events.length });
+
   const todayDate = getToday();
 
   // Lightweight computations for initial render
@@ -52,7 +54,7 @@ export const useTodayData = (): TodayData => {
   );
   
   const completedTasks = useMemo(() => 
-    todayTasks.filter((task) => task.completedDates.includes(todayDate)), 
+    todayTasks.filter((task) => task.completed), 
     [todayTasks, todayDate]
   );
   
@@ -163,10 +165,17 @@ export const useTodayData = (): TodayData => {
     };
 
     // // === UP NEXT ===
+    console.log("UP NEXT DEBUG", { 
+      todayTasks: todayTasks.length, 
+      completedTasks: completedTasks.length,
+      nextTask: todayTasks.find(t => !t.completed),
+      mealsLogged: todayMeals.length 
+    });
+
     const upNext: TodayData["upNext"] = [
       // Today's tasks, sorted by time if available
       ...todayTasks
-        .filter(task => !task.completedDates.includes(todayDate))
+        .filter(task => !task.completed)
         .sort((a, b) => {
           if (a.time && b.time) return a.time.localeCompare(b.time);
           if (a.time) return -1;
@@ -181,7 +190,7 @@ export const useTodayData = (): TodayData => {
           time: task.time,
         })),
       
-      // Next meal (simplified - just show today's meals if not all logged)
+      // Next meal (simplified - just show today's meals if not All logged)
       ...(todayMeals.length < 3 ? [{
         id: `meal-${todayWeekday}`,
         type: "meal" as const,

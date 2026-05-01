@@ -12,6 +12,7 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { getToday } from "@/shared/lib/date";
+import { AddMealModal } from "@/features/meals";
 
 const greetingFor = (d: Date): string => {
   const h = d.getHours();
@@ -27,6 +28,7 @@ const TodayPage = () => {
   
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
+  const [mealOpen, setMealOpen] = useState(false);
   const [selectedDate] = useState(new Date());
 
   const today = useTodayData();
@@ -82,6 +84,9 @@ const TodayPage = () => {
               meals={today.summary.meals.logged}
               shopping={today.summary.shopping.remaining}
               remaining={today.summary.budget.remaining}
+              onAddTask={() => setTaskOpen(true)}
+              onAddMeal={() => setMealOpen(true)}
+              onAddExpense={() => setExpenseOpen(true)}
             />
           </div>
 
@@ -103,6 +108,15 @@ const TodayPage = () => {
         onClose={() => setTaskOpen(false)}
         defaultDate={selectedDateString}
         onSave={addTask}
+      />
+
+      <AddMealModal
+        open={mealOpen}
+        onClose={() => setMealOpen(false)}
+        onSave={(meal) => {
+          // Add meal logic would go here
+          setMealOpen(false);
+        }}
       />
 
       <AddExpense

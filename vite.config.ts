@@ -2,46 +2,66 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import * as path from "path";
 import { componentTagger } from "lovable-tagger";
+import { VitePWA } from "vite-plugin-pwa";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [
+    react(),
+    mode === "development" && componentTagger(),
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["favicon.ico"],
+      manifest: true,
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"]
+      }
+    })
+  ].filter(Boolean),
+
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(__dirname, "./src")
     },
-    dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime", "@tanstack/react-query", "@tanstack/query-core"],
+    dedupe: [
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "@tanstack/react-query",
+      "@tanstack/query-core"
+    ]
   },
+
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['lucide-react'],
+          vendor: ["react", "react-dom"],
+          ui: ["lucide-react"]
         },
-        // Add content hashing for better caching
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]',
-      },
+        entryFileNames: "assets/[name].[hash].js",
+        chunkFileNames: "assets/[name].[hash].js",
+        assetFileNames: "assets/[name].[hash].[ext]"
+      }
     },
-    assetsInline: mode === 'production',
-    minify: 'terser',
-    sourcemap: mode === 'development',
-    // Optimize chunk size and loading
+    assetsInline: mode === "production",
+    minify: "terser",
+    sourcemap: mode === "development",
     chunkSizeWarningLimit: 1000,
-    // Enable CSS code splitting
-    cssCodeSplit: true,
+    cssCodeSplit: true
   },
-  // Configure headers for production
+
   server: {
     host: "::",
     port: 8080,
     hmr: {
-      overlay: false,
+      overlay: false
     },
-    headers: mode === 'production' ? {
-      'Cache-Control': 'public, max-age=31536000, immutable',
-    } : {},
-  },
+    headers:
+      mode === "production"
+        ? {
+            "Cache-Control": "public, max-age=31536000, immutable"
+          }
+        : {}
+  }
 }));
