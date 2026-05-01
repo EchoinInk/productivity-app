@@ -1,13 +1,11 @@
 // src/features/today/components/TodayQuickActionsGrid.tsx
 
-import { ChevronRight } from "lucide-react";
 import { Body, Heading, Meta } from "@/components/ui/Text";
 import { Card } from "@/components/ui/Card";
 
 import taskillustration from "@/assets/tasksquickactions.webp";
 import mealillustration from "@/assets/mealquickactions.webp";
 import budgetillustration from "@/assets/budgetquickactions.webp";
-import shoppingillustration from "@/assets/shoppingquickactions.webp";
 
 interface CardProps {
   title: string;
@@ -22,7 +20,6 @@ interface Props {
   tasks: number;
   meals: number;
   remaining: number;
-  shopping: number;
   onAddTask?: () => void;
   onAddMeal?: () => void;
   onAddExpense?: () => void;
@@ -41,7 +38,7 @@ const SummaryCard = ({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className="relative w-full text-left active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out"
+      className="relative w-full text-left active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out min-h-14"
     >
       <Card
         variant="glass"
@@ -61,40 +58,26 @@ const SummaryCard = ({
             </Meta>
           </div>
 
-          {/* Right: icon */}
+          {/* Right: icon - no background, larger size */}
           <div className="shrink-0 opacity-80">
             {icon}
           </div>
         </div>
-
-        {/* Chevron */}
-        <ChevronRight
-          size={14}
-          className="absolute bottom-3 right-3 text-muted-foreground/70"
-        />
       </Card>
     </button>
   );
 };
 
-interface Props {
-  tasks: number;
-  meals: number;
-  remaining: number;
-  shopping: number;
-}
-
 const TodayQuickActionsGrid = ({
   tasks,
   meals,
   remaining,
-  shopping,
   onAddTask,
   onAddMeal,
   onAddExpense,
 }: Props) => {
   return (
-    <div className="grid grid-cols-2 gap-4 mt-4">
+    <div className="grid grid-cols-2 gap-4">
       <SummaryCard
         title="Tasks"
         value={tasks}
@@ -104,10 +87,10 @@ const TodayQuickActionsGrid = ({
           <img
             src={taskillustration}
             srcSet={`${taskillustration} 1x`}
-            sizes="(max-width: 768px) 42px, 42px"
+            sizes="(max-width: 768px) 48px, 48px"
             alt=""
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             loading="lazy"
             decoding="async"
             className="object-contain"
@@ -125,10 +108,10 @@ const TodayQuickActionsGrid = ({
           <img
             src={mealillustration}
             srcSet={`${mealillustration} 1x`}
-            sizes="(max-width: 768px) 42px, 42px"
+            sizes="(max-width: 768px) 48px, 48px"
             alt=""
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             loading="lazy"
             decoding="async"
             className="object-contain"
@@ -146,37 +129,16 @@ const TodayQuickActionsGrid = ({
           <img
             src={budgetillustration}
             srcSet={`${budgetillustration} 1x`}
-            sizes="(max-width: 768px) 42px, 42px"
+            sizes="(max-width: 768px) 48px, 48px"
             alt=""
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             loading="lazy"
             decoding="async"
             className="object-contain"
           />
         }
         onClick={onAddExpense || (() => {})}
-      />
-
-      <SummaryCard
-        title="Shopping"
-        value={shopping}
-        subtitle="Items"
-        ariaLabel={`Shopping: ${shopping} items`}
-        icon={
-          <img
-            src={shoppingillustration}
-            srcSet={`${shoppingillustration} 1x`}
-            sizes="(max-width: 768px) 42px, 42px"
-            alt=""
-            width={40}
-            height={40}
-            loading="lazy"
-            decoding="async"
-            className="object-contain"
-          />
-        }
-        onClick={() => {}}
       />
     </div>
   );
