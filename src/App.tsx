@@ -7,21 +7,24 @@ import ShoppingListPage from "@/features/shopping/pages/ShoppingListPage";
 import RecipesPage from "@/features/recipes/pages/RecipesPage";
 import AppShell from "@/app/layout/AppShell";
 import NotFound from "@/app/pages/NotFound";
+import { StoreProvider } from "@/app/providers/StoreProvider";
 
 const App = () => (
-  <BrowserRouter>
-    <AppShell>
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/tasks" element={<TasksPage />} />
-        <Route path="/budget" element={<BudgetPage />} />
-        <Route path="/meals" element={<MealPlannerPage />} />
-        <Route path="/shopping" element={<ShoppingListPage />} />
-        <Route path="/recipes" element={<RecipesPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AppShell>
-  </BrowserRouter>
+  <StoreProvider>
+    <BrowserRouter>
+      <AppShell>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/budget" element={<BudgetPage />} />
+          <Route path="/meals" element={<MealPlannerPage />} />
+          <Route path="/shopping" element={<ShoppingListPage />} />
+          <Route path="/recipes" element={<RecipesPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AppShell>
+    </BrowserRouter>
+  </StoreProvider>
 );
 
 export default App;

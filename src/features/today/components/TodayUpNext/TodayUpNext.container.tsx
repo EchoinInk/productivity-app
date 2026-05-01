@@ -2,6 +2,7 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { getToday } from "@/shared/lib/date";
 import { TodayUpNextView, type TodayUpNextViewModel, type UpNextItem } from "./TodayUpNext.view";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
+import { useMemo } from "react";
 
 export const TodayUpNextContainer = () => {
   const today = useTodayData();
@@ -9,7 +10,7 @@ export const TodayUpNextContainer = () => {
   const todayDate = getToday();
 
   // Convert upNext data to UpNextItem format
-  const items: UpNextItem[] = today.upNext.map((item) => {
+  const items = useMemo(() => today.upNext.map((item) => {
     if (item.type === "task") {
       return {
         id: item.id,
@@ -28,12 +29,12 @@ export const TodayUpNextContainer = () => {
       time: item.time,
       completed: false
     };
-  });
+  }), [today.upNext, toggleTask, todayDate]);
 
-  const viewModel: TodayUpNextViewModel = {
+  const viewModel = useMemo(() => ({
     items,
     hasItems: items.length > 0
-  };
+  }), [items]);
 
   return <TodayUpNextView model={viewModel} />;
 };
