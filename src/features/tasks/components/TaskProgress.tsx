@@ -11,7 +11,18 @@ import { useTasks } from "@/features/tasks/hooks/useTasks";
 export const TaskProgress = () => {
   const { progress } = useTasks();
 
-  if (progress.total === 0) return null;
+  if (progress.total === 0) {
+    return (
+      <Surface className="space-y-2">
+        <div className="flex items-center justify-between">
+          <Heading>Today Progress</Heading>
+          <Meta>No tasks</Meta>
+        </div>
+        <ProgressBar value={0} ariaLabel="No tasks progress" />
+        <Meta>Enjoy your free day! 🎉</Meta>
+      </Surface>
+    );
+  }
 
   return (
     <Surface className="space-y-2">

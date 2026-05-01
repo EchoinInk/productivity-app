@@ -10,7 +10,16 @@ import { useTasks } from "@/features/tasks/hooks/useTasks";
 export const TaskInsights = () => {
   const { insights } = useTasks();
 
-  if (!insights.hasInsights) return null;
+  if (!insights.hasInsights) {
+    return (
+      <Surface className="space-y-2">
+        <HeroTitle>Today Overview</HeroTitle>
+        <Label className="text-muted-foreground">
+          Start adding tasks to see insights here
+        </Label>
+      </Surface>
+    );
+  }
 
   return (
     <Surface className="space-y-2">

@@ -45,7 +45,19 @@ export const InsightsCardView = ({ model }: { model: InsightsCardViewModel }) =>
   const { insights } = model;
 
   if (insights.length === 0) {
-    return null;
+    return (
+      <Card className="p-4">
+        <div className="space-y-3">
+          <Text className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <Lightbulb size={16} className="text-yellow-600" />
+            Insights
+          </Text>
+          <Text className="text-xs text-muted-foreground">
+            Start using the app to see personalized insights here
+          </Text>
+        </div>
+      </Card>
+    );
   }
 
   return (

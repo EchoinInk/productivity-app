@@ -45,7 +45,7 @@ export const useTodayData = (): TodayData => {
 
   const todayDate = getToday();
 
-  // Memoize expensive filtering operations separately
+  // Lightweight computations for initial render
   const todayTasks = useMemo(() => 
     tasks.filter((task) => task.date === todayDate), 
     [tasks, todayDate]

@@ -13,7 +13,13 @@ interface CategoryListProps {
 }
 
 export const CategoryList = ({ categories }: CategoryListProps) => {
-  if (categories.length === 0) return null;
+  if (categories.length === 0) {
+    return (
+      <div className="text-center py-4 text-muted-foreground text-sm">
+        No categories yet
+      </div>
+    );
+  }
 
   return (
     <ul className="space-y-2">

@@ -26,6 +26,7 @@ const HomeScreen = () => {
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [selectedDate] = useState(new Date());
 
+  // Optimize greeting computation - move outside of render path
   const greeting = useMemo(() => greetingFor(selectedDate), [selectedDate]);
 
   const handleAddTask = () => setTaskOpen(true);
