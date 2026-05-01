@@ -1,5 +1,7 @@
-import { CheckSquare, Utensils, DollarSign, ShoppingCart } from "lucide-react";
-import { QuickActionsBarView, type QuickActionsBarViewModel } from "./QuickActionsBar.view";
+import taskillustration from "@/assets/tasksquickactions.webp";
+import mealillustration from "@/assets/mealquickactions.webp";
+import budgetillustration from "@/assets/budgetquickactions.webp";
+import shoppingillustration from "@/assets/shoppingquickactions.webp";import { QuickActionsBarView, type QuickActionsBarViewModel } from "./QuickActionsBar.view";
 
 interface QuickActionsBarContainerProps {
   onAddTask: () => void;
@@ -12,14 +14,14 @@ export const QuickActionsBarContainer = ({ onAddTask, onAddExpense }: QuickActio
       {
         id: "add-task",
         title: "Add Task",
-        icon: <CheckSquare size={20} />,
+        icon: <img src={taskillustration} alt="" width={20} height={20} className="object-contain" />,
         onPress: onAddTask,
         variant: "primary"
       },
       {
         id: "log-meal",
         title: "Log Meal",
-        icon: <Utensils size={20} />,
+        icon: <img src={mealillustration} alt="" width={20} height={20} className="object-contain" />,
         onPress: () => {
           // TODO: Open meal modal - hook into existing meal modal logic
         },
@@ -28,14 +30,14 @@ export const QuickActionsBarContainer = ({ onAddTask, onAddExpense }: QuickActio
       {
         id: "add-expense",
         title: "Add Expense",
-        icon: <DollarSign size={20} />,
+        icon: <img src={budgetillustration} alt="" width={20} height={20} className="object-contain" />,
         onPress: onAddExpense,
         variant: "default"
       },
       {
         id: "add-shopping",
         title: "Add Item",
-        icon: <ShoppingCart size={20} />,
+        icon: <img src={shoppingillustration} alt="" width={20} height={20} className="object-contain" />,
         onPress: () => {
           // TODO: Open shopping modal - hook into existing shopping modal logic
         },
