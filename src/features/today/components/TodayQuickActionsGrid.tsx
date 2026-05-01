@@ -96,7 +96,8 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
-            loading="lazy"
+            loading="eager"
+            fetchPriority="high"
             className="object-contain"
           />
         }
@@ -114,7 +115,8 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
-            loading="lazy"
+            loading="eager"
+            fetchPriority="high"
             className="object-contain"
           />
         }
@@ -132,7 +134,8 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
-            loading="lazy"
+            loading="eager"
+            fetchPriority="high"
             className="object-contain"
           />
         }
@@ -150,7 +153,8 @@ const TodayQuickActionsGrid = ({
             alt=""
             width={42}
             height={42}
-            loading="lazy"
+            loading="eager"
+            fetchPriority="high"
             className="object-contain"
           />
         }

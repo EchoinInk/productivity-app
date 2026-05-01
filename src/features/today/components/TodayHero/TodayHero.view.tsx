@@ -121,7 +121,10 @@ export const TodayHeroView = ({ model }: { model: TodayHeroViewModel }) => {
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          loading="lazy"
+          loading="eager"
+          fetchPriority="high"
+          width={80}
+          height={80}
           className="
             hidden sm:block
             w-[80px] h-[80px]

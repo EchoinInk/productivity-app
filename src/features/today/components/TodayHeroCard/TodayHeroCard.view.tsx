@@ -168,7 +168,10 @@ export const TodayHeroCardView = ({
           src={clipboardIllustration}
           alt=""
           aria-hidden
-          loading="lazy"
+          loading="eager"
+          fetchPriority="high"
+          width={84}
+          height={84}
           className="
             hidden sm:block
             w-[84px] h-[84px]
