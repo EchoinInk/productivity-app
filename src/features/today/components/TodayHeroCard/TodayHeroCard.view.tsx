@@ -112,8 +112,12 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
             </button>
           ) : (
             <span className="mt-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium">
-              {remaining === 0 ? "All done 🎉" : `${remaining} tasks left`}
-            </span>
+  {remaining === 0
+    ? "All done 🎉"
+    : remaining === 1
+    ? "1 task left"
+    : `${remaining} tasks left`}
+</span>
           )}
         </div>
 
