@@ -12,7 +12,7 @@ export const TodaySummaryContainer = () => {
   const cards = useMemo(() => {
     const getTasksValue = () => {
       const { completed, total } = today.summary.tasks;
-      if (total === 0) return "No tasks today 🎉";
+      if (total === 0) return "No tasks";
       return `${completed}/${total}`;
     };
 
@@ -25,8 +25,8 @@ export const TodaySummaryContainer = () => {
 
     const getMealsValue = () => {
       const { logged, target } = today.summary.meals;
-      if (logged === 0) return "No meals logged";
-      if (logged === target) return "All meals logged";
+      if (logged === 0) return "No meals";
+      if (logged === target) return "All meals";
       return `${logged}/${target}`;
     };
 
@@ -47,28 +47,48 @@ export const TodaySummaryContainer = () => {
         title: "Tasks",
         value: getTasksValue(),
         subtitle: getTasksSubtitle(),
-        icon: <img src={taskillustration} alt="" width={20} height={20} className="object-contain" />,
+        icon: <img
+
+  src={taskillustration}
+
+  alt=""
+
+  className="w-full h-full object-contain"
+
+/>,
         variant: (today.summary.tasks.completed === today.summary.tasks.total ? "success" : "default") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Meals",
         value: getMealsValue(),
-        subtitle: "logged today",
-        icon: <img src={mealillustration} alt="" width={20} height={20} className="object-contain" />,
+        subtitle: "planned today",
+        icon: <img
+  src={mealillustration}
+  alt=""
+  className="w-full h-full object-contain"
+/>,
         variant: (today.summary.meals.logged >= today.summary.meals.target ? "success" : "default") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Budget",
         value: getBudgetValue(),
         subtitle: getBudgetSubtitle(),
-        icon: <img src={budgetillustration} alt="" width={20} height={20} className="object-contain" />,
+        icon: <img
+  src={budgetillustration}
+  alt=""
+  className="w-full h-full object-contain"
+/>,
         variant: (today.summary.budget.remaining > 0 ? "success" : "warning") as "success" | "default" | "warning" | "primary"
       },
       {
         title: "Shopping",
         value: today.summary.shopping.remaining.toString(),
         subtitle: "items left",
-        icon: <img src={shoppingillustration} alt="" width={20} height={20} className="object-contain" />,
+        icon: <img
+  src={shoppingillustration}
+  alt=""
+  className="w-full h-full object-contain"
+/>,
         variant: (today.summary.shopping.remaining === 0 ? "success" : "default") as "success" | "default" | "warning" | "primary"
       }
     ];
