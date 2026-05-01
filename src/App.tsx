@@ -4,9 +4,9 @@ import AppShell from "@/app/layout/AppShell";
 import NotFound from "@/app/pages/NotFound";
 import { StoreProvider } from "@/app/providers/StoreProvider";
 import LoadingState from "@/components/ui/LoadingState";
+import HomeScreen from "@/screens/HomeScreen"; // Eager load for LCP optimization
 
-// Lazy load all screens for code splitting
-const HomeScreen = lazy(() => import("@/screens/HomeScreen"));
+// Lazy load other screens for code splitting
 const TasksPage = lazy(() => import("@/features/tasks/pages/TasksPage"));
 const BudgetPage = lazy(() => import("@/features/budget/pages/BudgetPage"));
 const MealPlannerPage = lazy(() => import("@/features/meals/pages/MealPlannerPage"));
