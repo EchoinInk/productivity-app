@@ -4,19 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "@/components/layout/Header";
 import { Body } from "@/components/ui/Text";
-import { Card } from "@/components/ui/Card";
+import { ListItemCard } from "@/components/ui/ListItemCard";
 import { AddTaskModal, EditTaskModal } from "@/features/tasks";
 import { TaskRow } from "@/features/tasks/components/TaskRow";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { getToday } from "@/shared/lib/date";
 
 import type { Task } from "@/features/tasks/types/types";
-
-const spring = {
-  type: "spring" as const,
-  stiffness: 300,
-  damping: 25,
-};
 
 const TasksPage = () => {
   const { sections, actions } = useTasks();
@@ -100,20 +94,16 @@ const TasksPage = () => {
                     </Body>
 
                     {highPriorityTasks.map((task) => (
-                      <motion.div
+                      <ListItemCard
                         key={task.id}
-                        layout
-                        whileTap={{ scale: 0.98 }}
-                        transition={spring}
+                        variant="solid"
                       >
-                        <Card variant="solid" className="px-4 py-3">
-                          <TaskRow
-                            task={task}
-                            onToggleTask={(id) => toggleTask(id, today)}
-                            onSelectTask={handleSelectTask}
-                          />
-                        </Card>
-                      </motion.div>
+                        <TaskRow
+                          task={task}
+                          onToggleTask={(id) => toggleTask(id, today)}
+                          onSelectTask={handleSelectTask}
+                        />
+                      </ListItemCard>
                     ))}
                   </div>
                 )}
@@ -125,20 +115,16 @@ const TasksPage = () => {
                     </Body>
 
                     {otherTasks.map((task) => (
-                      <motion.div
+                      <ListItemCard
                         key={task.id}
-                        layout
-                        whileTap={{ scale: 0.98 }}
-                        transition={spring}
+                        variant="solid"
                       >
-                        <Card variant="solid" className="px-4 py-3">
-                          <TaskRow
-                            task={task}
-                            onToggleTask={(id) => toggleTask(id, today)}
-                            onSelectTask={handleSelectTask}
-                          />
-                        </Card>
-                      </motion.div>
+                        <TaskRow
+                          task={task}
+                          onToggleTask={(id) => toggleTask(id, today)}
+                          onSelectTask={handleSelectTask}
+                        />
+                      </ListItemCard>
                     ))}
                   </div>
                 )}

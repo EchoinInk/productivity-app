@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heading, Body, BodyMuted, CTA } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { Card } from "@/components/ui/Card";
+import { ListItemCard } from "@/components/ui/ListItemCard";
 import { getCategoryMetadata } from "@/features/tasks/api";
 import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
 import type { DateKey } from "@/shared/lib/date";
@@ -59,10 +59,10 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
             const meta = getCategoryMetadata(task.category ?? undefined);
 
             return (
-              <Card
+              <ListItemCard
                 key={task.id}
                 variant="glass"
-                className="flex items-center gap-3 px-4 py-3"
+                className="flex items-center gap-3"
               >
                 {/* Checkbox */}
                 <button
@@ -112,7 +112,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                     {task.category}
                   </span>
                 )}
-              </Card>
+              </ListItemCard>
             );
           })}
         </ul>
