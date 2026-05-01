@@ -96,7 +96,7 @@ const TodayQuickActionsGrid = ({
             className="object-contain"
           />
         }
-        onClick={onAddTask || (() => {})}
+                onClick={onAddTask || (() => {})}
       />
 
       <SummaryCard
