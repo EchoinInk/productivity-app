@@ -38,7 +38,7 @@ const SummaryCard = ({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className="relative w-full text-left active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-transform duration-150 ease-out min-h-14"
+      className="relative w-full text-left active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-200 ease-out min-h-14 hover:-translate-y-0.5"
     >
       <Card
         variant="glass"

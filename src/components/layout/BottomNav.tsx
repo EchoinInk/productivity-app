@@ -31,8 +31,8 @@ const BottomNav = () => (
         to={path}
         className={({ isActive }) =>
           clsx(
-            "flex flex-col items-center justify-center flex-1 gap-[2px] text-xs font-medium transition-all duration-200 active:scale-95",
-            isActive ? "text-primary" : "text-muted-foreground opacity-90"
+            "group flex flex-col items-center justify-center flex-1 gap-[2px] text-xs font-medium transition-all duration-300 ease-out active:scale-95 hover:opacity-100",
+            isActive ? "text-primary" : "text-muted-foreground opacity-90 hover:text-foreground"
           )
         }
       >
@@ -48,8 +48,8 @@ const BottomNav = () => (
               loading="lazy"
               decoding="async"
               className={clsx(
-                "w-7 h-7 transition-all duration-200",
-                isActive ? "opacity-100 scale-110" : "opacity-80"
+                "w-7 h-7 transition-all duration-300 ease-out",
+                isActive ? "opacity-100 scale-110" : "opacity-80 group-hover:scale-105"
               )}
             />
             <span className="leading-none">{label}</span>

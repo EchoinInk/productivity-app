@@ -34,8 +34,8 @@ const TabBar = <T extends string>({ tabs, activeTab, onTabChange }: TabBarProps<
           onKeyDown={(event) => handleKeyDown(event, index)}
           className={
             tab === activeTab
-              ? "h-11 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              : "h-11 rounded-xl bg-card/70 text-muted-foreground text-sm font-semibold border border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              ? "h-11 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all duration-300 ease-out hover:shadow-pop active:scale-[0.98]"
+              : "h-11 rounded-xl bg-card/70 text-muted-foreground text-sm font-semibold border border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all duration-300 ease-out hover:bg-card hover:border-primary/30 hover:text-foreground active:scale-[0.98]"
           }
         >
           {tab}

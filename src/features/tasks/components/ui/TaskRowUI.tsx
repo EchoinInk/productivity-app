@@ -72,7 +72,7 @@ export const TaskRowUI = memo((props: Props) => {
         flex items-center justify-center 
         bg-white/60 backdrop-blur-sm
         border border-white/40
-        transition-all hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+        transition-all duration-200 ease-out hover:bg-white/80 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
       "
       style={{ backgroundColor: categoryMeta.bg }}
       title={categoryMeta.bg ? "" : "Other"}

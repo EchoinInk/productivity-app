@@ -52,8 +52,9 @@ const CardBase = ({
   return (
     <div
       className={clsx(
-        "transition-transform duration-150 ease-out active:scale-[0.98]",
-        "hover:shadow-pop",
+        "transition-all duration-200 ease-out active:scale-[0.98]",
+        "hover:shadow-pop hover:-translate-y-0.5",
+        "animate-in fade-in duration-300",
         variantClass[variant],
         sizeClass[size],
         className,

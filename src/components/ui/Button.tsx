@@ -10,15 +10,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClass: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-primary-foreground",
+    "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-md",
   secondary:
-    "bg-transparent border border-border text-foreground",
+    "bg-transparent border border-border text-foreground hover:bg-muted/50 hover:border-primary/30",
   budget:
-    "bg-gradient-budget text-white",
+    "bg-gradient-budget text-white hover:brightness-105 hover:shadow-md",
   adjunct:
-    "bg-gradient-accent text-white",
+    "bg-gradient-accent text-white hover:brightness-105 hover:shadow-md",
   recall:
-    "bg-gradient-budget text-white drop-shadow-[0_1px_var(--space-2)_hsl(220_20%_10%/0.22)]",
+    "bg-gradient-budget text-white drop-shadow-[0_1px_var(--space-2)_hsl(220_20%_10%/0.22)] hover:brightness-105",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
