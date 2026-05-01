@@ -17,7 +17,10 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error("App rendering error", error, info);
+    // Log errors in development only
+    if (process.env.NODE_ENV === 'development') {
+      console.error("App rendering error", error, info);
+    }
   }
 
   render() {

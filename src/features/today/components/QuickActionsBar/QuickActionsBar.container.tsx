@@ -22,7 +22,6 @@ export const QuickActionsBarContainer = ({ onAddTask, onAddExpense }: QuickActio
         icon: <Utensils size={20} />,
         onPress: () => {
           // TODO: Open meal modal - hook into existing meal modal logic
-          console.log("Open meal modal");
         },
         variant: "default"
       },
@@ -39,7 +38,6 @@ export const QuickActionsBarContainer = ({ onAddTask, onAddExpense }: QuickActio
         icon: <ShoppingCart size={20} />,
         onPress: () => {
           // TODO: Open shopping modal - hook into existing shopping modal logic
-          console.log("Open shopping modal");
         },
         variant: "default"
       }
