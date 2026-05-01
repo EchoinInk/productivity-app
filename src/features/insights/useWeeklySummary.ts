@@ -52,7 +52,7 @@ export const useWeeklySummary = (): WeeklySummary => {
       // Tasks for this day
       const dayTasks = tasks.filter(task => task.date === date);
       const dayTasksCompleted = dayTasks.filter(task => 
-        task.completedDates.includes(date)
+        task.completed
       ).length;
       
       // Meals for this day

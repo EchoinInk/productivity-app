@@ -34,8 +34,8 @@ const TodayPage = () => {
   const today = useTodayData();
   const selectedDateString = getToday();
   const greeting = greetingFor(selectedDate);
-  const { sections } = useTasks(selectedDateString);
-  const todaySection = sections.find((s) => s.type === "today");
+  const { sections } = useTasks();
+  const todaySection = sections.today;
 
   return (
     <>
@@ -93,8 +93,7 @@ const TodayPage = () => {
           {/* UP NEXT */}
           <div className="animate-[fadeIn_0.85s_ease-out]">
             <UpNextList
-              tasks={todaySection?.tasks || []}
-              today={selectedDateString}
+              tasks={todaySection || []}
               onToggle={toggleTask}
             />
           </div>

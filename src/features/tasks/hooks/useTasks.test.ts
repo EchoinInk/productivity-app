@@ -21,29 +21,28 @@ vi.mock("@/features/tasks/api", () => ({
   getCategorySummaries: vi.fn(() => []),
   getTaskCompletionStats: vi.fn(),
   getTaskProgress: vi.fn(),
-  isTaskCompleted: vi.fn((task: Task, date: string) => task.completed),
+  isTaskCompleted: vi.fn((task: Task) => task.completed),
 }));
 
 const mockTasksStore = vi.mocked(useTasksStore);
 
 describe("useTasks", () => {
-  const tasks: Task[] = [
-    { id: "1", label: "Today", date: "2026-04-21", completed: false, time: "09:00" },
-    { id: "2", label: "Done", date: "2026-04-21", completed: true, time: "08:00" },
-    { id: "3", label: "Upcoming", date: "2026-04-22", completed: false },
-    { id: "4", label: "Yesterday", date: "2026-04-20", completed: false },
-  ];
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    mockTasksStore.mockReturnValue({
-      tasks,
-      addTask: vi.fn(),
-      toggleTask: vi.fn(),
-      updateTask: vi.fn(),
-      deleteTask: vi.fn(),
+  describe("useTasks", () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+      mockTasksStore.mockReturnValue({
+        tasks: [
+          { id: "1", label: "Today", date: "2026-04-21", completed: false, time: "09:00" },
+          { id: "2", label: "Done", date: "2026-04-21", completed: true, time: "08:00" },
+          { id: "3", label: "Upcoming", date: "2026-04-22", completed: false },
+          { id: "4", label: "Yesterday", date: "2026-04-20", completed: false },
+        ],
+        addTask: vi.fn(),
+        toggleTask: vi.fn(),
+        updateTask: vi.fn(),
+        deleteTask: vi.fn(),
+      });
     });
-  });
 
   it("should return tasks array", () => {
     const { result } = renderHook(() => useTasks());
@@ -118,7 +117,10 @@ describe("useTasks", () => {
   it("should call addTask when adding a task", () => {
     const mockAddTask = vi.fn();
     mockTasksStore.mockReturnValue({
-      tasks: [...mockTasks],
+      tasks: [
+        { id: "1", label: "Test task", date: "2026-01-01", completed: false },
+        { id: "2", label: "Test task 2", date: "2026-01-01", completed: true },
+      ],
       addTask: mockAddTask,
       toggleTask: vi.fn(),
       updateTask: vi.fn(),
@@ -192,4 +194,7 @@ describe("useTasks", () => {
     
     expect(mockDeleteTask).toHaveBeenCalledWith("1");
   });
+});
+
+
 });

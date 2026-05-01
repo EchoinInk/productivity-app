@@ -4,33 +4,31 @@ import { Heading, Body, BodyMuted, CTA } from "@/components/ui/Text";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ListItemCard } from "@/components/ui/ListItemCard";
 import { getCategoryMetadata } from "@/features/tasks/api";
-import type { TaskRowVM } from "@/features/tasks/hooks/useTasks";
-import type { DateKey } from "@/shared/lib/date";
+import type { Task } from "@/features/tasks/types/types";
 
 interface UpNextListProps {
-  tasks: TaskRowVM[];
-  today: DateKey;
-  onToggle: (id: string, date: DateKey) => void;
+  tasks: Task[];
+  onToggle: (id: string) => void;
 }
 
-export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
+export const UpNextList = ({ tasks, onToggle }: UpNextListProps) => {
   const navigate = useNavigate();
 
   const upNext = useMemo(() => {
-    const active = tasks.filter((t) => !t.isCompleted);
+    const active = tasks.filter((t) => !t.completed);
     return active
       .sort((a, b) => {
         if (a.time && b.time) return a.time.localeCompare(b.time);
         if (a.time) return -1;
         if (b.time) return 1;
-        return a.title.localeCompare(b.title);
+        return a.label.localeCompare(b.label);
       })
       .slice(0, 3);
   }, [tasks]);
 
   const handleToggle = useCallback((taskId: string) => {
-    onToggle(taskId, today);
-  }, [onToggle, today]);
+    onToggle(taskId);
+  }, [onToggle]);
 
   return (
     <section className="space-y-4 mt-8">
@@ -66,15 +64,15 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
               <ListItemCard
                 key={task.id}
                 variant="glass"
-                className={`flex items-center gap-3 transition-all duration-300 ${task.isCompleted ? 'opacity-60' : ''}`}
+                className={`flex items-center gap-3 transition-all duration-300 ${task.completed ? 'opacity-60' : ''}`}
               >
                 {/* Checkbox */}
                 <button
                   type="button"
                   onClick={() => handleToggle(task.id)}
-                  aria-label={`${task.isCompleted ? 'Mark' : 'Unmark'} ${task.title} as ${task.isCompleted ? 'incomplete' : 'completed'}`}
+                  aria-label={`${task.completed ? 'Mark' : 'Unmark'} ${task.label} as ${task.completed ? 'incomplete' : 'completed'}`}
                   role="checkbox"
-                  aria-checked={task.isCompleted}
+                  aria-checked={task.completed}
                   className={`
                     shrink-0
                     w-5 h-5
@@ -84,13 +82,13 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                     active:scale-90
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                     ${
-                      task.isCompleted
+                      task.completed
                         ? 'bg-primary border-primary'
                         : 'border-muted-foreground/40 hover:border-primary'
                     }
                   `}
                 >
-                  {task.isCompleted && (
+                  {task.completed && (
                     <svg
                       viewBox="0 0 12 12"
                       className="w-3 h-3 text-primary-foreground"
@@ -106,9 +104,9 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                   <Body 
                     weight="semibold" 
                     truncate 
-                    className={task.isCompleted ? "text-muted-foreground/70 line-through" : "text-muted-foreground"}
+                    className={task.completed ? "text-muted-foreground/70 line-through" : "text-muted-foreground"}
                   >
-                    {task.title}
+                    {task.label}
                   </Body>
 
                   {task.time && (
