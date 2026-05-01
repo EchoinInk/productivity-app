@@ -46,6 +46,7 @@ const BottomNav = () => (
               width={28}
               height={28}
               loading="lazy"
+              decoding="async"
               className={clsx(
                 "w-7 h-7 transition-all duration-200",
                 isActive ? "opacity-100 scale-110" : "opacity-80"
