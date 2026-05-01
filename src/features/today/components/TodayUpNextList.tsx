@@ -105,7 +105,7 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                   </Body>
 
                   {time && (
-                    <BodyMuted className="text-xs mt-0.5">
+                    <BodyMuted className="text-xs mt-1">
                       {time}
                     </BodyMuted>
                   )}
@@ -116,9 +116,9 @@ export const UpNextList = ({ tasks, today, onToggle }: UpNextListProps) => {
                   <span
                     className="
                       shrink-0
-                      px-2.5 py-1
+                      px-3 py-1
                       rounded-full
-                      text-[11px] font-medium
+                      text-xs font-medium
                       opacity-90
                     "
                     style={{

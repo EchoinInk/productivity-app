@@ -59,7 +59,7 @@ const Header = ({
             type="button"
             aria-label="Open menu"
             onClick={onMenuClick}
-            className={`p-2 -ml-2 text-foreground active:scale-95 transition mt-0.5 ${focusRing}`}
+            className={`p-2 -ml-2 text-foreground active:scale-95 transition mt-1 ${focusRing}`}
           >
             <Menu size={22} />
           </button>
@@ -75,13 +75,13 @@ const Header = ({
               hasNotifications ? "Notifications (unread)" : "Notifications"
             }
             onClick={onNotificationsClick}
-            className={`p-2 -mr-2 text-foreground active:scale-95 transition relative mt-0.5 ${focusRing}`}
+            className={`p-2 -mr-2 text-foreground active:scale-95 transition relative mt-1 ${focusRing}`}
           >
             <Bell size={22} />
             {hasNotifications && (
               <span
                 aria-hidden
-                className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"
+                className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"
               />
             )}
           </button>

@@ -54,7 +54,7 @@ const RecipesPage = () => {
                           {recipe.name}
                         </HeroTitle>
 
-                        <Meta className="mt-0.5">
+                        <Meta className="mt-1">
                           {recipe.ingredients.length} ingredient
                           {recipe.ingredients.length === 1 ? "" : "s"}
                           {recipe.category ? ` · ${recipe.category}` : ""}

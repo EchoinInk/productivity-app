@@ -42,7 +42,7 @@ export const size = {
   metricLabel: "text-sm",
   heading: "text-base",
   body: "text-[13px]",
-  bodyMuted: "text-[11px]",
+  bodyMuted: "text-xs",
   bodyStrong: "text-[13px]",
   cta: "text-sm",
   label: "text-xs",

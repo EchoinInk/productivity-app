@@ -63,7 +63,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
         </div>
 
         {/* Content */}
-        <div className="flex flex-col gap-1.5 flex-1 min-w-0">
+        <div className="flex flex-col gap-2 flex-1 min-w-0">
 
           <HeroTitle className="text-primary-foreground text-shadow-soft">
             Today's Tasks
@@ -94,7 +94,7 @@ export const TodayHeroCardView = ({ model }: { model: TodayHeroCardViewModel }) 
               }}
               className="
                 mt-2
-                px-3.5 py-1.5
+                px-4 py-2
                 rounded-full
                 bg-card/95
                 border border-border/30

@@ -46,7 +46,7 @@ export const TaskRowUI = memo((props: Props) => {
           {title}
         </Body>
         {subtitle && (
-          <BodyMuted className="text-xs mt-0.5">
+          <BodyMuted className="text-xs mt-1">
             {subtitle}
           </BodyMuted>
         )}

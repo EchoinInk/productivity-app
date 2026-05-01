@@ -31,7 +31,7 @@ const BottomNav = () => (
         to={path}
         className={({ isActive }) =>
           clsx(
-            "flex flex-col items-center justify-center flex-1 gap-[2px] text-[11px] font-medium transition-all duration-200 active:scale-95",
+            "flex flex-col items-center justify-center flex-1 gap-[2px] text-xs font-medium transition-all duration-200 active:scale-95",
             isActive ? "text-primary" : "text-muted-foreground opacity-70"
           )
         }
