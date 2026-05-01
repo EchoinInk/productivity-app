@@ -8,8 +8,7 @@ import { UpNextList } from "@/features/today/components/TodayUpNextList";
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksStore, selectTodayTasks } from "@/features/tasks/store/useTasksStore";
 import { useTodayData } from "@/features/today/hooks/useTodayData";
 import { getToday } from "@/shared/lib/date";
 import { AddMealModal } from "@/features/meals";
@@ -25,6 +24,7 @@ const TodayPage = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
   const addTask = useTasksStore((state) => state.addTask);
   const toggleTask = useTasksStore((state) => state.toggleTask);
+  const todaySection = useTasksStore(selectTodayTasks);
   
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
@@ -34,8 +34,6 @@ const TodayPage = () => {
   const today = useTodayData();
   const selectedDateString = getToday();
   const greeting = greetingFor(selectedDate);
-  const { sections } = useTasks();
-  const todaySection = sections.today;
 
   return (
     <>

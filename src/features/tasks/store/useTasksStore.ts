@@ -17,6 +17,21 @@ import type {
   TasksState,
 } from "@/features/tasks/types/types";
 
+// Selectors
+export const selectTodayTasks = (state: TasksState): Task[] => {
+  const today = getToday() || new Date().toISOString().split("T")[0]!;
+  return state.tasks.filter(task => task.date === today && !task.completed);
+};
+
+export const selectCompletedTasks = (state: TasksState): Task[] => {
+  return state.tasks.filter(task => task.completed);
+};
+
+export const selectUpcomingTasks = (state: TasksState): Task[] => {
+  const today = getToday() || new Date().toISOString().split("T")[0]!;
+  return state.tasks.filter(task => task.date > today);
+};
+
 export const useTasksStore = create<TasksState>()(
   persist(
     (set) => ({

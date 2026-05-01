@@ -2,15 +2,14 @@ import { Surface } from "@/components/ui/Surface";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Heading, Meta } from "@/components/ui/Text";
 
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksStore, selectTodayTasks } from "@/features/tasks/store/useTasksStore";
 
 /**
  * Today's progress card. Pure presentation — data
- * comes from the unified `useTasks` hook.
+ * comes from the selectTodayTasks selector.
  */
 export const TaskProgress = () => {
-  const { sections } = useTasks();
-  const todayTasks = sections.today;
+  const todayTasks = useTasksStore(selectTodayTasks);
   
   const total = todayTasks.length;
   const completed = todayTasks.filter(t => t.completed).length;

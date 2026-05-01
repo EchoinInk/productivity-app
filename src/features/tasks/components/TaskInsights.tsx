@@ -1,16 +1,14 @@
 import { Surface } from "@/components/ui/Surface";
 import { HeroTitle, Label } from "@/components/ui/Text";
 
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksStore, selectTodayTasks } from "@/features/tasks/store/useTasksStore";
 
 /**
  * Today insights card. Pure presentation — data comes
- * from the unified `useTasks` hook.
+ * from the selectTodayTasks selector.
  */
 export const TaskInsights = () => {
-  const { sections } = useTasks();
-
-  const todayTasks = sections.today;
+  const todayTasks = useTasksStore(selectTodayTasks);
   const hasInsights = todayTasks.length > 0;
 
   if (!hasInsights) {
