@@ -25,6 +25,13 @@ export default defineConfig(({ mode }) => ({
 
   build: {
     rollupOptions: {
+      // ⭐ ADD THIS ⭐
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        app: path.resolve(__dirname, "app/index.html")
+      },
+      // ⭐ END FIX ⭐
+
       output: {
         manualChunks: {
           vendor: ["react", "react-dom"],
