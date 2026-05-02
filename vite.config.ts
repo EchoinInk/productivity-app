@@ -25,12 +25,8 @@ export default defineConfig(({ mode }) => ({
 
   build: {
     rollupOptions: {
-      // ⭐ ADD THIS ⭐
-      input: {
-        main: path.resolve(__dirname, "index.html"),
-        app: path.resolve(__dirname, "app/index.html")
-      },
-      // ⭐ END FIX ⭐
+      // ❌ REMOVED the multi-page input block
+      // Vite will now use the root index.html stub automatically
 
       output: {
         manualChunks: {
