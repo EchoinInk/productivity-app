@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === "development";
 
   return {
-    base: "/app/",
+    base: "/",
 
     plugins: [
       react(),
@@ -22,8 +22,7 @@ export default defineConfig(({ mode }) => {
 
       rollupOptions: {
         input: {
-          main: path.resolve(__dirname, "index.html"),
-          app: path.resolve(__dirname, "app/index.html")
+          main: path.resolve(__dirname, "index.html")
         },
         output: {
           manualChunks: {
