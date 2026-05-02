@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lumo — Life Feels Lighter</title>
+  <title>Lumo — A tiny app for overwhelmed humans</title>
 
   <link rel="icon" type="image/png" href="/favicon_32.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -16,8 +16,10 @@
       font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
       background: #ffffff;
       color: #111;
+      line-height: 1.6;
     }
 
+    /* HERO SECTION */
     .hero {
       display: flex;
       align-items: center;
@@ -29,24 +31,24 @@
     }
 
     .hero-text {
-      max-width: 420px;
+      max-width: 480px;
     }
 
-    .hero-icon {
-      width: 64px;
-      height: 64px;
+    .hero-logo {
+      width: 72px;
+      height: 72px;
       margin-bottom: 1rem;
     }
 
     .hero h1 {
-      font-size: 2.4rem;
-      margin-bottom: 1rem;
+      font-size: 2.8rem;
+      margin: 0 0 1rem 0;
       line-height: 1.2;
     }
 
     .hero p {
       font-size: 1.2rem;
-      opacity: 0.8;
+      opacity: 0.85;
       margin-bottom: 2rem;
     }
 
@@ -68,6 +70,55 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
     }
 
+    /* CONTENT SECTIONS */
+    section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .list {
+      margin-top: 1rem;
+      padding-left: 1.2rem;
+    }
+
+    .list li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* ICON CALLOUTS */
+    .features {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .feature {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+
+    /* MOBILE */
     @media (max-width: 800px) {
       .hero {
         flex-direction: column;
@@ -82,19 +133,108 @@
 </head>
 
 <body>
+
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <img src="/lumo_sparkle_glyph.svg" alt="Lumo icon" class="hero-icon" />
+      <img src="/lumo_sparkle_glyph.svg" alt="Lumo logo" class="hero-logo" />
 
-      <h1>Life feels lighter with Lumo</h1>
-      <p>Your tasks, meals, budget, and days — all in one calm, beautifully designed place.</p>
+      <h1>LUMO</h1>
+      <p>A tiny app for overwhelmed humans.<br>
+      Gentle structure. Soft reminders. A small spark of order when life feels like too much — without asking you to become a different person to use it.</p>
 
-      <a href="/app" class="cta">Open the App</a>
+      <a href="/app" class="cta">Open the app</a>
     </div>
 
     <div class="hero-image">
       <img src="/lumo-app.png" alt="Lumo app screenshot" />
     </div>
   </section>
+
+  <!-- WHY LUMO EXISTS -->
+  <section>
+    <h2>WHY LUMO EXISTS</h2>
+    <p>For the days when “just be organised” feels impossible.</p>
+    <p>Lumo is for the version of you who is trying — with kids, mahi, brain fog, neurodivergence, grief, or just the quiet exhaustion of being alive right now. It doesn’t demand a morning routine, a perfect system, or a colour‑coded life. It simply gives you a soft place to land and a tiny bit of structure when everything else feels like too much.</p>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section>
+    <h2>WHO IT’S FOR</h2>
+    <p>The not‑quite‑together humans.</p>
+    <p>If you’ve ever bounced off “productivity” apps because they made you feel worse, not better — Lumo is for you.</p>
+
+    <ul class="list">
+      <li>Neurodivergent brains</li>
+      <li>Parents in the thick of it</li>
+      <li>Burnt‑out professionals</li>
+      <li>Soft‑hearted overthinkers</li>
+      <li>People who keep “starting again on Monday”</li>
+    </ul>
+  </section>
+
+  <!-- HOW IT FEELS -->
+  <section>
+    <h2>HOW IT FEELS</h2>
+    <p>Lumo is less “optimise every second” and more “let’s gently remember the few things that actually matter today.” It’s a tiny glow in the corner of your life, not a spotlight on everything you’re not doing.</p>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <h2>HOW IT WORKS</h2>
+    <p>Tiny steps, soft structure.</p>
+
+    <ol class="list">
+      <li>Capture the few things that actually matter today — not a 47‑item backlog, just the gentle essentials.</li>
+      <li>Let Lumo hold them for you, with soft visual structure that doesn’t shout when you fall behind.</li>
+      <li>Come back when you can. No streaks broken, no guilt, no “you’ve missed 9 days” banners. Just a quiet, steady glow.</li>
+    </ol>
+  </section>
+
+  <!-- WHAT MAKES IT DIFFERENT -->
+  <section>
+    <h2>WHAT MAKES IT DIFFERENT</h2>
+
+    <div class="features">
+
+      <div class="feature">
+        <div class="feature-icon">✨</div>
+        <div>
+          <strong>Gentle, not demanding</strong><br>
+          No streaks, gamification, or “you failed” energy. Lumo quietly supports you without turning your life into a project.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🧠</div>
+        <div>
+          <strong>Neurodivergent‑friendly</strong><br>
+          Built with scattered focus, time blindness, and executive dysfunction in mind — not against them.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🌙</div>
+        <div>
+          <strong>Soft reminders</strong><br>
+          Gentle cues instead of blaring alarms. Lumo is the friend who nudges, not the boss who barks.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">💜</div>
+        <div>
+          <strong>Made with care</strong><br>
+          Lumo is built for humans who are already trying their best. You don’t have to earn support here.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Lumo — made with softness for overwhelmed humans trying their best.
+  </footer>
+
 </body>
 </html>
