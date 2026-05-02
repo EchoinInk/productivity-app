@@ -9,25 +9,11 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger()
   ].filter(Boolean),
 
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src")
-    },
-    dedupe: [
-      "react",
-      "react-dom",
-      "react/jsx-runtime",
-      "react/jsx-dev-runtime",
-      "@tanstack/react-query",
-      "@tanstack/query-core"
-    ]
-  },
-
+  publicDir: "public",          // ⭐ ensure public/ is used
   build: {
-    rollupOptions: {
-      // ❌ REMOVED the multi-page input block
-      // Vite will now use the root index.html stub automatically
+    copyPublicDir: true,        // ⭐ ensure public/ is copied into dist/
 
+    rollupOptions: {
       output: {
         manualChunks: {
           vendor: ["react", "react-dom"],
@@ -43,6 +29,20 @@ export default defineConfig(({ mode }) => ({
     sourcemap: mode === "development",
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true
+  },
+
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src")
+    },
+    dedupe: [
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "@tanstack/react-query",
+      "@tanstack/query-core"
+    ]
   },
 
   server: {
