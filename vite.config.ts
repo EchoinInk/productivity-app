@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, type PluginOption } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import * as path from "path";
 import { componentTagger } from "lovable-tagger";
@@ -11,12 +11,12 @@ export default defineConfig(({ mode }) => ({
     VitePWA({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico"],
-      manifest: true,
+      manifest: {},
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"]
       }
-    })
-  ].filter(Boolean),
+    }) as PluginOption
+  ].filter(Boolean) as PluginOption[],
 
   resolve: {
     alias: {
