@@ -1,30 +1,30 @@
-<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="20" result="blur"/>
       <feMerge>
-        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
 
-  <!-- Large central star -->
-  <path d="M256 80 
-           C270 180, 332 242, 432 256
-           C332 270, 270 332, 256 432
-           C242 332, 180 270, 80 256
-           C180 242, 242 180, 256 80 Z"
+  <!-- Large central sparkle -->
+  <path d="M512 160 
+           C540 360 664 484 864 512 
+           C664 540 540 664 512 864 
+           C484 664 360 540 160 512 
+           C360 484 484 360 512 160 Z"
         fill="white" filter="url(#glow)"/>
 
-  <!-- Smaller star (upper right) -->
-  <path d="M360 140
-           C366 190, 402 226, 452 232
-           C402 238, 366 274, 360 324
-           C354 274, 318 238, 268 232
-           C318 226, 354 190, 360 140 Z"
+  <!-- Smaller sparkle (upper right) -->
+  <path d="M760 280 
+           C775 380 840 445 940 460 
+           C840 475 775 540 760 640 
+           C745 540 680 475 580 460 
+           C680 445 745 380 760 280 Z"
         fill="white" filter="url(#glow)"/>
 
-  <!-- Tiny sparkle (lower left) -->
-  <circle cx="150" cy="350" r="14" fill="white" filter="url(#glow)"/>
+  <!-- Tiny sparkle (dot) -->
+  <circle cx="300" cy="740" r="28" fill="white" filter="url(#glow)"/>
 </svg>
