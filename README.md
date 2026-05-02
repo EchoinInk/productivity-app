@@ -1,4 +1,4 @@
-# 📱 LUMO
+# 📱 LifeOS
 
 > **Your life, organised — simply.**
 
@@ -11,7 +11,7 @@
 
 ## ✨ Overview
 
-LUMO is a **calm, minimal productivity system**  
+LifeOS is a **calm, minimal productivity system**  
 designed to bring structure to your day without adding noise.
 
 It combines your essential workflows into one place:
@@ -109,7 +109,7 @@ STORE → SELECTORS → DOMAIN → HOOK → UI
 
 ## 🚀 Vision
 
-LUMO is designed to become a **personal operating system for daily life** —  
+LifeOS is designed to become a **personal operating system for daily life** —  
 not just another productivity app.
 
 ---
