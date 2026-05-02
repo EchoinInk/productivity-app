@@ -2,13 +2,11 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
-import { useActivityStore } from "@/features/activity/useActivityStore";
 import { getToday } from "@/shared/lib/date";
 
 import {
   selectTodayTasks,
   selectCompletedTodayTasks,
-  selectIncompleteTodayTasks,
 } from "@/features/tasks/selectors/taskSelectors";
 
 export type TodayData = {
@@ -23,67 +21,36 @@ export type TodayData = {
     budget: { remaining: number };
     shopping: { remaining: number };
   };
-  upNext: Array<{
-    id: string;
-    type: "task" | "meal" | "expense";
-    title: string;
-    time?: string;
-  }>;
-  activity: Array<{
-    id: string;
-    type: "task_completed" | "expense_added" | "meal_logged";
-    label: string;
-    timestamp: number;
-  }>;
 };
 
+const WEEKDAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 export const useTodayData = (): TodayData => {
-  // ✅ STABLE SELECTORS ONLY
   const today = getToday();
 
-  const todayTasks = useTasksStore((s) =>
-    selectTodayTasks(s.tasks, today)
-  );
-
-  const completedTasks = useTasksStore((s) =>
-    selectCompletedTodayTasks(s.tasks, today)
-  );
-
-  const incompleteTasks = useTasksStore((s) =>
-    selectIncompleteTodayTasks(s.tasks, today)
-  );
-
+  const tasks = useTasksStore((s) => s.tasks);
   const meals = useMealsStore((s) => s.meals);
   const weeklyBudget = useBudgetStore((s) => s.weeklyBudget);
   const expenses = useBudgetStore((s) => s.expenses);
   const shoppingItems = useShoppingStore((s) => s.shoppingItems);
-  const events = useActivityStore((s) => s.events);
 
-  // Simple derivations (no useMemo needed)
-  const todayWeekday = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ][new Date().getDay()];
+  const todayTasks = selectTodayTasks(tasks, today);
+  const completedTasks = selectCompletedTodayTasks(tasks, today);
 
+  const todayWeekday = WEEKDAYS[new Date().getDay()];
   const todayMeals = meals.filter((m) => m.day === todayWeekday);
 
-  const totalExpenses = expenses.reduce(
-    (sum, e) => sum + e.amount,
-    0
-  );
-
+  const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
   const remainingBudget = weeklyBudget - totalExpenses;
-
-  const incompleteShoppingItems = shoppingItems.filter(
-    (i) => !i.done
-  );
-
-  // Focus
+  const incompleteShopping = shoppingItems.filter((i) => !i.done);
 
   let focus: TodayData["focus"] = {
     percentage: 0,
@@ -92,22 +59,15 @@ export const useTodayData = (): TodayData => {
   };
 
   if (todayTasks.length > 0) {
-    const percentage = Math.round(
-      (completedTasks.length / todayTasks.length) * 100
-    );
-
+    const percentage = Math.round((completedTasks.length / todayTasks.length) * 100);
     const remaining = todayTasks.length - completedTasks.length;
-
     focus = {
       percentage,
       label: `${remaining} task${remaining !== 1 ? "s" : ""} remaining`,
       subtext: `${completedTasks.length} of ${todayTasks.length} completed`,
     };
-  } else if (remainingBudget > 0) {
-    const percentage = Math.round(
-      (remainingBudget / weeklyBudget) * 100
-    );
-
+  } else if (remainingBudget > 0 && weeklyBudget > 0) {
+    const percentage = Math.round((remainingBudget / weeklyBudget) * 100);
     focus = {
       percentage,
       label: `$${Math.round(remainingBudget)} remaining`,
@@ -115,12 +75,8 @@ export const useTodayData = (): TodayData => {
     };
   } else {
     const target = 3;
-    const percentage = Math.round(
-      (todayMeals.length / target) * 100
-    );
-
+    const percentage = Math.round((todayMeals.length / target) * 100);
     const remaining = target - todayMeals.length;
-
     focus = {
       percentage,
       label: `${remaining} meal${remaining !== 1 ? "s" : ""} to log`,
@@ -128,76 +84,13 @@ export const useTodayData = (): TodayData => {
     };
   }
 
-  // Summary
-
-  const summary: TodayData["summary"] = {
-    tasks: {
-      completed: completedTasks.length,
-      total: todayTasks.length,
-    },
-    meals: {
-      logged: todayMeals.length,
-      target: 3,
-    },
-    budget: {
-      remaining: Math.round(remainingBudget),
-    },
-    shopping: {
-      remaining: incompleteShoppingItems.length,
-    },
-  };
-
-  // Up Next
-
-  const upNext: TodayData["upNext"] = [
-    ...incompleteTasks.slice(0, 3).map((task) => ({
-      id: task.id,
-      type: "task" as const,
-      title: task.label,
-      time: task.time,
-    })),
-
-    ...(todayMeals.length < 3
-      ? [
-          {
-            id: "meal",
-            type: "meal" as const,
-            title: "Log next meal",
-          },
-        ]
-      : []),
-
-    ...expenses.slice(0, 1).map((e) => ({
-      id: `expense-${e.id}`,
-      type: "expense" as const,
-      title: `Track expense: ${e.name}`,
-    })),
-  ].slice(0, 5);
-
-  // Activity
-
-  const activity = events
-    .filter(
-      (e) =>
-        e.type === "task_completed" ||
-        e.type === "expense_added" ||
-        e.type === "meal_logged"
-    )
-    .slice(0, 5)
-    .map((e) => ({
-      id: e.id,
-      type: e.type as
-        | "task_completed"
-        | "expense_added"
-        | "meal_logged",
-      label: e.label,
-      timestamp: e.timestamp,
-    }));
-
   return {
     focus,
-    summary,
-    upNext,
-    activity,
+    summary: {
+      tasks: { completed: completedTasks.length, total: todayTasks.length },
+      meals: { logged: todayMeals.length, target: 3 },
+      budget: { remaining: Math.round(remainingBudget) },
+      shopping: { remaining: incompleteShopping.length },
+    },
   };
 };
