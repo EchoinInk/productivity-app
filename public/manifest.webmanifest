@@ -1,31 +1,19 @@
 {
   "name": "Lumo",
   "short_name": "Lumo",
-  "description": "Your life, but calmer.",
+  "description": "A tiny, gentle, beautifully minimal app for making life feel lighter.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#a4f0e8",
+   "background_color": "#a4f0e8",
   "theme_color": "#c7c9f4",
   "icons": [
     {
-      "src": "/lumo_icon_192.png",
-      "sizes": "192x192",
+      "src": "/lumo_master_1024.png",
+      "sizes": "1024x1024",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/lumo_icon_512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
