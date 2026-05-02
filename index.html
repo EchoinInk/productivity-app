@@ -1,210 +1,100 @@
 <!DOCTYPE html>
-<html lang="en-NZ">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lumo — A tiny app for overwhelmed humans trying their best</title>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumo — Life Feels Lighter</title>
 
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+  <link rel="icon" type="image/png" href="/favicon_32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-        background: #fafafa;
-        color: #222;
-        line-height: 1.5;
-      }
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      background: #ffffff;
+      color: #111;
+    }
 
-      header {
-        padding: 48px 24px 32px;
-        text-align: center;
-      }
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-      header h1 {
-        font-size: 2.6rem;
-        font-weight: 600;
-        margin-bottom: 12px;
-      }
+    .hero-text {
+      max-width: 420px;
+    }
 
-      header p {
-        font-size: 1.2rem;
-        max-width: 480px;
-        margin: 0 auto;
-        opacity: 0.8;
-      }
+    .hero-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
 
+    .hero h1 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 0.9rem 1.6rem;
+      background: black;
+      color: white;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    @media (max-width: 800px) {
       .hero {
-        max-width: 480px;
-        margin: 40px auto;
-        padding: 0 24px;
-      }
-
-      .hero img {
-        width: 100%;
-        border-radius: 16px;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-      }
-
-      section {
-        padding: 48px 24px;
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      section h2 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin-bottom: 16px;
+        flex-direction: column;
         text-align: center;
       }
 
-      .screenshots {
-        display: grid;
-        gap: 32px;
-        margin-top: 32px;
+      .hero-text {
+        max-width: 100%;
       }
+    }
+  </style>
+</head>
 
-      .screenshots img {
-        width: 100%;
-        border-radius: 16px;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-      }
+<body>
+  <section class="hero">
+    <div class="hero-text">
+      <img src="/lumo_sparkle_glyph.svg" alt="Lumo icon" class="hero-icon" />
 
-      .features {
-        display: grid;
-        gap: 24px;
-        margin-top: 24px;
-      }
+      <h1>Life feels lighter with Lumo</h1>
+      <p>Your tasks, meals, budget, and days — all in one calm, beautifully designed place.</p>
 
-      .feature {
-        background: #fff;
-        padding: 24px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      }
-
-      .feature h3 {
-        font-size: 1.2rem;
-        margin-bottom: 8px;
-      }
-
-      .how-it-works {
-        max-width: 700px;
-        margin: 0 auto;
-      }
-
-      .how-step {
-        margin-bottom: 24px;
-      }
-
-      .how-step h3 {
-        font-size: 1.2rem;
-        margin-bottom: 6px;
-      }
-
-      .cta-container {
-        text-align: center;
-        margin-top: 40px;
-      }
-
-      .cta {
-        display: inline-block;
-        padding: 14px 28px;
-        background: #111;
-        color: #fff;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 500;
-        text-decoration: none;
-        transition: opacity 0.2s ease;
-      }
-
-      .cta:hover {
-        opacity: 0.85;
-      }
-
-      footer {
-        text-align: center;
-        padding: 40px 24px;
-        font-size: 0.85rem;
-        opacity: 0.6;
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <h1>Lumo</h1>
-      <p>A tiny app for overwhelmed humans trying their best.</p>
-    </header>
-
-    <div class="hero">
-      <img src="lumo-app.png" alt="Lumo app preview" />
+      <a href="/app" class="cta">Open the App</a>
     </div>
 
-   <section class="screenshots">
-  <div class="screenshot">
-    <img src="/lumo-app.png" alt="Lumo app screenshot" />
-  </div>
-
-  <div class="screenshot">
-    <img src="/lumo-tasks.png" alt="Tasks screenshot" />
-  </div>
-
-  <div class="screenshot">
-    <img src="/lumo-budgt.png" alt="Budget screenshot" />
-  </div>
-</section>
-
-
-    <section>
-      <h2>Why Lumo Helps</h2>
-      <div class="features">
-        <div class="feature">
-          <h3>✨ Clear your mental clutter</h3>
-          <p>Lumo gives you one calm place to put the things your brain keeps dropping.</p>
-        </div>
-
-        <div class="feature">
-          <h3>🧩 Designed for real life</h3>
-          <p>No productivity theatre. No pressure. Just tiny steps that fit into chaotic days.</p>
-        </div>
-
-        <div class="feature">
-          <h3>🌱 Built for overwhelmed humans</h3>
-          <p>Gentle, simple, and emotionally intelligent — not another app yelling at you.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>How It Works</h2>
-      <div class="how-it-works">
-        <div class="how-step">
-          <h3>1. Capture what matters</h3>
-          <p>Add tasks, thoughts, reminders, or tiny intentions — without overthinking.</p>
-        </div>
-
-        <div class="how-step">
-          <h3>2. See only what you need</h3>
-          <p>Lumo filters out the noise so you can focus on the next small step.</p>
-        </div>
-
-        <div class="how-step">
-          <h3>3. Feel a little lighter</h3>
-          <p>Small wins add up. Lumo helps you build momentum without burnout.</p>
-        </div>
-      </div>
-
-      <div class="cta-container">
-        <a class="cta" href="/app/">Open the App</a>
-      </div>
-    </section>
-
-    <footer>© 2026 Lumo</footer>
-  </body>
+    <div class="hero-image">
+      <img src="/lumo-app.png" alt="Lumo app screenshot" />
+    </div>
+  </section>
+</body>
 </html>
