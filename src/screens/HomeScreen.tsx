@@ -9,8 +9,7 @@ import AddShoppingItem from "@/features/shopping/components/AddShoppingItemModal
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-
+import { getToday } from "@/shared/lib/date";
 // Lazy load heavy components for mobile performance
 const TodayUpNextContainer = lazy(() => import("@/features/today/components/TodayUpNext/TodayUpNext.container").then(module => ({ default: module.TodayUpNextContainer })));
 const ActivityListContainer = lazy(() => import("@/features/today/components/ActivityList/ActivityList.container").then(module => ({ default: module.ActivityListContainer })));
@@ -27,9 +26,7 @@ const greetingFor = (d: Date): string => {
 const HomeScreen = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
   const addMeal = useMealsStore((state) => state.addMeal);
-  const addShoppingItem = useShoppingStore((state) => state.addShoppingItem);
-  const addTask = useTasksStore((state) => state.addTask);
-  
+  const addShoppingItem = useShoppingStore((state) => state.addShoppingItem);  
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [mealOpen, setMealOpen] = useState(false);
@@ -117,16 +114,15 @@ const HomeScreen = () => {
       </div>
 
       {/* MODALS */}
-      <AddTaskModal
-        open={taskOpen}
-        onClose={() => setTaskOpen(false)}
-        defaultDate={selectedDate.toISOString().split('T')[0] || ''}
-        onSave={(task) => {
-          console.log("TASK CREATED", task);
-          addTask(task);
-          setTaskOpen(false);
-        }}
-      />
+    <AddTaskModal
+
+  open={taskOpen}
+
+  onClose={() => setTaskOpen(false)}
+
+  defaultDate={getToday()}
+
+/>
 
       <AddExpense
         open={expenseOpen}

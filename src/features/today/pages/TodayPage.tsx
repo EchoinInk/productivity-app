@@ -25,7 +25,6 @@ const greetingFor = (d: Date): string => {
 const todayStr = getToday();
 const TodayPage = () => {
   const addExpense = useBudgetStore((state) => state.addExpense);
-  const addTask = useTasksStore((state) => state.addTask);
   const toggleTask = useTasksStore((state) => state.toggleTask);
 const nextTask = useTasksStore((state) =>
 
@@ -114,11 +113,10 @@ const nextTask = useTasksStore((state) =>
 
       {/* MODALS */}
       <AddTaskModal
-        open={taskOpen}
-        onClose={() => setTaskOpen(false)}
-        defaultDate={selectedDateString || new Date().toISOString().split("T")[0]!}
-        onSave={addTask}
-      />
+  open={taskOpen}
+  onClose={() => setTaskOpen(false)}
+  defaultDate={selectedDateString}
+/>
 
       <AddMealModal
         open={mealOpen}
