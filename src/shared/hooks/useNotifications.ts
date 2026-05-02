@@ -11,18 +11,15 @@ import { getToday } from "@/shared/lib/date";
  */
 export const useNotifications = () => {
   const hasRequestedPermission = useRef(false);
+  const today = getToday();
+  
   const todayTasks = useTasksStore((state) =>
+    selectTodayTasks(state.tasks, today)
+  );
 
-  selectTodayTasks(state.tasks, today)
-
-);
-const today = getToday();
-
-const incompleteTasks = useTasksStore((state) =>
-
-  selectIncompleteTodayTasks(state.tasks, today)
-
-);
+  const incompleteTasks = useTasksStore((state) =>
+    selectIncompleteTodayTasks(state.tasks, today)
+  );
   const meals = useMealsStore((state) => state.meals);
   const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
   const expenses = useBudgetStore((state) => state.expenses);
