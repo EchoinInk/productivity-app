@@ -1,62 +1,75 @@
-# Architecture
+# LifeOS Architecture
 
-## Philosophy
+## Core Philosophy
 
-- Clarity over abstraction
-- Single source of truth
-- Mobile-first UX
+- Simplicity > abstraction
+- One source of truth
 - Predictable state
+- Mobile-first UX
 
 ---
 
-## Core Data Model
+# 🧠 DATA MODEL
 
-```ts
-type Task = {
-  id: string;
-  label: string;
-  date: string;
-  completed: boolean;
-  priority?: "low" | "medium" | "high";
-  category?: string;
-  notes?: string;
-  recurrence?: string;
-};
-```
+## Task (canonical)
+
+ts type Task = { id: string; label: string; date: string; completed: boolean; priority?: "low" | "medium" | "high"; category?: string; notes?: string; recurrence?: string; };
+
+🚫 NEVER USE:
+
+- completedDates
+- title/subtitle
+- view models
 
 ---
 
-## State Management
+# 🧩 STATE
 
-- Zustand per feature
-- No derived state in store
-- Immutable updates only
+Zustand per feature:
 
----
+bash /features/tasks/store.ts /features/budget/store.ts /features/meals/store.ts
 
-## Data Flow
+Rules:
 
-```
-Store → Selectors → Hooks → UI
-```
+- immutable updates only
+- no derived state
+- no UI logic
 
 ---
 
-## Feature Structure
+# 🔍 SELECTORS
 
-```
-/features/[feature]
-  store.ts
-  types.ts
-  hooks/
-  components/
-  pages/
-```
+ONLY access state via selectors:
+
+ts const tasks = useTasksStore(s => s.tasks);
 
 ---
 
-## UI Principles
+# 🧠 HOOK CONTRACT
 
-- No logic in UI
-- No mapping/view models
-- Direct use of domain objects
+ts const { tasks, sections, actions } = useTasks();
+
+sections:
+
+ts { today: Task[] upcoming: Task[] completed: Task[] }
+
+---
+
+# 🧱 STRUCTURE
+
+bash /src /components/ui /features /tasks /budget /meals /shopping /recipes /screens /shared
+
+---
+
+# 🎯 UI RULES
+
+- buttons only (no clickable divs)
+- no icon backgrounds
+- consistent spacing
+- no nested scroll
+
+---
+
+# 🧠 MENTAL MODEL
+
+Store → Selectors → UI
