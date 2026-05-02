@@ -1,252 +1,189 @@
+
 # CHANGELOG
 
 All notable changes to this project are documented here.
 
-This changelog follows a **phase-based release structure**, separating:
-- Architecture phases (foundation)
-- Product phases (user-facing behavior)
+This file combines:
+- Early evolution (debugging → stability)
+- Architecture refactor
+- Product development
 
 ---
 
-# 🚀 v0.2.0 — Product Foundation Release
-
-> Transition from architecture → fully functional product UX
+# 🧾 PRE-v0.2 — APP EVOLUTION (FOUNDATION → STABLE)
 
 ---
 
-## Phase I — Data Integrity & UX System Completion
+## 🔴 PHASE 1 — BROKEN CORE
 
-### Summary
+### State
 
-- Fixed critical data inconsistencies
-- Completed core UX flows
-- Established unified input + action system
+- Add Task didn’t save  
+- Modal didn’t close  
+- Data inconsistent  
+- Infinite render loop  
+- Fragmented Today page  
 
-### Key Outcomes
-
-- ✅ Fully working task system
-- ✅ Reliable Today dashboard
-- ✅ Unified modal/input system
-- ✅ Action-driven UX
+👉 App looked complete, but was unstable  
 
 ---
 
-### Critical Fixes
+## 🔴 P0 — CORE FIXES
 
-#### Date Handling Bug
+### Fixes
 
-- Replaced UTC (`toISOString`) with local date logic
-- Fixed Today + Up Next inconsistencies
-
-**Impact**
-- Correct task visibility
-- Reliable date-based selectors
-
----
-
-#### Task Creation Flow
-
-- Uses `crypto.randomUUID()`
-- Immutable updates enforced
-- Default `completed: false`
-
-**Result**
-- Instant UI updates
-- Stable persistence
+- Stable `addTask` (Zustand)
+- UUID IDs
+- Immutable updates
+- Modal submit + close fixed
+- Data sync across screens
+- Infinite loop removed
+- Selector system introduced
 
 ---
 
-#### Store Reactivity
+## 🔴 RESULT
 
-- Standardized selector usage:
+**Before**
+- Broken app  
 
-```ts
-useTasksStore(selector)
-```
-
-- Removed stale patterns
-- Guaranteed real-time updates
+**After**
++ Functional app  
 
 ---
 
-### UX Improvements
+## 🟠 P1 — STRUCTURE
 
-#### Today Page
+### Improvements
 
-New structure:
-
-1. Hero  
-2. Up Next  
-3. Quick Actions  
-4. Insights  
-
-Removed:
-- Recent Activity
+- Container/View pattern
+- Selector-driven state
+- Stable hooks
+- Today page rebuilt
+- Modal system standardized
 
 ---
 
-#### Up Next
+## 🟠 RESULT
 
-- Real data driven
-- Shows first incomplete task
-- Handles empty states
+**Before**
+- Mixed responsibilities  
 
----
-
-#### Quick Actions
-
-- All actions open modals
-- Improved tap targets
-- Simplified visuals
+**After**
++ Predictable architecture  
 
 ---
 
-### Modal System
+## 🟡 P2 — UX (PARTIAL)
 
-Unified structure:
+### Completed
 
-```
-Task name
-Date | Recurrence
-Category | Priority
-Notes
-CTA
-```
+- Up Next (real data)
 
-#### Improvements
+### Missing
 
-- Removed time field
-- Added priority
-- Sticky CTA
-- Safe-area handling
+- Tasks page UX
+- Priority visibility
+- Visual consistency
 
 ---
 
-### Visual Consistency
+## 🧠 ARCHITECTURE SHIFT
 
-- Removed heavy shadows
-- Standardized spacing (`px-4`, `space-y-4`)
-- Unified inputs
-- Consistent CTA styling
+**Before**
+- Pages controlled everything  
 
----
+**After**
+- Store → Selectors → Hooks → UI  
 
-### UX Direction Changes
-
-Removed:
-- Recent Activity
-
-Shift toward:
-- Task completion feedback loops
-- Action-first UX
-
----
-
-### Known Gaps
-
-**P0**
-- Selector centralization
-
-**P1**
-- Task grouping (Today / Yesterday / Earlier)
-- Up Next intelligence
-
-**P2**
-- Accessibility pass
-- Performance optimization
-- Micro-interactions
-
----
-
-### Outcome
-
-From:
-> Architecture complete but UX inconsistent
-
-To:
-> Functional, reliable, product-grade UX foundation
+👉 Production-grade structure established  
 
 ---
 
 # 🏗 v0.1.0 — Architecture Refactor
 
-> Internal system redesign (no user-facing changes)
-
----
-
-## Summary
-
 - Feature-based architecture
 - Per-feature Zustand stores
-- UI system consolidation
-- Design tokens introduced
+- UI consolidation
+- Design tokens
 
 ---
+
+# 🚀 v0.2.0 — Product Foundation (CURRENT)
 
 ## Highlights
 
-### Store Architecture
-
-- Monolithic store → per-feature stores
-- Shared persistence layer
-- Removed AppState god-type
-
----
-
-### UI System
-
-- Consolidated under `/components/ui`
-- Aligned with shadcn structure
+- Working task system
+- Reliable Today dashboard
+- Modal/input system complete
+- Action-driven UX
 
 ---
 
-### Design System
+## Key Fixes
 
-- Introduced typed tokens
-- CSS variables remain source of truth
+- Date handling corrected
+- Task creation stable
+- Store reactivity ensured
 
 ---
+
+## UX Improvements
+
+- Today page refactor
+- Up Next logic
+- Quick Actions → modals
+
+---
+
+## Outcome
+
+From:
+> unstable system  
+
+To:
+> functional product  
+
+---
+
+# 🔜 v0.3.0 — Intelligence & Refinement (NEXT)
+
+## Focus
+
+### Tasks
+
+- Priority-aware sorting
+- Overdue handling
+- Better grouping
+
+### UX
+
+- Empty states
+- Micro-interactions
+- Feedback loops
+
+### Accessibility
+
+- Full audit
+- Keyboard + screen reader
 
 ### Performance
 
-- Reduced unnecessary re-renders
-- Scoped subscriptions per feature
+- Memoization
+- Bundle optimization
 
 ---
 
-### Type Safety
+# 📊 STATUS
 
-- Removed global types
-- Enforced feature isolation
-
----
-
-## Verification
-
-- TypeScript: 0 errors
-- Build: clean
-- Tests: passing
+- Core → ✅ complete  
+- Architecture → ✅ complete  
+- UX → 🚧 in progress  
 
 ---
 
-# 📌 Release Notes
+# 🎯 NEXT PRIORITY
 
-## v0.2.0
+👉 Tasks Page Refactor
 
-- First fully usable version of the app
-- Core UX flows complete
-- Stable task + dashboard system
-
-## v0.1.0
-
-- Internal architecture overhaul
-- No user-facing changes
-
----
-
-# 🔜 Next Release Focus
-
-- Smart task prioritization
-- Improved task grouping
-- Accessibility compliance
-- Performance optimization
+Biggest UX gap + biggest impact
