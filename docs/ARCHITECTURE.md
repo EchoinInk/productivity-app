@@ -1,299 +1,203 @@
-# LifeOS Architecture (Post-Refactor — May 2026)
+# 🏛️ Lumo Architecture
 
-## Overview
+This document defines the canonical architecture for the Lumo application.  
+It exists to prevent drift, reduce ambiguity, and ensure the codebase remains stable, scalable, and easy to work in.
 
-LifeOS is a mobile-first React + TypeScript application for managing daily life systems (tasks, meals, budget, shopping, etc.).
-
-This architecture prioritizes:
-
-- Simplicity over abstraction
-- Predictable state flow
-- Performance through minimal re-renders
-- Clear separation between data, logic, and UI
+Lumo is a Vite + React + TypeScript application deployed on Cloudflare Pages, with future support for Cloudflare Workers and PWA capabilities.
 
 ---
 
-# 🧠 CORE PRINCIPLES
+## 1. High-Level System Overview
 
-## 1. Single Source of Truth
+### **Brand vs Product Separation**
 
-- Zustand stores are the ONLY source of truth
-- No duplicated or derived state in components
+The Lumo ecosystem is intentionally split into two independent deployments:
 
----
+- **echoin.ink** → Brand site (static upload to Cloudflare Pages)
+- **lumo.echoin.ink** → Lumo app (this repo, deployed via GitHub → Cloudflare Pages)
 
-## 2. Canonical Data Models
+This repo contains **only the Lumo application**.  
+No brand assets, no marketing pages, no mixed deployments.
 
-### Task Model (CRITICAL)
+### **Deployment Targets**
 
-ts type Task = { id: string; label: string; date: string; time?: string; completed: boolean; category?: string; notes?: string; recurrence?: string; };
+- **Cloudflare Pages** (GitHub-connected)
+- Build command: `npm run build`
+- Output directory: `dist`
+- Root directory: `/` (app lives at repo root)
 
-### 🚫 REMOVED (DO NOT USE)
+### **Future Integrations**
 
-- completedDates ❌
-- title ❌
-- subtitle ❌
-- ANY UI-mapped fields ❌
-
----
-
-## 3. No View Models
-
-These are permanently removed:
-
-- TaskRowVM ❌
-- TaskSection (UI-shaped) ❌
-- TaskInsights ❌
-- UseTasksResult ❌
-
-👉 Components use raw domain objects only
+- Cloudflare Workers for API routes (`api.echoin.ink`)
+- PWA support (manifest, service worker)
+- Edge caching + KV for user data
 
 ---
 
-## 4. Containers vs UI
+## 2. Repo Structure
 
-### UI Components
+/ ├── src/ # Application source code │ ├── components/ # Reusable UI components │ ├── features/ # Feature-based modules (recommended pattern) │ ├── hooks/ # Reusable logic hooks │ ├── lib/ # Utilities, helpers, shared logic │ ├── pages/ # Route-level components (if using file-based routing) │ ├── state/ # Zustand stores or other state management │ ├── styles/ # Global styles, tokens, Tailwind config extensions │ └── main.tsx # App entry point │ ├── public/ # Static assets copied to build output │ └── icons/ # App icons (future PWA) │ ├── index.html # Vite HTML entry ├── vite.config.ts # Vite configuration ├── package.json ├── tsconfig.json └── README.md
 
-- Located in /components/ui
-- PURE (no logic)
-- Receive props only
+### **Folder Rules**
 
-### Feature Components
-
-- Located in /features/\*/components
-- Compose UI
-- Still no business logic
-
-### Containers / Hooks
-
-- Handle:
-  - state
-  - selectors
-  - actions
-  - orchestration
+- **Nothing goes in root except config files.**
+- **Brand assets never enter this repo.**
+- **All UI lives in `src/components` or `src/features/*/components`.**
+- **All logic lives in `src/hooks` or `src/lib`.**
+- **All state lives in `src/state`.**
+- **No random folders. No “misc”. No “utils2”.**
 
 ---
 
-# 🧩 STATE ARCHITECTURE
+## 3. Architectural Principles
 
-## Zustand (Feature-Based)
+### **1. Feature-Based Organization**
 
-Each feature owns its state:
+Each feature gets its own folder:
 
-/features/tasks/store.ts /features/meals/store.ts /features/budget/store.ts ...
+src/features/<feature-name>/ components/ hooks/ state/ utils/ index.ts
 
----
+This keeps the app scalable and prevents “god folders”.
 
-## Store Rules
+### **2. Component Boundaries**
 
-- Immutable updates ONLY
-- No mutation
-- No derived state inside store
-- No UI logic inside store
+- Components must be **pure**, **small**, and **single-responsibility**.
+- UI-only components go in `src/components`.
+- Feature-specific components stay inside their feature folder.
+- No component should import across unrelated features.
 
----
+### **3. State Management**
 
-## Example
+- Zustand is the preferred store.
+- Each store lives in `src/state` or inside a feature folder.
+- Stores must:
+  - expose selectors
+  - avoid storing derived state
+  - avoid storing UI-only state (keep that local)
 
-ts addTask: (taskInput) => set((state) => ({ tasks: [ ...state.tasks, { id: crypto.randomUUID(), completed: false, ...taskInput, }, ], }));
+### **4. Data Flow**
 
----
+- Data flows **top → down**.
+- State flows **via hooks**, not props drilling.
+- API calls (future Workers) live in `src/lib/api`.
 
-# 🔍 SELECTOR PATTERN
+### **5. Styling**
 
-## Rules
-
-- Components NEVER read full store
-- ALWAYS use selectors
-
----
-
-## Example
-
-ts const tasks = useTasksStore(s => s.tasks);
-
----
-
-## Derived Data = SELECTORS OR HOOKS
-
-ts const todayTasks = useMemo(() => tasks.filter(t => t.date === today && !t.completed), [tasks]);
+- Tailwind is the primary styling system.
+- Global tokens live in `tailwind.config.ts`.
+- No inline style objects unless necessary.
+- No random CSS files.
 
 ---
 
-## 🚫 FORBIDDEN
+## 4. Build & Deployment Architecture
 
-ts useTasksStore() useTasksStore(state => state) // ❌
+### **Build**
 
----
+- Vite 6 (or latest stable)
+- React + SWC plugin
+- TypeScript strict mode recommended
 
-# 🧠 useTasks HOOK (SIMPLIFIED CONTRACT)
+### **Deployment**
 
-ts const { tasks, sections, actions } = useTasks();
+- Cloudflare Pages → GitHub integration
+- Auto-build on push to `main`
+- Output: `dist/`
 
----
+### **Environment Variables**
 
-## Return Shape
-
-ts { tasks: Task[], sections: { today: Task[], upcoming: Task[], completed: Task[] }, actions: { addTask, updateTask, deleteTask, toggleTask } }
-
----
-
-## 🚫 REMOVED FROM HOOK
-
-- progress ❌
-- insights ❌
-- activeDate ❌
-- UI transformations ❌
+- All env vars must be prefixed with `VITE_`
+- Stored in Cloudflare Pages → Environment Variables
+- Never committed to repo
 
 ---
 
-# 🧱 FEATURE STRUCTURE
+## 5. Error Handling Strategy
 
-features/[feature]/ ├── store.ts ├── selectors/ ├── hooks/ ├── components/ ├── pages/ ├── types.ts
+### **Global Rules**
 
----
+- No silent failures
+- No `console.log` in production
+- Use `console.error` only for unexpected failures
+- Wrap async calls in `try/catch`
+- Provide user-friendly fallback UI
 
-# 🧠 TODAY DASHBOARD ARCHITECTURE
+### **Error Boundaries**
 
-## Sections (FINAL)
-
-1. Hero
-2. Quick Actions
-3. Insights (derived)
-4. Next Actions (merged Up Next + Activity)
-
----
-
-## Next Actions Logic
-
-Priority:
-
-1. Unlogged meal
-2. Incomplete task
-3. Fallback CTA
+- A global React error boundary will be added in `/src/components/ErrorBoundary.tsx`
 
 ---
 
-## Example Selector
+## 6. Accessibility & UX Principles
 
-ts const nextTask = tasks.find(t => !t.completed);
-
----
-
-# 🎯 UI SYSTEM RULES
-
-## Buttons
-
-- Always <button>
-- Never clickable <div>
-- Must include:
-  - active:scale-[0.97]
-  - transition
+- Semantic HTML first
+- Keyboard navigability required
+- Focus states must be visible
+- ARIA only when necessary
+- Avoid div soup
+- Use headings in logical order
 
 ---
 
-## Icons
+## 7. Future-Proofing
 
-- No background containers
-- Size: 32–40px
-- Always aligned and consistent
+### **PWA**
 
----
+- `manifest.json` in `public/`
+- Icons in `public/icons/`
+- Service worker via Vite plugin (later)
 
-## Spacing
+### **Cloudflare Workers**
 
-- Use consistent spacing scale
-- Avoid nested layouts
+- API routes will live in a separate repo or `/api` folder (not yet created)
+- Domain: `api.echoin.ink`
 
----
+### **Design System**
 
-# 🧠 MODAL SYSTEM
-
-- BottomSheet pattern
-- Scrollable content
-- Sticky CTA
-- Safe-area padding
+- Tokens in Tailwind config
+- Component primitives in `src/components/ui`
 
 ---
 
-# 🧪 TESTING RULES
+## 8. Conventions
 
-## Test Data
+### **Naming**
 
-ts const task: Task = { id: "1", label: "Test", date: "2026-01-01", completed: false, };
+- Components: `PascalCase`
+- Files: `kebab-case`
+- Hooks: `useSomething.ts`
+- Zustand stores: `something.store.ts`
+- Feature folders: `feature-name`
 
----
+### **Imports**
 
-## 🚫 FORBIDDEN IN TESTS
+- Use absolute imports via `@/` alias
+- No deep relative imports like `../../../`
 
-- completedDates ❌
-- UI-based fields ❌
-- old abstractions ❌
+### **Commits**
 
----
-
-## Testing Philosophy
-
-- Test behavior, not implementation
-- Test state changes, not structure
-
----
-
-# 🚀 PERFORMANCE RULES
-
-## Must Follow
-
-- Use selectors
-- Avoid full store subscription
-- Memoize derived data
-- Avoid unnecessary re-renders
+- Conventional commits recommended:
+  - `feat:`
+  - `fix:`
+  - `refactor:`
+  - `chore:`
+  - `docs:`
 
 ---
 
-## Anti-patterns
+## 9. What This Architecture Guarantees
 
-ts useTasksStore() // ❌ large component logic // ❌ derived logic in JSX // ❌
-
----
-
-# 🔥 HARD RULES (NON-NEGOTIABLE)
-
-1. No legacy fields (completedDates, title, subtitle)
-2. No view models
-3. No derived logic in components
-4. No store mutation
-5. No abstraction for the sake of abstraction
-6. Prefer clarity over cleverness
+- No folder drift
+- No deployment confusion
+- No mixed brand/app assets
+- Clean separation of concerns
+- Predictable scaling
+- Easy onboarding (even for future-you)
+- Ready for PWA + Workers
+- Cloudflare-friendly build pipeline
 
 ---
 
-# 🧠 MENTAL MODEL
+## 10. Change Log
 
-> Store = truth  
-> Selectors = thinking  
-> Components = rendering
-
----
-
-# 📦 FUTURE WORK (NEXT PHASE)
-
-- Performance optimization pass
-- Bundle splitting
-- Memoization audit
-- Animation polish
-
----
-
-# ✅ SUCCESS STATE
-
-The app is considered "correct" when:
-
-- TypeScript = 0 errors
-- No legacy fields exist
-- UI reacts instantly to state
-- No duplicated logic
-- Clear data flow from store → UI
-
----
-
-END
+All architectural changes must be documented here.
