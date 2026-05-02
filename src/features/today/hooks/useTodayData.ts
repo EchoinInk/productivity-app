@@ -41,17 +41,17 @@ export const useTodayData = (): TodayData => {
   // ✅ STABLE SELECTORS ONLY
   const today = getToday();
 
-const todayTasks = useTasksStore((s) =>
+  const todayTasks = useTasksStore((s) =>
+    selectTodayTasks(s.tasks, today)
+  );
 
-  selectTodayTasks(s.tasks, today)
+  const completedTasks = useTasksStore((s) =>
+    selectCompletedTodayTasks(s.tasks, today)
+  );
 
-);
-
-const completedTasks = useTasksStore((s) =>
-
-  selectCompletedTodayTasks(s.tasks, today)
-
-);
+  const incompleteTasks = useTasksStore((s) =>
+    selectIncompleteTodayTasks(s.tasks, today)
+  );
 
   const meals = useMealsStore((s) => s.meals);
   const weeklyBudget = useBudgetStore((s) => s.weeklyBudget);
@@ -59,8 +59,7 @@ const completedTasks = useTasksStore((s) =>
   const shoppingItems = useShoppingStore((s) => s.shoppingItems);
   const events = useActivityStore((s) => s.events);
 
-  // ✅ SIMPLE DERIVATIONS (NO useMemo needed)
-
+  // Simple derivations (no useMemo needed)
   const todayWeekday = [
     "Sunday",
     "Monday",
@@ -84,7 +83,7 @@ const completedTasks = useTasksStore((s) =>
     (i) => !i.done
   );
 
-  // ✅ FOCUS
+  // Focus
 
   let focus: TodayData["focus"] = {
     percentage: 0,
@@ -129,7 +128,7 @@ const completedTasks = useTasksStore((s) =>
     };
   }
 
-  // ✅ SUMMARY
+  // Summary
 
   const summary: TodayData["summary"] = {
     tasks: {
@@ -148,7 +147,7 @@ const completedTasks = useTasksStore((s) =>
     },
   };
 
-  // ✅ UP NEXT
+  // Up Next
 
   const upNext: TodayData["upNext"] = [
     ...incompleteTasks.slice(0, 3).map((task) => ({
@@ -175,7 +174,7 @@ const completedTasks = useTasksStore((s) =>
     })),
   ].slice(0, 5);
 
-  // ✅ ACTIVITY
+  // Activity
 
   const activity = events
     .filter(

@@ -58,7 +58,7 @@ describe("taskSelectors", () => {
 
       expect(result).toHaveLength(1);
 
-      expect(result[0].completed).toBe(true);
+      expect(result[0]?.completed).toBe(true);
 
     });
 
@@ -98,7 +98,7 @@ describe("taskSelectors", () => {
 
       expect(result).toHaveLength(1);
 
-      expect(result[0].completed).toBe(true);
+      expect(result[0]?.completed).toBe(true);
 
     });
 
@@ -112,7 +112,7 @@ describe("taskSelectors", () => {
 
       expect(result).toHaveLength(1);
 
-      expect(result[0].completed).toBe(false);
+      expect(result[0]?.completed).toBe(false);
 
     });
 
@@ -126,7 +126,7 @@ describe("taskSelectors", () => {
 
       expect(result).toHaveLength(1);
 
-      expect(result[0].date).toBe("2026-05-03");
+      expect(result[0]?.date).toBe("2026-05-03");
 
     });
 

@@ -4,7 +4,7 @@ describe("useTasksStore", () => {
 
   it("adds a task", () => {
 
-    const { addTask, tasks } = useTasksStore.getState();
+    const { addTask } = useTasksStore.getState();
 
     addTask({ label: "Test", date: "2026-05-02" });
 
@@ -12,7 +12,7 @@ describe("useTasksStore", () => {
 
     expect(updated.length).toBe(1);
 
-    expect(updated[0].label).toBe("Test");
+    expect(updated[0]?.label).toBe("Test");
 
   });
 
@@ -22,13 +22,13 @@ describe("useTasksStore", () => {
 
     store.addTask({ label: "Test", date: "2026-05-02" });
 
-    const id = useTasksStore.getState().tasks[0].id;
+    const id = useTasksStore.getState().tasks[0]?.id;
 
-    store.toggleTask(id);
+    store.toggleTask(id!);
 
     const updated = useTasksStore.getState().tasks[0];
 
-    expect(updated.completed).toBe(true);
+    expect(updated?.completed).toBe(true);
 
   });
 
