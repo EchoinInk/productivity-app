@@ -8,12 +8,12 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: "/app/",
+
     plugins: [
       react(),
       isDev && componentTagger()
     ].filter(Boolean),
 
-    // ⭐ Static assets + landing page + _redirects
     publicDir: "public",
 
     build: {
@@ -21,6 +21,10 @@ export default defineConfig(({ mode }) => {
       copyPublicDir: true,
 
       rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, "index.html"),
+          app: path.resolve(__dirname, "app/index.html")
+        },
         output: {
           manualChunks: {
             vendor: ["react", "react-dom"],
