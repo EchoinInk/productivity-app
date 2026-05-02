@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 import type { PluginAPI } from "tailwindcss/types/config";
-import tailwindcssAnimate from "tailwindcss-animate";
+const tailwindcssAnimate = require("tailwindcss-animate");
 
 export default {
   darkMode: ["class"],
@@ -118,6 +118,17 @@ plugins: [
       ])
     );
     addUtilities(utilities);
+    
+    // Add scrollbar-hide utility
+    addUtilities({
+      '.scrollbar-hide': {
+        '-ms-overflow-style': 'none',
+        'scrollbar-width': 'none',
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+      },
+    });
   },
   ],
 } satisfies Config;

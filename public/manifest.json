@@ -1,28 +1,16 @@
 {
   "name": "Lumo",
   "short_name": "Lumo",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b5cf6",
   "icons": [
     {
-      "src": "/icons/lumo_icon_192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/lumo_icon_512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/lumo_maskable_192.png",
-      "sizes": "192x192",
+      "src": "lumo_master_1024.png",
+      "sizes": "1024x1024",
       "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icons/lumo_maskable_512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }

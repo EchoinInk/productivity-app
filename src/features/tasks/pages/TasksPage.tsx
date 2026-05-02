@@ -1,63 +1,71 @@
+import { useState } from "react";
 import { useTasksStore } from "../store/useTasksStore";
-import { TaskSection } from "../components/TaskSection";
-import { TaskRow } from "../components/TaskRow";
-import { getToday } from "@/shared/lib/date";
+import { CalendarStrip } from "../components/CalendarStrip";
+import { TaskSections } from "../components/TaskSections";
+import { FloatingAddButton } from "../components/FloatingAddButton";
+import { AddTaskModal } from "../components/AddTaskModal/AddTaskModal.container";
+import { getToday, isDateAfter, isDateBefore } from "@/shared/lib/date";
 
 const TasksPage = () => {
   const tasks = useTasksStore((s) => s.tasks);
   const toggleTask = useTasksStore((s) => s.toggleTask);
+  
+  const [selectedDate, setSelectedDate] = useState(getToday());
+  const [showAddModal, setShowAddModal] = useState(false);
 
-  const today = getToday();
-
-  const todayTasks = tasks.filter((t) => t.date === today);
-
-  const incomplete = todayTasks.filter((t) => !t.completed);
-  const completed = todayTasks.filter((t) => t.completed);
-
-  const anytime = incomplete.filter((t) => !t.time);
-
-  const morning = incomplete.filter((t) => {
-    if (!t.time) return false;
-    const hour = Number(t.time.split(":")[0]);
-    return hour >= 5 && hour < 12;
+  // Filter tasks by selected date
+  const todayTasks = tasks.filter((t) => t.date === selectedDate);
+  
+  // Get upcoming tasks (future dates)
+  const upcomingTasks = tasks.filter((t) => 
+    !t.completed && isDateAfter(t.date, selectedDate)
+  ).sort((a, b) => {
+    // Sort by date and priority
+    const dateCompare = a.date.localeCompare(b.date);
+    if (dateCompare !== 0) return dateCompare;
+    
+    const priorityOrder = { high: 0, medium: 1, low: 2, undefined: 3 };
+    const priorityA = priorityOrder[a.priority as keyof typeof priorityOrder] ?? 3;
+    const priorityB = priorityOrder[b.priority as keyof typeof priorityOrder] ?? 3;
+    return priorityA - priorityB;
   });
+  
+  // Get completed tasks (past dates, excluding today)
+  const completedTasks = tasks.filter((t) => 
+    t.completed && isDateBefore(t.date, selectedDate)
+  ).sort((a, b) => b.date.localeCompare(a.date));
 
-  const afternoon = incomplete.filter((t) => {
-    if (!t.time) return false;
-    const hour = Number(t.time.split(":")[0]);
-    return hour >= 12 && hour < 18;
-  });
-
-  const evening = incomplete.filter((t) => {
-    if (!t.time) return false;
-    const hour = Number(t.time.split(":")[0]);
-    return hour >= 18;
-  });
+  const handleAddTask = () => {
+    setShowAddModal(true);
+  };
 
   return (
-    <div className="px-4 space-y-6 pb-24">
-
-      <TaskSection title="Anytime" tasks={anytime} onToggle={toggleTask} />
-
-      <TaskSection title="Morning" tasks={morning} onToggle={toggleTask} />
-
-      <TaskSection title="Afternoon" tasks={afternoon} onToggle={toggleTask} />
-
-      <TaskSection title="Evening" tasks={evening} onToggle={toggleTask} />
-
-      {completed.length > 0 && (
-        <div className="pt-4 space-y-2">
-          <h3 className="text-sm font-semibold text-muted-foreground">
-            Completed
-          </h3>
-
-          {completed.map((task) => (
-            <div key={task.id} className="opacity-60">
-              <TaskRow task={task} onToggle={toggleTask} />
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="flex flex-col h-full bg-background">
+      {/* Calendar Strip */}
+      <CalendarStrip 
+        selectedDate={selectedDate} 
+        onDateSelect={setSelectedDate} 
+      />
+      
+      {/* Task Sections */}
+      <div className="flex-1 overflow-y-auto pb-20">
+        <TaskSections
+          todayTasks={todayTasks}
+          upcomingTasks={upcomingTasks}
+          completedTasks={completedTasks}
+          onToggle={toggleTask}
+        />
+      </div>
+      
+      {/* Floating Add Button */}
+      <FloatingAddButton onClick={handleAddTask} />
+      
+      {/* Add Task Modal */}
+      <AddTaskModal 
+        open={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        defaultDate={selectedDate}
+      />
     </div>
   );
 };
