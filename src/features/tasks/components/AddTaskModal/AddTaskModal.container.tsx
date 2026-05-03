@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { AddTaskModalView } from "./AddTaskModal.view";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import type {
-  TaskCategory,
-  TaskPriority,
-  TaskRecurrence,
-} from "@/features/tasks/types/types";
+import type { CreateTaskInput } from "@/features/tasks/types/types";
 
 type Props = {
   open: boolean;
@@ -19,71 +15,92 @@ export const AddTaskModal = ({ open, onClose, defaultDate }: Props) => {
   const [label, setLabel] = useState("");
   const [notes, setNotes] = useState("");
   const [date, setDate] = useState(defaultDate);
-  const [category, setCategory] = useState<TaskCategory | "">("");
-  const [priority, setPriority] = useState<TaskPriority | "">("");
-  const [recurrence, setRecurrence] = useState<TaskRecurrence | "">("");
+  const [category, setCategory] = useState<"" | any>("");
+  const [recurrence, setRecurrence] = useState<"" | any>("");
+  const [priority, setPriority] = useState<"" | any>("");
+
   const [loading, setLoading] = useState(false);
 
-  const canSave = label.trim().length > 0;
-
-  const reset = () => {
+  const reset = useCallback(() => {
     setLabel("");
     setNotes("");
     setDate(defaultDate);
     setCategory("");
-    setPriority("");
     setRecurrence("");
-  };
+    setPriority("");
+  }, [defaultDate]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     reset();
     onClose();
-  };
+  }, [reset, onClose]);
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault(); // 🔴 CRITICAL FIX
+  const handleSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
 
-    if (!canSave || loading) return;
+    if (!label.trim() || loading) return;
 
     setLoading(true);
 
-    try {
-      addTask({
-        label: label.trim(),
-        date,
-        notes: notes.trim() || undefined,
-        category: category || undefined,
-        priority: priority || undefined,
-        recurrence: recurrence || undefined,
-      });
+    const payload: CreateTaskInput = {
+      label: label.trim(),
+      notes: notes || undefined,
+      date,
+      category: category || undefined,
+      recurrence: recurrence || undefined,
+      priority: priority || undefined,
+    };
 
-      handleClose(); // 🔴 CLOSE MODAL AFTER SAVE
-    } finally {
-      setLoading(false);
-    }
-  };
+    addTask(payload);
 
-  return (
-    <AddTaskModalView
-      model={{
-        open,
-        label,
-        notes,
-        date,
-        category,
-        priority,
-        recurrence,
-        canSave,
-        loading,
-        onClose: handleClose,
-        onSave: handleSave,
-        onLabelChange: setLabel,
-        onNotesChange: setNotes,
-        onDateChange: setDate,
-        onCategoryChange: setCategory,
-        onPriorityChange: setPriority,
-        onRecurrenceChange: setRecurrence,
-      }}
-    />
-  );
+    handleClose();
+    setLoading(false);
+  }, [
+    label,
+    notes,
+    date,
+    category,
+    recurrence,
+    priority,
+    loading,
+    addTask,
+    handleClose,
+  ]);
+
+  const canSave = label.trim().length > 0;
+
+  // 🔥 THIS FIXES YOUR INPUT BUG
+  const model = useMemo(() => ({
+    open,
+    label,
+    notes,
+    date,
+    category,
+    recurrence,
+    priority,
+    canSave,
+    loading,
+    onClose: handleClose,
+    onSave: handleSubmit,
+    onLabelChange: setLabel,
+    onNotesChange: setNotes,
+    onDateChange: setDate,
+    onCategoryChange: setCategory,
+    onRecurrenceChange: setRecurrence,
+    onPriorityChange: setPriority,
+  }), [
+    open,
+    label,
+    notes,
+    date,
+    category,
+    recurrence,
+    priority,
+    canSave,
+    loading,
+    handleClose,
+    handleSubmit,
+  ]);
+
+  return <AddTaskModalView model={model} />;
 };
