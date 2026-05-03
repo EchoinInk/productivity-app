@@ -1,20 +1,28 @@
-import { useState, useMemo, lazy, Suspense } from "react";
+import { useState, lazy, Suspense } from "react";
+
 import Header from "@/components/layout/Header";
-import { TodayHeroContainer } from "@/features/today/components/TodayHero/TodayHero.container";
-import { TodaySummaryContainer } from "@/features/today/components/TodaySummary/TodaySummary.container";
+import { Heading } from "@/components/ui/Text";
+
+import { TodayHeroCard } from "@/features/today/components/TodayHeroCard";
+import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
+import { UpNextCard } from "@/features/today/components/UpNextCard";
+
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
-import AddMeal from "@/features/meals/components/AddMealModal";
-import AddShoppingItem from "@/features/shopping/components/AddShoppingItemModal";
+import { AddMealModal } from "@/features/meals";
+
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
-import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+
+import { useTodayData } from "@/features/today/hooks/useTodayData";
+import { selectNextTask } from "@/features/tasks/selectors/taskSelectors";
 import { getToday } from "@/shared/lib/date";
-// Lazy load heavy components for mobile performance
-const TodayUpNextContainer = lazy(() => import("@/features/today/components/TodayUpNext/TodayUpNext.container").then(module => ({ default: module.TodayUpNextContainer })));
-const ActivityListContainer = lazy(() => import("@/features/today/components/ActivityList/ActivityList.container").then(module => ({ default: module.ActivityListContainer })));
-const QuickActionsBarContainer = lazy(() => import("@/features/today/components/QuickActionsBar/QuickActionsBar.container").then(module => ({ default: module.QuickActionsBarContainer })));
-const InsightsCardContainer = lazy(() => import("@/features/insights/components/InsightsCard.container").then(module => ({ default: module.InsightsCardContainer })));
+
+// ✅ Lazy load Insights (correct pattern)
+const InsightsCardContainer = lazy(() =>
+  import("@/features/insights/components/InsightsCard.container").then((m) => ({ default: m.InsightsCardContainer })),
+);
 
 const greetingFor = (d: Date): string => {
   const h = d.getHours();
@@ -24,26 +32,32 @@ const greetingFor = (d: Date): string => {
 };
 
 const HomeScreen = () => {
-  const addExpense = useBudgetStore((state) => state.addExpense);
-  const addMeal = useMealsStore((state) => state.addMeal);
-  const addShoppingItem = useShoppingStore((state) => state.addShoppingItem);  
+  // ✅ MUST be inside component (fixes midnight bug)
+  const todayStr = getToday();
+
+  // STORES
+  const addExpense = useBudgetStore((s) => s.addExpense);
+  const addMeal = useMealsStore((s) => s.addMeal);
+  const toggleTask = useTasksStore((s) => s.toggleTask);
+
+  const nextTask = useTasksStore((s) => selectNextTask(s.tasks, todayStr));
+
+  // MODAL STATE
   const [taskOpen, setTaskOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false);
   const [mealOpen, setMealOpen] = useState(false);
-  const [shoppingOpen, setShoppingOpen] = useState(false);
-  const [selectedDate] = useState(new Date());
 
-  // Optimize greeting computation - move outside of render path
-  const greeting = useMemo(() => greetingFor(selectedDate), [selectedDate]);
+  // DATA
+  const today = useTodayData();
 
-  const handleAddTask = () => setTaskOpen(true);
-  const handleAddMeal = () => setMealOpen(true);
+  // ✅ simple + correct
+  const greeting = greetingFor(new Date());
 
   return (
     <>
       {/* PAGE WRAPPER */}
       <div className="relative min-h-screen bg-background overflow-hidden">
-        {/* Subtle background glow */}
+        {/* Background glow */}
         <div className="pointer-events-none absolute inset-0">
           <div
             className="
@@ -58,96 +72,58 @@ const HomeScreen = () => {
           />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-[430px] mx-auto px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] space-y-6">
+        {/* CONTENT */}
+        <div className="relative z-10 w-full max-w-[430px] mx-auto px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] space-y-4">
+          {/* HEADER */}
+          <Header showTopBar greeting={greeting} topBarSubtitle="Let's make today amazing" hasNotifications={false} />
 
-          <Header
-            showTopBar
-            greeting={greeting}
-            topBarSubtitle="Let's make today amazing"
-            hasNotifications={false}
-          />
-
-          {/* HERO - Focus Card */}
+          {/* HERO */}
           <div className="animate-[fadeIn_0.45s_ease-out]">
-            <TodayHeroContainer onAddTask={handleAddTask} />
+            <TodayHeroCard
+              percentage={today.focus.percentage}
+              total={today.summary.tasks.total}
+              completed={today.summary.tasks.completed}
+              onAddTask={() => setTaskOpen(true)}
+            />
           </div>
 
-          {/* SUMMARY CARDS */}
-          <div className="animate-[fadeIn_0.55s_ease-out]">
-            <TodaySummaryContainer />
+          {/* UP NEXT */}
+          <div className="animate-[fadeIn_0.65s_ease-out]">
+            <div className="flex items-center justify-between mb-3">
+              <Heading className="text-base text-muted-foreground">Up Next</Heading>
+            </div>
+
+            <UpNextCard task={nextTask} onPress={() => nextTask && toggleTask(nextTask.id)} />
           </div>
 
+          {/* QUICK ACTIONS */}
+          <div className="animate-[fadeIn_0.85s_ease-out]">
+            <TodayQuickActionsGrid
+              tasks={today.summary.tasks.total}
+              meals={today.summary.meals.logged}
+              remaining={today.summary.budget.remaining}
+              onAddTask={() => setTaskOpen(true)}
+              onAddMeal={() => setMealOpen(true)}
+              onAddExpense={() => setExpenseOpen(true)}
+            />
+          </div>
+
+          {/* INSIGHTS */}
           <Suspense fallback={<div className="h-24 animate-pulse bg-muted/20 rounded-lg" />}>
-            {/* INSIGHTS */}
-            <div className="animate-[fadeIn_0.80s_ease-out]">
+            <div className="animate-[fadeIn_1.05s_ease-out]">
               <InsightsCardContainer />
             </div>
           </Suspense>
-
-          {/* LAZY-LOADED SECTIONS - Below the fold for mobile performance */}
-          <Suspense fallback={<div className="h-20 animate-pulse bg-muted/20 rounded-lg" />}>
-            {/* UP NEXT */}
-            <div className="animate-[fadeIn_0.65s_ease-out]">
-              <TodayUpNextContainer />
-            </div>
-          </Suspense>
-
-          <Suspense fallback={<div className="h-32 animate-pulse bg-muted/20 rounded-lg" />}>
-            {/* RECENT ACTIVITY */}
-            <div className="animate-[fadeIn_0.75s_ease-out]">
-              <ActivityListContainer onAddTask={handleAddTask} />
-            </div>
-          </Suspense>
-
-          <Suspense fallback={<div className="h-16 animate-pulse bg-muted/20 rounded-lg" />}>
-            {/* QUICK ACTIONS */}
-            <div className="animate-[fadeIn_0.85s_ease-out]">
-              <QuickActionsBarContainer
-                openAddTaskModal={handleAddTask}
-                openAddMealModal={handleAddMeal}
-              />
-            </div>
-          </Suspense>
-
         </div>
       </div>
 
       {/* MODALS */}
-    <AddTaskModal
 
-  open={taskOpen}
+      <AddTaskModal open={taskOpen} onClose={() => setTaskOpen(false)} defaultDate={todayStr} />
 
-  onClose={() => setTaskOpen(false)}
+      <AddMealModal open={mealOpen} onClose={() => setMealOpen(false)} onSave={addMeal} />
 
-  defaultDate={getToday()}
-
-/>
-
-      <AddExpense
-        open={expenseOpen}
-        onClose={() => setExpenseOpen(false)}
-        onSave={addExpense}
-      />
-
-      <AddMeal
-        open={mealOpen}
-        onClose={() => setMealOpen(false)}
-        onSave={(meal) => {
-          console.log("MEAL LOGGED", meal);
-          addMeal(meal);
-        }}
-      />
-
-      <AddShoppingItem
-        open={shoppingOpen}
-        category="Groceries"
-        onClose={() => setShoppingOpen(false)}
-        onSave={(item) => {
-          console.log("SHOPPING ITEM ADDED", item);
-          addShoppingItem(item);
-        }}
-      />
+      <AddExpense open={expenseOpen} onClose={() => setExpenseOpen(false)} onSave={addExpense} />
     </>
   );
 };
