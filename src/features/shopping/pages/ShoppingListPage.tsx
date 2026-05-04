@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-import { Card, CardBody } from "@/components/ui/Card";
+import { Surface } from "@/components/ui/Surface";
 import { Button } from "@/components/ui/Button";
-import TabBar from "@/components/ui/TabBar";
 import Header from "@/components/layout/Header";
 import AddShoppingItem from "@/features/shopping/components/AddShoppingItemModal";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { Heading, Meta } from "@/components/ui/Text";
 
 import { ShoppingRow } from "@/features/shopping/components/ShoppingRow";
 import type { ShoppingCategory } from "@/features/shopping/types/types";
@@ -29,38 +28,50 @@ const ShoppingListPage = () => {
       <div className="space-y-4">
         <Header title="Shopping List" />
 
-        <TabBar
-          tabs={tabs}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
+        {/* Simple Tab Bar */}
+        <div className="grid grid-cols-2 gap-2 p-4">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`h-11 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                activeTab === tab
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card/70 text-muted-foreground border border-border hover:bg-card hover:border-primary/30 hover:text-foreground"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
 
-        <Card>
-          <CardBody>
-            {items.length === 0 ? (
-              <EmptyState
-                title={`No ${activeTab.toLowerCase()} items`}
-                description={`Start by adding your first ${activeTab.toLowerCase()} item to build your shopping list`}
-                action={
-                  <Button onClick={() => setOpen(true)} aria-label={`Add ${activeTab.toLowerCase()} item`}>
-                    <Plus size={16} /> Add Item
-                  </Button>
-                }
-                className="py-6"
-              />
-            ) : (
-              <div className="space-y-1">
-                {items.map((item) => (
-                  <ShoppingRow
-                    key={item.id}
-                    item={item}
-                    onToggle={toggleItem}
-                  />
-                ))}
+        <Surface className="m-4">
+          {items.length === 0 ? (
+            <div className="text-center py-8 px-4 space-y-2">
+              <Heading className="text-lg font-semibold">
+                No {activeTab.toLowerCase()} items
+              </Heading>
+              <Meta className="text-sm text-gray-500">
+                Start by adding your first {activeTab.toLowerCase()} item to build your shopping list
+              </Meta>
+              <div className="pt-4">
+                <Button onClick={() => setOpen(true)} aria-label={`Add ${activeTab.toLowerCase()} item`}>
+                  <Plus size={16} /> Add Item
+                </Button>
               </div>
-            )}
-          </CardBody>
-        </Card>
+            </div>
+          ) : (
+            <div className="space-y-1">
+              {items.map((item) => (
+                <ShoppingRow
+                  key={item.id}
+                  item={item}
+                  onToggle={toggleItem}
+                />
+              ))}
+            </div>
+          )}
+        </Surface>
 
         <div className="space-y-4">
           <Button fullWidth onClick={() => setOpen(true)} aria-label="Add shopping item">
