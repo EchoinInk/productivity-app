@@ -1,31 +1,13 @@
 import type { Task } from "../types/types";
+import { getTaskPriorityColor, formatTaskTime } from "../utils/taskUtils";
 
 interface Props {
   task: Task;
   onToggle: (id: string) => void;
 }
 
-const getPriorityColor = (priority?: string) => {
-  switch (priority) {
-    case "high":
-      return "bg-red-500";
-    case "medium":
-      return "bg-yellow-500";
-    case "low":
-      return "bg-gray-400";
-    default:
-      return "bg-transparent";
-  }
-};
-
 export const TaskRowNew = ({ task, onToggle }: Props) => {
-  const getTimeText = () => {
-    if (!task.time) return null;
-    const hour = Number(task.time.split(":")[0]);
-    const period = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
-    return `${displayHour}${period}`;
-  };
+  const timeText = formatTaskTime(task.time);
 
   return (
     <div className="flex items-center gap-3 h-12 px-3 py-2 rounded-lg hover:bg-muted/50 transition-colors">
@@ -33,7 +15,7 @@ export const TaskRowNew = ({ task, onToggle }: Props) => {
       {/* Priority Indicator */}
       <div className={`
         w-2 h-2 rounded-full flex-shrink-0
-        ${getPriorityColor(task.priority)}
+        ${getTaskPriorityColor(task.priority)}
       `} />
 
       {/* Checkbox */}
@@ -63,7 +45,7 @@ export const TaskRowNew = ({ task, onToggle }: Props) => {
         {/* Subtitle */}
         {(task.time || task.category) && (
           <p className="text-xs text-muted-foreground truncate">
-            {getTimeText()}
+            {timeText}
             {task.time && task.category && " • "}
             {task.category}
           </p>

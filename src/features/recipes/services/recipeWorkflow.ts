@@ -15,7 +15,10 @@ const WEEKDAYS: Weekday[] = [
   "Saturday",
 ];
 
-const weekdayForToday = (): Weekday => WEEKDAYS[new Date().getDay()] ?? "Monday";
+const weekdayForToday = (): Weekday => {
+  const today = getToday();
+  return WEEKDAYS[new Date(today).getDay()] ?? "Monday";
+};
 
 const mapIngredientToCategory = (
   ingredient: string

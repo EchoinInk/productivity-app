@@ -1,17 +1,11 @@
 import { useMemo } from "react";
 import { useShoppingStore } from "../store/useShoppingStore";
-import type { ShoppingCategory, ShoppingItem } from "../types/types";
-
-export const selectItemsByCategory =
-  (category: ShoppingCategory) =>
-  (items: ShoppingItem[]) =>
-    items.filter((item) => item.category === category);
-
-export const selectCompletedItems = (items: ShoppingItem[]) =>
-  items.filter((item) => item.done);
-
-export const selectPendingItems = (items: ShoppingItem[]) =>
-  items.filter((item) => !item.done);
+import { 
+  selectItemsByCategory, 
+  selectCompletedItems, 
+  selectPendingItems 
+} from "../selectors/shoppingSelectors";
+import type { ShoppingCategory } from "../types/types";
 
 export const useShoppingList = (category: ShoppingCategory) => {
   const items = useShoppingStore((state) => state.shoppingItems);

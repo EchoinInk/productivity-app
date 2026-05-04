@@ -39,7 +39,7 @@ export const useWeeklySummary = (): WeeklySummary => {
     
     // Get last 7 days
     for (let i = 6; i >= 0; i--) {
-      weekDays.push(subDays(today || new Date().toISOString().split("T")[0]!, i));
+      weekDays.push(subDays(today, i));
     }
 
     let totalTasksCompleted = 0;

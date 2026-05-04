@@ -38,7 +38,7 @@ export const useTasksStore = create<TasksState>()(
           const newTask: Task = {
             id: crypto.randomUUID(),
             completed: false,
-            date: input.date ?? getToday() ?? new Date().toISOString().split("T")[0]!,
+            date: input.date ?? getToday(),
             ...input,
           };
 

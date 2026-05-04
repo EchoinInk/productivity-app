@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import type { Task } from "../types/types";
 import { TaskRowNew } from "./TaskRowNew";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -17,8 +17,8 @@ interface Props {
 export const TaskSections = ({ todayTasks, upcomingTasks, completedTasks, onToggle }: Props) => {
   const [completedExpanded, setCompletedExpanded] = useState(false);
 
-  const todayIncomplete = useMemo(() => selectIncompleteTasks(todayTasks), [todayTasks]);
-  const todayCompleted = useMemo(() => selectCompletedTasks(todayTasks), [todayTasks]);
+  const todayIncomplete = selectIncompleteTasks(todayTasks);
+  const todayCompleted = selectCompletedTasks(todayTasks);
 
   return (
     <div className="space-y-4">

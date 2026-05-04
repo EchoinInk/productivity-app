@@ -9,6 +9,9 @@ import {
   selectTodayTasks,
   selectCompletedTodayTasks,
 } from "@/features/tasks/selectors/taskSelectors";
+import { selectMealsByDay } from "@/features/meals/selectors/mealSelectors";
+import { selectBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
+import { selectIncompleteItemCount } from "@/features/shopping/selectors/shoppingSelectors";
 
 export type TodayData = {
   focus: {
@@ -47,21 +50,18 @@ export const useTodayData = (): TodayData => {
   );
 
   const todayMeals = useMealsStore(
-    useShallow((s) => s.meals.filter((m) => m.day === todayWeekday)),
+    useShallow((s) => selectMealsByDay(s.meals, todayWeekday as any)),
   );
 
-  const { weeklyBudget, totalExpenses } = useBudgetStore(
-    useShallow((s) => ({
-      weeklyBudget: s.weeklyBudget,
-      totalExpenses: s.expenses.reduce((sum, e) => sum + e.amount, 0),
-    })),
+  const budgetSummary = useBudgetStore(
+    useShallow((s) => selectBudgetSummary(s.expenses, s.weeklyBudget, s.income)),
   );
 
   const incompleteShoppingCount = useShoppingStore(
-    (s) => s.shoppingItems.filter((i) => !i.done).length,
+    (s) => selectIncompleteItemCount(s.shoppingItems),
   );
 
-  const remainingBudget = weeklyBudget - totalExpenses;
+  const { weeklyBudget, remaining: remainingBudget } = budgetSummary;
 
   let focus: TodayData["focus"] = {
     percentage: 0,

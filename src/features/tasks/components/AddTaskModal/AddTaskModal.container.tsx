@@ -28,6 +28,7 @@ export const AddTaskModal = ({ open, onClose, defaultDate }: Props) => {
     setCategory("");
     setRecurrence("");
     setPriority("");
+    setLoading(false);
   }, [defaultDate]);
 
   const handleClose = useCallback(() => {
@@ -54,7 +55,6 @@ export const AddTaskModal = ({ open, onClose, defaultDate }: Props) => {
     addTask(payload);
 
     handleClose();
-    setLoading(false);
   }, [
     label,
     notes,
