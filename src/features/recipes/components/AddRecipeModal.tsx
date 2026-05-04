@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { BottomSheetDialog } from "@/components/ui/BottomSheetDialog";
 import { FormActions } from "@/components/ui/FormActions";
-import { Field, ModalForm, SelectField, TextareaField } from "@/components/ui/FormField";
+import { Field, ModalForm, TextareaField, SelectField } from "@/components/ui/FormField";
+import { parseIngredients } from "../utils/recipeUtils";
 
 interface AddRecipeProps {
   open: boolean;
@@ -28,7 +29,7 @@ const AddRecipe = ({ open, onClose, onSave }: AddRecipeProps) => {
       <ModalForm onSubmit={(event) => {
         event.preventDefault();
         if (!canSave) return;
-        onSave({ name: name.trim(), ingredients: ingredients.split(",").map((item) => item.trim()).filter(Boolean), category: category || undefined });
+        onSave({ name: name.trim(), ingredients: parseIngredients(ingredients), category: category || undefined });
         reset();
         onClose();
       }}>
