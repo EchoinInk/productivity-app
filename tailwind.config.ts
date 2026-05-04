@@ -25,6 +25,7 @@ export default {
         soft: "0 1px 2px rgba(0,0,0,0.2)",
       },
       colors: {
+        // Remove default Tailwind palette by overriding with tokens only
         // Brand colors
         sky: tokens.colors.brand.sky,
         indigo: tokens.colors.brand.indigo,
@@ -42,7 +43,7 @@ export default {
         "text-muted": tokens.colors.text.light.muted,
         "text-on-primary": tokens.colors.text.light.onPrimary,
         // Border
-        border: tokens.colors.border,
+        "border-default": tokens.colors.border.light,
         // Semantic colors
         primary: {
           DEFAULT: tokens.colors.brand.sky,
@@ -71,6 +72,10 @@ export default {
         info: {
           DEFAULT: tokens.colors.semantic.info,
           foreground: tokens.colors.text.light.onPrimary,
+        },
+        muted: {
+          DEFAULT: tokens.colors.text.light.muted,
+          foreground: tokens.colors.text.light.primary,
         },
         // Legacy support (mapped to tokens)
         foreground: tokens.colors.text.light.primary,
