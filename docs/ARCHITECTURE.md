@@ -19,12 +19,16 @@ The Lumo ecosystem is intentionally split into two independent deployments:
 This repo contains **only the Lumo application**.  
 No brand assets, no marketing pages, no mixed deployments.
 
+---
+
 ### **Deployment Targets**
 
 - **Cloudflare Pages** (GitHub-connected)
 - Build command: `npm run build`
 - Output directory: `dist`
-- Root directory: `/` (app lives at repo root)
+- Root directory: `/`
+
+---
 
 ### **Future Integrations**
 
@@ -36,16 +40,47 @@ No brand assets, no marketing pages, no mixed deployments.
 
 ## 2. Repo Structure
 
-/ ├── src/ # Application source code │ ├── components/ # Reusable UI components │ ├── features/ # Feature-based modules (recommended pattern) │ ├── hooks/ # Reusable logic hooks │ ├── lib/ # Utilities, helpers, shared logic │ ├── pages/ # Route-level components (if using file-based routing) │ ├── state/ # Zustand stores or other state management │ ├── styles/ # Global styles, tokens, Tailwind config extensions │ └── main.tsx # App entry point │ ├── public/ # Static assets copied to build output │ └── icons/ # App icons (future PWA) │ ├── index.html # Vite HTML entry ├── vite.config.ts # Vite configuration ├── package.json ├── tsconfig.json └── README.md
+src/
+├── app/                # App shell, layout, providers
+├── components/
+│   ├── ui/             # Design system primitives (Button, Surface, Text)
+│   └── shared/         # Reusable cross-feature components
+├── features/           # Feature-based modules (source of truth)
+│   └── /
+│       ├── components/
+│       ├── containers/
+│       ├── hooks/
+│       ├── selectors/
+│       ├── store/
+│       ├── types.ts
+│       └── api.ts      # Public API surface
+├── shared/
+│   ├── hooks/          # Cross-feature hooks
+│   └── lib/            # Utilities (date, formatting, etc.)
+├── theme/
+│   ├── tokens.ts       # Design system tokens
+│   └── index.ts
+├── main.tsx
+
+public/
+├── icons/              # PWA icons (future)
+
+index.html
+vite.config.ts
+package.json
+tsconfig.json
+README.md
+
+---
 
 ### **Folder Rules**
 
-- **Nothing goes in root except config files.**
-- **Brand assets never enter this repo.**
-- **All UI lives in `src/components` or `src/features/*/components`.**
-- **All logic lives in `src/hooks` or `src/lib`.**
-- **All state lives in `src/state`.**
-- **No random folders. No “misc”. No “utils2”.**
+- Nothing goes in root except config files
+- Brand assets never enter this repo
+- UI primitives live in `src/components/ui`
+- Feature logic stays inside `features/*`
+- Shared utilities go in `src/shared`
+- No random folders (no `misc`, no `utils2`)
 
 ---
 
@@ -53,50 +88,111 @@ No brand assets, no marketing pages, no mixed deployments.
 
 ### **1. Feature-Based Organization**
 
-Each feature gets its own folder:
-
-src/features/<feature-name>/ components/ hooks/ state/ utils/ index.ts
-
-This keeps the app scalable and prevents “god folders”.
-
-### **2. Component Boundaries**
-
-- Components must be **pure**, **small**, and **single-responsibility**.
-- UI-only components go in `src/components`.
-- Feature-specific components stay inside their feature folder.
-- No component should import across unrelated features.
-
-### **3. State Management**
-
-- Zustand is the preferred store.
-- Each store lives in `src/state` or inside a feature folder.
-- Stores must:
-  - expose selectors
-  - avoid storing derived state
-  - avoid storing UI-only state (keep that local)
-
-### **4. Data Flow**
-
-- Data flows **top → down**.
-- State flows **via hooks**, not props drilling.
-- API calls (future Workers) live in `src/lib/api`.
-
-### **5. Styling**
-
-- Tailwind is the primary styling system.
-- Global tokens live in `tailwind.config.ts`.
-- No inline style objects unless necessary.
-- No random CSS files.
+Each feature is self-contained:
+features//
+├── components/
+├── containers/
+├── hooks/
+├── selectors/
+├── store/
+├── types.ts
+└── api.ts
+This ensures scalability and avoids global coupling.
 
 ---
 
-## 4. Build & Deployment Architecture
+### **2. Component Boundaries**
+
+- Components must be **pure**, **small**, and **single-responsibility**
+
+- UI primitives live in `/components/ui`
+
+- Feature components stay inside their feature
+
+- No cross-feature imports outside public APIs
+
+---
+
+### **3. State Management**
+
+- Zustand is used per-feature
+
+- Stores live inside `features/*/store`
+
+- No monolithic global store
+
+- Shared/global state only when absolutely necessary (`src/shared`)
+
+Stores must:
+
+- expose selectors
+
+- avoid storing derived state
+
+- avoid storing UI-only state
+
+---
+
+### **4. Data Flow**
+
+- Data flows **top → down**
+
+- State accessed via hooks/selectors (no prop drilling)
+
+- API logic lives in `src/shared/lib` (future Workers integration)
+
+---
+
+### **5. Styling**
+
+- Tailwind is the primary styling system
+
+- No inline styles unless absolutely necessary
+
+- No random CSS files
+
+---
+
+## 4. Design System Rules
+
+The design system is a **first-class architectural layer**.
+
+### **Core Rules**
+
+- All colors must come from `/src/theme/tokens.ts`
+
+- Tailwind must extend tokens (no default color usage like `blue-500`)
+
+- UI primitives live in `/components/ui`
+
+- No feature may define its own colors or design tokens
+
+- No raw hex values allowed in components
+
+---
+
+### **Design Flow**
+tokens → tailwind.config → UI components → features
+---
+
+### **Gradient Rules**
+
+- Gradients are used ONLY for:
+  - Primary CTA
+  - Progress indicators
+- Never used for layout backgrounds or containers
+
+---
+
+## 5. Build & Deployment Architecture
 
 ### **Build**
 
-- Vite 6 (or latest stable)
-- React + SWC plugin
-- TypeScript strict mode recommended
+- Vite (latest stable)
+- React + SWC
+- TypeScript strict mode
+
+---
 
 ### **Deployment**
 
@@ -104,100 +200,114 @@ This keeps the app scalable and prevents “god folders”.
 - Auto-build on push to `main`
 - Output: `dist/`
 
+---
+
 ### **Environment Variables**
 
-- All env vars must be prefixed with `VITE_`
-- Stored in Cloudflare Pages → Environment Variables
+- Must be prefixed with `VITE_`
+- Stored in Cloudflare Pages
 - Never committed to repo
 
 ---
 
-## 5. Error Handling Strategy
+## 6. Error Handling Strategy
 
 ### **Global Rules**
 
 - No silent failures
 - No `console.log` in production
 - Use `console.error` only for unexpected failures
-- Wrap async calls in `try/catch`
-- Provide user-friendly fallback UI
+- All async logic must use `try/catch`
+- Always provide user-friendly fallback UI
+
+---
 
 ### **Error Boundaries**
 
-- A global React error boundary will be added in `/src/components/ErrorBoundary.tsx`
+- Global error boundary at:
+  - `/src/app/providers/ErrorBoundary.tsx`
 
 ---
 
-## 6. Accessibility & UX Principles
+## 7. Accessibility & UX Principles
 
 - Semantic HTML first
-- Keyboard navigability required
+- Keyboard navigation required
 - Focus states must be visible
-- ARIA only when necessary
-- Avoid div soup
-- Use headings in logical order
+- Avoid unnecessary ARIA usage
+- Maintain logical heading structure
+- Avoid "div soup"
 
 ---
 
-## 7. Future-Proofing
+## 8. Future-Proofing
 
 ### **PWA**
 
-- `manifest.json` in `public/`
-- Icons in `public/icons/`
-- Service worker via Vite plugin (later)
+- `manifest.json` → `/public`
+- Icons → `/public/icons`
+- Service worker (via Vite plugin — future)
+
+---
 
 ### **Cloudflare Workers**
 
-- API routes will live in a separate repo or `/api` folder (not yet created)
+- API routes via separate repo or `/api`
 - Domain: `api.echoin.ink`
-
-### **Design System**
-
-- Tokens in Tailwind config
-- Component primitives in `src/components/ui`
 
 ---
 
-## 8. Conventions
+### **Edge Strategy**
+
+- Cache-first reads
+- KV / Durable Objects for user data (future)
+
+---
+
+## 9. Conventions
 
 ### **Naming**
 
-- Components: `PascalCase`
-- Files: `kebab-case`
-- Hooks: `useSomething.ts`
-- Zustand stores: `something.store.ts`
-- Feature folders: `feature-name`
+- Components → `PascalCase`
+- Files → `kebab-case`
+- Hooks → `useSomething.ts`
+- Stores → `feature.store.ts`
+- Features → `feature-name`
+
+---
 
 ### **Imports**
 
-- Use absolute imports via `@/` alias
-- No deep relative imports like `../../../`
+- Always use absolute imports via `@/`
+- No deep relative imports (`../../../`)
+
+---
 
 ### **Commits**
 
-- Conventional commits recommended:
-  - `feat:`
-  - `fix:`
-  - `refactor:`
-  - `chore:`
-  - `docs:`
+Use conventional commits:
+
+- `feat:`
+- `fix:`
+- `refactor:`
+- `chore:`
+- `docs:`
 
 ---
 
-## 9. What This Architecture Guarantees
+## 10. What This Architecture Guarantees
 
 - No folder drift
-- No deployment confusion
+- No design inconsistency
 - No mixed brand/app assets
 - Clean separation of concerns
 - Predictable scaling
-- Easy onboarding (even for future-you)
+- Easy onboarding
 - Ready for PWA + Workers
-- Cloudflare-friendly build pipeline
+- Cloudflare-optimized deployment
 
 ---
 
-## 10. Change Log
+## 11. Change Log
 
 All architectural changes must be documented here.
