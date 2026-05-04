@@ -1,3 +1,9 @@
+/**
+ * ARCHITECTURE RULES:
+ * - No filtering / sorting in UI
+ * - No business logic in components  
+ * - Use selectors or hooks
+ */
 import { Surface } from "@/components/ui/Surface";
 import { HeroTitle, Label } from "@/components/ui/Text";
 

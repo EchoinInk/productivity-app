@@ -1,3 +1,9 @@
+/**
+ * ARCHITECTURE RULES:
+ * - No filtering / sorting in UI
+ * - No business logic in components  
+ * - Use selectors or hooks
+ */
 import type { Task } from "../types/types";
 import { getTaskPriorityColor, formatTaskTime } from "../utils/taskUtils";
 

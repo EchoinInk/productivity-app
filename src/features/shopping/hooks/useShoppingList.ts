@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useShoppingStore } from "../store/useShoppingStore";
 import { 
   selectItemsByCategory, 
@@ -11,10 +10,7 @@ export const useShoppingList = (category: ShoppingCategory) => {
   const items = useShoppingStore((state) => state.shoppingItems);
   const toggleItem = useShoppingStore((state) => state.toggleShoppingItem);
 
-  const filteredItems = useMemo(
-    () => selectItemsByCategory(category)(items),
-    [items, category]
-  );
+  const filteredItems = selectItemsByCategory(category)(items);
 
   return {
     items: filteredItems,
@@ -27,15 +23,8 @@ export const useShopping = () => {
   const addShoppingItem = useShoppingStore((state) => state.addShoppingItem);
   const toggleShoppingItem = useShoppingStore((state) => state.toggleShoppingItem);
 
-  const completedItems = useMemo(
-    () => selectCompletedItems(items),
-    [items]
-  );
-
-  const pendingItems = useMemo(
-    () => selectPendingItems(items),
-    [items]
-  );
+  const completedItems = selectCompletedItems(items);
+  const pendingItems = selectPendingItems(items);
 
   return {
     items,

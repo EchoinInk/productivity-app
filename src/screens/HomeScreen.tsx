@@ -1,3 +1,9 @@
+/**
+ * ARCHITECTURE RULES:
+ * - No filtering / sorting in UI
+ * - No business logic in components  
+ * - Use selectors or hooks
+ */
 import { useState, lazy, Suspense } from "react";
 
 import Header from "@/components/layout/Header";

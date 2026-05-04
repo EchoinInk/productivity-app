@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useBillsStore } from "../store/useBillsStore";
 import type { Bill } from "../types/types";
 
@@ -19,14 +18,14 @@ const toBillViews = (bills: Bill[]): BillView[] =>
 
 export const useBillViews = (): BillView[] => {
   const bills = useBillsStore((state) => state.bills);
-  return useMemo(() => toBillViews(bills), [bills]);
+  return toBillViews(bills);
 };
 
 export const useBills = () => {
   const bills = useBillsStore((state) => state.bills);
   const addBill = useBillsStore((state) => state.addBill);
 
-  const billViews = useMemo(() => toBillViews(bills), [bills]);
+  const billViews = toBillViews(bills);
 
   return {
     bills,

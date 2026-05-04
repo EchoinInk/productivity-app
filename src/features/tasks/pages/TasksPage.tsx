@@ -1,3 +1,9 @@
+/**
+ * ARCHITECTURE RULES:
+ * - No filtering / sorting in UI
+ * - No business logic in components  
+ * - Use selectors or hooks
+ */
 import { useMemo, useState } from "react";
 import { useTasksStore } from "../store/useTasksStore";
 import { CalendarStrip } from "../components/CalendarStrip";
