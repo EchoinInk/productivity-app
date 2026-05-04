@@ -4,25 +4,39 @@ import clsx from "clsx";
 interface ProgressBarProps {
   value: number;
   max?: number;
-  size?: "sm" | "md";
-  tone?: "default" | "inverted";
+  size?: "sm" | "md" | "lg";
+  variant?: "default" | "gradient" | "muted";
   className?: string;
   ariaLabel?: string;
 }
 
-/**
- * Themed progress bar. Encapsulates the inline width style so callers
- * don't reach into `style={{}}`.
- */
 const ProgressBarBase = ({
   value,
   max = 100,
   size = "md",
-  tone = "default",
+  variant = "gradient",
   className,
   ariaLabel,
 }: ProgressBarProps) => {
   const pct = Math.max(0, Math.min(100, (value / max) * 100));
+
+  const sizeClass = {
+    sm: "h-1.5",
+    md: "h-2",
+    lg: "h-3",
+  };
+
+  const trackClass = {
+    default: "bg-muted",
+    gradient: "bg-muted",
+    muted: "bg-surface-elevated",
+  };
+
+  const fillClass = {
+    default: "bg-primary",
+    gradient: "bg-gradient-primary",
+    muted: "bg-text-muted",
+  };
 
   return (
     <div
@@ -33,15 +47,15 @@ const ProgressBarBase = ({
       aria-label={ariaLabel}
       className={clsx(
         "w-full rounded-full overflow-hidden",
-        size === "sm" ? "h-1" : "h-2",
-        tone === "inverted" ? "bg-primary-foreground/30" : "bg-muted",
+        sizeClass[size],
+        trackClass[variant],
         className,
       )}
     >
       <div
         className={clsx(
-          "h-full rounded-full transition-[width] duration-300 ease-out",
-          tone === "inverted" ? "bg-primary-foreground" : "bg-foreground",
+          "h-full rounded-full transition-[width] duration-500 ease-out",
+          fillClass[variant],
         )}
         style={{ width: `${pct}%` }}
       />

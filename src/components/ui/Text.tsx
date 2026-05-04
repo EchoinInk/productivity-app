@@ -1,207 +1,196 @@
+import { type ReactNode, type ElementType, type ComponentPropsWithoutRef } from "react";
 import clsx from "clsx";
-import type { TextProps } from "./Text.types";
-import { weightMap, toneClass, size } from "./Text.types";
 
-function TextBase({
-  as = "p",
-  className,
+// ============================================================================
+// Types
+// ============================================================================
+
+type TextTone = "primary" | "secondary" | "muted" | "inverse" | "accent" | "brand";
+type TextWeight = "regular" | "medium" | "semibold" | "bold";
+type TextAlign = "left" | "center" | "right";
+type TextSize = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl";
+
+interface TextBaseProps {
+  as?: ElementType;
+  children: ReactNode;
+  tone?: TextTone;
+  weight?: TextWeight;
+  size?: TextSize;
+  align?: TextAlign;
+  truncate?: boolean;
+  className?: string;
+}
+
+// ============================================================================
+// Style Maps
+// ============================================================================
+
+const toneClass: Record<TextTone, string> = {
+  primary: "text-text-primary",
+  secondary: "text-text-secondary",
+  muted: "text-text-muted",
+  inverse: "text-white",
+  accent: "text-accent",
+  brand: "text-indigo",
+};
+
+const weightClass: Record<TextWeight, string> = {
+  regular: "font-normal",
+  medium: "font-medium",
+  semibold: "font-semibold",
+  bold: "font-bold",
+};
+
+const sizeClass: Record<TextSize, string> = {
+  xs: "text-xs leading-4",
+  sm: "text-sm leading-5",
+  base: "text-base leading-6",
+  lg: "text-lg leading-7",
+  xl: "text-xl leading-7",
+  "2xl": "text-2xl leading-8",
+  "3xl": "text-3xl leading-9",
+};
+
+// ============================================================================
+// Base Component
+// ============================================================================
+
+function TextBase<C extends ElementType = "span">({
+  as,
+  children,
+  tone = "primary",
   weight = "regular",
-  tone = "default",
+  size = "base",
   align = "left",
   truncate = false,
+  className,
   ...props
-}: TextProps) {
-  const commonProps = {
-    className: clsx(
-      weightMap[weight],
-      toneClass[tone],
-      {
-        truncate,
-        "text-left": align === "left",
-        "text-center": align === "center",
-        "text-right": align === "right",
-      },
-      className
-    ),
-    ...props
-  };
+}: TextBaseProps & Omit<ComponentPropsWithoutRef<C>, keyof TextBaseProps>) {
+  const Component = as || "span";
 
-  switch (as) {
-    case "p":
-      return <p {...commonProps} />;
-    case "span":
-      return <span {...commonProps} />;
-    case "div":
-      return <div {...commonProps} />;
-    case "h1":
-      return <h1 {...commonProps} />;
-    case "h2":
-      return <h2 {...commonProps} />;
-    case "h3":
-      return <h3 {...commonProps} />;
-    case "h4":
-      return <h4 {...commonProps} />;
-    case "h5":
-      return <h5 {...commonProps} />;
-    case "h6":
-      return <h6 {...commonProps} />;
-    default:
-      return <p {...commonProps} />;
-  }
-}
-
-// HERO
-export function HeroTitle(props: TextProps) {
   return (
-    <TextBase
+    <Component
+      className={clsx(
+        toneClass[tone],
+        weightClass[weight],
+        sizeClass[size],
+        {
+          "text-left": align === "left",
+          "text-center": align === "center",
+          "text-right": align === "right",
+          truncate,
+        },
+        className,
+      )}
       {...props}
-      className={clsx(size.heroTitle, props.className)}
-      weight="semibold"
-      tone={props.tone ?? "onColor"}
-    />
+    >
+      {children}
+    </Component>
   );
 }
 
-export function HeroSubtext(props: TextProps) {
+// ============================================================================
+// Semantic Components
+// ============================================================================
+
+interface TextProps {
+  children: ReactNode;
+  className?: string;
+  as?: ElementType;
+}
+
+/** Page title - largest heading */
+export function Title({ children, className, as = "h1" }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.heroSub, props.className)}
-      tone="onColor"
-    />
+    <TextBase as={as} size="3xl" weight="bold" tone="primary" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-export function HeroSupport(props: TextProps) {
+/** Section heading */
+export function Heading({ children, className, as = "h2" }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.heroSupport, props.className)}
-      tone="onColor"
-    />
+    <TextBase as={as} size="xl" weight="semibold" tone="primary" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-// METRIC (Money)
-export function Metric(props: TextProps) {
+/** Subsection heading */
+export function Subheading({ children, className, as = "h3" }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.metric, props.className)}
-      weight="semibold"
-    />
+    <TextBase as={as} size="lg" weight="semibold" tone="primary" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-export function MetricLabel(props: TextProps) {
+/** Standard body text */
+export function Body({ children, className }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.metricLabel, props.className)}
-      tone="muted"
-    />
+    <TextBase as="p" size="base" weight="regular" tone="primary" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-// HEADINGS
-export function Heading(props: TextProps) {
+/** Secondary/muted body text */
+export function BodySmall({ children, className }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.heading, props.className)}
-      weight="semibold"
-    />
+    <TextBase as="p" size="sm" weight="regular" tone="secondary" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-// BODY
-export function Body(props: TextProps) {
+/** Caption text - smallest size */
+export function Caption({ children, className }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.body, props.className)}
-    />
+    <TextBase as="span" size="xs" weight="regular" tone="muted" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-export function BodyMuted(props: TextProps) {
+/** Label for inputs and sections */
+export function Label({ children, className }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.bodyMuted, props.className)}
-      tone="muted"
-    />
+    <TextBase as="label" size="sm" weight="medium" tone="secondary" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-export function BodyStrong(props: TextProps) {
+/** Emphasized/accent text */
+export function Accent({ children, className }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      className={clsx(size.bodyStrong, props.className)}
-      weight="semibold"
-    />
+    <TextBase as="span" size="base" weight="semibold" tone="accent" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-// CTA
-export function CTA(props: TextProps) {
+/** Metric/number display */
+export function Metric({ children, className, as = "span" }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      as="span"
-      className={clsx(size.cta, props.className)}
-      weight={props.weight ?? "medium"}
-      tone={props.tone ?? "default"}
-    />
+    <TextBase as={as} size="2xl" weight="bold" tone="primary" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-// LABEL
-export function Label(props: TextProps) {
+/** Button/CTA text */
+export function ButtonText({ children, className }: TextProps) {
   return (
-    <TextBase
-      {...props}
-      as="span"
-      className={clsx(size.label, props.className)}
-      tone="muted"
-    />
+    <TextBase as="span" size="sm" weight="semibold" tone="inverse" className={className}>
+      {children}
+    </TextBase>
   );
 }
 
-// UNIVERSAL
+// ============================================================================
+// Exports
+// ============================================================================
+
 export { TextBase as Text };
-
-export function Meta(props: TextProps) {
-  return (
-    <TextBase
-      {...props}
-      as="span"
-      className={clsx(size.meta, props.className)}
-      tone="muted"
-    />
-  );
-}
-
-export function LabelSoft(props: TextProps) {
-  return (
-    <TextBase
-      {...props}
-      as="span"
-      className={clsx(size.labelSoft, props.className)}
-      weight="medium"
-    />
-  );
-}
-
-export function Highlight(props: TextProps) {
-  return (
-    <TextBase
-      {...props}
-      as="span"
-      className={clsx(size.highlight, props.className)}
-      tone="accent"
-      weight="semibold"
-    />
-  );
-}

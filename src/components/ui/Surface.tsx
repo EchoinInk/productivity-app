@@ -1,38 +1,47 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import clsx from "clsx";
 
-type SurfaceVariant = "glass" | "elevated";
+type SurfaceVariant = "default" | "elevated" | "glass";
 type SurfacePadding = "none" | "sm" | "md" | "lg";
+type SurfaceRadius = "sm" | "md" | "lg" | "xl";
 
 interface SurfaceProps extends HTMLAttributes<HTMLDivElement> {
   variant?: SurfaceVariant;
   padding?: SurfacePadding;
-  as?: "div" | "section" | "article";
+  radius?: SurfaceRadius;
+  as?: "div" | "section" | "article" | "aside";
 }
+
+const variantClass: Record<SurfaceVariant, string> = {
+  default: "bg-surface border-border shadow-card",
+  elevated: "bg-surface-elevated border-border shadow-elevated",
+  glass: "bg-surface/80 backdrop-blur-md border-white/50 shadow-elevated",
+};
 
 const paddingClass: Record<SurfacePadding, string> = {
   none: "",
-  sm: "px-3 py-2",
+  sm: "p-2",
   md: "p-3",
   lg: "p-4",
 };
 
-/**
- * Single source of truth for the recurring "frosted glass" surface treatment.
- * Replaces ad-hoc `bg-white/60 backdrop-blur-md border border-white/40` recipes.
- */
+const radiusClass: Record<SurfaceRadius, string> = {
+  sm: "rounded-lg",
+  md: "rounded-xl",
+  lg: "rounded-2xl",
+  xl: "rounded-3xl",
+};
+
 export const Surface = forwardRef<HTMLDivElement, SurfaceProps>(
-  ({ className, variant = "glass", padding = "md", as: Tag = "div", ...props }, ref) => {
+  ({ className, variant = "default", padding = "md", radius = "lg", as: Tag = "div", ...props }, ref) => {
     return (
       <Tag
         ref={ref as never}
         className={clsx(
-          "rounded-lg border",
-          variant === "glass" &&
-            "bg-white/60 backdrop-blur-xl border-white/40 shadow-sm",
-          variant === "elevated" &&
-            "bg-card/95 backdrop-blur-md border-white/50 shadow-glass",
+          "border",
+          variantClass[variant],
           paddingClass[padding],
+          radiusClass[radius],
           className,
         )}
         {...props}

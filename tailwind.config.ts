@@ -21,68 +21,86 @@ export default {
     },
     extend: {
       textShadow: {
-        soft: "0 1px var(--space-1) rgba(0,0,0,0.2)",
+        soft: "0 1px 2px rgba(0,0,0,0.2)",
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        // Brand colors
+        sky: "#28D9FF",
+        indigo: "#4F46E5",
+        violet: "#8B5CF6",
+        magenta: "#FF4DD8",
+        coral: "#FF7A59",
+        lime: "#22D3A7",
+        // Light mode surfaces
+        background: "#F1F5F9",
+        surface: "#FFFFFF",
+        "surface-elevated": "#F2F4FA",
+        // Semantic colors
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#4F46E5",
+          foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "#28D9FF",
+          foreground: "#0F172A",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        warning: {
-          DEFAULT: "hsl(var(--warning))",
-          foreground: "hsl(var(--warning-foreground))",
+          DEFAULT: "#FF4DD8",
+          foreground: "#FFFFFF",
         },
         success: {
-          DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(var(--success-foreground))",
+          DEFAULT: "#22C55E",
+          foreground: "#FFFFFF",
+        },
+        error: {
+          DEFAULT: "#EF4444",
+          foreground: "#FFFFFF",
+        },
+        warning: {
+          DEFAULT: "#F59E0B",
+          foreground: "#0F172A",
+        },
+        info: {
+          DEFAULT: "#0EA5E9",
+          foreground: "#FFFFFF",
+        },
+        // Text colors
+        "text-primary": "#0F172A",
+        "text-secondary": "#647488",
+        "text-muted": "#94A3BB",
+        // Utility colors
+        border: "#E5E7E8",
+        muted: "#C8D5E1",
+        ring: "#4F46E5",
+        input: "#E5E7E8",
+        // Legacy support
+        foreground: "#0F172A",
+        destructive: {
+          DEFAULT: "#EF4444",
+          foreground: "#FFFFFF",
+        },
+        card: {
+          DEFAULT: "#FFFFFF",
+          foreground: "#0F172A",
+        },
+        popover: {
+          DEFAULT: "#FFFFFF",
+          foreground: "#0F172A",
         },
       },
       backgroundImage: {
-        "gradient-primary": "var(--gradient-primary)",
-        "gradient-accent": "var(--gradient-accent)",
-        "gradient-budget": "var(--gradient-budget)",
-        "gradient-hero": "var(--gradient-hero)",
-        "gradient-data": "var(--gradient-data)",
-        "gradient-page": "var(--gradient-page)",
-        "gradient-date-pill": "var(--gradient-date-pill)",
+        // Brand gradients
+        "gradient-primary": "linear-gradient(135deg, #28D9FF 0%, #4F46E5 45%, #FF4DD8 100%)",
+        "gradient-signature": "linear-gradient(135deg, #2BD9FF 0%, #6366F1 50%, #FF4DD8 100%)",
+        "gradient-soft": "linear-gradient(135deg, #2BD9FF 0%, #8B5CF6 100%)",
+        "gradient-accent": "linear-gradient(135deg, #8B5CF6 0%, #FF4DD8 100%)",
+        "gradient-action": "linear-gradient(135deg, #2BD9FF 0%, #4F46E5 100%)",
       },
       boxShadow: {
-        card: "var(--shadow-card)",
-        elevated: "var(--shadow-elevated)",
-        glass: "var(--shadow-glass)",
-        surface: "var(--shadow-surface)",
-        soft: "var(--shadow-soft)",
-        pop: "var(--shadow-pop)",
-        cta: "var(--shadow-cta)",
+        card: "0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04)",
+        elevated: "0 4px 6px -1px rgba(15, 23, 42, 0.08)",
+        button: "0 2px 4px rgba(79, 70, 229, 0.15)",
+        focus: "0 0 0 3px rgba(79, 70, 229, 0.2)",
       },
       borderRadius: {
         lg: "var(--radius)",
