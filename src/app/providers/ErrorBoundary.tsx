@@ -29,7 +29,7 @@ class ErrorBoundary extends Component<Props, State> {
         <main className="min-h-screen bg-background text-foreground flex items-center justify-center px-6">
           <section className="max-w-sm text-center space-y-4">
             <h1 className="text-xl font-semibold">Something went wrong</h1>
-            <p className="text-sm text-muted-foreground">Restart the app view and try again.</p>
+            <p className="text-sm text-muted">Restart the app view and try again.</p>
             <Button onClick={() => this.setState({ hasError: false })}>Try again</Button>
           </section>
         </main>

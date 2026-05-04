@@ -50,7 +50,7 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
               placeholder="Meal name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
@@ -63,7 +63,7 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
               id="meal-type"
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <option value="">Meal type</option>
               {mealTypes.map((item) => (
@@ -81,7 +81,7 @@ const AddMeal = ({ open, onClose, onSave }: AddMealProps) => {
               id="meal-day"
               value={day}
               onChange={(e) => setDay(e.target.value as Weekday)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {days.map((item) => (
                 <option key={item}>{item}</option>

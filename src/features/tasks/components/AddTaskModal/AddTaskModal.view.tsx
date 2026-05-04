@@ -64,7 +64,7 @@ export const AddTaskModalView = memo(
               placeholder="Task name"
               onChange={(e) => onLabelChange(e.target.value)}
               onFocus={(e) => e.stopPropagation()}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm outline-none"
             />
 
             {/* DATE + RECURRING */}
@@ -73,7 +73,7 @@ export const AddTaskModalView = memo(
                 type="date"
                 value={date}
                 onChange={(e) => onDateChange(e.target.value)}
-                className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+                className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
               />
 
               <select
@@ -81,7 +81,7 @@ export const AddTaskModalView = memo(
                 onChange={(e) =>
                   onRecurrenceChange(e.target.value as TaskRecurrence)
                 }
-                className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+                className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
               >
                 <option value="">Recurring</option>
                 <option value="none">None</option>
@@ -97,7 +97,7 @@ export const AddTaskModalView = memo(
                 onChange={(e) =>
                   onCategoryChange(e.target.value as TaskCategory)
                 }
-                className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+                className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
               >
                 <option value="">Category</option>
                 {taskCategories.map((c) => (
@@ -110,7 +110,7 @@ export const AddTaskModalView = memo(
                 onChange={(e) =>
                   onPriorityChange(e.target.value as TaskPriority)
                 }
-                className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+                className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
               >
                 <option value="">Priority</option>
                 <option value="low">Low</option>
@@ -124,7 +124,7 @@ export const AddTaskModalView = memo(
               value={notes}
               placeholder="Notes"
               onChange={(e) => onNotesChange(e.target.value)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm min-h-[80px]"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm min-h-[80px]"
             />
 
           </div>

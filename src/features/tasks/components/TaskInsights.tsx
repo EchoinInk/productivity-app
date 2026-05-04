@@ -29,7 +29,7 @@ export const TaskInsights = () => {
     return (
       <Surface className="space-y-2">
         <HeroTitle>Today Overview</HeroTitle>
-        <Label className="text-muted-foreground">
+        <Label className="text-muted">
           Start adding tasks to see insights here
         </Label>
       </Surface>

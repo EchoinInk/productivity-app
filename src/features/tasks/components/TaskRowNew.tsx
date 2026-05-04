@@ -16,7 +16,7 @@ export const TaskRowNew = ({ task, onToggle }: Props) => {
   const timeText = formatTaskTime(task.time);
 
   return (
-    <div className="flex items-center gap-3 h-12 px-3 py-2 rounded-lg hover:bg-muted/50 transition-colors">
+    <div className="flex items-center gap-3 h-12 px-3 py-2 rounded-lg hover:bg-muted hover:opacity-50 transition-colors">
       
       {/* Priority Indicator */}
       <div className={`
@@ -40,7 +40,7 @@ export const TaskRowNew = ({ task, onToggle }: Props) => {
           className={`
             text-sm font-medium truncate
             ${task.completed
-              ? "line-through text-muted-foreground"
+              ? "line-through text-muted"
               : "text-foreground"
             }
           `}
@@ -50,7 +50,7 @@ export const TaskRowNew = ({ task, onToggle }: Props) => {
         
         {/* Subtitle */}
         {(task.time || task.category) && (
-          <p className="text-xs text-muted-foreground truncate">
+          <p className="text-xs text-muted truncate">
             {timeText}
             {task.time && task.category && " • "}
             {task.category}
@@ -61,7 +61,7 @@ export const TaskRowNew = ({ task, onToggle }: Props) => {
       {/* Chevron */}
       <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
         <svg 
-          className="w-3 h-3 text-muted-foreground" 
+          className="w-3 h-3 text-muted" 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"

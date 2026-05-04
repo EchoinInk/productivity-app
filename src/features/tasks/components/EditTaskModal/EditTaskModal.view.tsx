@@ -59,7 +59,7 @@ export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) 
             placeholder="Task name"
             value={label}
             onChange={(e) => onLabelChange(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none"
+            className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm outline-none"
           />
 
           {/* DATE + RECURRING (same row) */}
@@ -68,12 +68,12 @@ export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) 
               type="date"
               value={date}
               onChange={(e) => onDateChange(e.target.value)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
             />
             <select
               value={recurrence}
               onChange={(e) => onRecurrenceChange(e.target.value as TaskRecurrence)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
             >
               <option value="">Recurring</option>
               <option value="none">None</option>
@@ -87,7 +87,7 @@ export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) 
             <select
               value={category}
               onChange={(e) => onCategoryChange(e.target.value as TaskCategory)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
             >
               <option value="">Category</option>
               {taskCategories.map((c: TaskCategory) => (
@@ -97,7 +97,7 @@ export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) 
             <select
               value={priority}
               onChange={(e) => onPriorityChange(e.target.value as TaskPriority)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm"
             >
               <option value="">Priority</option>
               <option value="low">Low</option>
@@ -111,7 +111,7 @@ export const EditTaskModalView = ({ model }: { model: EditTaskModalViewModel }) 
             placeholder="Notes"
             value={notes}
             onChange={(e) => onNotesChange(e.target.value)}
-            className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm min-h-[80px]"
+            className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm min-h-[80px]"
           />
 
         </div>

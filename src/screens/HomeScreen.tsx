@@ -97,7 +97,7 @@ const HomeScreen = () => {
           {/* UP NEXT */}
           <div className="animate-[fadeIn_0.65s_ease-out]">
             <div className="flex items-center justify-between mb-3">
-              <Heading className="text-base text-muted-foreground">Up Next</Heading>
+              <Heading className="text-base text-muted">Up Next</Heading>
             </div>
 
             <UpNextCard task={nextTask} onPress={() => nextTask && toggleTask(nextTask.id)} />
@@ -116,7 +116,7 @@ const HomeScreen = () => {
           </div>
 
           {/* INSIGHTS */}
-          <Suspense fallback={<div className="h-24 animate-pulse bg-muted/20 rounded-lg" />}>
+          <Suspense fallback={<div className="h-24 animate-pulse bg-muted opacity-20 rounded-lg" />}>
             <div className="animate-[fadeIn_1.05s_ease-out]">
               <InsightsCardContainer />
             </div>

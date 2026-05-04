@@ -32,7 +32,7 @@ const BottomNav = () => (
         className={({ isActive }) =>
           clsx(
             "group flex flex-col items-center justify-center flex-1 gap-[2px] text-xs font-medium transition-all duration-300 ease-out active:scale-95 hover:opacity-100",
-            isActive ? "text-primary" : "text-muted-foreground opacity-90 hover:text-foreground"
+            isActive ? "text-primary" : "text-muted opacity-90 hover:text-foreground"
           )
         }
       >

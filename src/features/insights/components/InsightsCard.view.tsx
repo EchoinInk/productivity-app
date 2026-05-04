@@ -29,15 +29,15 @@ const getInsightIcon = (type: string) => {
 const getInsightColor = (type: string) => {
   switch (type) {
     case "achievement":
-      return "bg-success/10 border-success/20 dark:bg-success/5 dark:border-success/15";
+      return "bg-success opacity-10 border-success opacity-20 dark:bg-success opacity-5 dark:border-success opacity-15";
     case "encouragement":
-      return "bg-info/10 border-info/20 dark:bg-info/5 dark:border-info/15";
+      return "bg-info opacity-10 border-info opacity-20 dark:bg-info opacity-5 dark:border-info opacity-15";
     case "warning":
-      return "bg-warning/10 border-warning/20 dark:bg-warning/5 dark:border-warning/15";
+      return "bg-warning opacity-10 border-warning opacity-20 dark:bg-warning opacity-5 dark:border-warning opacity-15";
     case "tip":
-      return "bg-accent/10 border-accent/20 dark:bg-accent/5 dark:border-accent/15";
+      return "bg-accent opacity-10 border-accent opacity-20 dark:bg-accent opacity-5 dark:border-accent opacity-15";
     default:
-      return "bg-muted/50 border-muted dark:bg-muted/10 dark:border-muted/50";
+      return "bg-muted opacity-50 border-muted dark:bg-muted opacity-10 dark:border-muted opacity-50";
   }
 };
 
@@ -52,7 +52,7 @@ export const InsightsCardView = ({ model }: { model: InsightsCardViewModel }) =>
             <Lightbulb size={16} className="text-warning" />
             Insights
           </Text>
-          <Text className="text-xs text-muted-foreground">
+          <Text className="text-xs text-muted">
             Start using the app to see personalized insights here
           </Text>
         </div>

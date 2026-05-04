@@ -90,12 +90,12 @@ const Header = ({
 
       {/* TITLE OR DATE PILL */}
       {showDatePill && selectedDate && onDateChange ? (
-        <div className="flex items-center gap-2 px-4 rounded-full bg-muted/90 backdrop-blur-md shadow-soft">
+        <div className="flex items-center gap-2 px-4 rounded-full bg-muted opacity-90 backdrop-blur-md shadow-soft">
           <button
             type="button"
             aria-label="Show previous day"
             onClick={() => shift(-1)}
-            className={`p-3 text-muted-foreground active:scale-95 transition ${focusRing}`}
+            className={`p-3 text-muted active:scale-95 transition ${focusRing}`}
           >
             <ChevronLeft size={20} />
           </button>
@@ -110,7 +110,7 @@ const Header = ({
             type="button"
             aria-label="Show next day"
             onClick={() => shift(1)}
-            className={`p-3 text-muted-foreground active:scale-95 transition ${focusRing}`}
+            className={`p-3 text-muted active:scale-95 transition ${focusRing}`}
           >
             <ChevronRight size={20} />
           </button>
@@ -121,7 +121,7 @@ const Header = ({
             {onBack && (
               <button
                 onClick={onBack}
-                className={`absolute left-0 p-3 hover:bg-muted/40 active:scale-[0.98] transition-all ${focusRing}`}
+                className={`absolute left-0 p-3 hover:bg-muted hover:opacity-40 active:scale-[0.98] transition-all ${focusRing}`}
                 aria-label="Go back"
               >
                 ←

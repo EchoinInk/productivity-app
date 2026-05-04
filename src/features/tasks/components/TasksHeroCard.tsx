@@ -74,7 +74,7 @@ const TasksHeroCard = ({
                 cx={radius}
                 cy={radius}
                 r={normalizedRadius}
-                stroke="hsl(var(--border))"
+                stroke="var(--border)"
                 strokeWidth={stroke}
                 fill="none"
               />
@@ -82,7 +82,7 @@ const TasksHeroCard = ({
                 cx={radius}
                 cy={radius}
                 r={normalizedRadius}
-                stroke="hsl(var(--primary))"
+                stroke="var(--primary)"
                 strokeWidth={stroke}
                 fill="none"
                 strokeDasharray={circumference}

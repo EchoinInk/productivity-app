@@ -60,13 +60,13 @@ const AddShoppingItem = ({
               placeholder="Item name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
           {/* CATEGORY + TYPE (same row) */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-muted/50 px-4 py-3 text-sm">
+            <div className="rounded-xl bg-muted opacity-50 px-4 py-3 text-sm">
               {category}
             </div>
             <div>
@@ -77,7 +77,7 @@ const AddShoppingItem = ({
                 id="item-type"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <option value="">Type</option>
                 {itemTypes.map((item) => (
@@ -99,7 +99,7 @@ const AddShoppingItem = ({
               placeholder="Quantity"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full rounded-xl bg-muted/50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full rounded-xl bg-muted opacity-50 px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 

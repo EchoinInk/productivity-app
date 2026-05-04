@@ -69,7 +69,7 @@ export const UpNextCard = ({ task, onPress }: UpNextCardProps) => {
           </div>
 
           {/* Right: Chevron */}
-          <ChevronRight size={20} className="text-muted-foreground/70 shrink-0" />
+          <ChevronRight size={20} className="text-muted/70 shrink-0" />
         </div>
       </Card>
     </button>

@@ -28,7 +28,7 @@ export const TaskSection = ({ title, tasks, onToggle, onAdd }: Props) => {
 
       {/* Content */}
       {tasks.length === 0 ? (
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-muted">
           Nothing planned
         </p>
       ) : (

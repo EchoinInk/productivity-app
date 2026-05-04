@@ -24,7 +24,7 @@ export const TaskRow = ({ task, onToggle }: Props) => {
         <p
           className={`text-base ${
             task.completed
-              ? "line-through text-muted-foreground"
+              ? "line-through text-muted"
               : ""
           }`}
         >
@@ -32,7 +32,7 @@ export const TaskRow = ({ task, onToggle }: Props) => {
         </p>
 
         {(task.category || task.priority) && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted">
             {task.category}
             {task.priority && ` • ${task.priority}`}
           </p>

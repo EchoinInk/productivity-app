@@ -16,7 +16,7 @@ interface CategoryListProps {
 export const CategoryList = ({ categories }: CategoryListProps) => {
   if (categories.length === 0) {
     return (
-      <div className="text-center py-4 text-muted-foreground text-sm">
+      <div className="text-center py-4 text-muted text-sm">
         No categories yet 🎉
       </div>
     );
@@ -40,7 +40,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span className="font-medium text-sm">{category}</span>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-muted">
                   {active}/{total}
                 </span>
               </div>

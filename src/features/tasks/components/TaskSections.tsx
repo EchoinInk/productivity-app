@@ -38,7 +38,7 @@ export const TaskSections = ({ todayTasks, upcomingTasks, completedTasks, onTogg
       {/* Upcoming Section */}
       {upcomingTasks.length > 0 && (
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-muted-foreground px-3">Upcoming</h3>
+          <h3 className="text-sm font-semibold text-muted px-3">Upcoming</h3>
           <div className="space-y-1">
             {upcomingTasks.map((task) => (
               <TaskRowNew key={task.id} task={task} onToggle={onToggle} />
@@ -52,7 +52,7 @@ export const TaskSections = ({ todayTasks, upcomingTasks, completedTasks, onTogg
         <div className="space-y-2">
           <button
             onClick={() => setCompletedExpanded(!completedExpanded)}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-muted hover:text-foreground transition-colors"
           >
             {completedExpanded ? (
               <ChevronUp className="w-4 h-4" />
@@ -78,8 +78,8 @@ export const TaskSections = ({ todayTasks, upcomingTasks, completedTasks, onTogg
       {/* Empty State */}
       {todayIncomplete.length === 0 && upcomingTasks.length === 0 && (
         <div className="px-3 py-8 text-center">
-          <p className="text-sm text-muted-foreground">No tasks for this day</p>
-          <p className="text-xs text-muted-foreground mt-1">Add a task to get started</p>
+          <p className="text-sm text-muted">No tasks for this day</p>
+          <p className="text-xs text-muted mt-1">Add a task to get started</p>
         </div>
       )}
     </div>

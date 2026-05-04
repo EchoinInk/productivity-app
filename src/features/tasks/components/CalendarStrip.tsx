@@ -46,8 +46,8 @@ export const CalendarStrip = ({ selectedDate, onDateSelect }: Props) => {
               ${selectedDate === dateStr 
                 ? "bg-primary text-on-primary" 
                 : isToday 
-                  ? "bg-muted/50 text-foreground"
-                  : "bg-muted/30 text-muted-foreground hover:bg-muted/50"
+                  ? "bg-muted opacity-50 text-foreground"
+                  : "bg-muted opacity-30 text-muted hover:bg-muted hover:opacity-50"
               }
             `}
           >
