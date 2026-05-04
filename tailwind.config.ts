@@ -79,7 +79,6 @@ export default {
         },
         // Legacy support (mapped to tokens)
         foreground: tokens.colors.text.light.primary,
-        muted: tokens.colors.text.light.muted,
         ring: tokens.colors.brand.sky,
         input: tokens.colors.border.light,
         destructive: {
@@ -155,7 +154,7 @@ safelist: [
   "border-warning",
   "border-info",
   "border-muted",
-]
+],
 
 plugins: [
   tailwindcssAnimate,
