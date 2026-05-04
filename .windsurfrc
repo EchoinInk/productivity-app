@@ -1,33 +1,48 @@
 {
   "project": {
-    "name": "LifeOS",
-    "description": "LifeOS — universal guardrails for all phases (A→H). Apply‑Mode prompts define phase scope."
+    "name": "Lumo",
+    "description": "Lumo — mobile-first life system app. Feature-based architecture with strict UI/design system boundaries."
   },
 
   "rules": {
     "minimalDiff": true,
     "askBeforeLargeChanges": true,
+
     "neverIntroduceDependencies": true,
     "neverModifyUnrelatedFiles": true,
-    "neverMoveFiles": true,
-    "neverRenameFiles": true,
+
+    "allowRefactor": true,
+    "allowFileMoves": true,
+    "allowRenames": true,
 
     "featureStructure": {
       "enforce": true,
       "folders": [
         "components",
-        "pages",
+        "containers",
         "hooks",
         "selectors",
         "store",
-        "api.ts"
+        "api.ts",
+        "types.ts"
       ]
     },
 
     "publicBoundary": {
-      "enforce": true,
+      "enforce": false,
       "apiFile": "api.ts",
-      "message": "Always import from @/features/<feature>/api. Never reach into selectors/, store/, or domain/ from outside the feature."
+      "message": "Prefer importing from @/features/<feature>/api, but allow direct selector/store usage during refactor phase."
+    },
+
+    "designSystem": {
+      "enforce": true,
+      "location": "/src/components/ui",
+      "rules": [
+        "noRawHex",
+        "noTailwindDefaultColors",
+        "tokensOnly",
+        "noBusinessLogicInUI"
+      ]
     },
 
     "allowedChanges": [
@@ -37,15 +52,15 @@
       "wrapActionsInUseMemo",
       "fixRegressions",
       "cleanDeadCode",
-      "applyPhaseSpecificTasks"
+      "applyPhaseSpecificTasks",
+      "createDesignSystem",
+      "refactorUIComponents"
     ],
 
     "disallowedChanges": [
       "rewriteReducers",
       "addGlobalState",
-      "crossFeatureImports",
-      "modifyDesignSystem",
-      "introduceNewUIPrimitives"
+      "crossFeatureImports"
     ],
 
     "responseStyle": {
