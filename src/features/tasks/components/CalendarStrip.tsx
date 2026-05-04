@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { getToday, toDateString } from "@/shared/lib/date";
 
 interface Props {
@@ -29,13 +29,17 @@ export const CalendarStrip = ({ selectedDate, onDateSelect }: Props) => {
     return result;
   }, [today]);
 
+  const handleDateSelect = useCallback((date: string) => {
+    onDateSelect(date);
+  }, [onDateSelect]);
+
   return (
     <div className="px-4 py-2 bg-background border-b border-border">
       <div className="flex gap-3 overflow-x-auto scrollbar-hide">
         {dates.map(({ dateStr, dayName, dayNum, isToday }) => (
           <button
             key={dateStr}
-            onClick={() => onDateSelect(dateStr)}
+            onClick={() => handleDateSelect(dateStr)}
             className={`
               flex-shrink-0 flex flex-col items-center justify-center py-2 px-3 rounded-lg min-w-[60px]
               transition-colors duration-200

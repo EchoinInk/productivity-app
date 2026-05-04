@@ -4,7 +4,7 @@
  * - No business logic in components  
  * - Use selectors or hooks
  */
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useMemo } from "react";
 
 import Header from "@/components/layout/Header";
 import { Heading } from "@/components/ui/Text";
@@ -46,7 +46,8 @@ const HomeScreen = () => {
   const addMeal = useMealsStore((s) => s.addMeal);
   const toggleTask = useTasksStore((s) => s.toggleTask);
 
-  const nextTask = useTasksStore((s) => selectNextTask(s.tasks, todayStr));
+  const tasks = useTasksStore((s) => s.tasks);
+  const nextTask = useMemo(() => selectNextTask(tasks, todayStr), [tasks, todayStr]);
 
   // MODAL STATE
   const [taskOpen, setTaskOpen] = useState(false);

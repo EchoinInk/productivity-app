@@ -1,4 +1,4 @@
-import { type KeyboardEvent } from "react";
+import { type KeyboardEvent, useCallback } from "react";
 
 interface TabBarProps<T extends string> {
   tabs: T[];
@@ -7,6 +7,10 @@ interface TabBarProps<T extends string> {
 }
 
 const TabBar = <T extends string>({ tabs, activeTab, onTabChange }: TabBarProps<T>) => {
+  const handleTabChange = useCallback((tab: T) => {
+    onTabChange(tab);
+  }, [onTabChange]);
+
   const handleKeyDown = (
     event: KeyboardEvent<HTMLButtonElement>,
     index: number,
@@ -18,7 +22,7 @@ const TabBar = <T extends string>({ tabs, activeTab, onTabChange }: TabBarProps<
     const nextIndex = (index + offset + tabs.length) % tabs.length;
     const nextTab = tabs[nextIndex];
 
-    if (nextTab) onTabChange(nextTab);
+    if (nextTab) handleTabChange(nextTab);
   };
 
   return (
@@ -30,7 +34,7 @@ const TabBar = <T extends string>({ tabs, activeTab, onTabChange }: TabBarProps<
           type="button"
           aria-selected={tab === activeTab}
           tabIndex={tab === activeTab ? 0 : -1}
-          onClick={() => onTabChange(tab)}
+          onClick={() => handleTabChange(tab)}
           onKeyDown={(event) => handleKeyDown(event, index)}
           className={
             tab === activeTab

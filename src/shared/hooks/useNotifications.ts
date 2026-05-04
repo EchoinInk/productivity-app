@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { useTasksStore } from '@/features/tasks/store/useTasksStore';
 import { useMealsStore } from '@/features/meals/store/useMealsStore';
 import { useBudgetStore } from '@/features/budget/store/useBudgetStore';
@@ -13,13 +13,9 @@ export const useNotifications = () => {
   const hasRequestedPermission = useRef(false);
   const today = getToday();
   
-  const todayTasks = useTasksStore((state) =>
-    selectTodayTasks(state.tasks, today)
-  );
-
-  const incompleteTasks = useTasksStore((state) =>
-    selectIncompleteTodayTasks(state.tasks, today)
-  );
+  const tasks = useTasksStore((state) => state.tasks);
+  const todayTasks = useMemo(() => selectTodayTasks(tasks, today), [tasks, today]);
+  const incompleteTasks = useMemo(() => selectIncompleteTodayTasks(tasks, today), [tasks, today]);
   const meals = useMealsStore((state) => state.meals);
   const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
   const expenses = useBudgetStore((state) => state.expenses);
