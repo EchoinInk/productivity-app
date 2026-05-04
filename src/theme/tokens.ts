@@ -105,10 +105,6 @@ export const brandGradients = {
 } as const;
 
 export const semanticColors = {
-  softText: "#5A626D",
-  accentText: "#7C8BC4",
-  billWarm: "#C99BB8",
-  billCool: "#9B8AC4",
 } as const;
 
 
