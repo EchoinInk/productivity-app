@@ -16,11 +16,11 @@ export const taskCategories = [
 ] as const satisfies readonly TaskCategory[];
 
 export const categoryMetadata = {
-  "Home & Household": { bg: "bg-surface-blue", text: "text-blue", icon: catHome },
-  "Health & Wellness": { bg: "bg-surface-red", text: "text-red", icon: catHealth },
-  "Career Development": { bg: "bg-surface-yellow", text: "text-yellow", icon: catCareer },
-  "Errands & Life Admin": { bg: "bg-surface-cyan", text: "text-cyan", icon: catErrands },
-  "Family & Relationships": { bg: "bg-surface-purple", text: "text-purple", icon: catFamily },
-  Finances: { bg: "bg-surface-gray", text: "text-gray", icon: catFinance },
-  Other: { bg: "bg-muted", text: "text-muted-foreground", icon: catErrands },
+  "Home & Household": { bg: "primary", text: "primary", icon: catHome },
+  "Health & Wellness": { bg: "error", text: "error", icon: catHealth },
+  "Career Development": { bg: "warning", text: "warning", icon: catCareer },
+  "Errands & Life Admin": { bg: "info", text: "info", icon: catErrands },
+  "Family & Relationships": { bg: "accent", text: "accent", icon: catFamily },
+  Finances: { bg: "secondary", text: "secondary", icon: catFinance },
+  Other: { bg: "muted", text: "muted", icon: catErrands },
 } as const;

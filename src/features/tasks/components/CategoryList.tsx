@@ -1,5 +1,11 @@
 import { getCategoryMetadata } from "@/features/tasks/api";
 
+const getCategoryClasses = (meta: { bg: string; text: string }) => {
+  const bgClass = `bg-${meta.bg}`;
+  const textClass = `text-${meta.text}`;
+  return { bgClass, textClass };
+};
+
 interface CategorySummary {
   category: string;
   active: number;
@@ -25,12 +31,13 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
     <ul className="space-y-2">
       {categories.map(({ category, active, total, completed }) => {
         const meta = getCategoryMetadata(category);
+        const classes = getCategoryClasses(meta);
         return (
           <li key={category} className="flex items-center gap-3 py-2">
             <div
               className={`
                 w-10 h-10 rounded-lg flex items-center justify-center text-lg
-                ${meta.bg}
+                ${classes.bgClass}
               `}
             >
               {meta.icon}
@@ -46,7 +53,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
                 <div
                   className={`
                     h-full rounded-full transition-all duration-300 ease-out
-                    ${meta.bg}
+                    ${classes.bgClass}
                   `}
                   style={{
                     width: `${total > 0 ? (completed / total) * 100 : 0}%`,

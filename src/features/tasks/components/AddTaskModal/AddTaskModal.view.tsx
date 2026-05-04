@@ -138,7 +138,7 @@ export const AddTaskModalView = memo(
                 w-full
                 py-3
                 rounded-xl
-                text-inverse
+                text-primary-foreground
                 font-medium
                 bg-primary
                 disabled:opacity-50

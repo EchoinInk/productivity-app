@@ -9,6 +9,12 @@ interface UpNextCardProps {
   onPress?: () => void;
 }
 
+const getCategoryClasses = (meta: { bg: string; text: string }) => {
+  const bgClass = `bg-${meta.bg}`;
+  const textClass = `text-${meta.text}`;
+  return { bgClass, textClass };
+};
+
 export const UpNextCard = ({ task, onPress }: UpNextCardProps) => {
   if (!task) {
     return (
@@ -27,6 +33,7 @@ export const UpNextCard = ({ task, onPress }: UpNextCardProps) => {
   }
 
   const meta = getCategoryMetadata(task.category ?? undefined);
+  const classes = getCategoryClasses(meta);
 
   return (
     <button
@@ -38,7 +45,7 @@ export const UpNextCard = ({ task, onPress }: UpNextCardProps) => {
         <div className="flex items-center gap-3">
           {/* Left: Icon */}
           <div
-            className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${meta.bg}`}
+            className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${classes.bgClass}`}
           >
             <img
               src={meta.icon}
