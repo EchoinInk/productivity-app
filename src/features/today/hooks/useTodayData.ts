@@ -2,6 +2,7 @@ import { useTasksStore } from "@/features/tasks/store/useTasksStore";
 import { useMealsStore } from "@/features/meals/store/useMealsStore";
 import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
 import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
+import { useShallow } from "zustand/react/shallow";
 import { getToday } from "@/shared/lib/date";
 
 import {
@@ -35,22 +36,32 @@ const WEEKDAYS = [
 
 export const useTodayData = (): TodayData => {
   const today = getToday();
-
-  const tasks = useTasksStore((s) => s.tasks);
-  const meals = useMealsStore((s) => s.meals);
-  const weeklyBudget = useBudgetStore((s) => s.weeklyBudget);
-  const expenses = useBudgetStore((s) => s.expenses);
-  const shoppingItems = useShoppingStore((s) => s.shoppingItems);
-
-  const todayTasks = selectTodayTasks(tasks, today);
-  const completedTasks = selectCompletedTodayTasks(tasks, today);
-
   const todayWeekday = WEEKDAYS[new Date().getDay()];
-  const todayMeals = meals.filter((m) => m.day === todayWeekday);
 
-  const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+  // Single subscription per store
+  const { todayTasks, completedTasks } = useTasksStore(
+    useShallow((s) => ({
+      todayTasks: selectTodayTasks(s.tasks, today),
+      completedTasks: selectCompletedTodayTasks(s.tasks, today),
+    })),
+  );
+
+  const todayMeals = useMealsStore(
+    useShallow((s) => s.meals.filter((m) => m.day === todayWeekday)),
+  );
+
+  const { weeklyBudget, totalExpenses } = useBudgetStore(
+    useShallow((s) => ({
+      weeklyBudget: s.weeklyBudget,
+      totalExpenses: s.expenses.reduce((sum, e) => sum + e.amount, 0),
+    })),
+  );
+
+  const incompleteShoppingCount = useShoppingStore(
+    (s) => s.shoppingItems.filter((i) => !i.done).length,
+  );
+
   const remainingBudget = weeklyBudget - totalExpenses;
-  const incompleteShopping = shoppingItems.filter((i) => !i.done);
 
   let focus: TodayData["focus"] = {
     percentage: 0,
@@ -90,7 +101,7 @@ export const useTodayData = (): TodayData => {
       tasks: { completed: completedTasks.length, total: todayTasks.length },
       meals: { logged: todayMeals.length, target: 3 },
       budget: { remaining: Math.round(remainingBudget) },
-      shopping: { remaining: incompleteShopping.length },
+      shopping: { remaining: incompleteShoppingCount },
     },
   };
 };
