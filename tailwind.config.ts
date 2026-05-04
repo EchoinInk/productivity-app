@@ -126,6 +126,31 @@ export default {
       },
     },
   },
+safelist: [
+  "bg-primary",
+  "bg-accent",
+  "bg-success",
+  "bg-error",
+  "bg-warning",
+  "bg-info",
+  "bg-muted",
+
+  "text-primary",
+  "text-accent",
+  "text-success",
+  "text-error",
+  "text-warning",
+  "text-info",
+  "text-muted",
+
+  "border-primary",
+  "border-accent",
+  "border-success",
+  "border-error",
+  "border-warning",
+  "border-info",
+  "border-muted",
+]
 
 plugins: [
   tailwindcssAnimate,
