@@ -114,7 +114,7 @@ const AddShoppingItem = ({
               w-full
               py-3
               rounded-xl
-              text-white
+              text-inverse
               font-medium
               bg-primary
               disabled:opacity-50

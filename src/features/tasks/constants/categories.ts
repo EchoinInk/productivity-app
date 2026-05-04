@@ -16,11 +16,11 @@ export const taskCategories = [
 ] as const satisfies readonly TaskCategory[];
 
 export const categoryMetadata = {
-  "Home & Household": { bg: "hsl(211 84% 97%)", text: "hsl(214 38% 47%)", icon: catHome },
-  "Health & Wellness": { bg: "hsl(348 67% 97%)", text: "hsl(340 48% 56%)", icon: catHealth },
-  "Career Development": { bg: "hsl(45 22% 96%)", text: "hsl(0 0% 42%)", icon: catCareer },
-  "Errands & Life Admin": { bg: "hsl(193 70% 98%)", text: "hsl(194 38% 47%)", icon: catErrands },
-  "Family & Relationships": { bg: "hsl(306 78% 97%)", text: "hsl(326 42% 53%)", icon: catFamily },
-  Finances: { bg: "hsl(240 38% 95%)", text: "hsl(240 38% 53%)", icon: catFinance },
-  Other: { bg: "hsl(var(--muted))", text: "hsl(var(--muted-foreground))", icon: catErrands },
+  "Home & Household": { bg: "bg-surface-blue", text: "text-blue", icon: catHome },
+  "Health & Wellness": { bg: "bg-surface-red", text: "text-red", icon: catHealth },
+  "Career Development": { bg: "bg-surface-yellow", text: "text-yellow", icon: catCareer },
+  "Errands & Life Admin": { bg: "bg-surface-cyan", text: "text-cyan", icon: catErrands },
+  "Family & Relationships": { bg: "bg-surface-purple", text: "text-purple", icon: catFamily },
+  Finances: { bg: "bg-surface-gray", text: "text-gray", icon: catFinance },
+  Other: { bg: "bg-muted", text: "text-muted-foreground", icon: catErrands },
 } as const;

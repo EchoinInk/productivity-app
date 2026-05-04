@@ -14,30 +14,30 @@ export interface InsightsCardViewModel {
 const getInsightIcon = (type: string) => {
   switch (type) {
     case "achievement":
-      return <TrendingUp size={16} className="text-green-600" />;
+      return <TrendingUp size={16} className="text-success" />;
     case "encouragement":
-      return <Zap size={16} className="text-blue-600" />;
+      return <Zap size={16} className="text-info" />;
     case "warning":
-      return <Target size={16} className="text-orange-600" />;
+      return <Target size={16} className="text-warning" />;
     case "tip":
-      return <Lightbulb size={16} className="text-purple-600" />;
+      return <Lightbulb size={16} className="text-accent" />;
     default:
-      return <Lightbulb size={16} className="text-gray-600" />;
+      return <Lightbulb size={16} className="text-muted" />;
   }
 };
 
 const getInsightColor = (type: string) => {
   switch (type) {
     case "achievement":
-      return "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800";
+      return "bg-success/10 border-success/20 dark:bg-success/5 dark:border-success/15";
     case "encouragement":
-      return "bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800";
+      return "bg-info/10 border-info/20 dark:bg-info/5 dark:border-info/15";
     case "warning":
-      return "bg-orange-50 border-orange-200 dark:bg-orange-900/20 dark:border-orange-800";
+      return "bg-warning/10 border-warning/20 dark:bg-warning/5 dark:border-warning/15";
     case "tip":
-      return "bg-purple-50 border-purple-200 dark:bg-purple-900/20 dark:border-purple-800";
+      return "bg-accent/10 border-accent/20 dark:bg-accent/5 dark:border-accent/15";
     default:
-      return "bg-gray-50 border-gray-200 dark:bg-gray-900/20 dark:border-gray-800";
+      return "bg-muted/50 border-muted dark:bg-muted/10 dark:border-muted/50";
   }
 };
 
@@ -49,7 +49,7 @@ export const InsightsCardView = ({ model }: { model: InsightsCardViewModel }) =>
       <Card className="p-4">
         <div className="space-y-3">
           <Text className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <Lightbulb size={16} className="text-yellow-600" />
+            <Lightbulb size={16} className="text-warning" />
             Insights
           </Text>
           <Text className="text-xs text-muted-foreground">
@@ -64,7 +64,7 @@ export const InsightsCardView = ({ model }: { model: InsightsCardViewModel }) =>
     <Card className="p-4">
       <div className="space-y-3">
         <Text className="text-sm font-semibold text-foreground flex items-center gap-2">
-          <Lightbulb size={16} className="text-yellow-600" />
+          <Lightbulb size={16} className="text-warning" />
           Insights
         </Text>
         

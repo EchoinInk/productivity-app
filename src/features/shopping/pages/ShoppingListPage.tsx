@@ -37,7 +37,7 @@ const ShoppingListPage = () => {
               className={`h-11 rounded-xl text-sm font-semibold transition-all duration-300 ${
                 activeTab === tab
                   ? "bg-primary text-primary-foreground"
-                  : "bg-card/70 text-muted-foreground border border-border hover:bg-card hover:border-primary/30 hover:text-foreground"
+                  : "bg-surface/70 text-muted-foreground border border-border hover:bg-surface hover:border-primary/30 hover:text-foreground"
               }`}
             >
               {tab}
@@ -51,7 +51,7 @@ const ShoppingListPage = () => {
               <Heading className="text-lg font-semibold">
                 No {activeTab.toLowerCase()} items
               </Heading>
-              <Meta className="text-sm text-gray-500">
+              <Meta className="text-sm text-muted">
                 Start by adding your first {activeTab.toLowerCase()} item to build your shopping list
               </Meta>
               <div className="pt-4">

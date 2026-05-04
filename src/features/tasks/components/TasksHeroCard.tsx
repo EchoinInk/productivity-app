@@ -74,7 +74,7 @@ const TasksHeroCard = ({
                 cx={radius}
                 cy={radius}
                 r={normalizedRadius}
-                stroke="rgba(255, 255, 255, 0.2)"
+                stroke="hsl(var(--border))"
                 strokeWidth={stroke}
                 fill="none"
               />
@@ -82,7 +82,7 @@ const TasksHeroCard = ({
                 cx={radius}
                 cy={radius}
                 r={normalizedRadius}
-                stroke="white"
+                stroke="hsl(var(--primary))"
                 strokeWidth={stroke}
                 fill="none"
                 strokeDasharray={circumference}
@@ -92,7 +92,7 @@ const TasksHeroCard = ({
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <HeroTitle className="text-white">
+              <HeroTitle tone="inverse">
                 {Math.round(percentage)}%
               </HeroTitle>
             </div>
@@ -101,10 +101,10 @@ const TasksHeroCard = ({
 
         {/* PROGRESS TEXT */}
         <div className="text-center mb-4">
-          <HeroSubtext className="text-white">
+          <HeroSubtext tone="inverse">
             {progressText}
           </HeroSubtext>
-          <HeroSupport className="text-white">
+          <HeroSupport tone="inverse">
             {motivation}
           </HeroSupport>
         </div>
@@ -135,7 +135,7 @@ const TasksHeroCard = ({
                   <button
                     type="button"
                     onClick={onAddTask}
-                    className="text-white text-xs opacity-90 hover:opacity-100 transition-opacity"
+                    className="text-inverse text-xs opacity-90 hover:opacity-100 transition-opacity"
                     aria-label="Add your first task"
                   >
                     Add Task
@@ -149,12 +149,12 @@ const TasksHeroCard = ({
 
         {/* ACTIONS */}
         {(onAddTask || onViewAll) && (
-          <div className="flex gap-2 mt-4 pt-4 border-t border-white/20">
+          <div className="flex gap-2 mt-4 pt-4 border-t border-default">
             {onAddTask && (
               <button
                 type="button"
                 onClick={onAddTask}
-                className="flex-1 py-2 px-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-white text-sm font-medium"
+                className="flex-1 py-2 px-3 bg-surface-elevated/20 hover:bg-surface-elevated/30 rounded-lg transition-colors text-inverse text-sm font-medium"
                 aria-label="Add new task"
               >
                 Add Task
@@ -164,7 +164,7 @@ const TasksHeroCard = ({
               <button
                 type="button"
                 onClick={onViewAll}
-                className="flex-1 py-2 px-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-white text-sm font-medium"
+                className="flex-1 py-2 px-3 bg-surface-elevated/20 hover:bg-surface-elevated/30 rounded-lg transition-colors text-inverse text-sm font-medium"
                 aria-label="View all tasks"
               >
                 View All

@@ -6,7 +6,7 @@ interface AppShellProps {
 }
 
 const AppShell = ({ children }: AppShellProps) => (
-  <div className="min-h-screen bg-white">
+  <div className="min-h-screen bg-background">
     
     {/* CONTENT */}
     <div className="w-full lg:max-w-[430px] lg:mx-auto">
@@ -21,8 +21,8 @@ const AppShell = ({ children }: AppShellProps) => (
         className="
           w-full max-w-[430px]
           pointer-events-auto
-          bg-white/95 backdrop-blur-xl
-          border-t border-black/5
+          bg-background/95 backdrop-blur-xl
+          border-t border-default
           shadow-[0_-6px_30px_rgba(0,0,0,0.08)]
           pb-[env(safe-area-inset-bottom)]
         "

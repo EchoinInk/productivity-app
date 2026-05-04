@@ -6,11 +6,11 @@ import type { Task } from "@/features/tasks/types/types";
 export const getTaskPriorityColor = (priority?: string): string => {
   switch (priority) {
     case "high":
-      return "bg-red-500";
+      return "bg-error";
     case "medium":
-      return "bg-yellow-500";
+      return "bg-warning";
     case "low":
-      return "bg-gray-400";
+      return "bg-muted";
     default:
       return "bg-transparent";
   }
