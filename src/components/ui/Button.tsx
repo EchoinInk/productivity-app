@@ -12,13 +12,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClass: Record<ButtonVariant, string> = {
   primary:
-    "bg-gradient-primary text-on-primary shadow-button hover:shadow-elevated hover:brightness-105 active:scale-[0.98]",
+    "bg-gradient-primary text-text-on-primary shadow-button hover:shadow-elevated hover:brightness-105 active:scale-[0.98] transition-all duration-200",
   secondary:
-    "bg-surface border border-border text-text-primary hover:bg-surface-elevated hover:border-indigo/30 active:scale-[0.98]",
+    "bg-surface border border-border-default text-text-primary hover:bg-surface-elevated hover:border-secondary active:scale-[0.98] transition-all duration-200",
   ghost:
-    "bg-transparent text-text-secondary hover:bg-surface-elevated hover:text-text-primary active:scale-[0.98]",
+    "bg-transparent text-text-secondary hover:bg-surface-elevated hover:text-text-primary active:scale-[0.98] transition-all duration-200",
   danger:
-    "bg-error text-on-primary shadow-button hover:shadow-elevated hover:brightness-105 active:scale-[0.98]",
+    "bg-error text-text-on-primary shadow-button hover:shadow-elevated hover:brightness-105 active:scale-[0.98] transition-all duration-200",
 };
 
 const sizeClass: Record<ButtonSize, string> = {
@@ -34,7 +34,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         className={clsx(
-          "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center gap-2 rounded-xl font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:pointer-events-none disabled:opacity-50",
           variantClass[variant],
           sizeClass[size],
           fullWidth && "w-full",

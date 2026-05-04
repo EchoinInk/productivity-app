@@ -28,6 +28,7 @@ export default {
         background: "var(--bg)",
         surface: "var(--surface)",
         "surface-elevated": "var(--surface-elevated)",
+        "surface-glass": "var(--surface-glass)",
 
         /* TEXT */
         "text-primary": "var(--text-primary)",
@@ -40,25 +41,25 @@ export default {
 
         /* SEMANTIC */
         primary: {
-          DEFAULT: tokens.colors.brand.sky,
+          DEFAULT: "var(--primary)",
         },
         secondary: {
-          DEFAULT: tokens.colors.brand.indigo,
+          DEFAULT: "var(--secondary)",
         },
         accent: {
-          DEFAULT: tokens.colors.brand.violet,
+          DEFAULT: "var(--accent)",
         },
         success: {
-          DEFAULT: tokens.colors.semantic.success,
+          DEFAULT: "var(--success)",
         },
         error: {
-          DEFAULT: tokens.colors.semantic.error,
+          DEFAULT: "var(--error)",
         },
         warning: {
-          DEFAULT: tokens.colors.semantic.warning,
+          DEFAULT: "var(--warning)",
         },
         info: {
-          DEFAULT: tokens.colors.semantic.info,
+          DEFAULT: "var(--info)",
         },
       },
 
@@ -105,6 +106,7 @@ export default {
 
   safelist: [
     "bg-primary",
+    "bg-secondary",
     "bg-accent",
     "bg-success",
     "bg-error",
@@ -112,6 +114,7 @@ export default {
     "bg-info",
 
     "text-primary",
+    "text-secondary",
     "text-accent",
     "text-success",
     "text-error",
@@ -119,6 +122,7 @@ export default {
     "text-info",
 
     "border-primary",
+    "border-secondary",
     "border-accent",
     "border-success",
     "border-error",

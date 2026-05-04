@@ -11,6 +11,7 @@
     --bg: #F1F5F9;
     --surface: #FFFFFF;
     --surface-elevated: #F2F4FA;
+    --surface-glass: rgba(255, 255, 255, 0.6);
 
     /* TEXT */
     --text-primary: #0F172A;
@@ -20,6 +21,15 @@
 
     /* BORDER */
     --border: #E5E7E8;
+
+    /* SEMANTIC */
+    --primary: #28D9FF;
+    --secondary: #4F46E5;
+    --accent: #8B5CF6;
+    --success: #22C55E;
+    --error: #EF4444;
+    --warning: #F59E0B;
+    --info: #0EA5E9;
   }
 
   .dark {
@@ -27,6 +37,7 @@
     --bg: #0F1220;
     --surface: #161A2E;
     --surface-elevated: #1D233D;
+    --surface-glass: rgba(22, 26, 46, 0.7);
 
     /* TEXT */
     --text-primary: #F8FAFC;
@@ -36,6 +47,15 @@
 
     /* BORDER */
     --border: #2A314D;
+
+    /* SEMANTIC */
+    --primary: #28D9FF;
+    --secondary: #4F46E5;
+    --accent: #8B5CF6;
+    --success: #22C55E;
+    --error: #EF4444;
+    --warning: #F59E0B;
+    --info: #0EA5E9;
   }
 
   /* ---------------- BASE STYLES ---------------- */
@@ -66,17 +86,6 @@
     @apply bg-surface-elevated rounded-xl p-4 shadow-elevated;
   }
 
-  .gradient-primary {
-    background: linear-gradient(135deg, #28D9FF 0%, #4F46E5 45%, #FF4DD8 100%);
-  }
-
-  .gradient-accent {
-    background: linear-gradient(135deg, #8B5CF6 0%, #FF4DD8 100%);
-  }
-
-  .gradient-soft {
-    background: linear-gradient(135deg, #2BD9FF 0%, #8B5CF6 100%);
-  }
 
   .modal {
     @apply fixed inset-0 z-50 flex items-end justify-center bg-black/20 backdrop-blur-md p-4;
@@ -84,15 +93,12 @@
 
   .surface-glass {
     @apply rounded-xl backdrop-blur-xl border border-border-default;
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--surface-glass);
   }
 }
 
 /* ---------------- MOTION ---------------- */
 
-button {
-  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-}
 
 @keyframes fadeIn {
   from {

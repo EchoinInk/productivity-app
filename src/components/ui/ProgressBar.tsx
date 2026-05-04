@@ -27,8 +27,8 @@ const ProgressBarBase = ({
   };
 
   const trackClass = {
-    default: "bg-muted",
-    gradient: "bg-muted",
+    default: "bg-surface-elevated",
+    gradient: "bg-surface-elevated",
     muted: "bg-surface-elevated",
   };
 

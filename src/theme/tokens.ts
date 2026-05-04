@@ -24,11 +24,13 @@ export const tokens = {
         background: "#F1F5F9",
         default: "#FFFFFF",
         elevated: "#F2F4FA",
+        glass: "rgba(255, 255, 255, 0.6)",
       },
       dark: {
         background: "#0F1220",
         default: "#161A2E",
         elevated: "#1D233D",
+        glass: "rgba(22, 26, 46, 0.7)",
       },
     },
     text: {
