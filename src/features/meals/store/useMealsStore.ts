@@ -2,8 +2,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createId } from "@/shared/lib/id";
 import { createNamespacedStorage, STORE_VERSION } from "@/store/sharedPersist";
-import { useActivityStore } from "@/features/activity/useActivityStore";
-import { createActivityEvent } from "@/features/activity/activity.utils";
 import type { CreateMealInput, Meal } from "@/features/meals/types/types";
 
 interface MealsState {
@@ -16,14 +14,9 @@ export const useMealsStore = create<MealsState>()(
     (set) => ({
       meals: [],
       addMeal: (input) =>
-        set((state) => {
-          // Track activity
-          useActivityStore.getState().addEvent(
-            createActivityEvent("meal_logged", `Logged meal: ${input.name}`)
-          );
-
-          return { meals: [{ id: createId(), ...input }, ...state.meals] };
-        }),
+        set((state) => ({
+          meals: [{ id: createId(), ...input }, ...state.meals],
+        })),
     }),
     {
       name: "meals",
