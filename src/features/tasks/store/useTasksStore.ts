@@ -7,9 +7,6 @@ import {
   STORE_VERSION,
 } from "@/store/sharedPersist";
 
-import { useActivityStore } from "@/features/activity/useActivityStore";
-import { createActivityEvent } from "@/features/activity/activity.utils";
-
 import type {
   CreateTaskInput,
   EntityId,
@@ -27,27 +24,11 @@ export const useTasksStore = create<TasksState>()(
        * TOGGLE TASK
        */
       toggleTask: (id: EntityId) =>
-        set((state) => {
-          const task = state.tasks.find((t) => t.id === id);
-          const isCompleting = task && !task.completed;
-          
-          const updatedTasks = state.tasks.map((t) =>
-            t.id === id
-              ? { ...t, completed: !t.completed }
-              : t
-          );
-
-          // Track activity if completing
-          if (isCompleting && task) {
-            useActivityStore.getState().addEvent(
-              createActivityEvent("task_completed", `Completed task: ${task.label}`)
-            );
-          }
-
-          return {
-            tasks: updatedTasks,
-          };
-        }),
+        set((state) => ({
+          tasks: state.tasks.map((t) =>
+            t.id === id ? { ...t, completed: !t.completed } : t
+          ),
+        })),
 
       /**
        * ADD TASK
@@ -60,13 +41,6 @@ export const useTasksStore = create<TasksState>()(
             date: input.date ?? getToday() ?? new Date().toISOString().split("T")[0]!,
             ...input,
           };
-
-
-          // Track activity
-          useActivityStore.getState().addEvent(
-            createActivityEvent("task_created", `Created task: ${input.label}`)
-          );
-          console.log("ADDING TASK", newTask);
 
           return {
             tasks: [...state.tasks, newTask],
@@ -114,11 +88,10 @@ export const useTasksStore = create<TasksState>()(
         return {
           tasks: s.tasks.map((task: Task) => {
             if ('completedDates' in task) {
-              // Old format: Task had completedDates array
               return {
                 ...task,
                 completed: (task as any).completedDates.includes(todayDate),
-                completedDates: undefined, // Remove old field
+                completedDates: undefined,
               };
             }
             return task;
