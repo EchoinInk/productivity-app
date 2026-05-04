@@ -4,345 +4,202 @@
 
 ---
 
-# 🌐 Global System (All Screens)
+# 🌐 GLOBAL SYSTEM
+
+## Brand System
+All screens and components must follow Lumo’s Brand Colour System (see `docs/Lumo-Brand-Colour-System.png`), ensuring consistent use of primary, secondary, accent, and neutral colours.
 
 ## Navigation
-- Pill-shaped bottom navigation bar
-- Active tab:
-  - Stronger color
-  - Slight scale increase
-- Inactive tabs:
-  - Reduced opacity (~50–60%)
-- Subtle elevation from background
+- Pill-shaped bottom navigation
+- Max 4–5 tabs:
+  - Home | Tasks | Meals | Budget | More
+- Active tab: stronger color + slight scale
+- Inactive: reduced opacity (~50–60%)
 
-## Floating Action Button (FAB)
-- Circular gradient button (+ icon)
-- Expands into action menu:
-  - Event
-  - Task
-  - Recipe
-  - Meal
-  - Transaction
-  - Shopping
-- Menu:
-  - Left-aligned text
-  - Smooth spring animation
+## FAB (Floating Action Button)
+- Gradient circular button (+)
+- Consistent across all screens
+- Expands into:
+  - Task, Meal, Recipe, Transaction, Shopping
+- Same position + motion system
 
 ## Visual System
-- Rounded cards
+- Reduce card overload:
+  - 1 primary (hero)
+  - Others → lists / inline sections
+- Rounded components
 - Soft shadows
-- Gradient accents (not full backgrounds)
-- Glass + subtle reflection effects
-- Consistent spacing system (more vertical rhythm)
+- Minimal gradient usage:
+  - Hero, CTA, progress only
 
-## Motion System
-- Hero cards → subtle shimmer
-- FAB → spring expansion
-- Task completion → animated check
-- Buttons → press + glow feedback
+## Typography Hierarchy
+- Title: 20–24px semi-bold
+- Section: 16–18px
+- Body: 14–16px
+- Meta: 12–13px
 
-## Dark Mode
-- Full system support using existing color system
+## Buttons
+- Primary (gradient) → main action
+- Secondary → alternative
+- Ghost → low emphasis
+
+## Motion
+- Button press → scale
+- Task complete → animated check
+- FAB → morph animation
+- Cards → subtle elevation
 
 ---
 
-# 🏠 Home / Today Screen
+# 🧠 UX SYSTEM IMPROVEMENTS
+
+## Reduce Friction
+- Progressive disclosure in forms
+- Inline quick add (Tasks, Shopping)
+
+## Cross Feature Integration
+- Meals → Shopping list
+- Shopping → Budget tracking
+- Tasks → Shopping / Meals links
+
+## Home = System Brain
+- Quick actions
+- Smart suggestions
+- Daily overview
+
+---
+
+# 🏠 HOME
 
 ## Layout
-- Increased vertical spacing between sections
-- Reduced internal card padding
-- Clear hierarchy (hero > content)
+- Hero reduced slightly
+- Add Quick Actions row:
+  - + Task | + Meal | + Expense
 
-## Hero Card (Primary Focus)
-- Larger, dominant card
-- Progress ring:
-  - Dark purple styling
-  - Smaller + sharper
-- Reduced gradient blur
-- Increased text contrast
-- CTA:
-  - “Continue”
-  - “Start next task”
-- Subtle glass reflection line
-
-## Overdue Card (Conditional)
-- Only appears when needed
-- Displays:
-  - Count of overdue items
-  - Task rows with:
-    - Checkbox
-    - Task name
-    - Due date
-- Red accent for urgency
-- Divider lines between items
-
-## Grid Cards (Tasks / Meals / Budget / Shopping)
-- Tasks = highlighted primary
-- Others = slightly muted
-
-## Insight Card
-- Icon with soft tinted background
-- Subtle glow
-- Elevated visual importance
-
----
-
-# ✅ Tasks Screen
-
-## Structure Order
-1. Header (context)
-2. Date selector
-3. Summary card
-4. Overdue section
-5. Today tasks
-6. Upcoming tasks
-
-## Date System
-- Horizontal strip (Mon–Sun)
-- Active date:
-  - Gradient fill
-  - Underline
-- Calendar dropdown via chevron
-- Timeline for selected day
-
-## Task Interactions
-- Checkbox:
-  - Gradient fill animation
-  - Smooth checkmark draw
-
-## Overdue Section
-- Elevated styling:
-  - Red glow OR stronger shadow
-
-## Tags
-- Soft tinted backgrounds (not loud)
-
----
-
-# 💰 Budget Screen
-
-## Hero Budget Card (Anchor)
-- Gradient: aqua → indigo → magenta
-- Displays:
-  - Total balance (primary)
-  - Remaining (secondary)
-  - Progress bar + %
-  - Income vs expenses split
-
-## Transactions Section
-- Empty state includes:
-  - Icon
-  - CTA (“Add Transaction”)
-  - “View all” option
-
-## Actions
-- Add Income → blue/aqua gradient
-- Add Expense → pink/purple gradient
-
-## Weekly Overview
-- 3-column layout:
-  - Income
-  - Expenses
-  - Remaining
-- Semantic colors (green/red/purple)
-
-## Advanced Features
-- Spending categories (charts)
-- Smart insights:
-  - “You spent 20% more than last week”
-  - “Top category: Food”
-
----
-
-# 🍽 Meal Planner Screen
-
-## Header
-- Gradient header
-- Subtitle: “Plan your meals. Eat healthy. Save time.”
-
-## Date Selector
-- Horizontal pill system
-- Active day highlighted
-- Calendar shortcut
-
-## Meal Cards
-- Per-day cards with:
-  - Icon
-  - Day (primary)
-  - Status (secondary)
-  - + Add button
-- Subtle edge color accents
-
-## Visual Rhythm
-- Weekdays → cooler tones
-- Weekends → warmer tones
-
-## Features
-- Meal types:
-  - Breakfast / Lunch / Dinner
-- Smart suggestions:
-  - Habit-based recommendations
-- Swipe actions:
-  - Duplicate meal
-  - Move meal
-- Auto shopping integration
-
----
-
-# 🛒 Shopping Screen
-
-## Header
-- Title: Shopping
-- Subtitle: “Everything you need, in one place”
-
-## Smart Summary Card
-- Items remaining
-- Items from meals
-- Estimated total cost
-
-## Shopping List
-- Grouped categories:
-  - Produce
-  - Dairy
-  - Protein
-- Reduces cognitive load
-
-## Interactions
-- Swipe right → complete
-- Swipe left → delete/edit
-- Tap → edit item
-
-## Visual System
-- Completed → faded + strikethrough
-- Active → full contrast
-- Category headers → tinted
-
-## Features
-- Auto-sync with meals
-- Budget tracking (live total)
+## Add
 - Smart suggestions
-- Store mode (aisle sorting)
+- Today summary
 
 ---
 
-# 🍳 Recipes Screen
+# ✅ TASKS
 
-## Header
-- Gradient header
-- Subtitle:
-  “Collect, create and cook delicious meals”
+## Improvements
+- Filters: Today / Upcoming / Completed
+- Swipe:
+  - Right → complete
+  - Left → delete/edit
 
-## Search & Filter
-- Search by:
-  - Recipe
-  - Ingredient
-  - Cuisine
-- Filter system
-
-## Empty State
-- Icon + glow
-- CTA: “Add Recipe”
-
-## Recipe Cards
-- Image-based
-- Includes:
-  - Time
-  - Difficulty
-  - Rating
-  - Tags
-
-## Sections
-- Quick Ideas (horizontal scroll)
-- Categories (grid):
-  - Breakfast / Lunch / Dinner / Snacks
-
-## Features
-- Recipe detail screen:
-  - Ingredients
-  - Steps
-  - Add to meals
-  - Add to shopping
-- Favorites system
-- Full integration with meals + shopping
+## Add
+- Inline quick add field
+- Progressive add task flow
 
 ---
 
-# ➕ Add Task Modal
+# 🍽 MEALS
+
+## Layout
+- Horizontal week selector
+- Selected day content below
+- Accordion or expandable days
+
+## Add
+- Meal types (breakfast/lunch/dinner)
+- Smart suggestions
+- Auto shopping sync
+
+---
+
+# 🛒 SHOPPING
+
+## Layout
+- Sticky add input
+- Grouped categories
+
+## Add
+- Swipe actions
+- Check animations
+- Budget tracking integration
+
+---
+
+# 💰 BUDGET
+
+## Keep
+- Hero card (strong)
+
+## Add
+- Weekly chart
+- Category breakdown
+- Insights
+
+---
+
+# 🍳 RECIPES
+
+## Improvements
+- Discovery content:
+  - Popular
+  - Quick meals
+
+## Add
+- Full recipe cards
+- Favorites
+- Integration with meals + shopping
+
+---
+
+# ➕ ADD TASK EXPERIENCE
 
 ## Structure
+- Step 1: Task name (quick add)
+- Step 2: Optional details
 
-### Header
-- Gradient strip
-- Title: “Add Task”
-- Subtitle: “Stay on track. One step at a time.”
+## Features
+- Smart defaults
+- Sectioned layout
+- Gradient CTA
 
-### Sections
-1. Task Info
-   - Task name (primary input)
+---
 
-2. Schedule
-   - Date
-   - Recurring
+# 🧩 COMPONENT SYSTEM
 
-3. Details
-   - Category
-   - Priority
+- Smart Cards
+- Inline Add Field
+- Bottom Sheets
+- Swipeable Lists
+- Progress Rings
 
-4. Notes
-   - Collapsible
+---
 
-## Inputs
-- Card-style inputs
-- Icons (calendar, repeat, etc.)
-- Better padding + contrast
+# 🌈 MICROINTERACTIONS
 
-## CTA
-- Full-width gradient button:
-  [ ✨ Add Task ]
-- Sticky at bottom
-
-## Smart Defaults
-- Today’s date prefilled
-- Default priority = medium
-- Last used category selected
-
-## Quick Actions
-- Quick Task
-- Today
-- High Priority
-
-## Microinteractions
-- Input focus glow
-- Dropdown animations
 - Button press feedback
-
-## Premium Touch
-- Subtle glass panel effect
-
----
-
-# 🔁 Full App Flow
-
-Tasks → Meals → Shopping → Budget → Insights
-
-## System Connections
-- Meals → auto-generate shopping list
-- Shopping → updates budget
-- Recipes → feed into meals
-- Tasks → drive daily execution
+- Task completion animation
+- FAB expansion
+- Card hover/elevation
 
 ---
 
-# 🎯 Product Direction Summary
+# 🔥 PRIORITY FIXES
 
-## UX Shift
+1. Reduce navigation to 4–5 tabs
+2. Simplify Add Task flow
+3. Reduce card overload
+4. Define button hierarchy
+5. Add Home quick actions
+
+---
+
+# 🎯 PRODUCT DIRECTION
+
 From:
-“Feature-based screens”
+Feature-based screens
 
 To:
-“Connected life system”
+Connected system
 
-## Core Principles
+Principles:
 - Clarity over density
 - Action over display
 - System over screens
