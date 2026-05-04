@@ -23,7 +23,7 @@ const AppShell = ({ children }: AppShellProps) => (
           pointer-events-auto
           bg-background/95 backdrop-blur-xl
           border-t border-default
-          shadow-[0_-6px_30px_rgba(0,0,0,0.08)]
+          shadow-elevated
           pb-[env(safe-area-inset-bottom)]
         "
       >

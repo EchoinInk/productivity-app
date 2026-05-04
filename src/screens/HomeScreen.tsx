@@ -74,7 +74,7 @@ const HomeScreen = () => {
               w-[320px] h-[320px]
               blur-2xl
               opacity-15
-              bg-gradient-hero
+              bg-gradient-primary
             "
           />
         </div>

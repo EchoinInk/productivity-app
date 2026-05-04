@@ -131,7 +131,7 @@ const Header = ({
           </div>
 
           {subtitle && (
-            <div className="rounded-full px-4 py-2 text-center backdrop-blur-xl bg-gradient-date-pill shadow-soft">
+            <div className="rounded-full px-4 py-2 text-center backdrop-blur-xl bg-gradient-soft shadow-card">
               <Meta>{subtitle}</Meta>
             </div>
           )}
