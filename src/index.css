@@ -1,3 +1,4 @@
+/* tailwindcss - @tailwind directives are processed by PostCSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
