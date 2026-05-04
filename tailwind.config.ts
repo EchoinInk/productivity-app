@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss"
 import type { PluginAPI } from "tailwindcss/types/config";
+import { tokens } from "./src/theme/tokens";
 const tailwindcssAnimate = require("tailwindcss-animate");
 
 export default {
@@ -25,87 +26,88 @@ export default {
       },
       colors: {
         // Brand colors
-        sky: "#28D9FF",
-        indigo: "#4F46E5",
-        violet: "#8B5CF6",
-        magenta: "#FF4DD8",
-        coral: "#FF7A59",
-        lime: "#22D3A7",
-        // Light mode surfaces
-        background: "#F1F5F9",
-        surface: "#FFFFFF",
-        "surface-elevated": "#F2F4FA",
+        sky: tokens.colors.brand.sky,
+        indigo: tokens.colors.brand.indigo,
+        violet: tokens.colors.brand.violet,
+        magenta: tokens.colors.brand.magenta,
+        coral: tokens.colors.brand.coral,
+        lime: tokens.colors.brand.lime,
+        // Surfaces
+        background: tokens.colors.surface.background,
+        surface: tokens.colors.surface.default,
+        "surface-elevated": tokens.colors.surface.elevated,
+        // Text colors
+        "text-primary": tokens.colors.text.primary,
+        "text-secondary": tokens.colors.text.secondary,
+        "text-muted": tokens.colors.text.muted,
+        // Border
+        border: tokens.colors.border,
         // Semantic colors
         primary: {
-          DEFAULT: "#4F46E5",
+          DEFAULT: tokens.colors.semantic.primary,
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#28D9FF",
-          foreground: "#0F172A",
+          DEFAULT: tokens.colors.semantic.secondary,
+          foreground: tokens.colors.text.primary,
         },
         accent: {
-          DEFAULT: "#FF4DD8",
+          DEFAULT: tokens.colors.semantic.accent,
           foreground: "#FFFFFF",
         },
         success: {
-          DEFAULT: "#22C55E",
+          DEFAULT: tokens.colors.semantic.success,
           foreground: "#FFFFFF",
         },
         error: {
-          DEFAULT: "#EF4444",
+          DEFAULT: tokens.colors.semantic.error,
           foreground: "#FFFFFF",
         },
         warning: {
-          DEFAULT: "#F59E0B",
-          foreground: "#0F172A",
+          DEFAULT: tokens.colors.semantic.warning,
+          foreground: tokens.colors.text.primary,
         },
         info: {
-          DEFAULT: "#0EA5E9",
+          DEFAULT: tokens.colors.semantic.info,
           foreground: "#FFFFFF",
         },
-        // Text colors
-        "text-primary": "#0F172A",
-        "text-secondary": "#647488",
-        "text-muted": "#94A3BB",
-        // Utility colors
-        border: "#E5E7E8",
-        muted: "#C8D5E1",
-        ring: "#4F46E5",
-        input: "#E5E7E8",
-        // Legacy support
-        foreground: "#0F172A",
+        // Legacy support (mapped to tokens)
+        foreground: tokens.colors.text.primary,
+        muted: tokens.colors.text.muted,
+        ring: tokens.colors.semantic.primary,
+        input: tokens.colors.border,
         destructive: {
-          DEFAULT: "#EF4444",
+          DEFAULT: tokens.colors.semantic.error,
           foreground: "#FFFFFF",
         },
         card: {
-          DEFAULT: "#FFFFFF",
-          foreground: "#0F172A",
+          DEFAULT: tokens.colors.surface.default,
+          foreground: tokens.colors.text.primary,
         },
         popover: {
-          DEFAULT: "#FFFFFF",
-          foreground: "#0F172A",
+          DEFAULT: tokens.colors.surface.default,
+          foreground: tokens.colors.text.primary,
         },
       },
       backgroundImage: {
-        // Brand gradients
-        "gradient-primary": "linear-gradient(135deg, #28D9FF 0%, #4F46E5 45%, #FF4DD8 100%)",
-        "gradient-signature": "linear-gradient(135deg, #2BD9FF 0%, #6366F1 50%, #FF4DD8 100%)",
-        "gradient-soft": "linear-gradient(135deg, #2BD9FF 0%, #8B5CF6 100%)",
-        "gradient-accent": "linear-gradient(135deg, #8B5CF6 0%, #FF4DD8 100%)",
-        "gradient-action": "linear-gradient(135deg, #2BD9FF 0%, #4F46E5 100%)",
+        "gradient-primary": tokens.gradients.primary,
+        "gradient-signature": tokens.gradients.signature,
+        "gradient-soft": tokens.gradients.soft,
+        "gradient-accent": tokens.gradients.accent,
+        "gradient-action": tokens.gradients.action,
       },
       boxShadow: {
-        card: "0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04)",
-        elevated: "0 4px 6px -1px rgba(15, 23, 42, 0.08)",
-        button: "0 2px 4px rgba(79, 70, 229, 0.15)",
-        focus: "0 0 0 3px rgba(79, 70, 229, 0.2)",
+        card: tokens.shadows.card,
+        elevated: tokens.shadows.elevated,
+        button: tokens.shadows.button,
+        focus: tokens.shadows.focus,
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - var(--space-1))",
-        sm: "calc(var(--radius) - var(--space-2))",
+        lg: tokens.radius.lg,
+        md: tokens.radius.md,
+        sm: tokens.radius.sm,
+        xl: tokens.radius.xl,
+        "2xl": tokens.radius["2xl"],
       },
       keyframes: {
         "accordion-down": {
