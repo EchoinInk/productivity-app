@@ -2,18 +2,13 @@ import { ChevronRight } from "lucide-react";
 import { Body, Meta } from "@/components/ui/Text";
 import { Card } from "@/components/ui/Card";
 import { getCategoryMetadata } from "@/features/tasks/api";
+import { getColorClasses } from "@/shared/lib/colorMapper";
 import type { Task } from "@/features/tasks/types/types";
 
 interface UpNextCardProps {
   task: Task | null;
   onPress?: () => void;
 }
-
-const getCategoryClasses = (meta: { bg: string; text: string }) => {
-  const bgClass = `bg-${meta.bg}`;
-  const textClass = `text-${meta.text}`;
-  return { bgClass, textClass };
-};
 
 export const UpNextCard = ({ task, onPress }: UpNextCardProps) => {
   if (!task) {
@@ -33,7 +28,7 @@ export const UpNextCard = ({ task, onPress }: UpNextCardProps) => {
   }
 
   const meta = getCategoryMetadata(task.category ?? undefined);
-  const classes = getCategoryClasses(meta);
+  const classes = getColorClasses(meta.bg);
 
   return (
     <button
@@ -45,7 +40,7 @@ export const UpNextCard = ({ task, onPress }: UpNextCardProps) => {
         <div className="flex items-center gap-3">
           {/* Left: Icon */}
           <div
-            className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${classes.bgClass}`}
+            className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${classes.bg}`}
           >
             <img
               src={meta.icon}

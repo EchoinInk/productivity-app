@@ -36,11 +36,13 @@ export const tokens = {
         primary: "#0F172A",
         secondary: "#647488",
         muted: "#94A3BB",
+        onPrimary: "#FFFFFF",
       },
       dark: {
         primary: "#F8FAFC",
         secondary: "#94A3BB",
         muted: "#647488",
+        onPrimary: "#0F172A",
       },
     },
     border: {

@@ -15,7 +15,7 @@ interface SurfaceProps extends HTMLAttributes<HTMLDivElement> {
 const variantClass: Record<SurfaceVariant, string> = {
   default: "bg-surface border-border shadow-card",
   elevated: "bg-surface-elevated border-border shadow-elevated",
-  glass: "bg-surface/80 backdrop-blur-md border-white/50 shadow-elevated",
+  glass: "bg-surface/80 backdrop-blur-md border-default/50 shadow-elevated",
 };
 
 const paddingClass: Record<SurfacePadding, string> = {

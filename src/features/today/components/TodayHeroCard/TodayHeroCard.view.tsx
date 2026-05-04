@@ -53,7 +53,7 @@ export const TodayHeroCardView = ({
           <svg viewBox="0 0 72 72" className="w-full h-full">
             <circle
               stroke="currentColor"
-              className="text-primary-foreground/30"
+              className="text-on-primary/30"
               fill="transparent"
               strokeWidth={stroke}
               r={normalizedRadius}
@@ -62,7 +62,7 @@ export const TodayHeroCardView = ({
             />
             <circle
               stroke="currentColor"
-              className="text-primary-foreground origin-center -rotate-90 transition-[stroke-dashoffset] duration-500 ease-out"
+              className="text-on-primary origin-center -rotate-90 transition-[stroke-dashoffset] duration-500 ease-out"
               fill="transparent"
               strokeWidth={stroke}
               strokeLinecap="round"
@@ -76,10 +76,10 @@ export const TodayHeroCardView = ({
 
           {/* Center label */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-[10px] text-primary-foreground/70 tracking-wide">
+            <span className="text-[10px] text-on-primary/70 tracking-wide">
               Progress
             </span>
-            <Heading className="text-primary-foreground text-shadow-soft text-lg">
+            <Heading className="text-on-primary text-shadow-soft text-lg">
               {percentage}%
             </Heading>
           </div>
@@ -88,12 +88,12 @@ export const TodayHeroCardView = ({
         {/* Content */}
         <div className="flex flex-col gap-2 flex-1 min-w-0">
           {/* Title */}
-          <HeroTitle className="text-primary-foreground text-shadow-soft">
+          <HeroTitle className="text-on-primary text-shadow-soft">
             Today’s Tasks
           </HeroTitle>
 
           {/* Primary info (stronger clarity) */}
-          <HeroSubtext className="text-primary-foreground/90">
+          <HeroSubtext className="text-on-primary/90">
             {total === 0
               ? "No tasks yet today"
               : remaining === 0
@@ -103,7 +103,7 @@ export const TodayHeroCardView = ({
 
           {/* Secondary support */}
           {motivation && (
-            <HeroSupport className="text-primary-foreground/75">
+            <HeroSupport className="text-on-primary/75">
               {motivation}
             </HeroSupport>
           )}
@@ -149,7 +149,7 @@ export const TodayHeroCardView = ({
                 px-3 py-1
                 rounded-full
                 bg-primary-foreground/20
-                text-primary-foreground
+                text-on-primary
                 text-xs
                 font-medium
                 w-fit

@@ -75,7 +75,7 @@ const AddExpense = ({ open, onClose, onSave }: AddExpenseProps) => {
               w-full
               py-3
               rounded-xl
-              text-primary-foreground
+              text-on-primary
               font-medium
               bg-primary
               disabled:opacity-50

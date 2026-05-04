@@ -36,7 +36,7 @@ const ShoppingListPage = () => {
               onClick={() => setActiveTab(tab)}
               className={`h-11 rounded-xl text-sm font-semibold transition-all duration-300 ${
                 activeTab === tab
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-primary text-on-primary"
                   : "bg-surface/70 text-muted-foreground border border-border hover:bg-surface hover:border-primary/30 hover:text-foreground"
               }`}
             >

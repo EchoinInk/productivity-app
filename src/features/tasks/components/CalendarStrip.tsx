@@ -44,7 +44,7 @@ export const CalendarStrip = ({ selectedDate, onDateSelect }: Props) => {
               flex-shrink-0 flex flex-col items-center justify-center py-2 px-3 rounded-lg min-w-[60px]
               transition-colors duration-200
               ${selectedDate === dateStr 
-                ? "bg-primary text-primary-foreground" 
+                ? "bg-primary text-on-primary" 
                 : isToday 
                   ? "bg-muted/50 text-foreground"
                   : "bg-muted/30 text-muted-foreground hover:bg-muted/50"

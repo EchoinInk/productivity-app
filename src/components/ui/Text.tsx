@@ -29,7 +29,7 @@ const toneClass: Record<TextTone, string> = {
   primary: "text-text-primary",
   secondary: "text-text-secondary",
   muted: "text-text-muted",
-  inverse: "text-white",
+  inverse: "text-on-primary",
   accent: "text-accent",
   brand: "text-indigo",
 };

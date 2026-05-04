@@ -33,60 +33,61 @@ export default {
         coral: tokens.colors.brand.coral,
         lime: tokens.colors.brand.lime,
         // Surfaces
-        background: tokens.colors.surface.background,
-        surface: tokens.colors.surface.default,
-        "surface-elevated": tokens.colors.surface.elevated,
+        background: tokens.colors.surface.light.background,
+        surface: tokens.colors.surface.light.default,
+        "surface-elevated": tokens.colors.surface.light.elevated,
         // Text colors
-        "text-primary": tokens.colors.text.primary,
-        "text-secondary": tokens.colors.text.secondary,
-        "text-muted": tokens.colors.text.muted,
+        "text-primary": tokens.colors.text.light.primary,
+        "text-secondary": tokens.colors.text.light.secondary,
+        "text-muted": tokens.colors.text.light.muted,
+        "text-on-primary": tokens.colors.text.light.onPrimary,
         // Border
         border: tokens.colors.border,
         // Semantic colors
         primary: {
-          DEFAULT: tokens.colors.semantic.primary,
-          foreground: "#FFFFFF",
+          DEFAULT: tokens.colors.brand.sky,
+          foreground: tokens.colors.text.light.onPrimary,
         },
         secondary: {
-          DEFAULT: tokens.colors.semantic.secondary,
-          foreground: tokens.colors.text.primary,
+          DEFAULT: tokens.colors.brand.indigo,
+          foreground: tokens.colors.text.light.primary,
         },
         accent: {
-          DEFAULT: tokens.colors.semantic.accent,
-          foreground: "#FFFFFF",
+          DEFAULT: tokens.colors.brand.violet,
+          foreground: tokens.colors.text.light.onPrimary,
         },
         success: {
           DEFAULT: tokens.colors.semantic.success,
-          foreground: "#FFFFFF",
+          foreground: tokens.colors.text.light.onPrimary,
         },
         error: {
           DEFAULT: tokens.colors.semantic.error,
-          foreground: "#FFFFFF",
+          foreground: tokens.colors.text.light.onPrimary,
         },
         warning: {
           DEFAULT: tokens.colors.semantic.warning,
-          foreground: tokens.colors.text.primary,
+          foreground: tokens.colors.text.light.primary,
         },
         info: {
           DEFAULT: tokens.colors.semantic.info,
-          foreground: "#FFFFFF",
+          foreground: tokens.colors.text.light.onPrimary,
         },
         // Legacy support (mapped to tokens)
-        foreground: tokens.colors.text.primary,
-        muted: tokens.colors.text.muted,
-        ring: tokens.colors.semantic.primary,
-        input: tokens.colors.border,
+        foreground: tokens.colors.text.light.primary,
+        muted: tokens.colors.text.light.muted,
+        ring: tokens.colors.brand.sky,
+        input: tokens.colors.border.light,
         destructive: {
           DEFAULT: tokens.colors.semantic.error,
-          foreground: "#FFFFFF",
+          foreground: tokens.colors.text.light.onPrimary,
         },
         card: {
-          DEFAULT: tokens.colors.surface.default,
-          foreground: tokens.colors.text.primary,
+          DEFAULT: tokens.colors.surface.light.default,
+          foreground: tokens.colors.text.light.primary,
         },
         popover: {
-          DEFAULT: tokens.colors.surface.default,
-          foreground: tokens.colors.text.primary,
+          DEFAULT: tokens.colors.surface.light.default,
+          foreground: tokens.colors.text.light.primary,
         },
       },
       backgroundImage: {
