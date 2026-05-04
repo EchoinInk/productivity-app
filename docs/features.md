@@ -1,6 +1,6 @@
 # Lumo App — Planned Features by Screen - May 4th, 2026
 
-***All screens and components must follow Lumo’s Brand Colour System (see docs/Lumo-Brand-Colour-System.png), ensuring consistent use of primary, secondary, accent, and neutral colours across the product.***
+***All screens and components must follow Lumo’s Brand Colour System (see docs/lumo-brand-colour-system.png), ensuring consistent use of primary, secondary, accent, and neutral colours across the product.***
 
 ---
 
