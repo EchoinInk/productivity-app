@@ -14,6 +14,12 @@ import type {
   TasksState,
 } from "@/features/tasks/types/types";
 
+/**
+ * Legacy task shape for migration
+ */
+type LegacyTask = Task & {
+  completedDates?: string[];
+};
 
 export const useTasksStore = create<TasksState>()(
   persist(
@@ -79,21 +85,24 @@ export const useTasksStore = create<TasksState>()(
       }),
 
       /**
-       * MIGRATION (safe)
+       * MIGRATION (TYPE-SAFE)
        */
       migrate: (persisted) => {
-        const s = (persisted as any) ?? {};
+        const s = (persisted as Partial<TasksState>) ?? { tasks: [] };
         const todayDate = getToday();
 
         return {
-          tasks: s.tasks.map((task: Task) => {
-            if ('completedDates' in task) {
+          tasks: (s.tasks ?? []).map((task) => {
+            const legacyTask = task as LegacyTask;
+
+            if (legacyTask.completedDates) {
               return {
-                ...task,
-                completed: (task as any).completedDates.includes(todayDate),
+                ...legacyTask,
+                completed: legacyTask.completedDates.includes(todayDate),
                 completedDates: undefined,
               };
             }
+
             return task;
           }),
         } as TasksState;
