@@ -1,8 +1,7 @@
 import type { Config } from "tailwindcss";
 import type { PluginAPI } from "tailwindcss/types/config";
 import { tokens } from "./src/theme/tokens";
-const tailwindcssAnimate = require("tailwindcss-animate");
-
+import tailwindcssAnimate from "tailwindcss-animate";
 export default {
   darkMode: ["class"],
 

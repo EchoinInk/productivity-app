@@ -1,6 +1,4 @@
 import { defineConfig, type ConfigEnv } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import * as path from "path";
 import baseConfig from "./vite.config";
 
 // Production-specific configuration with cache headers
