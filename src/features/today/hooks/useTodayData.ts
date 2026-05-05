@@ -27,7 +27,16 @@ export type TodayData = {
   };
 };
 
-const WEEKDAYS = [
+type Weekday =
+  | "Sunday"
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday";
+
+const WEEKDAYS: Weekday[] = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -39,8 +48,7 @@ const WEEKDAYS = [
 
 export const useTodayData = (): TodayData => {
   const today = getToday();
-  const todayWeekday = WEEKDAYS[new Date().getDay()];
-
+const todayWeekday = WEEKDAYS[new Date().getDay()] as Weekday;
   // Single subscription per store
   const { todayTasks, completedTasks } = useTasksStore(
     useShallow((s) => ({
@@ -50,7 +58,7 @@ export const useTodayData = (): TodayData => {
   );
 
   const todayMeals = useMealsStore(
-    useShallow((s) => selectMealsByDay(s.meals, todayWeekday as any)),
+    useShallow((s) => selectMealsByDay(s.meals, todayWeekday)),
   );
 
   const budgetSummary = useBudgetStore(
