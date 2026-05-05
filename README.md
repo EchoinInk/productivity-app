@@ -1,4 +1,4 @@
-# 📱 LifeOS
+# 📱 Lumo
 
 > **Your life, organised — simply.**
 
