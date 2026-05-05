@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint-and-typecheck:
+    name: lint-and-typecheck   # 👈 THIS LINE FIXES IT
     runs-on: ubuntu-latest
 
     steps:
