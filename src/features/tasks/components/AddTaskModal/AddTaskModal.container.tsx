@@ -1,7 +1,13 @@
 import { useState, useMemo, useCallback } from "react";
 import { AddTaskModalView } from "./AddTaskModal.view";
 import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import type { CreateTaskInput } from "@/features/tasks/types/types";
+
+import type {
+  CreateTaskInput,
+  TaskCategory,
+  TaskPriority,
+  TaskRecurrence,
+} from "@/features/tasks/types/types";
 
 type Props = {
   open: boolean;
@@ -15,9 +21,11 @@ export const AddTaskModal = ({ open, onClose, defaultDate }: Props) => {
   const [label, setLabel] = useState("");
   const [notes, setNotes] = useState("");
   const [date, setDate] = useState(defaultDate);
-  const [category, setCategory] = useState<"" | any>("");
-  const [recurrence, setRecurrence] = useState<"" | any>("");
-  const [priority, setPriority] = useState<"" | any>("");
+
+  // ✅ FIXED TYPES
+  const [category, setCategory] = useState<TaskCategory | "">("");
+  const [recurrence, setRecurrence] = useState<TaskRecurrence | "">("");
+  const [priority, setPriority] = useState<TaskPriority | "">("");
 
   const [loading, setLoading] = useState(false);
 
@@ -69,7 +77,6 @@ export const AddTaskModal = ({ open, onClose, defaultDate }: Props) => {
 
   const canSave = label.trim().length > 0;
 
-  // 🔥 THIS FIXES YOUR INPUT BUG
   const model = useMemo(() => ({
     open,
     label,
