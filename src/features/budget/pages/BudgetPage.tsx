@@ -44,7 +44,7 @@ const BudgetPage = () => {
 
             <ProgressBar
               value={summary.percentage}
-              tone="inverted"
+              variant="default"
               ariaLabel="Budget used"
             />
 
@@ -102,7 +102,7 @@ const BudgetPage = () => {
       <div className="space-y-4 pt-2">
         <Button
           fullWidth
-          variant="budget"
+          variant="secondary"
           onClick={() => setOpenIncome(true)}
           aria-label="Add income"
         >

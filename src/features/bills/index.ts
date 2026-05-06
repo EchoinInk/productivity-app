@@ -1,5 +1,5 @@
 // Components
-export { default as AddBillModal } from "./components/AddBillModal";
+export { AddBillModal } from "./components/AddBillModal";
 
 // Hooks
 export { useBillViews, useBills } from "./hooks/useBills";
