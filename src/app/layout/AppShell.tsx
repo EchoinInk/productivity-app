@@ -9,7 +9,7 @@ const AppShell = ({ children }: AppShellProps) => (
   <div className="min-h-screen bg-background">
     
     {/* CONTENT */}
-    <div className="w-full lg:max-w-[430px] lg:mx-auto">
+    <div className="w-full max-w-[430px] mx-auto">
       <main>
         {children}
       </main>
