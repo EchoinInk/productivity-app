@@ -97,6 +97,7 @@ interface TextProps {
   children: ReactNode;
   className?: string;
   as?: ElementType;
+  tone?: TextTone;
 }
 
 /** Page title - largest heading */
@@ -194,3 +195,70 @@ export function ButtonText({ children, className }: TextProps) {
 // ============================================================================
 
 export { TextBase as Text };
+
+// ============================================================================
+// Aliases (semantic compatibility)
+// ============================================================================
+
+/** Hero/large display title */
+export function HeroTitle({ children, className, as = "h2", tone = "primary" }: TextProps) {
+  return (
+    <TextBase as={as} size="2xl" weight="bold" tone={tone} className={className}>
+      {children}
+    </TextBase>
+  );
+}
+
+/** Supporting text under a hero title */
+export function HeroSubtext({ children, className, tone = "secondary" }: TextProps) {
+  return (
+    <TextBase as="p" size="base" weight="medium" tone={tone} className={className}>
+      {children}
+    </TextBase>
+  );
+}
+
+/** Smaller supporting text under a hero */
+export function HeroSupport({ children, className, tone = "muted" }: TextProps) {
+  return (
+    <TextBase as="p" size="sm" weight="regular" tone={tone} className={className}>
+      {children}
+    </TextBase>
+  );
+}
+
+/** Meta / auxiliary text */
+export function Meta({ children, className, tone = "muted" }: TextProps) {
+  return (
+    <TextBase as="span" size="xs" weight="regular" tone={tone} className={className}>
+      {children}
+    </TextBase>
+  );
+}
+
+/** Soft label */
+export function LabelSoft({ children, className, tone = "muted" }: TextProps) {
+  return (
+    <TextBase as="span" size="sm" weight="medium" tone={tone} className={className}>
+      {children}
+    </TextBase>
+  );
+}
+
+/** Call-to-action text */
+export function CTA({ children, className, tone = "primary" }: TextProps) {
+  return (
+    <TextBase as="span" size="sm" weight="semibold" tone={tone} className={className}>
+      {children}
+    </TextBase>
+  );
+}
+
+/** Highlighted text */
+export function Highlight({ children, className, tone = "accent" }: TextProps) {
+  return (
+    <TextBase as="span" size="base" weight="semibold" tone={tone} className={className}>
+      {children}
+    </TextBase>
+  );
+}
