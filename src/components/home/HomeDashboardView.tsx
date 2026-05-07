@@ -1,3 +1,4 @@
+import { memo, useCallback } from "react";
 import type { HomeDashboardData } from "@/features/home/hooks/useHomeDashboard";
 import type { HomeModalsReturn } from "@/features/home/hooks/useHomeModals";
 import { TodayFocusSection } from "./TodayFocusSection";
@@ -18,10 +19,21 @@ export interface HomeDashboardViewProps {
  * - Testable (can pass mock data)
  * - Stateless (no direct store subscriptions)
  * - Focused on presentation only
+ * 
+ * Performance optimizations:
+ * - Memoized to prevent unnecessary re-renders
+ * - Memoized callbacks to prevent child re-renders
  */
-export const HomeDashboardView = ({ data, modals }: HomeDashboardViewProps) => {
+export const HomeDashboardView = memo(({ data, modals }: HomeDashboardViewProps) => {
   const { nextTask, todayData, toggleTask } = data;
   const { openTaskModal, openMealModal, openExpenseModal } = modals;
+
+  // Memoize callback to prevent UpNextSection from re-rendering when parent re-renders
+  const handleToggleNextTask = useCallback(() => {
+    if (nextTask) {
+      toggleTask(nextTask.id);
+    }
+  }, [nextTask, toggleTask]);
 
   return (
     <div className="space-y-4">
@@ -36,7 +48,7 @@ export const HomeDashboardView = ({ data, modals }: HomeDashboardViewProps) => {
       {/* UP NEXT */}
       <UpNextSection
         task={nextTask}
-        onPress={() => nextTask && toggleTask(nextTask.id)}
+        onPress={handleToggleNextTask}
       />
 
       {/* QUICK ACTIONS */}
@@ -53,4 +65,6 @@ export const HomeDashboardView = ({ data, modals }: HomeDashboardViewProps) => {
       <InsightsPanel />
     </div>
   );
-};
+});
+
+HomeDashboardView.displayName = 'HomeDashboardView';

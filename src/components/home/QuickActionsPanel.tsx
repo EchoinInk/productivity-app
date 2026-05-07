@@ -1,4 +1,6 @@
+import { memo, useCallback } from "react";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
+import { TAILWIND_ANIMATIONS } from "@/theme/animations";
 
 export interface QuickActionsPanelProps {
   tasks: number;
@@ -14,8 +16,13 @@ export interface QuickActionsPanelProps {
  * 
  * Displays quick action cards for tasks, meals, and budget.
  * Wraps TodayQuickActionsGrid with animation.
+ * 
+ * Performance optimizations:
+ * - Memoized to prevent unnecessary re-renders
+ * - Uses centralized animation utilities
+ * - Memoized callbacks to prevent child re-renders
  */
-export const QuickActionsPanel = ({ 
+export const QuickActionsPanel = memo(({ 
   tasks, 
   meals, 
   remaining, 
@@ -23,16 +30,31 @@ export const QuickActionsPanel = ({
   onAddMeal, 
   onAddExpense 
 }: QuickActionsPanelProps) => {
+  // Memoize callbacks to prevent TodayQuickActionsGrid from re-rendering
+  const handleAddTask = useCallback(() => {
+    onAddTask();
+  }, [onAddTask]);
+
+  const handleAddMeal = useCallback(() => {
+    onAddMeal();
+  }, [onAddMeal]);
+
+  const handleAddExpense = useCallback(() => {
+    onAddExpense();
+  }, [onAddExpense]);
+
   return (
-    <div className="animate-[fadeIn_0.85s_ease-out]">
+    <div className={TAILWIND_ANIMATIONS.fadeIn}>
       <TodayQuickActionsGrid
         tasks={tasks}
         meals={meals}
         remaining={remaining}
-        onAddTask={onAddTask}
-        onAddMeal={onAddMeal}
-        onAddExpense={onAddExpense}
+        onAddTask={handleAddTask}
+        onAddMeal={handleAddMeal}
+        onAddExpense={handleAddExpense}
       />
     </div>
   );
-};
+});
+
+QuickActionsPanel.displayName = 'QuickActionsPanel';

@@ -1,4 +1,6 @@
+import { memo } from "react";
 import { TodayHeroCard } from "@/features/today/components/TodayHeroCard";
+import { TAILWIND_ANIMATIONS } from "@/theme/animations";
 
 export interface TodayFocusSectionProps {
   percentage: number;
@@ -12,15 +14,19 @@ export interface TodayFocusSectionProps {
  * 
  * Displays the hero card showing today's task progress.
  * Wraps TodayHeroCard with home-specific context.
+ * 
+ * Performance optimizations:
+ * - Memoized to prevent unnecessary re-renders
+ * - Uses centralized animation utilities
  */
-export const TodayFocusSection = ({ 
+export const TodayFocusSection = memo(({ 
   percentage, 
   total, 
   completed, 
   onAddTask 
 }: TodayFocusSectionProps) => {
   return (
-    <div className="animate-[fadeIn_0.45s_ease-out]">
+    <div className={TAILWIND_ANIMATIONS.fadeIn}>
       <TodayHeroCard
         percentage={percentage}
         total={total}
@@ -29,4 +35,6 @@ export const TodayFocusSection = ({
       />
     </div>
   );
-};
+});
+
+TodayFocusSection.displayName = 'TodayFocusSection';

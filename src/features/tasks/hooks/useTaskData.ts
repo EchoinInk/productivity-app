@@ -23,13 +23,14 @@ import { getToday } from "@/shared/lib/date";
  * @returns Task data and derived state
  */
 export const useTaskData = () => {
+  // Use shallow selector to prevent unnecessary re-renders
   const tasks = useTasksStore((s) => s.tasks);
   const today = getToday();
 
   // Core data
   const allTasks = useMemo(() => tasks, [tasks]);
 
-  // Derived state using selectors
+  // Derived state using selectors - memoized to prevent recalculations
   const todayTasks = useMemo(() => selectTodayTasks(tasks, today), [tasks, today]);
   const completedTodayTasks = useMemo(() => selectCompletedTodayTasks(tasks, today), [tasks, today]);
   const incompleteTodayTasks = useMemo(() => selectIncompleteTodayTasks(tasks, today), [tasks, today]);
@@ -38,6 +39,13 @@ export const useTaskData = () => {
   const completedBeforeToday = useMemo(() => selectCompletedBeforeDate(tasks, today), [tasks, today]);
   const completedTasks = useMemo(() => selectCompletedTasks(tasks), [tasks]);
   const incompleteTasks = useMemo(() => selectIncompleteTasks(tasks), [tasks]);
+
+  // Computed metrics - memoized to prevent recalculations
+  const metrics = useMemo(() => ({
+    totalTasks: tasks.length,
+    completedCount: completedTasks.length,
+    incompleteCount: incompleteTasks.length,
+  }), [tasks.length, completedTasks.length, incompleteTasks.length]);
 
   return {
     // Raw data
@@ -58,9 +66,7 @@ export const useTaskData = () => {
     incompleteTasks,
     
     // Computed metrics
-    totalTasks: tasks.length,
-    completedCount: completedTasks.length,
-    incompleteCount: incompleteTasks.length,
+    ...metrics,
   };
 };
 
