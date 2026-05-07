@@ -83,7 +83,7 @@
   /* ---------------- BASE STYLES ---------------- */
 
   * {
-    @apply border-border-default;
+    @apply border-border;
   }
 
   html {

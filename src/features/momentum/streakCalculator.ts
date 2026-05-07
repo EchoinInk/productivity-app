@@ -1,5 +1,9 @@
-import type { DailyScore } from "./types/types";
-import type { StreakData, StreakType } from "./types/types";
+import type { 
+  DailyMomentumScore, 
+  Streak, 
+  StreakType, 
+  MomentumLevel 
+} from "./types/momentum.types";
 import { getToday, parseDateKey } from "@/shared/lib/date";
 
 /**
@@ -23,15 +27,19 @@ const getDaysBetween = (date: string, offset: number): string => {
  * Calculate streak for a specific type
  */
 export const calculateStreak = (
-  dailyScores: DailyScore[],
-  type: StreakType = 'overall'
-): StreakData => {
+  dailyScores: DailyMomentumScore[],
+  type: StreakType = 'planning'
+): Streak => {
   if (dailyScores.length === 0) {
     return {
-      current: 0,
-      longest: 0,
-      lastCompletedDate: null,
       type,
+      currentLength: 0,
+      longestLength: 0,
+      startDate: '',
+      lastActivityDate: '',
+      isActive: false,
+      momentumLevel: 'building',
+      trendDirection: 'stable'
     };
   }
 
@@ -44,28 +52,39 @@ export const calculateStreak = (
   let currentStreak = 0;
   let longestStreak = 0;
   let lastCompletedDate: string | null = null;
+  let streakStartDate: string | null = null;
+
+  // Determine if a day qualifies for streak (score >= 60 for maintaining momentum)
+  const qualifiesForStreak = (score: DailyMomentumScore): boolean => {
+    return score.totalScore >= 60; // Maintaining threshold
+  };
 
   // Check if today/yesterday completed to start counting current streak
   const todayScore = sortedScores.find(s => s.date === today);
   const yesterdayScore = sortedScores.find(s => s.date === getDaysBetween(today, -1));
 
-  if (todayScore?.completed) {
+  if (todayScore && qualifiesForStreak(todayScore)) {
     currentStreak = 1;
     lastCompletedDate = today;
-  } else if (yesterdayScore?.completed) {
+    streakStartDate = today;
+  } else if (yesterdayScore && qualifiesForStreak(yesterdayScore)) {
     currentStreak = 1;
     lastCompletedDate = yesterdayScore.date;
+    streakStartDate = yesterdayScore.date;
   } else {
-    // Streak broken
-    lastCompletedDate = sortedScores[0]?.date || null;
+    // Streak broken - find last completed day
+    const lastQualified = sortedScores.find(s => qualifiesForStreak(s));
+    lastCompletedDate = lastQualified?.date || null;
+    streakStartDate = lastCompletedDate;
   }
 
-  // Calculate current streak by counting consecutive completed days
+  // Calculate current streak by counting consecutive qualified days
   let checkDate = lastCompletedDate;
   while (checkDate) {
     const score = sortedScores.find(s => s.date === checkDate);
-    if (score && score.completed) {
+    if (score && qualifiesForStreak(score)) {
       currentStreak++;
+      streakStartDate = checkDate;
       checkDate = getDaysBetween(checkDate, -1);
     } else {
       break;
@@ -78,7 +97,7 @@ export const calculateStreak = (
 
   for (let i = 0; i < sortedScores.length; i++) {
     const score = sortedScores[i];
-    if (score && score.completed) {
+    if (score && qualifiesForStreak(score)) {
       tempStreak++;
       tempLongest = Math.max(tempLongest, tempStreak);
     } else {
@@ -86,47 +105,64 @@ export const calculateStreak = (
     }
   }
 
-  longestStreak = Math.max(longestStreak, tempLongest);
+  longestStreak = Math.max(currentStreak, tempLongest);
+
+  // Determine momentum level based on current streak
+  const getMomentumLevel = (streakLength: number): MomentumLevel => {
+    if (streakLength >= 30) return 'excelling';
+    if (streakLength >= 14) return 'growing';
+    if (streakLength >= 7) return 'maintaining';
+    return 'building';
+  };
+
+  // Calculate trend direction
+  const getTrendDirection = (current: number, previous: number): 'up' | 'down' | 'stable' => {
+    if (current === previous) return 'stable';
+    return current > previous ? 'up' : 'down';
+  };
 
   return {
-    current: currentStreak,
-    longest: longestStreak,
-    lastCompletedDate,
     type,
+    currentLength: currentStreak,
+    longestLength: longestStreak,
+    startDate: streakStartDate || '',
+    lastActivityDate: lastCompletedDate || '',
+    isActive: currentStreak > 0,
+    momentumLevel: getMomentumLevel(currentStreak),
+    trendDirection: getTrendDirection(currentStreak, longestStreak)
   };
 };
 
 /**
  * Calculate all streaks for different types
  */
-export const calculateAllStreaks = (dailyScores: DailyScore[]): Record<StreakType, StreakData> => {
-  const overall = calculateStreak(dailyScores, 'overall');
-  
-  // For feature-specific streaks, we'd need to check breakdown completion
-  // For now, we'll use the same logic but could be enhanced later
-  const tasks = calculateStreak(dailyScores, 'tasks');
-  const meals = calculateStreak(dailyScores, 'meals');
-  const budget = calculateStreak(dailyScores, 'budget');
-  const shopping = calculateStreak(dailyScores, 'shopping');
+export const calculateAllStreaks = (dailyScores: DailyMomentumScore[]): Record<StreakType, Streak> => {
+  const planning = calculateStreak(dailyScores, 'planning');
+  const completion = calculateStreak(dailyScores, 'completion');
+  const routine = calculateStreak(dailyScores, 'routine');
+  const consistency = calculateStreak(dailyScores, 'consistency');
+  const focus = calculateStreak(dailyScores, 'focus');
+  const wellness = calculateStreak(dailyScores, 'wellness');
 
   return {
-    overall,
-    tasks,
-    meals,
-    budget,
-    shopping,
+    planning,
+    completion,
+    routine,
+    consistency,
+    focus,
+    wellness,
   };
 };
 
 /**
  * Check if streak is in danger (no completion today/yesterday)
  */
-export const isStreakInDanger = (streak: StreakData): boolean => {
-  if (streak.current === 0) return false;
-  if (!streak.lastCompletedDate) return false;
+export const isStreakInDanger = (streak: Streak): boolean => {
+  if (streak.currentLength === 0) return false;
+  if (!streak.lastActivityDate) return false;
   
   const today = getToday();
-  const lastDate = new Date(streak.lastCompletedDate);
+  const lastDate = new Date(streak.lastActivityDate);
   const todayDate = new Date(today);
   const daysSince = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
   
@@ -137,26 +173,26 @@ export const isStreakInDanger = (streak: StreakData): boolean => {
 /**
  * Get streak motivation message
  */
-export const getStreakMotivation = (streakData: StreakData): string => {
-  if (streakData.current === 0) {
+export const getStreakMotivation = (streak: Streak): string => {
+  if (streak.currentLength === 0) {
     return "Start your streak today!";
   }
   
-  if (streakData.current === 1) {
+  if (streak.currentLength === 1) {
     return "You're on a roll! Keep going!";
   }
   
-  if (streakData.current < 7) {
-    return `${streakData.current} day streak! Keep it up.`;
+  if (streak.currentLength < 7) {
+    return `${streak.currentLength} day streak! Keep it up.`;
   }
   
-  if (streakData.current < 30) {
-    return `${streakData.current} day streak! Amazing consistency!`;
+  if (streak.currentLength < 30) {
+    return `${streak.currentLength} day streak! Amazing consistency!`;
   }
   
-  if (streakData.current < 100) {
-    return `${streakData.current} day streak! You're unstoppable!`;
+  if (streak.currentLength < 100) {
+    return `${streak.currentLength} day streak! You're unstoppable!`;
   }
   
-  return `${streakData.current} day streak! Legendary! 🏆`;
+  return `${streak.currentLength} day streak! Legendary! 🏆`;
 };
