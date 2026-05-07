@@ -41,7 +41,7 @@ const SummaryCard = ({
       className="relative w-full text-left active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-200 ease-out min-h-14 hover:-translate-y-0.5"
     >
       <Card
-        variant="glass"
+        variant="subtle"
         className="p-4 opacity-90"
       >
         <div className="flex items-center gap-3">
