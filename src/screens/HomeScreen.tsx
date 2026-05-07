@@ -1,13 +1,6 @@
 /**
- * ARCHITECTURE RULES:
- * - No filtering / sorting in UI
- * - No business logic in components  
- * - Use selectors or hooks
- * 
- * HomeScreen is now a route-level wrapper that:
- * - Provides layout shell
- * - Handles provider wiring
- * - Delegates to container/view architecture
+ * HomeScreen — route shell.
+ * Tighter spacing, no decorative glow, single cohesive surface system.
  */
 import { AddTaskModal } from "@/features/tasks";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
@@ -21,80 +14,39 @@ import { HomeHeader } from "@/components/home/HomeHeader";
 
 const greetingFor = (d: Date): string => {
   const h = d.getHours();
-  if (h < 12) return "Good morning 👋";
-  if (h < 18) return "Good afternoon 👋";
-  return "Good evening 👋";
+  if (h < 12) return "Good morning";
+  if (h < 18) return "Good afternoon";
+  return "Good evening";
 };
 
-/**
- * Home Screen (Route-Level Wrapper)
- * 
- * Responsibilities:
- * - Route-level layout shell
- * - Provider wiring
- * - Modal rendering
- * - Background styling
- * 
- * Business logic and orchestration are delegated to:
- * - useHomeDashboard (data and actions)
- * - useHomeModals (modal state)
- * - HomeDashboardView (pure UI)
- */
 const HomeScreen = () => {
-  // Container hooks for orchestration
   const data = useHomeDashboard();
   const modals = useHomeModals();
-
-  // Simple presentation logic
   const greeting = greetingFor(new Date());
 
   return (
     <>
-      {/* PAGE WRAPPER */}
-      <div className="relative min-h-screen bg-background overflow-hidden">
-        {/* Subtle background accent */}
-        <div className="pointer-events-none absolute inset-0">
-          <div
-            className="
-              absolute
-              top-[-60px]
-              left-1/2 -translate-x-1/2
-              w-[280px] h-[280px]
-              opacity-8
-              bg-gradient-primary
-              rounded-full
-              blur-3xl
-            "
-          />
-        </div>
-
-        {/* CONTENT */}
-        <div className="relative z-10 w-full max-w-[430px] mx-auto px-4 pt-4 pb-[calc(88px+env(safe-area-inset-bottom))] space-y-3">
-          {/* HEADER */}
+      <div className="min-h-screen bg-background">
+        <div className="w-full max-w-[430px] mx-auto px-4 pt-3 pb-[calc(80px+env(safe-area-inset-bottom))] space-y-4">
           <HomeHeader greeting={greeting} />
-
-          {/* DASHBOARD VIEW */}
           <HomeDashboardView data={data} modals={modals} />
         </div>
       </div>
 
-      {/* MODALS */}
-      <AddTaskModal 
-        open={modals.taskOpen} 
-        onClose={modals.closeTaskModal} 
-        defaultDate={data.todayStr} 
+      <AddTaskModal
+        open={modals.taskOpen}
+        onClose={modals.closeTaskModal}
+        defaultDate={data.todayStr}
       />
-
-      <AddMealModal 
-        open={modals.mealOpen} 
-        onClose={modals.closeMealModal} 
-        onSave={data.addMeal} 
+      <AddMealModal
+        open={modals.mealOpen}
+        onClose={modals.closeMealModal}
+        onSave={data.addMeal}
       />
-
-      <AddExpense 
-        open={modals.expenseOpen} 
-        onClose={modals.closeExpenseModal} 
-        onSave={data.addExpense} 
+      <AddExpense
+        open={modals.expenseOpen}
+        onClose={modals.closeExpenseModal}
+        onSave={data.addExpense}
       />
     </>
   );
