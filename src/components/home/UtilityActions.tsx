@@ -53,7 +53,7 @@ const ActionItem = ({
         group flex items-center gap-3
         min-h-[44px] p-3
         rounded-lg bg-surface-elevated hover:bg-surface
-        transition-all duration-150
+        transition-all duration-200
         active:scale-[0.98]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20
         w-full text-left
@@ -96,16 +96,16 @@ export const UtilityActions = memo(({
 
   return (
     <Surface variant="default" padding="md" radius="lg" className="w-full">
-      <div className="space-y-2">
+      <div className="space-y-3">
         {/* Section Header */}
-        <div className="flex items-center justify-between px-1 mb-2">
+        <div className="flex items-center justify-between px-1 mb-3">
           <Text size="xs" weight="semibold" tone="muted" className="uppercase tracking-wider">
             Quick Actions
           </Text>
         </div>
 
         {/* Action Grid - 2 columns on mobile, 3 on larger screens */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <ActionItem
             icon={Plus}
             label="Add Task"
@@ -135,11 +135,11 @@ export const UtilityActions = memo(({
             type="button"
             className="
               flex-1
-              min-h-[44px] py-2 px-3
-              rounded-md bg-surface-subtle hover:bg-surface-elevated
+              min-h-[44px] py-2.5 px-3
+              rounded-lg bg-surface-subtle hover:bg-surface-elevated
               text-text-secondary hover:text-text-primary
               text-xs font-medium
-              transition-all duration-150
+              transition-all duration-200
               active:scale-[0.98]
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20
             "

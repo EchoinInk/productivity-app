@@ -35,7 +35,7 @@ const BottomNav = () => (
         className={({ isActive }) =>
           clsx(
             // 44px minimum touch target with comfortable spacing
-            "group flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 gap-1",
+            "group flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 gap-1.5",
             "text-xs font-medium transition-all duration-200 ease-out",
             // Active state: clear visual feedback
             isActive
@@ -50,7 +50,7 @@ const BottomNav = () => (
             <div className={clsx(
               "relative flex items-center justify-center",
               "w-8 h-8 sm:w-9 sm:h-9 rounded-lg transition-all duration-200",
-              isActive ? "bg-primary/10" : "bg-transparent group-hover:bg-surface-elevated"
+              isActive ? "bg-primary/10 scale-105" : "bg-transparent group-hover:bg-surface-elevated"
             )}>
               <img
                 src={icon}

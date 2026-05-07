@@ -10,17 +10,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-const baseClass = "inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40";
+const baseClass = "inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
 const variantClass: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-text-on-primary shadow-sm hover:brightness-105 active:scale-[0.98] active:brightness-95",
+    "bg-primary text-text-on-primary hover:brightness-105 active:scale-[0.98] active:brightness-95",
   secondary:
-    "bg-surface border border-border text-text-primary hover:bg-surface-elevated hover:border-border active:scale-[0.98] active:bg-surface",
+    "bg-surface border border-border text-text-primary hover:bg-surface-elevated active:scale-[0.98] active:bg-surface",
   ghost:
     "bg-transparent text-text-secondary hover:bg-surface-elevated hover:text-text-primary active:scale-[0.98]",
   danger:
-    "bg-error text-text-on-primary shadow-sm hover:brightness-105 active:scale-[0.98] active:brightness-95",
+    "bg-error text-text-on-primary hover:brightness-105 active:scale-[0.98] active:brightness-95",
 };
 
 const sizeClass: Record<ButtonSize, string> = {

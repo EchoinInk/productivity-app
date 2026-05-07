@@ -45,9 +45,9 @@ export const HomeDashboardView = memo(({ data, modals }: HomeDashboardViewProps)
   return (
     <div className="flex flex-col min-h-[calc(100vh-200px)]">
       {/* SCROLLABLE CONTENT AREA */}
-      <div className="flex-1 space-y-4 pb-4">
+      <div className="flex-1 space-y-3 pb-4">
         {/* ROW 1: Command Center + Utility Actions */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <TodayCommandCenter
             percentage={todayData.focus.percentage}
             total={todayData.summary.tasks.total}
@@ -66,8 +66,8 @@ export const HomeDashboardView = memo(({ data, modals }: HomeDashboardViewProps)
         </div>
 
         {/* ROW 2: Up Next Priority */}
-        <section aria-label="Next task" className="px-0.5">
-          <div className="flex items-center justify-between mb-2.5">
+        <section aria-label="Next task" className="px-1">
+          <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">
               Up Next
             </span>
@@ -84,8 +84,8 @@ export const HomeDashboardView = memo(({ data, modals }: HomeDashboardViewProps)
         </section>
 
         {/* ROW 3: Insights */}
-        <section aria-label="Insights" className="px-0.5">
-          <div className="flex items-center justify-between mb-2.5">
+        <section aria-label="Insights" className="px-1">
+          <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">
               Insights
             </span>

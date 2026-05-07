@@ -23,10 +23,10 @@ export interface UpNextPriorityProps {
 }
 
 const EmptyState = () => (
-  <Surface variant="subtle" padding="lg" radius="lg" className="w-full">
-    <div className="flex items-center gap-4">
-      <div className="w-12 h-12 rounded-full bg-surface-elevated flex items-center justify-center">
-        <span className="text-2xl">🎉</span>
+  <Surface variant="subtle" padding="md" radius="lg" className="w-full">
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-full bg-surface-elevated flex items-center justify-center">
+        <span className="text-xl">🎉</span>
       </div>
       <div className="flex-1">
         <Text size="base" weight="semibold" tone="primary">
@@ -50,14 +50,16 @@ const UrgencyBadge = ({ time }: { time?: string }) => {
 
   return (
     <div
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
-        isUrgent
-          ? "bg-error/10 text-error"
-          : isSoon
-          ? "bg-warning/10 text-warning"
-          : "bg-surface-elevated text-text-secondary"
-      }`}
-    >
+      className={`
+        inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium
+        ${
+          isUrgent
+            ? "bg-error/10 text-error"
+            : isSoon
+            ? "bg-warning/10 text-warning"
+            : "bg-surface-elevated text-text-secondary"
+        }
+      `}>
       <Clock size={12} />
       {time}
     </div>
@@ -80,28 +82,28 @@ export const UpNextPriority = memo(({ task, onPress }: UpNextPriorityProps) => {
     <button
       type="button"
       onClick={handlePress}
-      className="w-full text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 rounded-xl"
+      className="w-full text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 rounded-lg"
       aria-label={`Complete task: ${task.label}`}
     >
       <Surface
         variant="elevated"
         padding="lg"
         radius="lg"
-        className="w-full transition-all duration-150 group-hover:shadow-md group-active:scale-[0.98]"
+        className="w-full transition-all duration-200 group-hover:shadow-sm group-active:scale-[0.98]"
       >
         <div className="flex items-start gap-4">
           {/* Left: Category Icon */}
           <div
-            className={`w-12 h-12 rounded-lg flex items-center justify-center shrink-0 ${classes.bg}`}
+            className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${classes.bg}`}
           >
             <img
               src={meta.icon}
               alt=""
-              width={24}
-              height={24}
+              width={20}
+              height={20}
               loading="lazy"
               decoding="async"
-              className="w-6 h-6 object-contain"
+              className="w-5 h-5 object-contain"
             />
           </div>
 
@@ -135,11 +137,11 @@ export const UpNextPriority = memo(({ task, onPress }: UpNextPriorityProps) => {
 
           {/* Right: Action Indicator */}
           <div className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <Play size={14} className="text-primary ml-0.5" />
+            <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <Play size={12} className="text-primary ml-0.5" />
             </div>
             <ChevronRight
-              size={18}
+              size={16}
               className="text-text-muted group-hover:text-text-primary transition-colors"
             />
           </div>

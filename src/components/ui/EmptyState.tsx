@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import clsx from "clsx";
+import { Text } from "@/components/ui/Text";
 
 interface EmptyStateProps {
   title: string;
@@ -10,8 +11,17 @@ interface EmptyStateProps {
 
 export const EmptyState = ({ title, description, action, className }: EmptyStateProps) => (
   <div className={clsx("text-center py-8 px-4", className)}>
-    <p className="text-sm font-semibold text-text-primary">{title}</p>
-    {description && <p className="mt-1 text-xs text-text-muted">{description}</p>}
-    {action && <div className="mt-3">{action}</div>}
+    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-surface-subtle flex items-center justify-center">
+      <span className="text-2xl opacity-60">📋</span>
+    </div>
+    <Text size="sm" weight="semibold" tone="primary" className="mb-1">
+      {title}
+    </Text>
+    {description && (
+      <Text size="xs" tone="muted" className="mb-3">
+        {description}
+      </Text>
+    )}
+    {action && <div>{action}</div>}
   </div>
 );

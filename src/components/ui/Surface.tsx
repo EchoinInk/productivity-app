@@ -14,10 +14,10 @@ interface SurfaceProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variantClass: Record<SurfaceVariant, string> = {
-  default: "bg-surface border border-border shadow-sm",
-  elevated: "bg-surface-elevated border border-border shadow-md",
+  default: "bg-surface border border-border",
+  elevated: "bg-surface-elevated border border-border",
   subtle: "bg-surface-subtle border border-border-subtle",
-  inset: "bg-surface-inset shadow-inner",
+  inset: "bg-surface-inset",
 };
 
 const paddingClass: Record<SurfacePadding, string> = {
@@ -44,7 +44,7 @@ export const Surface = forwardRef<HTMLDivElement, SurfaceProps>(
           variantClass[variant],
           paddingClass[padding],
           radiusClass[radius],
-          interactive && "transition-all duration-150 ease-out hover:bg-surface-elevated active:scale-[0.98]",
+          interactive && "transition-all duration-200 ease-out hover:bg-surface-elevated active:scale-[0.98]",
           className,
         )}
         {...props}

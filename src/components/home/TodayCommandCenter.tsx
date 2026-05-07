@@ -24,15 +24,15 @@ export interface TodayCommandCenterProps {
 
 const ProgressBar = ({ percentage }: { percentage: number }) => (
   <div className="flex items-center gap-3">
-    <div className="flex-1 h-2 bg-surface-inset rounded-full overflow-hidden">
+    <div className="flex-1 h-1.5 bg-surface-inset rounded-full overflow-hidden">
       <div
-        className="h-full bg-gradient-primary rounded-full transition-all duration-500 ease-out"
+        className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
         style={{ width: `${percentage}%` }}
       />
     </div>
-    <span className="text-xs font-medium text-text-secondary w-10 text-right">
+    <Text size="xs" weight="medium" tone="secondary" className="w-10 text-right">
       {percentage}%
-    </span>
+    </Text>
   </div>
 );
 
@@ -55,9 +55,13 @@ const MetricItem = ({
 
   return (
     <div className="flex items-center gap-2">
-      <Icon size={16} className={`${toneClass[tone]} opacity-70`} />
-      <span className={`text-sm font-semibold ${toneClass[tone]}`}>{value}</span>
-      <span className="text-xs text-text-muted">{label}</span>
+      <Icon size={16} className={`${toneClass[tone]}`} />
+      <Text size="sm" weight="semibold" tone={tone === "success" ? "accent" : tone}>
+        {value}
+      </Text>
+      <Text size="xs" tone="muted">
+        {label}
+      </Text>
     </div>
   );
 };
@@ -85,7 +89,7 @@ export const TodayCommandCenter = memo(({
       radius="lg"
       className="w-full"
     >
-      <div className="space-y-3">
+      <div className="space-y-4">
         {/* Header Row: Date + Status */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -122,21 +126,21 @@ export const TodayCommandCenter = memo(({
         <ProgressBar percentage={percentage} />
 
         {/* Metrics Row */}
-        <div className="flex items-center gap-4 pt-1">
+        <div className="flex items-center gap-4 pt-2">
           <MetricItem
             icon={CheckCircle2}
             value={completed}
             label="done"
             tone={completed > 0 ? "success" : "muted"}
           />
-          <div className="w-px h-4 bg-border-subtle" />
+          <div className="w-px h-4 bg-border" />
           <MetricItem
             icon={Circle}
             value={remaining}
             label="left"
             tone={remaining > 0 ? "primary" : "muted"}
           />
-          <div className="w-px h-4 bg-border-subtle" />
+          <div className="w-px h-4 bg-border" />
           <MetricItem
             icon={TrendingUp}
             value={total}
@@ -149,7 +153,7 @@ export const TodayCommandCenter = memo(({
         {isEmpty && (
           <button
             onClick={onAddTask}
-            className="w-full py-2 px-3 bg-surface-elevated hover:bg-surface text-text-primary text-sm font-medium rounded-md transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
+            className="w-full py-2.5 px-3 bg-surface-elevated hover:bg-surface text-text-primary text-sm font-medium rounded-lg transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
           >
             + Add your first task
           </button>
