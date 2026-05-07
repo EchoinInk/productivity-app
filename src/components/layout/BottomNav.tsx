@@ -41,7 +41,7 @@ const BottomNav = () => (
         className={({ isActive }) =>
           clsx(
             "group relative flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 gap-0.5",
-            "transition-all duration-150 ease-motion-out",
+            "transition-[transform,opacity] duration-150 ease-motion-out",
             "active:scale-[0.97]",
             "motion-reduce:transition-none motion-reduce:active:scale-100",
             isActive
@@ -60,13 +60,13 @@ const BottomNav = () => (
               loading="lazy"
               decoding="async"
               className={clsx(
-                "w-[22px] h-[22px] object-contain transition-all duration-150 ease-motion-out",
-                "group-hover:scale-105",
+                "w-[22px] h-[22px] object-contain transition-opacity duration-150 ease-motion-out",
+                "group-hover:scale-105 motion-reduce:group-hover:scale-100",
                 isActive ? "opacity-100 scale-105" : "opacity-70 group-hover:opacity-100"
               )}
             />
             <span className={clsx(
-              "text-[10px] leading-none font-medium tracking-tight transition-all duration-150",
+              "text-[10px] leading-none font-medium tracking-tight transition-colors duration-150",
               isActive && "font-semibold"
             )}>
               {label}
@@ -75,7 +75,7 @@ const BottomNav = () => (
             <span
               className={clsx(
                 "absolute -top-px h-0.5 w-8 rounded-full bg-primary",
-                "transition-all duration-200 ease-motion-out",
+                "transition-[width,opacity] duration-200 ease-motion-out",
                 isActive
                   ? "opacity-100 scale-x-100"
                   : "opacity-0 scale-x-0"

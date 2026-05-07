@@ -26,7 +26,7 @@ const ProgressBar = ({ percentage }: { percentage: number }) => (
   <div className="flex items-center gap-3">
     <div className="flex-1 h-1.5 bg-surface-inset rounded-full overflow-hidden">
       <div
-        className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
+        className="h-full bg-primary rounded-full transition-[width] duration-300 ease-out"
         style={{ width: `${percentage}%` }}
       />
     </div>
@@ -153,7 +153,7 @@ export const TodayCommandCenter = memo(({
         {isEmpty && (
           <button
             onClick={onAddTask}
-            className="w-full py-2.5 px-3 bg-surface-elevated hover:bg-surface text-text-primary text-sm font-medium rounded-lg transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
+            className="w-full py-2.5 px-3 bg-surface-elevated hover:bg-surface text-text-primary text-sm font-medium rounded-lg transition-[background-color,transform] duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
           >
             + Add your first task
           </button>

@@ -148,7 +148,7 @@ export const CompletionStep = ({ data, onNext }: OnboardingStepProps) => {
       <form onSubmit={handleGetStarted}>
         <button
           type="submit"
-          className="w-full py-3 bg-primary text-text-on-primary rounded-lg font-semibold hover:brightness-105 active:scale-[0.98] transition-all duration-200"
+          className="w-full py-3 bg-primary text-text-on-primary rounded-lg font-semibold hover:brightness-105 active:scale-[0.98] transition-[filter,transform] duration-200 motion-reduce:active:scale-100"
         >
           Start Using Lumo
         </button>

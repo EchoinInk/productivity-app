@@ -40,7 +40,7 @@ export const RoutineEmptyState: React.FC<RoutineEmptyStateProps> = ({
               key={template.name}
               type="button"
               onClick={() => onSelectTemplate(template as RoutineTemplate)}
-              className="w-full text-left p-3 rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border/50 transition-all duration-200 active:scale-[0.98]"
+              className="w-full text-left p-3 rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border/50 transition-[background-color,transform] duration-200 active:scale-[0.98]"
             >
               <Text size="sm" weight="bold" tone="primary">
                 {template.name}

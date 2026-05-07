@@ -59,7 +59,7 @@ const CaptureButton = ({
         "min-w-[72px] min-h-[72px] sm:min-w-[80px] sm:min-h-[80px]",
         "rounded-2xl shadow-sm",
         colorClass[color],
-        "transition-all duration-150 ease-motion-out",
+        "transition-[background-color,transform] duration-150 ease-motion-out",
         "active:scale-[0.95] active:shadow-none",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20",
         "motion-reduce:transition-none motion-reduce:active:scale-100"

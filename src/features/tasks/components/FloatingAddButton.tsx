@@ -21,10 +21,11 @@ export const FloatingAddButton = ({ onClick }: Props) => {
           rounded-full
           shadow-lg shadow-primary/20
           flex items-center justify-center
-          transition-all duration-200 ease-out
-          hover:brightness-110 hover:scale-105
+          transition-[filter,transform] duration-200 ease-motion-out
+          hover:brightness-110 hover:scale-105 motion-reduce:hover:scale-100
           active:scale-95
           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2
+          motion-reduce:transition-none
         "
         aria-label="Add new task"
       >

@@ -17,8 +17,8 @@ export const ShoppingRow = ({ item, onToggle }: ShoppingRowProps) => {
       className="
         rounded-lg
         px-2 py-2
-        transition-all duration-200
-        active:scale-[0.98]
+        transition-[transform] duration-200
+        active:scale-[0.98] motion-reduce:active:scale-100
       "
     >
       <ListItemBase

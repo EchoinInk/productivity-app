@@ -52,7 +52,7 @@ export const Surface = forwardRef<HTMLDivElement, SurfaceProps>(
           paddingClass[padding],
           radiusClass[radius],
           interactive && [
-            "transition-all duration-150 ease-motion-out",
+            "transition-[background-color,transform,box-shadow] duration-150 ease-motion-out",
             "hover:bg-surface-elevated hover:shadow-sm",
             "active:scale-[0.99] active:bg-surface-active",
             "motion-reduce:transition-none",

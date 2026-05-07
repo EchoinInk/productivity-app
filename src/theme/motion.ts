@@ -422,70 +422,12 @@ export const hardwareAccelerated: React.CSSProperties = {
 /**
  * Tailwind CSS class combinations for common motion patterns.
  * These provide consistent utility classes for the design system.
+ * Note: Components use inline classes instead for better tree-shaking.
  */
 export const MOTION_CLASSES = {
-  // Transition base classes
-  transitionFast: "transition-all duration-150 ease-out",
-  transitionNormal: "transition-all duration-200 ease-out",
-  transitionSlow: "transition-all duration-300 ease-out",
-
-  // Interaction states
-  hoverLift: "hover:-translate-y-0.5 hover:shadow-md transition-all duration-150 ease-out",
-  hoverGlow: "hover:ring-2 hover:ring-primary/20 transition-all duration-150 ease-out",
-  activePress: "active:scale-[0.98] active:opacity-90 transition-transform duration-100 ease-out",
-  focusRing: "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2",
-
-  // Entrance animations (requires @keyframes in CSS)
-  animateFadeIn: "animate-[fadeIn_200ms_cubic-bezier(0,0,0.2,1)_forwards]",
-  animateFadeInUp: "animate-[fadeInUp_200ms_cubic-bezier(0.16,1,0.3,1)_forwards]",
-  animateScaleIn: "animate-[scaleIn_300ms_cubic-bezier(0.34,1.56,0.64,1)_forwards]",
-  animateSlideInBottom: "animate-[slideInBottom_400ms_cubic-bezier(0.16,1,0.3,1)_forwards]",
-
-  // Exit animations
-  animateFadeOut: "animate-[fadeOut_150ms_cubic-bezier(0.4,0,1,1)_forwards]",
-
-  // Loading states
-  animateSpin: "animate-[spin_800ms_linear_infinite]",
-  animatePulse: "animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]",
-  animateSkeleton: "animate-[shimmer_1.5s_infinite]",
-
-  // Progress animations
-  animateProgress: "animate-[progress_300ms_cubic-bezier(0,0,0.2,1)_forwards]",
-  animateRing: "animate-[ring_500ms_cubic-bezier(0.16,1,0.3,1)_forwards]",
-
   // Reduced motion
   reducedMotion: "motion-reduce:transition-none motion-reduce:animate-none",
 } as const;
-
-// ============================================================================
-// REACT HOOKS
-// ============================================================================
-
-/**
- * Hook to detect reduced motion preference.
- * Updates dynamically if user changes system preference.
- */
-export const useReducedMotion = (): boolean => {
-  // This would be a real hook in the React component
-  // For now, exported as a utility reference
-  return prefersReducedMotion();
-};
-
-/**
- * Hook for staggered entrance animations.
- * Returns style with calculated delay based on index.
- */
-export const useStaggeredEntrance = (
-  index: number,
-  preset: MotionPreset = "fadeInUp",
-  baseDelay: number = STAGGER.normal
-): React.CSSProperties => {
-  const delay = calculateStagger(index, baseDelay);
-  return {
-    ...createAnimationStyle(preset, delay),
-    opacity: 0, // Start hidden, animation reveals
-  };
-};
 
 // ============================================================================
 // EXPORTS

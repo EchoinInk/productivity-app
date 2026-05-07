@@ -89,7 +89,7 @@ export const UpNextPriority = memo(({ task, onPress }: UpNextPriorityProps) => {
         variant="elevated"
         padding="lg"
         radius="lg"
-        className="w-full transition-all duration-200 group-hover:shadow-sm group-active:scale-[0.98]"
+        className="w-full transition-[shadow,transform] duration-200 group-hover:shadow-sm group-active:scale-[0.98]"
       >
         <div className="flex items-start gap-4">
           {/* Left: Category Icon */}

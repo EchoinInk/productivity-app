@@ -19,7 +19,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  */
 const baseClass = `
   inline-flex items-center justify-center gap-2 font-semibold rounded-lg
-  transition-all duration-150 ease-motion-out
+  transition-[filter,transform,opacity] duration-150 ease-motion-out
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2
   disabled:pointer-events-none disabled:opacity-50 disabled:scale-100
   motion-reduce:transition-none

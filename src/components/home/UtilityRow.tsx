@@ -33,12 +33,12 @@ const Chip = ({ icon: Icon, label, meta, onClick }: ChipProps) => (
       bg-surface border border-border/60
       hover:bg-surface-hover hover:border-border/80
       active:scale-[0.98] active:bg-surface-active
-      transition-all duration-200
+      transition-[transform,opacity] duration-200
       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30
       text-left shadow-sm
     "
   >
-    <span className="w-6.5 h-6.5 rounded-md bg-surface-elevated group-hover:bg-primary/10 group-hover:text-primary text-text-secondary flex items-center justify-center shrink-0 transition-all duration-200 shadow-sm">
+    <span className="w-6.5 h-6.5 rounded-md bg-surface-elevated group-hover:bg-primary/10 group-hover:text-primary text-text-secondary flex items-center justify-center shrink-0 transition-[background-color,color] duration-200 shadow-sm">
       <Icon size={14} strokeWidth={2.25} />
     </span>
     <span className="flex flex-col min-w-0 leading-tight">

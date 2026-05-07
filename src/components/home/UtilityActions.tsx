@@ -53,7 +53,7 @@ const ActionItem = ({
         group flex items-center gap-3
         min-h-[44px] p-3
         rounded-lg bg-surface-elevated hover:bg-surface
-        transition-all duration-200
+        transition-[background-color,transform] duration-200
         active:scale-[0.98]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20
         w-full text-left
@@ -139,7 +139,7 @@ export const UtilityActions = memo(({
               rounded-lg bg-surface-subtle hover:bg-surface-elevated
               text-text-secondary hover:text-text-primary
               text-xs font-medium
-              transition-all duration-200
+              transition-[background-color,transform] duration-200
               active:scale-[0.98]
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20
             "

@@ -116,7 +116,7 @@ export const TodayFocusCard = memo(
             <button
               type="button"
               onClick={onAddTask}
-              className="group w-full flex items-center justify-between rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border/50 hover:border-border px-3 py-2.5 transition-all duration-200 active:scale-[0.99] active:bg-surface-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 shadow-sm"
+              className="group w-full flex items-center justify-between rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border/50 hover:border-border px-3 py-2.5 transition-[background-color,border-color,transform,box-shadow] duration-200 active:scale-[0.99] active:bg-surface-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 shadow-sm"
             >
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shadow-sm">
@@ -131,7 +131,7 @@ export const TodayFocusCard = memo(
                   </Text>
                 </div>
               </div>
-              <ArrowRight size={15} className="text-text-secondary group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              <ArrowRight size={15} className="text-text-secondary group-hover:text-primary group-hover:translate-x-0.5 transition-[color,transform]" />
             </button>
           ) : isDone ? (
             <div className="flex items-center justify-between rounded-lg bg-success/10 border border-success/20 px-3 py-2.5 shadow-sm">
@@ -163,7 +163,7 @@ export const TodayFocusCard = memo(
                 type="button"
                 onClick={handleComplete}
                 aria-label={`Complete ${nextTask.label}`}
-                className="shrink-0 w-10 h-10 rounded-lg border-2 border-border/60 bg-surface-elevated hover:bg-primary/10 hover:border-primary/50 hover:text-primary text-text-secondary transition-all duration-200 flex items-center justify-center active:scale-95 active:bg-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 shadow-sm"
+                className="shrink-0 w-10 h-10 rounded-lg border-2 border-border/60 bg-surface-elevated hover:bg-primary/10 hover:border-primary/50 hover:text-primary text-text-secondary transition-[background-color,border-color,color,transform] duration-200 flex items-center justify-center active:scale-95 active:bg-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 shadow-sm"
               >
                 <Check size={16} strokeWidth={2.5} />
               </button>

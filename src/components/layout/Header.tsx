@@ -59,7 +59,7 @@ const Header = ({
             type="button"
             aria-label="Open menu"
             onClick={onMenuClick}
-            className={`p-3 -ml-2 text-foreground active:scale-95 transition ${focusRing}`}
+            className={`p-3 -ml-2 text-foreground active:scale-95 transition ${focusRing} motion-reduce:active:scale-100`}
           >
             <Menu size={22} />
           </button>
@@ -75,7 +75,7 @@ const Header = ({
               hasNotifications ? "Notifications (unread)" : "Notifications"
             }
             onClick={onNotificationsClick}
-            className={`p-3 -mr-2 text-foreground active:scale-95 transition relative mt-1 ${focusRing}`}
+            className={`p-3 -mr-2 text-foreground active:scale-95 transition relative mt-1 ${focusRing} motion-reduce:active:scale-100`}
           >
             <Bell size={22} />
             {hasNotifications && (
@@ -95,7 +95,7 @@ const Header = ({
             type="button"
             aria-label="Show previous day"
             onClick={() => shift(-1)}
-            className={`p-2.5 text-text-secondary hover:text-text-primary hover:bg-hover-overlay rounded-lg transition-all ${focusRing}`}
+            className={`p-2.5 text-text-secondary hover:text-text-primary hover:bg-hover-overlay rounded-lg transition-colors ${focusRing}`}
           >
             <ChevronLeft size={18} />
           </button>
@@ -110,7 +110,7 @@ const Header = ({
             type="button"
             aria-label="Show next day"
             onClick={() => shift(1)}
-            className={`p-2.5 text-text-secondary hover:text-text-primary hover:bg-hover-overlay rounded-lg transition-all ${focusRing}`}
+            className={`p-2.5 text-text-secondary hover:text-text-primary hover:bg-hover-overlay rounded-lg transition-colors ${focusRing}`}
           >
             <ChevronRight size={18} />
           </button>
@@ -121,7 +121,7 @@ const Header = ({
             {onBack && (
               <button
                 onClick={onBack}
-                className={`absolute left-0 p-2.5 hover:bg-surface-elevated rounded-lg active:scale-[0.98] transition-all ${focusRing}`}
+                className={`absolute left-0 p-2.5 hover:bg-surface-elevated rounded-lg active:scale-[0.98] transition-[background-color,transform] ${focusRing}`}
                 aria-label="Go back"
               >
                 ←

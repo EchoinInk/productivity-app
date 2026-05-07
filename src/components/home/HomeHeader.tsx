@@ -20,7 +20,7 @@ export const HomeHeader = ({ greeting }: HomeHeaderProps) => (
     <button
       type="button"
       aria-label="Open menu"
-      className="w-9 h-9 -ml-1.5 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-elevated transition-colors active:scale-95"
+      className="w-9 h-9 -ml-1.5 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-elevated transition-colors active:scale-95 motion-reduce:active:scale-100"
     >
       <Menu size={18} />
     </button>
@@ -37,7 +37,7 @@ export const HomeHeader = ({ greeting }: HomeHeaderProps) => (
     <button
       type="button"
       aria-label="Notifications"
-      className="w-9 h-9 -mr-1.5 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-elevated transition-colors active:scale-95"
+      className="w-9 h-9 -mr-1.5 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-elevated transition-colors active:scale-95 motion-reduce:active:scale-100"
     >
       <Bell size={18} />
     </button>

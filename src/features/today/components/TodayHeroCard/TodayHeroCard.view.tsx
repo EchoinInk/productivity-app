@@ -129,7 +129,7 @@ export const TodayHeroCardView = ({
                 bg-primary-foreground
                 text-foreground
                 shadow-cta
-                active:scale-[0.97]
+                active:scale-[0.97] motion-reduce:active:scale-100
                 transition
                 flex items-center gap-1
                 w-fit

@@ -80,7 +80,7 @@ export const RhythmStep = ({ data, updateData, onNext }: OnboardingStepProps) =>
                 <Surface
                   key={cadence}
                   onClick={() => handleCadenceChange(dailyCadence)}
-                  className={`p-4 cursor-pointer transition-all duration-200 ${
+                  className={`p-4 cursor-pointer transition-[background-color,transform] duration-200 ${
                     isSelected 
                       ? 'bg-primary/10 border-2 border-primary' 
                       : 'border-2 border-transparent hover:bg-surface-elevated'
@@ -128,7 +128,7 @@ export const RhythmStep = ({ data, updateData, onNext }: OnboardingStepProps) =>
                 <Surface
                   key={style}
                   onClick={() => handleStyleChange(planningStyle)}
-                  className={`p-4 cursor-pointer transition-all duration-200 ${
+                  className={`p-4 cursor-pointer transition-[background-color,transform] duration-200 ${
                     isSelected 
                       ? 'bg-primary/10 border-2 border-primary' 
                       : 'border-2 border-transparent hover:bg-surface-elevated'

@@ -30,7 +30,7 @@ export const Card = ({ variant = "default", interactive = false, className, chil
       "rounded-xl overflow-hidden",
       variantClass[variant],
       interactive && [
-        "transition-all duration-150 ease-motion-out",
+        "transition-[transform,box-shadow] duration-150 ease-motion-out",
         "hover:-translate-y-0.5 hover:shadow-md",
         "active:translate-y-0 active:scale-[0.99] active:shadow-sm",
         "motion-reduce:transition-none motion-reduce:hover:translate-y-0",
