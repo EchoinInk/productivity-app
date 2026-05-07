@@ -14,30 +14,30 @@ export interface InsightsCardViewModel {
 const getInsightIcon = (type: string) => {
   switch (type) {
     case "achievement":
-      return <TrendingUp size={16} className="text-success" />;
+      return <TrendingUp size={15} className="text-success" />;
     case "encouragement":
-      return <Zap size={16} className="text-info" />;
+      return <Zap size={15} className="text-info" />;
     case "warning":
-      return <Target size={16} className="text-warning" />;
+      return <Target size={15} className="text-warning" />;
     case "tip":
-      return <Lightbulb size={16} className="text-accent" />;
+      return <Lightbulb size={15} className="text-accent" />;
     default:
-      return <Lightbulb size={16} className="text-muted" />;
+      return <Lightbulb size={15} className="text-muted" />;
   }
 };
 
 const getInsightColor = (type: string) => {
   switch (type) {
     case "achievement":
-      return "bg-success opacity-10 border-success opacity-20 dark:bg-success opacity-5 dark:border-success opacity-15";
+      return "bg-success/10 border-success/20 hover:bg-success/15 dark:bg-success/5 dark:border-success/15";
     case "encouragement":
-      return "bg-info opacity-10 border-info opacity-20 dark:bg-info opacity-5 dark:border-info opacity-15";
+      return "bg-info/10 border-info/20 hover:bg-info/15 dark:bg-info/5 dark:border-info/15";
     case "warning":
-      return "bg-warning opacity-10 border-warning opacity-20 dark:bg-warning opacity-5 dark:border-warning opacity-15";
+      return "bg-warning/10 border-warning/20 hover:bg-warning/15 dark:bg-warning/5 dark:border-warning/15";
     case "tip":
-      return "bg-accent opacity-10 border-accent opacity-20 dark:bg-accent opacity-5 dark:border-accent opacity-15";
+      return "bg-accent/10 border-accent/20 hover:bg-accent/15 dark:bg-accent/5 dark:border-accent/15";
     default:
-      return "bg-muted opacity-50 border-muted dark:bg-muted opacity-10 dark:border-muted opacity-50";
+      return "bg-muted/50 border-muted hover:bg-muted/60 dark:bg-muted/10 dark:border-muted/50";
   }
 };
 
@@ -46,13 +46,13 @@ export const InsightsCardView = ({ model }: { model: InsightsCardViewModel }) =>
 
   if (insights.length === 0) {
     return (
-      <Card className="p-4">
-        <div className="space-y-3">
-          <Text className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <Lightbulb size={16} className="text-warning" />
+      <Card className="p-3.5">
+        <div className="space-y-2.5">
+          <Text className="text-sm font-bold text-text-primary flex items-center gap-2">
+            <Lightbulb size={15} className="text-warning" />
             Insights
           </Text>
-          <Text className="text-xs text-muted">
+          <Text className="text-xs font-medium text-text-secondary leading-relaxed">
             Start using the app to see personalized insights here
           </Text>
         </div>
@@ -61,25 +61,25 @@ export const InsightsCardView = ({ model }: { model: InsightsCardViewModel }) =>
   }
 
   return (
-    <Card className="p-4">
-      <div className="space-y-3">
-        <Text className="text-sm font-semibold text-foreground flex items-center gap-2">
-          <Lightbulb size={16} className="text-warning" />
+    <Card className="p-3.5">
+      <div className="space-y-2.5">
+        <Text className="text-sm font-bold text-text-primary flex items-center gap-2">
+          <Lightbulb size={15} className="text-warning" />
           Insights
         </Text>
         
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {insights.slice(0, 2).map((insight) => (
             <div
               key={insight.id}
               className={`flex items-start gap-2 p-2 rounded-lg border ${getInsightColor(
                 insight.type
-              )}`}
+              )} hover:shadow-sm transition-shadow duration-200`}
             >
               <div className="flex-shrink-0 mt-0.5">
                 {getInsightIcon(insight.type)}
               </div>
-              <Text className="text-xs leading-relaxed text-foreground flex-1">
+              <Text className="text-xs font-medium leading-relaxed text-text-primary flex-1">
                 {insight.message}
               </Text>
             </div>

@@ -13,6 +13,8 @@
     --surface-elevated: #F1F5F9;
     --surface-subtle: #F8FAFC;
     --surface-inset: #E2E8F0;
+    --surface-hover: #F8FAFC;
+    --surface-active: #F1F5F9;
 
     /* TEXT - Light Mode */
     --text-primary: #0F172A;
@@ -48,6 +50,8 @@
     --surface-elevated: #1E293B;
     --surface-subtle: #0F172A;
     --surface-inset: #020617;
+    --surface-hover: #1F2937;
+    --surface-active: #374151;
 
     /* TEXT - Dark Mode */
     --text-primary: #F8FAFC;

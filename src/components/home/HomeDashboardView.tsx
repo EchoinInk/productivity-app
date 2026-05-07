@@ -27,7 +27,7 @@ export const HomeDashboardView = memo(({ data, modals }: HomeDashboardViewProps)
   }, [nextTask, toggleTask]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3.5">
       {/* PRIMARY — Today focus */}
       <TodayFocusCard
         percentage={todayData.focus.percentage}
@@ -50,9 +50,9 @@ export const HomeDashboardView = memo(({ data, modals }: HomeDashboardViewProps)
       />
 
       {/* TERTIARY — Insights */}
-      <section aria-label="Insights" className="space-y-2">
+      <section aria-label="Insights" className="space-y-1.5">
         <div className="flex items-center justify-between px-0.5">
-          <h2 className="text-[11px] font-semibold uppercase tracking-[0.08em] text-text-muted">
+          <h2 className="text-[11px] font-bold uppercase tracking-[0.08em] text-text-secondary">
             Insights
           </h2>
         </div>

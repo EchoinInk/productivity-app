@@ -28,6 +28,9 @@ export default {
         surface: "var(--surface)",
         "surface-elevated": "var(--surface-elevated)",
         "surface-glass": "var(--surface-glass)",
+        "surface-hover": "var(--surface-hover)",
+        "surface-active": "var(--surface-active)",
+        "surface-inset": "var(--surface-inset)",
 
         /* TEXT */
         "text-primary": "var(--text-primary)",
@@ -36,7 +39,8 @@ export default {
         "text-on-primary": "var(--text-on-primary)",
 
         /* BORDER */
-        "border-default": "var(--border)",
+        border: "var(--border)",
+        "border-subtle": "var(--border-subtle)",
 
         /* SEMANTIC */
         primary: {

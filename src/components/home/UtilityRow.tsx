@@ -28,24 +28,24 @@ const Chip = ({ icon: Icon, label, meta, onClick }: ChipProps) => (
     className="
       group flex-1 min-w-0
       flex items-center gap-2.5
-      h-12 px-3
+      h-11 px-3
       rounded-lg
-      bg-surface border border-border
-      hover:bg-surface-elevated hover:border-border
-      active:scale-[0.98]
-      transition-all duration-150
+      bg-surface border border-border/60
+      hover:bg-surface-hover hover:border-border/80
+      active:scale-[0.98] active:bg-surface-active
+      transition-all duration-200
       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30
-      text-left
+      text-left shadow-sm
     "
   >
-    <span className="w-7 h-7 rounded-md bg-surface-elevated group-hover:bg-primary/10 group-hover:text-primary text-text-secondary flex items-center justify-center shrink-0 transition-colors">
-      <Icon size={15} strokeWidth={2.25} />
+    <span className="w-6.5 h-6.5 rounded-md bg-surface-elevated group-hover:bg-primary/10 group-hover:text-primary text-text-secondary flex items-center justify-center shrink-0 transition-all duration-200 shadow-sm">
+      <Icon size={14} strokeWidth={2.25} />
     </span>
     <span className="flex flex-col min-w-0 leading-tight">
-      <span className="text-[12px] font-semibold text-text-primary truncate">
+      <span className="text-[12px] font-bold text-text-primary truncate">
         {label}
       </span>
-      <span className="text-[10.5px] text-text-muted truncate tabular-nums">
+      <span className="text-[10.5px] font-medium text-text-secondary truncate tabular-nums">
         {meta}
       </span>
     </span>
