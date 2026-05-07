@@ -9,17 +9,14 @@ import Header from "@/components/layout/Header";
 import AddExpense from "@/features/budget/components/AddExpenseModal";
 import AddIncome from "@/features/budget/components/AddIncomeModal";
 
-import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useBudgetSummary } from "@/features/budget/hooks/useBudget";
+import { useBudgetActions } from "@/features/budget/hooks/useBudgetActions";
+import { useBudgetData } from "@/features/budget/hooks/useBudgetData";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { HeroTitle, Metric, Meta, Label, Body } from "@/components/ui/Text";
 
 const BudgetPage = () => {
-  const summary = useBudgetSummary();
-  const expenses = useBudgetStore((state) => state.expenses);
-  const income = useBudgetStore((state) => state.income);
-  const addExpense = useBudgetStore((state) => state.addExpense);
-  const setIncome = useBudgetStore((state) => state.setIncome);
+  const data = useBudgetData();
+  const actions = useBudgetActions();
 
   const [openExpense, setOpenExpense] = useState(false);
   const [openIncome, setOpenIncome] = useState(false);
@@ -35,15 +32,15 @@ const BudgetPage = () => {
             <HeroTitle>Weekly Budget</HeroTitle>
 
             <Metric>
-              ${summary.remaining.toFixed(2)}
+              ${data.remaining.toFixed(2)}
             </Metric>
 
             <Meta>
-              remaining of ${income.toFixed(2)}
+              remaining of ${data.income.toFixed(2)}
             </Meta>
 
             <ProgressBar
-              value={summary.percentage}
+              value={data.spentPercentage}
               variant="default"
               ariaLabel="Budget used"
             />
@@ -52,14 +49,14 @@ const BudgetPage = () => {
               <div className="space-y-1">
                 <Label>Income</Label>
                 <Meta className="font-semibold">
-                  ${income.toFixed(2)}
+                  ${data.income.toFixed(2)}
                 </Meta>
               </div>
 
               <div className="space-y-1">
                 <Label>Expenses</Label>
                 <Meta className="font-semibold">
-                  ${summary.spent.toFixed(2)}
+                  ${data.totalExpenses.toFixed(2)}
                 </Meta>
               </div>
             </div>
@@ -71,14 +68,14 @@ const BudgetPage = () => {
       <Card>
         <CardHeader title="Transactions" />
         <CardBody>
-          {expenses.length === 0 ? (
+          {data.expenses.length === 0 ? (
             <EmptyState
               title="No transactions yet"
               description="Start by adding your first transaction to track your spending"
             />
           ) : (
             <div className="space-y-1">
-              {expenses.map((item) => (
+              {data.expenses.map((item) => (
                 <div key={item.id} className="px-2 py-2">
                   <ListItemBase
                     label={
@@ -122,13 +119,13 @@ const BudgetPage = () => {
       <AddExpense
         open={openExpense}
         onClose={() => setOpenExpense(false)}
-        onSave={addExpense}
+        onSave={actions.addExpense}
       />
 
       <AddIncome
         open={openIncome}
         onClose={() => setOpenIncome(false)}
-        onSave={setIncome}
+        onSave={actions.setIncome}
       />
     </div>
   );

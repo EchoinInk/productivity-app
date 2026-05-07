@@ -1,24 +1,27 @@
-import { useMemo } from "react";
-import { useMealsStore } from "../store/useMealsStore";
-import { selectMealsByDays } from "../selectors/mealSelectors";
+import { useMealActions } from "./useMealActions";
+import { useMealData } from "./useMealData";
 import type { Weekday, Meal } from "../types/types";
 
+/**
+ * Legacy: useMealsByDay (now uses new abstractions internally)
+ * @deprecated Use useMealData instead
+ */
 export const useMealsByDay = (): Record<Weekday, Meal[]> => {
-  const meals = useMealsStore((state) => state.meals);
-  return useMemo(() => selectMealsByDays(meals), [meals]);
+  const { mealsByDay } = useMealData();
+  return mealsByDay;
 };
 
+/**
+ * Legacy: useMeals (now uses new abstractions internally)
+ * @deprecated Use useMealActions and useMealData separately
+ */
 export const useMeals = () => {
-  const meals = useMealsStore((state) => state.meals);
-  const addMeal = useMealsStore((state) => state.addMeal);
-
-  const mealsByDay = useMemo(() => selectMealsByDays(meals), [meals]);
+  const data = useMealData();
+  const actions = useMealActions();
 
   return {
-    meals,
-    mealsByDay,
-    actions: {
-      addMeal,
-    },
+    meals: data.meals,
+    mealsByDay: data.mealsByDay,
+    actions,
   };
 };

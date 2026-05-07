@@ -1,17 +1,7 @@
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
-import { useMealsStore } from "@/features/meals/store/useMealsStore";
-import { useBudgetStore } from "@/features/budget/store/useBudgetStore";
-import { useShoppingStore } from "@/features/shopping/store/useShoppingStore";
-import { useShallow } from "zustand/react/shallow";
-import { getToday } from "@/shared/lib/date";
-
-import {
-  selectTodayTasks,
-  selectCompletedTodayTasks,
-} from "@/features/tasks/selectors/taskSelectors";
-import { selectMealsByDay } from "@/features/meals/selectors/mealSelectors";
-import { selectBudgetSummary } from "@/features/budget/selectors/budgetSelectors";
-import { selectIncompleteItemCount } from "@/features/shopping/selectors/shoppingSelectors";
+import { useTaskData } from "@/features/tasks/hooks/useTaskData";
+import { useMealData } from "@/features/meals/hooks/useMealData";
+import { useBudgetData } from "@/features/budget/hooks/useBudgetData";
+import { useShoppingData } from "@/features/shopping/hooks/useShoppingData";
 
 export type TodayData = {
   focus: {
@@ -27,49 +17,17 @@ export type TodayData = {
   };
 };
 
-type Weekday =
-  | "Sunday"
-  | "Monday"
-  | "Tuesday"
-  | "Wednesday"
-  | "Thursday"
-  | "Friday"
-  | "Saturday";
-
-const WEEKDAYS: Weekday[] = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
 export const useTodayData = (): TodayData => {
-  const today = getToday();
-const todayWeekday = WEEKDAYS[new Date().getDay()] as Weekday;
-  // Single subscription per store
-  const { todayTasks, completedTasks } = useTasksStore(
-    useShallow((s) => ({
-      todayTasks: selectTodayTasks(s.tasks, today),
-      completedTasks: selectCompletedTodayTasks(s.tasks, today),
-    })),
-  );
+  // Use abstraction hooks for data
+  const taskData = useTaskData();
+  const mealData = useMealData();
+  const budgetData = useBudgetData();
+  const shoppingData = useShoppingData();
 
-  const todayMeals = useMealsStore(
-    useShallow((s) => selectMealsByDay(s.meals, todayWeekday)),
-  );
-
-  const budgetSummary = useBudgetStore(
-    useShallow((s) => selectBudgetSummary(s.expenses, s.weeklyBudget, s.income)),
-  );
-
-  const incompleteShoppingCount = useShoppingStore(
-    (s) => selectIncompleteItemCount(s.shoppingItems),
-  );
-
-  const { weeklyBudget, remaining: remainingBudget } = budgetSummary;
+  const { todayTasks, completedTodayTasks } = taskData;
+  const { weeklyBudget, remaining: remainingBudget } = budgetData.budgetSummary;
+  const { incompleteCount } = shoppingData;
+  const { todayMeals } = mealData;
 
   let focus: TodayData["focus"] = {
     percentage: 0,
@@ -78,12 +36,12 @@ const todayWeekday = WEEKDAYS[new Date().getDay()] as Weekday;
   };
 
   if (todayTasks.length > 0) {
-    const percentage = Math.round((completedTasks.length / todayTasks.length) * 100);
-    const remaining = todayTasks.length - completedTasks.length;
+    const percentage = Math.round((completedTodayTasks.length / todayTasks.length) * 100);
+    const remaining = todayTasks.length - completedTodayTasks.length;
     focus = {
       percentage,
       label: `${remaining} task${remaining !== 1 ? "s" : ""} remaining`,
-      subtext: `${completedTasks.length} of ${todayTasks.length} completed`,
+      subtext: `${completedTodayTasks.length} of ${todayTasks.length} completed`,
     };
   } else if (remainingBudget > 0 && weeklyBudget > 0) {
     const percentage = Math.round((remainingBudget / weeklyBudget) * 100);
@@ -106,10 +64,10 @@ const todayWeekday = WEEKDAYS[new Date().getDay()] as Weekday;
   return {
     focus,
     summary: {
-      tasks: { completed: completedTasks.length, total: todayTasks.length },
+      tasks: { completed: completedTodayTasks.length, total: todayTasks.length },
       meals: { logged: todayMeals.length, target: 3 },
       budget: { remaining: Math.round(remainingBudget) },
-      shopping: { remaining: incompleteShoppingCount },
+      shopping: { remaining: incompleteCount },
     },
   };
 };

@@ -1,49 +1,33 @@
-import { useMemo } from "react";
-import { useShoppingStore } from "../store/useShoppingStore";
-import { 
-  selectItemsByCategory, 
-  selectCompletedItems, 
-  selectPendingItems 
-} from "../selectors/shoppingSelectors";
+import { useShoppingActions } from "./useShoppingActions";
+import { useShoppingData, useShoppingDataByCategory } from "./useShoppingData";
 import type { ShoppingCategory } from "../types/types";
 
+/**
+ * Legacy: useShoppingList (now uses new abstractions internally)
+ * @deprecated Use useShoppingActions and useShoppingDataByCategory separately
+ */
 export const useShoppingList = (category: ShoppingCategory) => {
-  const items = useShoppingStore((state) => state.shoppingItems);
-  const toggleItem = useShoppingStore((state) => state.toggleShoppingItem);
-
-  const filteredItems = useMemo(
-    () => selectItemsByCategory(category)(items),
-    [items, category]
-  );
+  const data = useShoppingDataByCategory(category);
+  const actions = useShoppingActions();
 
   return {
-    items: filteredItems,
-    toggleItem,
+    items: data.items,
+    toggleItem: actions.toggleShoppingItem,
   };
 };
 
+/**
+ * Legacy: useShopping (now uses new abstractions internally)
+ * @deprecated Use useShoppingActions and useShoppingData separately
+ */
 export const useShopping = () => {
-  const items = useShoppingStore((state) => state.shoppingItems);
-  const addShoppingItem = useShoppingStore((state) => state.addShoppingItem);
-  const toggleShoppingItem = useShoppingStore((state) => state.toggleShoppingItem);
-
-  const completedItems = useMemo(
-    () => selectCompletedItems(items),
-    [items]
-  );
-
-  const pendingItems = useMemo(
-    () => selectPendingItems(items),
-    [items]
-  );
+  const data = useShoppingData();
+  const actions = useShoppingActions();
 
   return {
-    items,
-    completedItems,
-    pendingItems,
-    actions: {
-      addShoppingItem,
-      toggleShoppingItem,
-    },
+    items: data.items,
+    completedItems: data.completedItems,
+    pendingItems: data.pendingItems,
+    actions,
   };
 };

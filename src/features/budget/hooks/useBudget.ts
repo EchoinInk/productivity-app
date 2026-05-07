@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { useBudgetStore } from "../store/useBudgetStore";
+import { useBudgetActions } from "./useBudgetActions";
+import { useBudgetData } from "./useBudgetData";
 import { safePercent } from "@/shared/lib/number";
 import type { Expense } from "../types/types";
 
@@ -9,6 +10,10 @@ export interface BudgetSummary {
   percentage: number;
 }
 
+/**
+ * Legacy: getBudgetSummary (kept for backward compatibility)
+ * @deprecated Use useBudgetData instead
+ */
 export const getBudgetSummary = (
   expenses: Expense[],
   weeklyBudget: number,
@@ -21,29 +26,41 @@ export const getBudgetSummary = (
   };
 };
 
+/**
+ * Legacy: useBudgetSummary (now uses new abstractions internally)
+ * @deprecated Use useBudgetData instead
+ */
 export const useBudgetSummary = (): BudgetSummary => {
-  const expenses = useBudgetStore((state) => state.expenses);
-  const income = useBudgetStore((state) => state.income);
-  return useMemo(() => getBudgetSummary(expenses, income), [expenses, income]);
+  const { totalExpenses, remaining, spentPercentage } = useBudgetData();
+  return {
+    spent: totalExpenses,
+    remaining,
+    percentage: spentPercentage,
+  };
 };
 
+/**
+ * Legacy: useBudget (now uses new abstractions internally)
+ * @deprecated Use useBudgetActions and useBudgetData separately
+ */
 export const useBudget = () => {
-  const weeklyBudget = useBudgetStore((state) => state.weeklyBudget);
-  const income = useBudgetStore((state) => state.income);
-  const expenses = useBudgetStore((state) => state.expenses);
-  const addExpense = useBudgetStore((state) => state.addExpense);
-  const setIncome = useBudgetStore((state) => state.setIncome);
+  const data = useBudgetData();
+  const actions = useBudgetActions();
 
-  const summary = useMemo(() => getBudgetSummary(expenses, income), [expenses, income]);
+  const summary = useMemo(
+    () => ({
+      spent: data.totalExpenses,
+      remaining: data.remaining,
+      percentage: data.spentPercentage,
+    }),
+    [data.totalExpenses, data.remaining, data.spentPercentage]
+  );
 
   return {
-    weeklyBudget,
-    income,
-    expenses,
+    weeklyBudget: data.weeklyBudget,
+    income: data.income,
+    expenses: data.expenses,
     summary,
-    actions: {
-      addExpense,
-      setIncome,
-    },
+    actions,
   };
 };

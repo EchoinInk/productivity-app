@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { AddTaskModalView } from "./AddTaskModal.view";
-import { useTasksStore } from "@/features/tasks/store/useTasksStore";
+import { useTaskActions } from "@/features/tasks/hooks/useTaskActions";
 
 import type {
   CreateTaskInput,
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const AddTaskModal = ({ open, onClose, defaultDate }: Props) => {
-  const addTask = useTasksStore((s) => s.addTask);
+  const { addTask } = useTaskActions();
 
   const [label, setLabel] = useState("");
   const [notes, setNotes] = useState("");
