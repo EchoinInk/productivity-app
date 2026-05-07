@@ -1,121 +1,271 @@
-# 📱 LifeOS
+# 🌌 Lumo
 
-> **Your life, organised — simply.**
+> A calm, intelligent system for clarity, focus, and momentum.
+---
 
-![Status](https://img.shields.io/badge/status-active-success?style=for-the-badge)
-![React](https://img.shields.io/badge/React-TypeScript-20232A?style=for-the-badge&logo=react)
-![State](https://img.shields.io/badge/State-Zustand-black?style=for-the-badge)
-![UI](https://img.shields.io/badge/UI-TailwindCSS-38B2AC?style=for-the-badge)
+# ✨ Overview
+
+Lumo is a momentum-focused personal operating system  
+designed to help people:
+
+- maintain clarity
+- reduce cognitive overload
+- build consistency
+- sustain momentum
+- make meaningful daily progress
+
+Rather than overwhelming users with productivity complexity,  
+Lumo focuses on:
+- calm structure
+- intelligent prioritization
+- focused workflows
+- emotional reinforcement
+- operational clarity
 
 ---
 
-## ✨ Overview
+# 🧠 Product Philosophy
 
-LifeOS is a **calm, minimal productivity system**  
-designed to bring structure to your day without adding noise.
+## Clarity First
 
-It combines your essential workflows into one place:
+Interfaces are designed to remain:
 
-- Tasks  
-- Budget  
-- Meals  
-- Shopping  
+- readable
+- intentional
+- high-signal
+- structured
+- distraction-light
 
----
-
-## 🎨 Experience
-
-Designed with a **soft, distraction-free interface**:
-
-- Subtle gradients  
-- Light surfaces  
-- Clear typography  
-- Focused layout  
-
-Everything is built to feel **fast, quiet, and intentional**.
+Avoiding:
+- clutter
+- dashboard chaos
+- noisy gamification
+- productivity theater
 
 ---
 
-## 🧩 Core Features
+## Momentum Over Metrics
 
-### ✅ Tasks
-- Timeline structure (Today / Upcoming / Yesterday)
-- Progress tracking
-- Category-based organisation
+Lumo prioritizes:
 
-### 💰 Budget
+- consistency
+- completion
+- reinforcement
+- forward movement
+- sustainable habits
+
+Not:
+- vanity statistics
+- addictive engagement loops
+- artificial urgency
+
+---
+
+## Calm Intelligence
+
+Future intelligence systems are designed to feel:
+
+- lightweight
+- contextual
+- proactive
+- explainable
+
+Not:
+- intrusive
+- chatbot-heavy
+- over-automated
+
+---
+
+# 📱 Core Systems
+
+## ✅ Tasks
+
+- Today-focused workflow
+- Momentum-oriented prioritization
+- Progress visibility
+- Upcoming organization
+- Structured completion flow
+
+---
+
+## 💰 Budget
+
 - Weekly spending clarity
-- Remaining balance visibility
-- Simple tracking flow
-
-### 🍽 Meals
-- Weekly planning (Mon–Sun)
-- Structured daily meals
-
-### 🛒 Shopping
-- Clean, fast checklist interaction
-- Organised categories
+- Remaining balance tracking
+- Simplified financial visibility
 
 ---
 
-## 🧱 Architecture
+## 🍽 Meals
 
-```
-STORE → SELECTORS → DOMAIN → HOOK → UI
-```
-
-- Domain-driven logic  
-- Thin selectors  
-- Clean UI separation  
-- Fully composable system  
+- Weekly meal planning
+- Structured day organization
+- Reduced decision fatigue
 
 ---
 
-## ⚙️ Stack
+## 🛒 Shopping
 
-- React (TypeScript)  
-- Zustand  
-- Tailwind CSS  
-- Framer Motion  
-
----
-
-## 🔮 Roadmap
-
-**Core**
-- Recurring tasks  
-- Overdue handling  
-- Calendar integration  
-
-**UX**
-- Swipe gestures  
-- Haptic feedback  
-- Inline editing  
-
-**Insights**
-- Productivity tracking  
-- Budget analytics  
-- Smart summaries  
+- Fast checklist interaction
+- Organized categories
+- Workflow-linked planning
 
 ---
 
-## 📖 Philosophy
+# 🎨 Experience
 
-> Clarity over clutter  
-> Speed over complexity  
-> Real use over features  
+Lumo is designed to feel:
+
+- calm
+- grounded
+- operational
+- precise
+- responsive
+
+The UI system emphasizes:
+
+- semantic surfaces
+- refined spacing
+- strong hierarchy
+- restrained gradients
+- mobile-first ergonomics
+- dark mode readability
+
+Inspired by products like:
+
+- Linear
+- Arc Browser
+- Superhuman
+- Apple Journal
 
 ---
 
-## 🚀 Vision
+# 🏗 Architecture
 
-LifeOS is designed to become a **personal operating system for daily life** —  
-not just another productivity app.
+text STORE → SELECTORS → DOMAIN → HOOK → UI 
+
+## Principles
+
+- Feature-driven architecture
+- Thin orchestration screens
+- Selector-driven derivation
+- Token-enforced styling
+- Stable rendering patterns
+- Clean separation of concerns
 
 ---
 
-## 🧠 Built With
+# 🧱 Stack
 
-- AI-assisted development  
-- Real-world iteration  
-- System-first thinking  
+- React + TypeScript
+- Zustand
+- Tailwind CSS
+- Vite
+- Cloudflare Pages
+
+---
+
+# ⚡ Performance Strategy
+
+Lumo uses:
+
+- memoized selectors
+- stable subscriptions
+- isolated store access
+- tokenized UI primitives
+- minimized re-render patterns
+
+Architecture constraints actively prevent:
+
+- UI-layer business logic
+- selector misuse
+- render instability
+- design drift
+
+---
+
+# 🎨 Design System
+
+Lumo uses a centralized token architecture:
+
+- semantic colors
+- surface states
+- typography hierarchy
+- spacing system
+- gradients
+- shadows
+- dark mode variables
+
+All styling is enforced through:
+- Tailwind token mapping
+- semantic utility classes
+- shared UI primitives
+
+---
+
+# 🚀 Product Direction
+
+Lumo is evolving toward:
+
+> a momentum-focused personal operating system
+
+Future platform goals include:
+
+## Momentum Engine
+
+- streak systems
+- consistency scoring
+- progress reinforcement
+- routine tracking
+
+## Intelligence Layer
+
+- contextual insights
+- behavioral summaries
+- adaptive recommendations
+- workflow intelligence
+
+## Ecosystem Expansion
+
+- widgets
+- calendar integrations
+- notification intelligence
+- offline-first sync
+- multi-device continuity
+
+---
+
+# 📊 Current Status
+
+## Architecture
+✅ Production-grade frontend structure
+
+## Design System
+✅ Mature and enforced
+
+## Dashboard UX
+✅ Converged and scalable
+
+## Performance
+✅ Optimized and stable
+
+## Product Intelligence
+🚧 In progress
+
+---
+
+# 🧭 North Star
+
+Lumo should ultimately feel like:
+
+> a calm, intelligent system that helps users maintain clarity and momentum every day.
+
+---
+
+# 🧠 Built With
+
+- AI-assisted development
+- System-first architecture
+- Real-world iteration
+- Long-term scalability in mind
