@@ -196,7 +196,7 @@ export class TrendInsightsGenerator {
       .reduce((best, [day, score]) => score > best[1] ? [day, score] : best, ['', 0] as [string, number]);
 
     const [strongestCat, strongestAvg] = bestCategory;
-    const [weakestCat, weakestAvg] = sortedCategories[sortedCategories.length - 1];
+    const [weakestCat, weakestAvg] = sortedCategories[sortedCategories.length - 1] || ['', 0];
 
     if (strongestAvg - weakestAvg > 25) {
       insights.push({
@@ -238,7 +238,7 @@ export class TrendInsightsGenerator {
     if (sortedHours.length >= 2) {
       const peakHours = sortedHours.map(([hour]) => parseInt(hour)).sort();
       
-      if (peakHours[0] >= 6 && peakHours[0] <= 10) {
+      if (peakHours[0] !== undefined && peakHours[0] >= 6 && peakHours[0] <= 10) {
         return {
           insight: {
             id: 'morning-peak',
@@ -324,7 +324,7 @@ export class TrendInsightsGenerator {
 
     let streakLength = 0;
     for (let i = 0; i < Math.min(scores.length - 1, 6); i++) {
-      if (scores[i].totalScore > scores[i + 1].totalScore) {
+      if (scores[i] && scores[i + 1] && scores[i].totalScore > scores[i + 1].totalScore) {
         streakLength++;
       } else {
         break;
@@ -500,6 +500,7 @@ export class TrendInsightsGenerator {
     const first = values[values.length - 1];
     const last = values[0];
     
+    if (first === undefined || last === undefined) return 0;
     return last - first;
   }
 
