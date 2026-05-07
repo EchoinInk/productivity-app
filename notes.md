@@ -319,3 +319,213 @@ Created stable selector patterns for:
 - No nested navigators  
 
 ---
+# Phase G — Product Convergence & Momentum Architecture
+
+## Product Direction Shift
+
+Lumo is no longer positioned as:
+- generic productivity tooling
+
+Lumo is now evolving toward:
+- momentum-focused personal operating system
+
+Primary goals:
+- reduce cognitive overload
+- reinforce consistency
+- increase emotional payoff
+- sustain daily momentum
+- improve long-term retention
+
+---
+
+## UX Philosophy
+
+### Clarity First
+
+Interfaces should prioritize:
+- readability
+- hierarchy
+- intentional density
+- calm focus
+- high signal-to-noise ratio
+
+Avoid:
+- visual clutter
+- excessive decoration
+- dashboard chaos
+- productivity theater
+
+---
+
+### Momentum Over Metrics
+
+Lumo prioritizes:
+- completion
+- consistency
+- progress
+- reinforcement
+- forward movement
+
+Avoid:
+- vanity statistics
+- addictive loops
+- artificial gamification
+- noisy engagement systems
+
+---
+
+## Dashboard Direction
+
+The Home dashboard is now the:
+- primary product surface
+- orchestration layer
+- momentum hub
+
+### Dashboard Rules
+
+- One dominant focus area
+- Compact utility actions
+- Dense but readable information
+- Mobile-first ergonomics
+- Minimal scrolling friction
+- Strong visual hierarchy
+
+---
+
+## Design System Enforcement
+
+### Token Rules
+
+Never use:
+- raw hex values
+- inline color styles
+- Tailwind default palette colors
+- duplicated spacing logic
+
+Always use:
+- semantic tokens
+- tokenized spacing
+- semantic surfaces
+- shared gradients
+- centralized elevation system
+
+---
+
+## Surface Philosophy
+
+UI should feel:
+- grounded
+- precise
+- calm
+- operational
+- intentional
+
+Avoid:
+- excessive blur
+- soft glassmorphism everywhere
+- floating disconnected cards
+- decorative gradients
+
+Gradients should:
+- reinforce action
+- reinforce progress
+- highlight focus
+
+Not:
+- decorate layout containers
+
+---
+
+## Architectural Enforcement
+
+### Screen Layer Rules
+
+/screens
+- orchestration only
+- no derived business logic
+- no heavy transformations
+- no selector composition
+
+### Feature Layer Rules
+
+/features
+- owns business logic
+- owns selectors
+- owns actions
+- owns state organization
+
+### UI Layer Rules
+
+/components/ui
+- presentational only
+- token-driven only
+- zero feature awareness
+
+---
+
+## Zustand Rules
+
+Avoid:
+- selector-in-store anti-patterns
+- oversized subscriptions
+- inline derived calculations
+- unnecessary array recreation
+
+Prefer:
+- selector hooks
+- memoized derivation
+- stable references
+- isolated subscriptions
+
+---
+
+## Performance Constraints
+
+All new work should preserve:
+- stable rendering
+- memo safety
+- predictable subscriptions
+- bounded recomputation
+
+Large lists require:
+- stable handlers
+- memoized rows
+- selector isolation
+
+---
+
+## AI Review System Notes
+
+All AI-assisted refactors should validate:
+- architecture boundaries
+- token enforcement
+- render stability
+- responsive consistency
+- accessibility
+- mobile ergonomics
+- dark mode integrity
+
+---
+
+## Current Product Focus
+
+Primary investment areas:
+- onboarding
+- momentum systems
+- routines
+- insights
+- retention
+- emotional reinforcement
+
+Secondary:
+- advanced integrations
+- automation
+- ecosystem expansion
+
+---
+
+## Long-Term North Star
+
+Lumo should ultimately feel like:
+
+> a calm, intelligent system that helps users maintain clarity and momentum every day.
