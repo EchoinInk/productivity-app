@@ -5,25 +5,28 @@ import tasksIcon from "@/assets/navigation/tasks.webp";
 import budgetIcon from "@/assets/navigation/budget.webp";
 import mealsIcon from "@/assets/navigation/meals.webp";
 import listsIcon from "@/assets/navigation/lists.webp";
-import recipesIcon from "@/assets/navigation/recipes.webp";
 
+/**
+ * Bottom Navigation - Optimized for Mobile Ergonomics
+ *
+ * Design targets:
+ * - 44px minimum touch targets (Apple HIG)
+ * - Thumb-zone accessibility (frequent items centered)
+ * - Clear visual feedback (active state with scale + color)
+ * - Reduced item count for faster scanning
+ */
 const navItems = [
   { path: "/", label: "Today", icon: todayIcon },
   { path: "/tasks", label: "Tasks", icon: tasksIcon },
   { path: "/budget", label: "Budget", icon: budgetIcon },
   { path: "/meals", label: "Meals", icon: mealsIcon },
-  { path: "/shopping", label: "Shopping", icon: listsIcon },
-  { path: "/recipes", label: "Recipes", icon: recipesIcon },
+  { path: "/shopping", label: "Lists", icon: listsIcon },
 ];
 
 const BottomNav = () => (
   <nav
     aria-label="Primary"
-    className="
-      h-[72px]
-      flex items-center justify-around
-      px-3
-    "
+    className="h-16 sm:h-[72px] flex items-center justify-around px-2 sm:px-4"
   >
     {navItems.map(({ path, label, icon }) => (
       <NavLink
@@ -31,28 +34,47 @@ const BottomNav = () => (
         to={path}
         className={({ isActive }) =>
           clsx(
-            "group flex flex-col items-center justify-center flex-1 gap-[2px] text-xs font-medium transition-all duration-300 ease-out active:scale-95 hover:opacity-100",
-            isActive ? "text-primary" : "text-muted opacity-90 hover:text-foreground"
+            // 44px minimum touch target with comfortable spacing
+            "group flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 gap-1",
+            "text-xs font-medium transition-all duration-200 ease-out",
+            // Active state: clear visual feedback
+            isActive
+              ? "text-primary scale-105"
+              : "text-text-muted hover:text-text-primary active:scale-95"
           )
         }
       >
         {({ isActive }) => (
           <>
-            <img
-              src={icon}
-              srcSet={`${icon} 1x`}
-              sizes="28px"
-              alt={`${label} icon`}
-              width={28}
-              height={28}
-              loading="lazy"
-              decoding="async"
-              className={clsx(
-                "w-7 h-7 transition-all duration-300 ease-out",
-                isActive ? "opacity-100 scale-110" : "opacity-80 group-hover:scale-105"
+            {/* Larger icon with active animation */}
+            <div className={clsx(
+              "relative flex items-center justify-center",
+              "w-8 h-8 sm:w-9 sm:h-9 rounded-lg transition-all duration-200",
+              isActive ? "bg-primary/10" : "bg-transparent group-hover:bg-surface-elevated"
+            )}>
+              <img
+                src={icon}
+                srcSet={`${icon} 1x`}
+                sizes="(max-width: 640px) 24px, 28px"
+                alt=""
+                width={24}
+                height={24}
+                loading="lazy"
+                decoding="async"
+                className={clsx(
+                  "w-5 h-5 sm:w-6 sm:h-6 object-contain transition-transform duration-200",
+                  isActive ? "scale-110" : "opacity-80 group-hover:opacity-100"
+                )}
+              />
+              {/* Active indicator dot */}
+              {isActive && (
+                <span className="absolute -bottom-1 w-1 h-1 rounded-full bg-primary" />
               )}
-            />
-            <span className="leading-none">{label}</span>
+            </div>
+            {/* Label with better spacing */}
+            <span className="text-[11px] sm:text-xs leading-none font-medium">
+              {label}
+            </span>
           </>
         )}
       </NavLink>

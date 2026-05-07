@@ -49,10 +49,18 @@ const ActionItem = ({
     <button
       type="button"
       onClick={onClick}
-      className="group flex items-center gap-3 p-3 rounded-lg bg-surface-elevated hover:bg-surface transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 w-full text-left"
+      className="
+        group flex items-center gap-3
+        min-h-[44px] p-3
+        rounded-lg bg-surface-elevated hover:bg-surface
+        transition-all duration-150
+        active:scale-[0.98]
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20
+        w-full text-left
+      "
     >
-      <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${colorClass[color]}`}>
-        <Icon size={18} />
+      <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${colorClass[color]}`}>
+        <Icon size={20} />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
@@ -125,10 +133,19 @@ export const UtilityActions = memo(({
         <div className="flex items-center gap-2 pt-2 border-t border-border-subtle">
           <button
             type="button"
-            className="flex-1 py-2 px-3 rounded-md bg-surface-subtle hover:bg-surface-elevated text-text-secondary hover:text-text-primary text-xs font-medium transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
+            className="
+              flex-1
+              min-h-[44px] py-2 px-3
+              rounded-md bg-surface-subtle hover:bg-surface-elevated
+              text-text-secondary hover:text-text-primary
+              text-xs font-medium
+              transition-all duration-150
+              active:scale-[0.98]
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20
+            "
           >
             <div className="flex items-center justify-center gap-1.5">
-              <ListTodo size={14} />
+              <ListTodo size={16} />
               View All Tasks
             </div>
           </button>

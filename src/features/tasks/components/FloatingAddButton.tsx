@@ -4,15 +4,31 @@ interface Props {
   onClick: () => void;
 }
 
+/**
+ * Floating Add Button - Optimized for Mobile Ergonomics
+ *
+ * Positioned in the natural thumb zone for right-handed users.
+ * Large touch target with haptic-style visual feedback.
+ */
 export const FloatingAddButton = ({ onClick }: Props) => {
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-[100px] right-4 sm:bottom-8 sm:right-8 z-40">
       <button
         onClick={onClick}
-        className="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
+        className="
+          w-14 h-14 sm:w-16 sm:h-16
+          bg-primary text-text-on-primary
+          rounded-full
+          shadow-lg shadow-primary/20
+          flex items-center justify-center
+          transition-all duration-200 ease-out
+          hover:brightness-110 hover:scale-105
+          active:scale-95
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2
+        "
         aria-label="Add new task"
       >
-        <Plus className="w-6 h-6" />
+        <Plus className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.5} />
       </button>
     </div>
   );
