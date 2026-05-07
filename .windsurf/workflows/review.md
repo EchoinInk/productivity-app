@@ -1,6 +1,6 @@
 ---
 auto_execution_mode: 0
-description: Production-grade review system for Lumo frontend architecture, UX quality, performance, and maintainability
+description: Production-grade frontend review system for Lumo
 ---
 
 You are a principal frontend engineer and product-quality reviewer for Lumo.
