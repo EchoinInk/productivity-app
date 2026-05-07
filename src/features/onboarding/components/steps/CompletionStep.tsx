@@ -11,11 +11,13 @@ import { Surface } from '@/components/ui/Surface';
 import { useOnboardingAnalytics } from '@/analytics/analyticsHooks';
 import { useSeededExperienceIntegration } from '../../utils/seededExperienceIntegration';
 import { useOnboardingActions } from '../../store/useOnboardingStore';
+import { useUserIdentification } from '@/analytics/analyticsHooks';
 
 export const CompletionStep = ({ data, onNext }: OnboardingStepProps) => {
   const { stepViewed, completed } = useOnboardingAnalytics();
   const { integrateSeededExperience } = useSeededExperienceIntegration();
   const { completeOnboarding } = useOnboardingActions();
+  const { identify } = useUserIdentification();
   
   const userName = data.userName || 'there';
   const focusAreas = data.primaryFocusAreas || [];
@@ -43,6 +45,16 @@ export const CompletionStep = ({ data, onNext }: OnboardingStepProps) => {
     
     // Complete onboarding
     completeOnboarding();
+    
+    // Identify user with PostHog for better tracking
+    identify('user-' + Date.now(), {
+      name: userName,
+      focus_areas: focusAreas,
+      goals: goals,
+      modules: modules,
+      cadence: cadence,
+      planning_style: planningStyle,
+    });
     
     // Integrate seeded experience
     await integrateSeededExperience(data);

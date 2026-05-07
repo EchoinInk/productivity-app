@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
+import * as Tracker from "@/analytics/eventTracker";
 
 interface Props {
   children: ReactNode;
@@ -20,6 +21,22 @@ class ErrorBoundary extends Component<Props, State> {
     // Log errors in development only
     if (process.env.NODE_ENV === 'development') {
       console.error("App rendering error", error, info);
+    }
+
+    // Track error in PostHog
+    try {
+      Tracker.trackEvent({
+        category: 'error',
+        action: 'boundary_triggered',
+        properties: {
+          error_message: error.message,
+          error_stack: error.stack ?? undefined,
+          component_stack: info.componentStack ?? undefined,
+          error_name: error.name,
+        },
+      });
+    } catch (trackingError) {
+      console.error('[Analytics] Failed to track error:', trackingError);
     }
   }
 

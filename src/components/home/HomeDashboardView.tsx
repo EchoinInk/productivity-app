@@ -1,9 +1,10 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import type { HomeDashboardData } from "@/features/home/hooks/useHomeDashboard";
 import type { HomeModalsReturn } from "@/features/home/hooks/useHomeModals";
 import { TodayFocusCard } from "./TodayFocusCard";
 import { UtilityRow } from "./UtilityRow";
 import { InsightsPanel } from "./InsightsPanel";
+import { useDashboardAnalytics } from "@/analytics/analyticsHooks";
 
 export interface HomeDashboardViewProps {
   data: HomeDashboardData;
@@ -21,10 +22,21 @@ export interface HomeDashboardViewProps {
 export const HomeDashboardView = memo(({ data, modals }: HomeDashboardViewProps) => {
   const { nextTask, todayData, toggleTask } = data;
   const { openTaskModal, openMealModal, openExpenseModal } = modals;
+  const { viewed: dashboardViewed } = useDashboardAnalytics();
 
   const handleCompleteNext = useCallback(() => {
     if (nextTask) toggleTask(nextTask.id);
   }, [nextTask, toggleTask]);
+
+  // Track dashboard view
+  useEffect(() => {
+    dashboardViewed(
+      'home',
+      todayData.summary.tasks.total - todayData.summary.tasks.completed,
+      todayData.summary.tasks.completed,
+      0 // momentum score - would need to be calculated
+    );
+  }, [dashboardViewed, todayData]);
 
   return (
     <div className="space-y-3.5">

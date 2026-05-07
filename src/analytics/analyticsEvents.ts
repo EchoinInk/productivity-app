@@ -19,7 +19,8 @@ export type EventCategory =
   | 'dashboard'
   | 'task'
   | 'empty_state'
-  | 'navigation';
+  | 'navigation'
+  | 'error';
 
 // ============================================================================
 // ONBOARDING EVENTS
@@ -291,6 +292,21 @@ export interface EmptyStateDismissedEvent {
 }
 
 // ============================================================================
+// ERROR EVENTS
+// ============================================================================
+
+export interface ErrorBoundaryTriggeredEvent {
+  category: 'error';
+  action: 'boundary_triggered';
+  properties: {
+    error_message: string;
+    error_stack?: string;
+    component_stack?: string;
+    error_name: string;
+  };
+}
+
+// ============================================================================
 // NAVIGATION EVENTS
 // ============================================================================
 
@@ -342,6 +358,7 @@ export type AnalyticsEvent =
   | EmptyStateViewedEvent
   | EmptyStateCTAClickedEvent
   | EmptyStateDismissedEvent
+  | ErrorBoundaryTriggeredEvent
   | NavigationTabChangedEvent
   | NavigationDeepLinkOpenedEvent;
 

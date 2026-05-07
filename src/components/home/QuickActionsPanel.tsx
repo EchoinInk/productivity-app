@@ -1,6 +1,7 @@
 import { memo, useCallback } from "react";
 import TodayQuickActionsGrid from "@/features/today/components/TodayQuickActionsGrid";
 import { TAILWIND_ANIMATIONS } from "@/theme/animations";
+import { useDashboardAnalytics } from "@/analytics/analyticsHooks";
 
 export interface QuickActionsPanelProps {
   tasks: number;
@@ -36,22 +37,28 @@ export const QuickActionsPanel = memo(({
   onAddExpense,
   onStartRoutine
 }: QuickActionsPanelProps) => {
+  const { quickActionUsed: dashboardQuickActionUsed } = useDashboardAnalytics();
+
   // Memoize callbacks to prevent TodayQuickActionsGrid from re-rendering
   const handleAddTask = useCallback(() => {
+    dashboardQuickActionUsed('add_task', 'home');
     onAddTask();
-  }, [onAddTask]);
+  }, [onAddTask, dashboardQuickActionUsed]);
 
   const handleAddMeal = useCallback(() => {
+    dashboardQuickActionUsed('view_shopping', 'home');
     onAddMeal();
-  }, [onAddMeal]);
+  }, [onAddMeal, dashboardQuickActionUsed]);
 
   const handleAddExpense = useCallback(() => {
+    dashboardQuickActionUsed('view_shopping', 'home');
     onAddExpense();
-  }, [onAddExpense]);
+  }, [onAddExpense, dashboardQuickActionUsed]);
 
   const handleStartRoutine = useCallback(() => {
+    dashboardQuickActionUsed('start_routine', 'home');
     onStartRoutine();
-  }, [onStartRoutine]);
+  }, [onStartRoutine, dashboardQuickActionUsed]);
 
   return (
     <div className={TAILWIND_ANIMATIONS.fadeIn}>
