@@ -300,7 +300,7 @@ export class ConsistencyCalculator {
       recommendations.push(`Your ${this.getDayName(worstDay.day)} could use more attention`);
     }
 
-    if (metrics.weeklyPattern[bestDay.day] > 80) {
+    if ((metrics.weeklyPattern[bestDay.day] ?? 0) > 80) {
       recommendations.push(`You're strongest on ${this.getDayName(bestDay.day)} - leverage this for important tasks`);
     }
 
