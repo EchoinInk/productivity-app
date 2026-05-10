@@ -592,24 +592,58 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: Shopping list filtering, categorization
   - **Examples**: Data grouping, status calculations
 
+## Shared UI Contracts
+
+### Shopping List Patterns
+- **Item Creation Contract**: Form with name and category selection
+- **Item Completion Contract**: Checkbox/toggle with immediate visual feedback
+- **Category Organization Contract**: Consistent grouping by Groceries/Household
+- **List State Contract**: Consistent display of completed vs incomplete items
+
+### State Conventions
+- **Shopping Item Model**: `{ id: string, name: string, done: boolean, category: ShoppingCategory }`
+- **Form State Pattern**: `{ name: string, category: ShoppingCategory, canSave: boolean }`
+- **List State Model**: `{ items: ShoppingItem[], incompleteCount: number, completedCount: number }`
+- **Category State**: Consistent Groceries/Household categorization
+
 ## Web-Specific (REBUILD)
 
-### UI Components
-- `/src/features/shopping/components/ShoppingRow.tsx`
-  - **Why web-only**: Direct DOM manipulation, Tailwind classes, web interactions
-  - **Contains**: Checkbox interactions, styling, hover states
-  - **Examples**: `CheckboxRow`, `ListItemBase` usage, web layout patterns
-
-- `/src/features/shopping/components/AddShoppingItemModal.tsx`
-  - **Why web-only**: Modal pattern, web form handling, BottomSheetDialog usage
-  - **Contains**: Form inputs, modal state, web-specific UX
-  - **Examples**: Category selection, form validation UI
-
-### Pages
+### Desktop Layout Components
 - `/src/features/shopping/pages/ShoppingListPage.tsx`
-  - **Why web-only**: Page layout, list composition, web interactions
+  - **Why web-only**: Desktop page layout, list composition, web interactions
   - **Contains**: Page structure, item management, desktop layout
   - **Examples**: List rendering, modal integration, web layout patterns
+
+## Needs Mobile Redesign
+
+### Shopping List Items
+- `/src/features/shopping/components/ShoppingRow.tsx`
+  - **Concept survives**: Shopping item with checkbox, name, category display
+  - **Mobile redesign needed**:
+    - Larger touch targets (44px minimum)
+    - Swipe gestures for completion
+    - Thumb-friendly checkbox areas
+    - Mobile-optimized item spacing
+    - Pull-to-refresh functionality
+
+### Modal Interactions
+- `/src/features/shopping/components/AddShoppingItemModal.tsx`
+  - **Concept survives**: Item creation form with name and category selection
+  - **Mobile redesign needed**:
+    - Bottom sheet modal instead of dialog
+    - Mobile-optimized form layout
+    - Touch-friendly category selection
+    - Mobile keyboard optimization
+    - Gesture-based dismissal
+
+### Shopping List Display
+- **Concept survives**: Organized shopping list with category grouping and completion tracking
+- **Mobile redesign needed**:
+    - Mobile-optimized list layout
+    - Swipe-to-complete functionality
+    - Mobile-specific empty states
+    - Touch-friendly category headers
+    - Mobile pagination for large lists
 
 ## Refactor Candidates (MIXED)
 
@@ -644,13 +678,47 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: `addBill()`, bill view transformation
   - **Examples**: Pure state management, data formatting
 
+## Shared UI Contracts
+
+### Bill Management Patterns
+- **Bill Creation Contract**: Form with name, amount, and date selection
+- **Bill Display Contract**: Consistent bill list with amount formatting and due dates
+- **Date Integration Contract**: Consistent date handling with shared DateKey system
+- **View Formatting Contract**: Consistent bill-to-view transformation
+
+### State Conventions
+- **Bill State Model**: `{ id: string, name: string, amount: number, date: DateKey }`
+- **Form State Pattern**: `{ name: string, amount: string, date: DateKey, canSave: boolean }`
+- **Bill View Model**: `{ key: string, name: string, amount: string, index: number }`
+- **Date State**: Consistent DateKey usage across features
+
 ## Web-Specific (REBUILD)
 
-### UI Components
+### Desktop Layout Components
+- **CRITICAL FINDING**: No desktop-only layout components identified
+- All bill components appear to be mobile-friendly or require redesign
+
+## Needs Mobile Redesign
+
+### Modal Interactions
 - `/src/features/bills/components/AddBillModal/` (entire directory)
 - `/src/features/bills/components/AddBillModal.tsx`
-  - **Why web-only**: Modal patterns, web form handling, desktop interactions
-  - **Contains**: Form inputs, modal containers, web-specific UX patterns
+  - **Concept survives**: Bill creation form with name, amount, date selection
+  - **Mobile redesign needed**:
+    - Bottom sheet modal instead of dialog
+    - Mobile-optimized date picker
+    - Touch-friendly form layout
+    - Mobile keyboard optimization
+    - Gesture-based dismissal
+
+### Bill Display
+- **Concept survives**: Bill list with amount formatting and due date display
+- **Mobile redesign needed**:
+    - Mobile-optimized bill items
+    - Touch-friendly bill management
+    - Mobile-specific empty states
+    - Swipe gestures for bill actions
+    - Mobile date formatting
 
 ## Refactor Candidates (MIXED)
 
@@ -700,14 +768,55 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: Insight state, weekly summaries
   - **Examples**: Pure state management, derived calculations
 
+## Shared UI Contracts
+
+### Insight Display Patterns
+- **Insight Card Contract**: Consistent display of title, description, priority, and actions
+- **Smart Summary Contract**: Consistent display of focus areas, highlights, and recommendations
+- **Streak Display Contract**: Consistent streak visualization with progress indicators
+- **Message Delivery Contract**: Consistent smart messaging with contextual relevance
+
+### State Conventions
+- **Insight State Model**: `{ id: string, type: InsightType, priority: InsightPriority, title: string, description: string, actionable: boolean }`
+- **Summary State Model**: `{ focusArea: string, summary: string, highlights: string[], concerns: string[], recommendations: string[] }`
+- **Streak State Model**: Consistent streak tracking with current/longest lengths
+- **Message State**: Consistent smart message delivery with relevance scoring
+
 ## Web-Specific (REBUILD)
 
-### UI Components
+### Desktop Layout Components
 - `/src/features/insights/components/InsightsCard.container.tsx`
 - `/src/features/insights/components/InsightsCard.view.tsx`
   - **Why web-only**: Container/view pattern, web-specific rendering
   - **Contains**: Card layouts, web styling, interaction patterns
   - **Examples**: Desktop card layouts, hover states, web composition
+
+## Needs Mobile Redesign
+
+### Insight Cards
+- **Concept survives**: Insight display with title, description, priority, and action buttons
+- **Mobile redesign needed**:
+    - Mobile-optimized card layouts
+    - Touch-friendly action buttons
+    - Mobile-specific priority indicators
+    - Swipe gestures for insight dismissal
+    - Adaptive card sizing
+
+### Smart Summaries
+- **Concept survives**: Focus area summaries with highlights and recommendations
+- **Mobile redesign needed**:
+    - Mobile-optimized summary layouts
+    - Touch-friendly recommendation actions
+    - Mobile-specific highlight displays
+    - Adaptive information density
+
+### Streak Visualization
+- **Concept survives**: Streak tracking with progress indicators and momentum display
+- **Mobile redesign needed**:
+    - Mobile-optimized streak displays
+    - Touch-friendly progress indicators
+    - Mobile-specific momentum visualization
+    - Gesture-based streak interactions
 
 ## Refactor Candidates (MIXED)
 
@@ -757,12 +866,37 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: Public interface, data access patterns
   - **Examples**: Stable API contract, state management
 
+## Shared UI Contracts
+
+### Intelligence Display Patterns
+- **Smart Insight Contract**: Consistent display of AI-generated insights with confidence scoring
+- **Recommendation Contract**: Consistent display of actionable recommendations with impact/effort indicators
+- **Pattern Display Contract**: Consistent visualization of detected patterns with frequency data
+- **Confidence Indicators Contract**: Consistent display of confidence levels and reliability scores
+
+### State Conventions
+- **Smart Insight Model**: `{ id: string, type: string, title: string, description: string, severity: string, confidence: number }`
+- **Recommendation Model**: `{ id: string, type: string, title: string, reasoning: string, confidence: number, priority: string }`
+- **Pattern Model**: `{ id: string, type: string, description: string, confidence: number, data: { pattern: unknown, frequency: number } }`
+- **Context Model**: Consistent temporal and user preference context across intelligence features
+
 ## Web-Specific (REBUILD)
 
 **CRITICAL FINDING**: No UI components in intelligence feature
 - The intelligence feature contains only pure business logic
 - All UI components live in shared component directories
 - **Migration impact**: Intelligence UI components need to be identified in shared directories
+
+## Needs Mobile Redesign
+
+**CRITICAL FINDING**: Intelligence UI needs to be identified in shared components
+- **Concept survives**: AI-generated insights, recommendations, and pattern detection
+- **Mobile redesign needed**:
+    - Mobile-optimized insight cards
+    - Touch-friendly recommendation actions
+    - Mobile-specific pattern visualizations
+    - Adaptive confidence indicators
+    - Gesture-based insight interactions
 
 ## Refactor Candidates (MIXED)
 
@@ -821,13 +955,47 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: State management, data access
   - **Examples**: Pure state management, computed properties
 
+## Shared UI Contracts
+
+### Momentum Display Patterns
+- **Score Display Contract**: Consistent display of daily momentum scores with level indicators
+- **Streak Visualization Contract**: Consistent streak tracking with current/longest lengths
+- **Trend Display Contract**: Consistent trend visualization with direction and strength indicators
+- **Consistency Metrics Contract**: Consistent display of consistency patterns and insights
+
+### State Conventions
+- **Daily Score Model**: `{ date: string, totalScore: number, categoryScores: Record<string, number>, momentumLevel: string }`
+- **Streak Model**: `{ type: string, currentLength: number, longestLength: number, isActive: boolean }`
+- **Trend Model**: `{ period: string, trendDirection: string, trendStrength: number, averageScore: number }`
+- **Consistency Model**: `{ overallConsistency: number, categoryConsistency: Record<string, number> }`
+
 ## Web-Specific (REBUILD)
 
-### UI Components
+### Desktop Layout Components
 - `/src/features/momentum/components/` (directory)
   - **Why web-only**: Momentum visualization, charts, progress displays
   - **Contains**: Charts, progress bars, trend visualizations
   - **Examples**: Web-specific charts, desktop layouts, interactive displays
+
+## Needs Mobile Redesign
+
+### Momentum Visualization
+- **Concept survives**: Daily momentum scores, streak tracking, trend visualization, consistency metrics
+- **Mobile redesign needed**:
+    - Mobile-optimized score displays
+    - Touch-friendly streak indicators
+    - Mobile-specific trend charts
+    - Adaptive consistency visualizations
+    - Gesture-based momentum interactions
+
+### Progress Tracking
+- **Concept survives**: Activity contribution tracking, momentum level progression, insights generation
+- **Mobile redesign needed**:
+    - Mobile-optimized progress indicators
+    - Touch-friendly activity displays
+    - Mobile-specific insight cards
+    - Swipe-based trend navigation
+    - Adaptive information density
 
 ## Refactor Candidates (MIXED)
 
@@ -861,14 +1029,56 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: Onboarding state, flow management, data persistence
   - **Examples**: Progress tracking, step validation, data management
 
+## Shared UI Contracts
+
+### Onboarding Flow Patterns
+- **Step Validation Contract**: Consistent validation rules for each onboarding step
+- **Progress Tracking Contract**: Consistent progress indicators and step completion states
+- **Personalization Contract**: Consistent preference collection and default generation
+- **Flow Navigation Contract**: Consistent step navigation with skip/next/back actions
+
+### State Conventions
+- **Onboarding State Model**: `{ currentStep: number, isCompleted: boolean, data: Partial<OnboardingData> }`
+- **Step State Pattern**: `{ isComplete: boolean, canSkip: boolean, canProceed: boolean }`
+- **Personalization State**: `{ focusAreas: FocusArea[], productivityGoals: ProductivityGoal[], preferredModules: PreferredModule[] }`
+- **Flow Control**: Consistent step progression and validation logic
+
 ## Web-Specific (REBUILD)
 
-### UI Components
+### Desktop Layout Components
 - `/src/features/onboarding/OnboardingScreen.tsx`
 - `/src/features/onboarding/components/` (directory)
-  - **Why web-only**: Onboarding flow, step screens, web interactions
+  - **Why web-only**: Desktop onboarding flow, step screens, web interactions
   - **Contains**: Multi-step flow, form screens, progress indicators
   - **Examples**: Web-specific onboarding patterns, desktop layouts
+
+## Needs Mobile Redesign
+
+### Onboarding Flow
+- **Concept survives**: Multi-step onboarding with preference collection and personalization
+- **Mobile redesign needed**:
+    - Mobile-optimized step layouts
+    - Touch-friendly form inputs
+    - Mobile-specific progress indicators
+    - Swipe gestures for step navigation
+    - Adaptive step content
+
+### Preference Collection
+- **Concept survives**: Focus area selection, productivity goals, module preferences, daily cadence
+- **Mobile redesign needed**:
+    - Mobile-optimized selection interfaces
+    - Touch-friendly option cards
+    - Mobile-specific preference displays
+    - Gesture-based selection
+    - Adaptive form layouts
+
+### Personalization
+- **Concept survives**: Smart defaults generation and user profiling
+- **Mobile redesign needed**:
+    - Mobile-optimized personalization results
+    - Touch-friendly default displays
+    - Mobile-specific preference summaries
+    - Swipe-based confirmation flows
 
 ## Refactor Candidates (MIXED)
 
@@ -920,12 +1130,61 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: Complex state management, routine lifecycle
   - **Examples**: Template management, instance tracking, focus session handling
 
+## Shared UI Contracts
+
+### Routine Management Patterns
+- **Template Creation Contract**: Consistent routine template creation with steps and timing
+- **Instance Execution Contract**: Consistent routine instance tracking with step completion
+- **Focus Session Contract**: Consistent focus session management with duration and quality tracking
+- **Progress Tracking Contract**: Consistent routine progress visualization with momentum integration
+
+### State Conventions
+- **Routine Template Model**: `{ id: string, name: string, type: string, steps: RoutineStep[], estimatedDuration: number }`
+- **Routine Instance Model**: `{ id: string, templateId: string, date: string, status: string, steps: RoutineInstanceStep[] }`
+- **Focus Session Model**: `{ id: string, title: string, scheduledStart: string, scheduledEnd: string, status: string }`
+- **Progress Model**: Consistent progress calculation with momentum contribution
+
 ## Web-Specific (REBUILD)
 
 **CRITICAL FINDING**: No UI components in routines feature
 - The routines feature contains only business logic and data management
 - All UI components live in shared component directories
 - **Migration impact**: Routines UI components need to be identified in shared directories
+
+## Needs Mobile Redesign
+
+**CRITICAL FINDING**: Routines UI needs to be identified in shared components
+- **Concept survives**: Routine templates, instances, focus sessions, progress tracking
+- **Mobile redesign needed**:
+    - Mobile-optimized routine templates
+    - Touch-friendly step completion
+    - Mobile-specific focus session timers
+    - Swipe-based routine management
+    - Adaptive progress displays
+
+### Routine Templates
+- **Concept survives**: Routine template creation with steps, timing, and categorization
+- **Mobile redesign needed**:
+    - Mobile-optimized template creation
+    - Touch-friendly step management
+    - Mobile-specific time selection
+    - Gesture-based template editing
+
+### Focus Sessions
+- **Concept survives**: Focus session management with duration tracking and quality assessment
+- **Mobile redesign needed**:
+    - Mobile-optimized session timers
+    - Touch-friendly quality controls
+    - Mobile-specific session displays
+    - Swipe-based session management
+
+### Progress Tracking
+- **Concept survives**: Routine progress visualization with momentum integration
+- **Mobile redesign needed**:
+    - Mobile-optimized progress indicators
+    - Touch-friendly momentum displays
+    - Mobile-specific progress charts
+    - Adaptive progress layouts
 
 ## Refactor Candidates (MIXED)
 
@@ -952,13 +1211,54 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: Focus metrics, summary data, cross-feature types
   - **Examples**: Aggregated data models, calculation results
 
+## Shared UI Contracts
+
+### Today Dashboard Patterns
+- **Focus Calculation Contract**: Dynamic focus calculation based on tasks, budget, and meals
+- **Summary Display Contract**: Consistent display of cross-feature summary data
+- **Priority Determination Contract**: Consistent priority calculation across features
+- **Data Aggregation Contract**: Consistent cross-feature data orchestration
+
+### State Conventions
+- **Today Data Model**: `{ focus: { percentage: number, label: string, subtext: string }, summary: { tasks: object, meals: object, budget: object, shopping: object } }`
+- **Focus State**: Consistent focus calculation with percentage and messaging
+- **Summary State**: Consistent cross-feature summary with completed/total metrics
+- **Aggregation State**: Consistent data orchestration across features
+
 ## Web-Specific (REBUILD)
 
-### UI Components
+### Desktop Layout Components
 - `/src/features/today/components/` (directory)
   - **Why web-only**: Today dashboard, focus displays, summary cards
   - **Contains**: Dashboard layout, progress displays, interactive elements
   - **Examples**: Web-specific dashboard patterns, desktop layouts
+
+## Needs Mobile Redesign
+
+### Today Dashboard
+- **Concept survives**: Cross-feature today dashboard with focus areas and summary data
+- **Mobile redesign needed**:
+    - Mobile-optimized dashboard layout
+    - Touch-friendly focus indicators
+    - Mobile-specific summary cards
+    - Swipe-based feature navigation
+    - Adaptive information density
+
+### Focus Display
+- **Concept survives**: Dynamic focus calculation with percentage and contextual messaging
+- **Mobile redesign needed**:
+    - Mobile-optimized focus indicators
+    - Touch-friendly progress displays
+    - Mobile-specific focus messaging
+    - Gesture-based focus interactions
+
+### Summary Cards
+- **Concept survives**: Cross-feature summary with completed/total metrics and quick actions
+- **Mobile redesign needed**:
+    - Mobile-optimized summary cards
+    - Touch-friendly quick actions
+    - Mobile-specific metric displays
+    - Swipe-based card navigation
 
 ## Refactor Candidates (MIXED)
 
@@ -970,23 +1270,49 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
 
 ---
 
-## Updated Cross-Cutting Concerns
+## Cross-Cutting Concerns
 
-### Duplicated Logic Patterns (Updated)
-1. **Form validation**: Similar patterns in tasks, meals, budget, recipes, shopping forms
-2. **Modal state management**: Repeated across all modal-based features
-3. **Date/weekday handling**: Similar logic in meals, tasks, routines, today
-4. **Cross-feature integration**: Repeated patterns in recipes, today, home
-5. **Progress calculation**: Similar metrics in momentum, today, insights
+### Shared UI Contracts Across Features
 
-### Tight Coupling Issues (Updated)
-1. **BottomSheetDialog**: Used across meals, budget, recipes, shopping, bills
-2. **Card/Header/Button**: Shared components that may need platform variants
-3. **Form patterns**: Similar form structures across multiple features
-4. **Modal patterns**: Repeated modal implementations
-5. **Chart components**: Momentum visualizations may need platform variants
+#### Form Patterns
+- **Validation Contract**: Consistent real-time validation with error messaging
+- **Input State Contract**: `{ value: string, error: string | null, touched: boolean, canSave: boolean }`
+- **Submission Contract**: Consistent async form submission with loading states
+- **Error Handling Contract**: Consistent error display and recovery patterns
 
-### Updated Migration Recommendations
+#### Modal Patterns
+- **Modal State Contract**: `{ open: boolean, loading: boolean, data: FormData }`
+- **Bottom Sheet Contract**: Mobile-first modal pattern with gesture dismissal
+- **Form Modal Contract**: Consistent form-in-modal with validation and submission
+- **Confirmation Contract**: Consistent confirmation dialogs with action buttons
+
+#### Loading & Empty States
+- **Loading State Contract**: Consistent loading indicators and skeleton screens
+- **Empty State Contract**: Consistent empty state messaging with action prompts
+- **Error State Contract**: Consistent error display with retry mechanisms
+- **Success State Contract**: Consistent success feedback with action options
+
+#### Data Display Patterns
+- **Card Display Contract**: Consistent card layouts with headers, content, and actions
+- **List Display Contract**: Consistent list items with selection and actions
+- **Progress Display Contract**: Consistent progress indicators with percentage and status
+- **Summary Display Contract**: Consistent summary cards with metrics and quick actions
+
+### Platform-Specific Implementation Needs
+
+#### Web-Specific Patterns (REBUILD)
+- **Hover Interactions**: Desktop hover states and tooltips
+- **Keyboard Navigation**: Web keyboard shortcuts and tab navigation
+- **Desktop Layouts**: Multi-column layouts, sidebars, desktop navigation
+- **Web Components**: Tables, dropdowns, complex form controls
+
+#### Mobile-Specific Patterns (REDESIGN)
+- **Touch Targets**: 44px minimum touch targets for all interactive elements
+- **Gesture Support**: Swipe, pull-to-refresh, pinch-to-zoom interactions
+- **Mobile Navigation**: Bottom tabs, slide-out menus, mobile-first navigation
+- **Mobile Modals**: Bottom sheets, mobile-optimized forms, gesture dismissal
+
+### Migration Recommendations
 
 #### Immediate Actions (High Priority)
 1. **Extract TaskSections business logic** to service layer
@@ -996,32 +1322,57 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
 5. **Create shared form validation utilities** across features
 
 #### Medium Priority
-1. **Standardize modal patterns** across features
-2. **Create shared date/weekday utilities**
+1. **Standardize modal patterns** across features with platform variants
+2. **Create shared date/weekday utilities** for cross-feature consistency
 3. **Audit shared components** for platform-specific assumptions
 4. **Extract useBills view formatting** to service layer
-5. **Create cross-feature integration utilities**
+5. **Create cross-feature integration utilities** with consistent contracts
 
 #### Low Priority
 1. **Refactor usePersonalizedHome** routine integration
-2. **Standardize empty state handling**
-3. **Create consistent page layout patterns**
+2. **Standardize empty state handling** with mobile variants
+3. **Create consistent page layout patterns** for mobile adaptation
 4. **Extract useTodayData calculations** to service layer
-5. **Optimize modal state management**
+5. **Optimize modal state management** with platform-specific patterns
 
-### Updated Architecture Strengths
+### Architecture Strengths
+
+#### Behavioral Systems (The True Moat)
+- **Intelligence Engine**: Pure AI/ML logic with no UI coupling
+- **Momentum System**: Comprehensive scoring and streak tracking
+- **Routines System**: Complex domain modeling with excellent separation
+- **Cross-Feature Integration**: Well-orchestrated data flows
+- **Personalization Engine**: Smart defaults and user profiling
+
+#### Technical Excellence
 - Clean separation of domain logic in `/features/*/domain/`
 - Well-abstracted store patterns with hooks
 - Consistent selector patterns for derived state
 - Good type safety across features
-- **NEW**: Excellent pure business logic in intelligence, momentum, routines
-- **NEW**: Strong cross-feature integration patterns
-- **NEW**: Comprehensive domain modeling in complex features
+- Comprehensive shared UI contracts
 
-### Updated Architecture Risks
+### Architecture Risks
+
+#### Migration Complexity
 - Mixed components (TaskSections, AddMealModal, AddExpenseModal, OnboardingScreen) will complicate mobile migration
 - Web-specific UI patterns in shared component directories
-- Potential platform assumptions in utility functions
-- **NEW**: Modal pattern duplication across features
-- **NEW**: Form validation logic scattered across features
-- **NEW**: Cross-feature integration complexity may increase coupling
+- Modal pattern duplication across 5+ features
+- Form validation logic scattered across features
+
+#### Platform Assumptions
+- BottomSheetDialog usage assumes mobile-first patterns
+- Hover states and desktop interactions throughout
+- Web-specific styling and layout assumptions
+- Touch interaction gaps in current implementations
+
+### Key Insight: The Behavioral Systems Are Your Moat
+
+The true reusable value of this application lies in the behavioral systems:
+
+1. **Intelligence**: AI/ML engines that generate insights and recommendations
+2. **Momentum**: Sophisticated scoring, streak tracking, and consistency metrics
+3. **Routines**: Complex domain modeling for habit formation and tracking
+4. **Orchestration**: Cross-feature data coordination and personalization
+5. **Planning Relationships**: Recipe-to-meal/task/shopping workflows
+
+These systems form the competitive advantage and must be preserved as pure shared core. The UI components are replaceable, but the behavioral intelligence is the moat.
