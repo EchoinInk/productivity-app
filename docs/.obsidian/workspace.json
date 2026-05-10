@@ -178,6 +178,7 @@
   },
   "active": "60bd7658979b28c5",
   "lastOpenFiles": [
+    "architecture/domain-boundaries.md",
     "architecture/system-governance-rules.md",
     "architecture/adaptive-system-architecture.md",
     "ux/emotional-design-rules.md",
@@ -207,7 +208,6 @@
     "features/fitness.md",
     "features/feature-map.md",
     "features/dashboard.md",
-    "features/cleaning.md",
     "ux",
     "mobile",
     "features",
