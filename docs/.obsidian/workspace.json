@@ -178,6 +178,7 @@
   },
   "active": "60bd7658979b28c5",
   "lastOpenFiles": [
+    "product/core-loops.md",
     "mobile/mobile-information-architecture.md",
     "ux/ahdhd-principles 2.md",
     "mobile/migration-plan 2.md",
@@ -207,7 +208,6 @@
     "features/calendar.md",
     "features/bills.md",
     "design/motion-system.md",
-    "architecture/state-management.md",
     "ux",
     "mobile",
     "features",
