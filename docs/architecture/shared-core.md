@@ -267,19 +267,48 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: `selectMealsByDay()`, `selectMealsByDays()`, `selectMealStats()`
   - **Examples**: Data grouping, statistics calculation
 
+## Shared UI Contracts
+
+### Meal Planning Patterns
+- **Meal Creation Contract**: Form with name, day, type selection and validation
+- **Weekday Navigation Contract**: Consistent 7-day navigation with current day highlighting
+- **Meal Organization Contract**: Grouped meals by weekday with consistent layout
+- **Empty State Contract**: Consistent empty state messaging with action prompts
+
+### State Conventions
+- **Meal State Model**: `{ id: string, name: string, day: Weekday, type?: string }`
+- **Form State Pattern**: `{ name: string, day: Weekday, type: string, canSave: boolean }`
+- **Weekday State**: Consistent weekday selection and navigation
+- **Meal Stats Contract**: `{ totalMeals: number, todayMealCount: number }`
+
 ## Web-Specific (REBUILD)
 
-### UI Components
-- `/src/features/meals/components/AddMealModal.tsx`
-  - **Why web-only**: Modal pattern, web form handling, BottomSheetDialog usage
-  - **Contains**: Form inputs, modal state, web-specific UX
-  - **Examples**: `BottomSheetDialog`, form submission, web styling
-
-### Pages
+### Desktop Layout Components
 - `/src/features/meals/pages/MealPlannerPage.tsx`
-  - **Why web-only**: Page layout, Card components, web composition
+  - **Why web-only**: Desktop page composition, Card components, web layout
   - **Contains**: Page structure, component composition, web layout
   - **Examples**: `Card`, `Header`, `Button` usage, desktop layout patterns
+
+## Needs Mobile Redesign
+
+### Modal Interactions
+- `/src/features/meals/components/AddMealModal.tsx`
+  - **Concept survives**: Meal creation form with name, day, type selection
+  - **Mobile redesign needed**:
+    - Bottom sheet modal instead of dialog
+    - Mobile-optimized form layout
+    - Touch-friendly dropdown selection
+    - Mobile keyboard optimization
+    - Gesture-based dismissal
+
+### Meal Display
+- **Concept survives**: Week-based meal organization with individual meal items
+- **Mobile redesign needed**:
+  - Mobile-optimized weekday navigation
+  - Swipe gestures for meal management
+  - Touch-friendly meal item interactions
+  - Mobile-specific empty states
+  - Adaptive meal item layouts
 
 ## Refactor Candidates (MIXED)
 
@@ -289,7 +318,6 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
 - **Suggested extraction**:
   - Move `canSave` validation logic to service
   - Create `validateMealInput()`, `prepareMealForSubmission()`
-  - Extract meal type and day constants
   - Keep only React state and rendering in component
 - **Problem**: 121 lines with form logic, validation, and UI mixed
 
@@ -368,20 +396,49 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: `selectBudgetSummary()`, percentage calculations
   - **Examples**: Budget aggregation, remaining calculations
 
+## Shared UI Contracts
+
+### Budget Management Patterns
+- **Expense Creation Contract**: Form with name and amount validation
+- **Income Setting Contract**: Simple amount input with validation
+- **Budget Summary Contract**: Consistent display of remaining/total/percentage
+- **Transaction Display Contract**: Consistent transaction list with amount formatting
+
+### State Conventions
+- **Expense State Model**: `{ id: string, name: string, amount: number }`
+- **Budget Summary Model**: `{ spent: number, remaining: number, percentage: number }`
+- **Form State Pattern**: `{ name: string, amount: string, canSave: boolean }`
+- **Transaction State**: Consistent expense/income categorization
+
 ## Web-Specific (REBUILD)
 
-### UI Components
-- `/src/features/budget/components/AddExpenseModal.tsx`
-- `/src/features/budget/components/AddIncomeModal.tsx`
-  - **Why web-only**: Modal patterns, web form handling, BottomSheetDialog usage
-  - **Contains**: Form inputs, modal state, web-specific UX
-  - **Examples**: Number inputs, form validation UI, web styling
-
-### Pages
+### Desktop Layout Components
 - `/src/features/budget/pages/BudgetPage.tsx`
-  - **Why web-only**: Page layout, Card components, web composition
+  - **Why web-only**: Desktop page composition, Card components, web layout
   - **Contains**: Page structure, progress bars, grid layouts
   - **Examples**: `ProgressBar`, `Card`, `ListItemBase` usage, desktop layout patterns
+
+## Needs Mobile Redesign
+
+### Modal Interactions
+- `/src/features/budget/components/AddExpenseModal.tsx`
+- `/src/features/budget/components/AddIncomeModal.tsx`
+  - **Concept survives**: Expense/income creation forms with validation
+  - **Mobile redesign needed**:
+    - Bottom sheet modals instead of dialogs
+    - Mobile-optimized number inputs
+    - Touch-friendly form layouts
+    - Mobile keyboard optimization (numeric keyboard)
+    - Gesture-based dismissal
+
+### Budget Display
+- **Concept survives**: Budget summary with progress tracking and transaction list
+- **Mobile redesign needed**:
+  - Mobile-optimized progress indicators
+  - Touch-friendly transaction items
+  - Mobile-specific budget cards
+  - Swipe gestures for transaction management
+  - Adaptive information density
 
 ## Refactor Candidates (MIXED)
 
@@ -437,19 +494,56 @@ The true reusable value is in behavioral systems (momentum, intelligence, routin
   - **Contains**: `parseIngredients()`, `formatIngredients()`
   - **Examples**: String manipulation, data formatting
 
+## Shared UI Contracts
+
+### Recipe Management Patterns
+- **Recipe Creation Contract**: Form with name, ingredients (comma-separated), category selection
+- **Recipe Application Contract**: One-click recipe-to-meal/task/shopping conversion
+- **Ingredient Processing Contract**: Consistent parsing and formatting of ingredient lists
+- **Recipe Display Contract**: Consistent recipe card with metadata and action buttons
+
+### State Conventions
+- **Recipe State Model**: `{ id: string, name: string, ingredients: string[], category?: string }`
+- **Form State Pattern**: `{ name: string, ingredients: string, category: string, canSave: boolean }`
+- **Recipe Application State**: Consistent cross-feature workflow execution
+- **Ingredient State**: Consistent comma-separated input processing
+
 ## Web-Specific (REBUILD)
 
-### UI Components
-- `/src/features/recipes/components/AddRecipeModal.tsx`
-  - **Why web-only**: Modal pattern, web form handling, BottomSheetDialog usage
-  - **Contains**: Form inputs, modal state, web-specific UX
-  - **Examples**: Textarea, select fields, form validation UI
-
-### Pages
+### Desktop Layout Components
 - `/src/features/recipes/pages/RecipesPage.tsx`
-  - **Why web-only**: Page layout, Card components, web composition
+  - **Why web-only**: Desktop page composition, Card components, web layout
   - **Contains**: Page structure, recipe grid, empty states
   - **Examples**: `Card`, `Button`, `EmptyState` usage, desktop layout patterns
+
+## Needs Mobile Redesign
+
+### Modal Interactions
+- `/src/features/recipes/components/AddRecipeModal.tsx`
+  - **Concept survives**: Recipe creation form with name, ingredients, category
+  - **Mobile redesign needed**:
+    - Bottom sheet modal instead of dialog
+    - Mobile-optimized textarea for ingredients
+    - Touch-friendly category selection
+    - Mobile keyboard optimization
+    - Gesture-based dismissal
+
+### Recipe Display
+- **Concept survives**: Recipe collection with cards showing metadata and quick actions
+- **Mobile redesign needed**:
+    - Mobile-optimized recipe cards
+    - Touch-friendly "Use Recipe" buttons
+    - Swipe gestures for recipe management
+    - Mobile-specific empty states
+    - Adaptive recipe grid layout
+
+### Recipe Application
+- **Concept survives**: One-click recipe application to meals, tasks, shopping
+- **Mobile redesign needed**:
+    - Mobile-optimized action buttons
+    - Touch-friendly workflow execution
+    - Mobile-specific success states
+    - Gesture-based recipe application
 
 ## Refactor Candidates (MIXED)
 
