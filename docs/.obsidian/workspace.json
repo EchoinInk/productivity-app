@@ -178,6 +178,8 @@
   },
   "active": "60bd7658979b28c5",
   "lastOpenFiles": [
+    "architecture/event-system.md",
+    "architecture/state-architecture.md",
     "architecture/domain-boundaries.md",
     "architecture/system-governance-rules.md",
     "architecture/adaptive-system-architecture.md",
@@ -206,8 +208,6 @@
     "features/meals.md",
     "features/habits.md",
     "features/fitness.md",
-    "features/feature-map.md",
-    "features/dashboard.md",
     "ux",
     "mobile",
     "features",
