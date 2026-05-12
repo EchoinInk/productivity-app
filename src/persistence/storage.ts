@@ -2,8 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Task {
   id: string;
-  text: string;
+  title: string;
   completed: boolean;
+  createdAt: number;
 }
 
 interface Session {

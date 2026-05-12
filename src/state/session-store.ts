@@ -1,19 +1,25 @@
 import { create } from 'zustand';
+import { getSession, setSession } from '../persistence/storage';
 
 interface SessionStore {
   lastOpened: string | null;
   onboardingComplete: boolean;
-  loadSession: () => void;
-  persistSession: () => void;
+  loadSession: () => Promise<void>;
+  persistSession: () => Promise<void>;
 }
 
-export const useSessionStore = create<SessionStore>((set) => ({
+export const useSessionStore = create<SessionStore>((set, get) => ({
   lastOpened: null,
   onboardingComplete: false,
-  loadSession: () => {
-    // TODO: Implement storage loading
+  loadSession: async () => {
+    const session = await getSession();
+    set({
+      ...session,
+      lastOpened: new Date().toISOString(),
+    });
   },
-  persistSession: () => {
-    // TODO: Implement storage persistence
+  persistSession: async () => {
+    const { lastOpened, onboardingComplete } = get();
+    await setSession({ lastOpened, onboardingComplete });
   },
 }));
