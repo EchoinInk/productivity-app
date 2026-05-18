@@ -12,8 +12,8 @@ import Animated, {
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { baseTokens } from '../../theme';
 import { EnergyMode } from '../../theme/types';
-import { springPresets, getSpringPreset } from '../../motion/spring-presets';
-import { useInterruptionSafeAnimation } from '../../motion/interruption-safe';
+import { springPresets, getSpringPreset } from '../../motion/spring-presets.disabled';
+import { useInterruptionSafeAnimation } from '../../motion/interruption-safe.disabled';
 
 export type SwipeAction = 'complete' | 'snooze' | 'defer' | 'reduce';
 

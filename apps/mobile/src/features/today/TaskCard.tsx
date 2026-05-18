@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Task } from '../../state/task-store';
-import { GestureTaskCard } from '../../primitives/behavioral/GestureTaskCard';
+import { GestureTaskCard } from '../../primitives/behavioral/GestureTaskCard.disabled';
 import { Surface } from '../../primitives/Surface';
 import { Row } from '../../primitives/Row';
 import { Text } from '../../primitives/Text';

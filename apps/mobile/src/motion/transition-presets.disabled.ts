@@ -1,6 +1,6 @@
 import { WithTimingConfig } from 'react-native-reanimated';
 import { EnergyMode } from '../theme/types';
-import { getTimingForEnergy } from './spring-presets';
+import { getTimingForEnergy } from './spring-presets.disabled';
 
 export interface TransitionConfig {
   duration: number;

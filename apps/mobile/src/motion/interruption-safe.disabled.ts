@@ -7,7 +7,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { motion } from '../theme';
-import { springPresets, getSpringPreset, getTimingForEnergy } from './spring-presets';
+import { springPresets, getSpringPreset, getTimingForEnergy } from './spring-presets.disabled';
 import { EnergyMode } from '../theme/types';
 
 export const useInterruptionSafeAnimation = (initialValue: number = 0) => {

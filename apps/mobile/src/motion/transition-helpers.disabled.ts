@@ -7,7 +7,7 @@ import Animated, {
   SharedValue,
 } from 'react-native-reanimated';
 import { motion } from '../theme';
-import { springPresets, getSpringPreset } from './spring-presets';
+import { springPresets, getSpringPreset } from './spring-presets.disabled';
 import { EnergyMode } from '../theme/types';
 
 export const transitionPresets = {
