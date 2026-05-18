@@ -1,4 +1,1 @@
-export interface Session {
-  lastOpened: string | null;
-  onboardingComplete: boolean;
-}
+export { Session } from '@lumo/core';
