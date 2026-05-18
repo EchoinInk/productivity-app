@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, ViewStyle, GestureResponderEvent } from 'react-native';
 import { baseTokens } from '../../theme';
 import { Text } from '../Text';
-import { useInterruptionSafeAnimation } from '../../motion';
 
 export interface CalmButtonProps {
   title: string;
@@ -23,24 +22,16 @@ export function CalmButton({
   style,
   energyMode = 'normal',
 }: CalmButtonProps) {
-  const animation = useInterruptionSafeAnimation(0);
-  
+  const [isPressed, setIsPressed] = useState(false);
+
   const handlePressIn = () => {
     if (energyMode === 'overwhelmed') return;
-    animation.animateTo(1, {
-      type: 'spring',
-      springPreset: 'gentle',
-      energyMode,
-    });
+    setIsPressed(true);
   };
-  
+
   const handlePressOut = () => {
     if (energyMode === 'overwhelmed') return;
-    animation.animateTo(0, {
-      type: 'spring',
-      springPreset: 'calm',
-      energyMode,
-    });
+    setIsPressed(false);
   };
   
   const padding = size === 'sm' ? baseTokens.spacing.md : size === 'md' ? baseTokens.spacing.lg : baseTokens.spacing.xl;
@@ -70,7 +61,7 @@ export function CalmButton({
     minWidth: baseTokens.touchTarget.comfortable,
     alignItems: 'center',
     justifyContent: 'center',
-    opacity: disabled ? 0.5 : 1,
+    opacity: disabled ? 0.5 : isPressed ? 0.8 : 1,
   };
   
   return (
@@ -80,7 +71,7 @@ export function CalmButton({
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       disabled={disabled}
-      activeOpacity={energyMode === 'overwhelmed' ? 1 : 0.9}
+      activeOpacity={energyMode === 'overwhelmed' ? 1 : 1}
     >
       <Text
         variant={size === 'lg' ? 'body' : 'label'}

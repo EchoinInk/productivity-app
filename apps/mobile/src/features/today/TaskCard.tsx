@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Task } from '../../state/task-store';
-import { GestureTaskCard } from '../../primitives/behavioral/GestureTaskCard.disabled';
 import { Surface } from '../../primitives/Surface';
 import { Row } from '../../primitives/Row';
 import { Text } from '../../primitives/Text';
@@ -51,12 +50,10 @@ export function TaskCard({ task, energyMode, onComplete, onSnooze, onDefer, onRe
   };
 
   return (
-    <GestureTaskCard
-      energyMode={energyMode}
-      onComplete={handleComplete}
-      onSnooze={handleSnooze}
-      onDefer={handleDefer}
-      onReduceScope={handleReduceScope}
+    <TouchableOpacity
+      onPress={handleComplete}
+      onLongPress={handleDefer}
+      activeOpacity={energyMode === 'overwhelmed' ? 1 : 0.7}
     >
       <Surface
         variant={task.priority === 'high' ? 'elevated' : 'card'}
@@ -72,7 +69,7 @@ export function TaskCard({ task, energyMode, onComplete, onSnooze, onDefer, onRe
           </Text>
         </Row>
       </Surface>
-    </GestureTaskCard>
+    </TouchableOpacity>
   );
 }
 
