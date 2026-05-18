@@ -1,13 +1,25 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, ViewStyle, StyleSheet } from 'react-native';
+import { baseTokens } from '../theme';
 
-export function Screen({ children, style, ...props }: any) {
-  return <View style={[styles.screen, style]} {...props}>{children}</View>;
+export interface ScreenProps {
+  children?: React.ReactNode;
+  style?: ViewStyle;
+  energyMode?: 'normal' | 'low' | 'overwhelmed';
 }
 
-const styles = StyleSheet.create({
-  screen: {
+export function Screen({ children, style, energyMode = 'normal', ...props }: ScreenProps) {
+  const screenStyle: ViewStyle = {
     flex: 1,
-    backgroundColor: '#F5F5F5',
-  },
-});
+    backgroundColor: baseTokens.surface.background,
+  };
+
+  return (
+    <View 
+      style={[screenStyle, style]} 
+      {...props}
+    >
+      {children}
+    </View>
+  );
+}
