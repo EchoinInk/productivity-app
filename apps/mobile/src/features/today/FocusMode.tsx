@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import { Screen } from '../../primitives/Screen';
 import { Stack } from '../../primitives/Stack';
@@ -10,8 +10,6 @@ import { baseTokens } from '../../theme';
 import { EnergyMode } from '../../theme/types';
 import { Task } from '../../state/task-store';
 import { useHapticFeedback } from '../../hooks/useHapticFeedback';
-import { useInterruptionSafeAnimation } from '../../motion/interruption-safe';
-import { springPresets, getSpringPreset } from '../../motion/spring-presets';
 
 export interface FocusModeProps {
   visible: boolean;
@@ -34,8 +32,8 @@ export function FocusMode({
   const [isExiting, setIsExiting] = useState(false);
   const { triggerHaptic } = useHapticFeedback();
   
-  const { value: opacity, animateTo: animateOpacity } = useInterruptionSafeAnimation(visible ? 1 : 0);
-  const { value: scale, animateTo: animateScale } = useInterruptionSafeAnimation(visible ? 1 : 0.95);
+  const fadeAnim = useRef(new Animated.Value(visible ? 1 : 0)).current;
+  const scaleAnim = useRef(new Animated.Value(visible ? 1 : 0.95)).current;
 
   const activeTasks = tasks.filter((task) => !task.completed && task.status === 'today');
   const currentTask = activeTasks[currentIndex];
@@ -43,11 +41,31 @@ export function FocusMode({
   useEffect(() => {
     if (visible) {
       triggerHaptic('focus', energyMode);
-      animateOpacity(1, { springPreset: 'calm', energyMode });
-      animateScale(1, { springPreset: 'calm', energyMode });
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: energyMode === 'overwhelmed' ? 0 : 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: energyMode === 'overwhelmed' ? 0 : 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
     } else if (isExiting) {
-      animateOpacity(0, { springPreset: 'gentle', energyMode });
-      animateScale(0.95, { springPreset: 'gentle', energyMode });
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 0.95,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start();
     }
   }, [visible, energyMode]);
 
@@ -108,12 +126,10 @@ export function FocusMode({
     return null;
   }
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-      transform: [{ scale: scale.value }],
-    };
-  });
+  const animatedStyle = {
+    opacity: fadeAnim,
+    transform: [{ scale: scaleAnim }],
+  };
 
   return (
     <Animated.View style={[styles.overlay, animatedStyle]}>

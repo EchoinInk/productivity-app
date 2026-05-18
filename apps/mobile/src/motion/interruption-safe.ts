@@ -7,7 +7,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { motion } from '../theme';
-import { springPresets, getSpringPreset } from './spring-presets';
+import { springPresets, getSpringPreset, getTimingForEnergy } from './spring-presets';
 import { EnergyMode } from '../theme/types';
 
 export const useInterruptionSafeAnimation = (initialValue: number = 0) => {
@@ -32,7 +32,7 @@ export const useInterruptionSafeAnimation = (initialValue: number = 0) => {
       onComplete,
     } = config;
     
-    // Cancel any ongoing animation
+    // Cancel any ongoing animation to prevent conflicts
     cancelAnimation(sharedValue);
     
     let animation;
@@ -41,7 +41,7 @@ export const useInterruptionSafeAnimation = (initialValue: number = 0) => {
       // Instant transition in overwhelmed mode
       animation = withTiming(toValue, { duration: 0 });
     } else if (type === 'timing') {
-      const adjustedDuration = energyMode === 'low' ? duration * 1.5 : duration;
+      const adjustedDuration = getTimingForEnergy(duration, energyMode);
       animation = withTiming(toValue, { duration: adjustedDuration }, (finished) => {
         if (finished && onComplete) {
           runOnJS(onComplete)();

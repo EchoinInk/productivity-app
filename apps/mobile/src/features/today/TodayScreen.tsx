@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlexAlignType } from 'react-native';
 import { useTaskStore } from '../../state/task-store';
 import { useUiStore } from '../../state/ui-store';
@@ -10,10 +10,12 @@ import { CalmButton } from '../../primitives/behavioral/CalmButton';
 import { EnergyAwareStack } from '../../primitives/behavioral/EnergyAwareStack';
 import { CaptureTrigger } from '../capture/CaptureTrigger';
 import { QuickCaptureFlow } from '../capture/QuickCaptureFlow';
+import { FocusMode } from './FocusMode';
 import { baseTokens } from '../../theme';
 import { EnergyMode } from '../../theme/types';
 import { Task } from '../../state/task-store';
 import { useHapticFeedback } from '../../hooks/useHapticFeedback';
+import { useInterruptionRecovery } from '../../hooks/useInterruptionRecovery';
 import { TaskCard } from './TaskCard';
 
 export function TodayScreen() {
@@ -25,7 +27,14 @@ export function TodayScreen() {
   const lowEnergy = useUiStore((state) => state.lowEnergy);
   const [energyMode, setEnergyMode] = useState<EnergyMode>(lowEnergy ? 'low' : 'normal');
   const [showCapture, setShowCapture] = useState(false);
+  const [showFocusMode, setShowFocusMode] = useState(false);
   const { triggerHaptic } = useHapticFeedback();
+  const { handleBeforeCapture, handleAfterCapture, isRecovering } = useInterruptionRecovery(energyMode);
+
+  useEffect(() => {
+    // Load tasks on mount
+    useTaskStore.getState().loadTasksFromStorage();
+  }, []);
 
   const activeTasks = tasks.filter((task) => !task.completed);
   const todayTasks = activeTasks.filter(task => {
@@ -36,8 +45,19 @@ export function TodayScreen() {
   });
 
   const handleCapturePress = () => {
+    handleBeforeCapture();
     triggerHaptic('capture', energyMode);
     setShowCapture(true);
+  };
+
+  const handleCaptureClose = () => {
+    handleAfterCapture();
+    setShowCapture(false);
+  };
+
+  const handleFocusModePress = () => {
+    triggerHaptic('focus', energyMode);
+    setShowFocusMode(true);
   };
 
   const handleTaskComplete = (task: Task) => {
@@ -69,9 +89,20 @@ export function TodayScreen() {
         {currentEnergyMode !== 'overwhelmed' && (
           <Row justify="space-between" align="center">
             <Text variant="heading">Today</Text>
-            <Text variant="caption" color="secondary">
-              {todayTasks.length} {todayTasks.length === 1 ? 'task' : 'tasks'}
-            </Text>
+            <Row spacing="sm">
+              {todayTasks.length > 0 && (
+                <CalmButton
+                  title="Focus"
+                  onPress={handleFocusModePress}
+                  size="sm"
+                  variant="secondary"
+                  energyMode={currentEnergyMode}
+                />
+              )}
+              <Text variant="caption" color="secondary">
+                {todayTasks.length} {todayTasks.length === 1 ? 'task' : 'tasks'}
+              </Text>
+            </Row>
           </Row>
         )}
 
@@ -111,8 +142,17 @@ export function TodayScreen() {
 
       <QuickCaptureFlow
         visible={showCapture}
-        onClose={() => setShowCapture(false)}
+        onClose={handleCaptureClose}
         energyMode={currentEnergyMode}
+      />
+
+      <FocusMode
+        visible={showFocusMode}
+        tasks={tasks}
+        energyMode={currentEnergyMode}
+        onClose={() => setShowFocusMode(false)}
+        onCompleteTask={handleTaskComplete}
+        onSnoozeTask={handleTaskSnooze}
       />
     </Screen>
   );
